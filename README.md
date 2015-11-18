@@ -1,10 +1,12 @@
 # Haskell Language support
 
-Support for the haskell programming language.
+Support for the haskell programming language in visual studio code.
 
 ## Highlighting
 
 Adds highlighting support for Haskell based on the [Haskell texmate bundle](https://github.com/textmate/haskell.tmbundle)
+
+Also adds automatic indentation for common Haskell code style. (current regex: `((\b(if|then|else|do|of|let|in|where))|=|->|>>=|>=>|=<<|(^(data)( |\t)+(\w|')+( |\t)*))( |\t)*$`)
 
 ![Screenshot 1](./images/Screenshot 1.png)
 
