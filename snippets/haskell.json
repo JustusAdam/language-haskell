@@ -1,0 +1,93 @@
+{
+    "Main": {
+        "prefix": "main",
+        "body": [
+            "module Main (main) where",
+            "",
+            "",
+            "main :: IO ()",
+            "main = ${0:return ()}",
+            ""
+        ]
+    },
+    "Module": {
+        "prefix": "module",
+        "body": [
+            "module ${module:MyModule} (",
+            "\t${export:myFunction}",
+            "\t) where"
+        ]
+    },
+    "Lambda": {
+        "prefix": "\\",
+        "body": "\\${inputs} -> ${body}"
+    },
+    "Case": {
+        "prefix": "case",
+        "body": [
+            "case ${var} of",
+            "\t${alt:Just a} -> ${body}",
+            "\t_ -> ${remaining}"
+        ]
+    },
+    "Typeclass": {
+        "prefix": "class",
+        "body": [
+            "class ${name:MyClass} where",
+            "\t${fname:myFunction} :: ${type:String}"
+        ]
+    },
+    "Instance": {
+        "prefix": "instance",
+        "body": [
+            "instance ${class:Show} ${type:String} where",
+            "\t${function:function} = ${impl:id}"
+        ]
+    },
+    "For": {
+        "prefix": "for",
+        "body": [
+            "for ${coll} $ \\${element:element} ->",
+            "\t${element:element}"
+        ]
+    },
+    "Do": {
+        "prefix": "do",
+        "body": [
+            "do",
+            "\t${body:return value}"
+        ]
+    },
+    "Type Alias": {
+        "prefix": "type",
+        "body": [
+            "type ${t1:MyType} = ${t2:Original}"
+        ]
+    },
+    "Type Declaration": {
+        "prefix": "data",
+        "body": [
+            "data ${name:MyType} = ${alt1:Record {}} | ${alt2:Algebraic}"
+        ]
+    },
+    "Newtype declaration": {
+        "prefix": "newtype",
+        "body": [
+            "newtype ${name:MyType} = ${name:MyType} { un${name:MyType} :: ${original:String} }"
+        ]
+    },
+    "If": {
+        "prefix": "if",
+        "body": [
+            "if ${cond}",
+            "\tthen ${branch1}",
+            "\telse ${branch2}"
+        ]
+    },
+    "Pragma": {
+        "prefix": "{-#",
+        "body": [
+            "{-# $1 #-"
+        ]
+    }
+}
