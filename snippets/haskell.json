@@ -18,7 +18,7 @@
             "\t) where"
         ]
     },
-    "Lambda": {
+    "Lambda (trigger does not work)": {
         "prefix": "\\",
         "body": "\\${inputs} -> ${body}"
     },
@@ -38,7 +38,7 @@
         ]
     },
     "Instance": {
-        "prefix": "instance",
+        "prefix": "inst",
         "body": [
             "instance ${class:Show} ${type:String} where",
             "\t${function:function} = ${impl:id}"
@@ -47,7 +47,7 @@
     "For": {
         "prefix": "for",
         "body": [
-            "for ${coll} $ \\${element:element} ->",
+            "for ${coll} $ \\ ${element:element} ->",
             "\t${element:element}"
         ]
     },
@@ -84,7 +84,7 @@
             "\telse ${branch2}"
         ]
     },
-    "Pragma": {
+    "Pragma (trigger does not work)": {
         "prefix": "{-#",
         "body": [
             "{-# $1 #-"
