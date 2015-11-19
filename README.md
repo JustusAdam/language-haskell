@@ -4,7 +4,7 @@ Support for the haskell programming language in visual studio code.
 
 ## Highlighting
 
-Adds highlighting support for Haskell based on the [Haskell texmate bundle](https://github.com/textmate/haskell.tmbundle)
+Adds highlighting support for Haskell based on the [Haskell TextMate bundle](https://github.com/textmate/haskell.tmbundle)
 
 Also adds automatic indentation after `where`, `do`, `->` etc.
 
@@ -12,7 +12,7 @@ Also adds automatic indentation after `where`, `do`, `->` etc.
 
 ## Snippets 
 
-Includs common Haskell coed snippets, such as `data` and `newtype` declarations, main module, `if` and `case`. 
+Includs common Haskell code snippets, such as `data` and `newtype` declarations, main module, `if` and `case`. 
 
 ## Roadmap
 
