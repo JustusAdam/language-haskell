@@ -37,11 +37,10 @@
         "languages": [{
             "id": "haskell",
             "aliases": ["Haskell", "haskell"],
-            "extensions": [".hs"],
-            "configuration": "./haskell.configuration.json"
+            "extensions": [".hs"]
         }, {
             "id": "cabal",
-            "aliases": [],
+            "aliases": ["cabal", "Cabal"],
             "extensions": [
                 ".cabal"
             ],

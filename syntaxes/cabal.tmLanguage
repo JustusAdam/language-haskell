@@ -68,6 +68,7 @@
                 | main-is
                 | type
                 | test-module
+                | description
                 ):
             </string>
         </dict>
@@ -75,13 +76,13 @@
             <key>name</key>
             <string>keyword.operator.cabal</string>
             <key>match</key>
-            <string>(==|>=|<=|<|>|\|\||&amp;&amp;)</string>
+            <string>(==|>=|<=|<|>|\|\||&amp;&amp;|!)</string>
         </dict>
         <dict>
             <key>name</key>
             <string>constant.numeric.cabal</string>
             <key>match</key>
-            <string>(?<=[^\w])\d+(\.\d+)*</string>
+            <string>(?<=[^\w])\d+(\.\d+)*(\.\*)?</string>
         </dict>
         <dict>
             <key>name</key>
@@ -97,7 +98,12 @@
         </dict>
         <dict>
             <key>match</key>
-            <string>^(?i:(executable|flag))( |\t)+([\w\-_]+)$</string>
+            <string>^(?ix:
+                ( executable
+                | flag
+                | test-suite
+                | source-repository
+                ))( |\t)+([\w\-_]+)$</string>
             <key>captures</key>
             <dict>
                 <key>1</key>
@@ -111,6 +117,12 @@
                     <string>entity.name.function.cabal</string>
                 </dict>
             </dict>
+        </dict>
+        <dict>
+            <key>name</key>
+            <string>keyword.control.cabal</string>
+            <key>match</key>
+            <string>^[ \t]*(if|else)</string>
         </dict>
     </array>
     <key>scopeName</key>
