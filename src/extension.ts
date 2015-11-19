@@ -8,9 +8,9 @@ export function activate(context: vscode.ExtensionContext) {
 		
 		indentationRules: {
 			// I dont know what to put here ...
-			decreaseIndentPattern: /$^/,
+			decreaseIndentPattern: /[\]})][ \t]*$/m,
 			// ^.*\{[^}"']*$
-			increaseIndentPattern: /((\b(if|then|else|do|of|let|in|where))|=|->|>>=|>=>|=<<|(^(data)( |\t)+(\w|')+( |\t)*))( |\t)*$/
+			increaseIndentPattern: /((\b(if\b.*|then|else|do|of|let|in|where))|=|->|>>=|>=>|=<<|(^(data)( |\t)+(\w|')+( |\t)*))( |\t)*$/
 		},		
 		
 		comments: {
