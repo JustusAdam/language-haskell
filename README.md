@@ -8,7 +8,9 @@ Adds highlighting support for Haskell (.hs) based on the [Haskell TextMate bundl
 
 Also adds automatic indentation after `where`, `do`, `->` etc.
 
-![Screenshot 1](./images/Screenshot 1.png)
+![Screenshot Haskell](./images/Screenshot 1.png)
+
+![Screenshot Cabal](./images/Screenshot Cabal 1.png)
 
 ## Snippets 
 
