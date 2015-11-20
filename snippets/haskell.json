@@ -19,7 +19,7 @@
         ]
     },
     "Lambda (trigger does not work)": {
-        "prefix": "\\",
+        "prefix": "lambda",
         "body": "\\${inputs} -> ${body}"
     },
     "Case": {
@@ -27,7 +27,7 @@
         "body": [
             "case ${var} of",
             "\t${alt:Just a} -> ${body}",
-            "\t_ -> ${remaining}"
+            "\t${otehrwise:_} -> ${remaining}"
         ]
     },
     "Typeclass": {
@@ -38,7 +38,7 @@
         ]
     },
     "Instance": {
-        "prefix": "inst",
+        "prefix": "instance",
         "body": [
             "instance ${class:Show} ${type:String} where",
             "\t${function:function} = ${impl:id}"
@@ -47,7 +47,14 @@
     "For": {
         "prefix": "for",
         "body": [
-            "for ${coll} $ \\ ${element:element} ->",
+            "for ${coll} $ \\\\${element:element} ->",
+            "\t${element:element}"
+        ]
+    },
+    "For_": {
+        "prefix": "for_",
+        "body": [
+            "for_ ${coll} $ \\\\${element:element} ->",
             "\t${element:element}"
         ]
     },
@@ -84,10 +91,33 @@
             "\telse ${branch2}"
         ]
     },
-    "Pragma (trigger does not work)": {
-        "prefix": "{-#",
+    "Pragma": {
+        "prefix": "prag",
         "body": [
-            "{-# $1 #-"
+            "{-# $1 #-}"
+        ]
+    },
+    "Language Pragma": {
+        "prefix": "language",
+        "body": [
+            "{-# LANGUAGE $1 #-}"
+        ]
+    },
+    "Let": {
+        "prefix": "let",
+        "body": [
+            "let",
+            "\t${name} = ${value}",
+            "in",
+            "\t${expr}"
+        ]
+    },
+    "Function": {
+        "prefix": "fun",
+        "body": [
+            "${name} :: ${type1:Int} -> ${type2:Int}",
+            "${name} ${val} = ${expr1}",
+            "${name} ${val2:_} = ${expr2}"
         ]
     }
 }
