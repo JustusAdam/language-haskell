@@ -43,7 +43,7 @@
                 ( build-depends
                 | other-modules
                 | hs-source-dirs
-                | extensions
+                | ((other|default)-)?extensions
                 | build-tools
                 | buildable
                 | ghc(-(prof|shared))?-options
