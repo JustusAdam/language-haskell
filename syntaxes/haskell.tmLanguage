@@ -222,7 +222,19 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(deriving|where|data|type|case|of|let|in|newtype|default)\b</string>
+			<string>(?x)\b
+			( deriving
+			| where
+			| data
+			| type([\t ]+(family|role))?
+			| case
+			| of
+			| let
+			| in
+			| newtype
+			| default
+			)\b
+			</string>
 			<key>name</key>
 			<string>keyword.other.haskell</string>
 		</dict>
