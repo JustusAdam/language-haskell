@@ -23,7 +23,7 @@
     },
     "bugs": {
         "url": "https://github.com/JustusAdam/language-haskell/issues",
-        "email": "dev@justus.science"    
+        "email": "dev@justus.science"
     },
     "categories": [
         "Languages",
@@ -45,6 +45,10 @@
                 ".cabal"
             ],
             "configuration": "./cabal.configuration.json"
+        }, {
+            "id": "literate haskell",
+            "aliases": ["Literate Haskell", "literate Haskell"],
+            "extensions": [".lhs"]
         }],
         "grammars": [{
             "language": "haskell",
@@ -54,6 +58,10 @@
             "language": "cabal",
             "scopeName": "source.cabal",
             "path": "./syntaxes/cabal.tmLanguage"
+        }, {
+            "language": "literate haskell",
+            "scopeName": "text.tex.latex.haskell",
+            "path": "./syntaxes/literateHaskell.tmLanguage"
         }],
         "snippets": [{
             "language": "haskell",
