@@ -24,4 +24,7 @@ This is still a pretty young extension. If you happen to notice bugs or have sug
 ## Roadmap
 
 - More common haskell snippets
-- Support for literate haskell (currently broken and disabled)
+
+## Contributors
+
+Thanks to @Miguel-Fontes for enabling support for literate Haskell.
