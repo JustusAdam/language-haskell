@@ -29,26 +29,24 @@
         "Languages",
         "Snippets"
     ],
-	"activationEvents": [
-		"onLanguage:haskell"
-	],
-	"main": "./out/src/extension",
 	"contributes": {
         "languages": [{
             "id": "haskell",
             "aliases": ["Haskell", "haskell"],
-            "extensions": [".hs"]
+            "extensions": [".hs"],
+            "configuration": "./haskell-configuration.json"
         }, {
             "id": "cabal",
             "aliases": ["cabal", "Cabal"],
             "extensions": [
                 ".cabal"
             ],
-            "configuration": "./cabal.configuration.json"
+            "configuration": "./cabal-configuration.json"
         }, {
             "id": "literate haskell",
             "aliases": ["Literate Haskell", "literate Haskell"],
-            "extensions": [".lhs"]
+            "extensions": [".lhs"],
+            "configuration": "./haskell-configuration.json"
         }],
         "grammars": [{
             "language": "haskell",
@@ -69,8 +67,6 @@
         }]
     },
 	"scripts": {
-		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
 	},
 	"devDependencies": {
 		"typescript": "^1.6.2",
