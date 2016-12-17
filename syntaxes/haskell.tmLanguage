@@ -413,10 +413,23 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>^\s*(?&lt;fn&gt;(?:[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*|\((?!--+\))[\p{S}\p{P}&amp;&amp;[^(),;\[\]`{}_"']]+\))(?:\s*,\s*\g&lt;fn&gt;)?)\s*(::)</string>
+			<string>(?x)^(\s*)
+                (?&lt;fn&gt;
+                  (?:
+                    [\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']* |
+                    \(
+                      (?!--+\))
+                      (?:
+                        (?![(),;\[\]`{}_"'])[\p{S}\p{P}]
+                      )+
+                    \)
+                  )
+                  (?:\s*,\s*\g&lt;fn&gt;)?
+                )
+                \s*(::)</string>
 			<key>beginCaptures</key>
 			<dict>
-				<key>1</key>
+				<key>2</key>
 				<dict>
 					<key>patterns</key>
 					<array>
@@ -432,14 +445,12 @@
 						</dict>
 					</array>
 				</dict>
-				<key>2</key>
+				<key>3</key>
 				<dict>
 					<key>name</key>
 					<string>keyword.other.double-colon.haskell</string>
 				</dict>
 			</dict>
-			<key>end</key>
-			<string>$\n?</string>
 			<key>name</key>
 			<string>meta.function.type-declaration.haskell</string>
 			<key>patterns</key>
@@ -449,6 +460,8 @@
 					<string>#type_signature</string>
 				</dict>
 			</array>
+			<key>while</key>
+			<string>^\1\s+</string>
 		</dict>
 		<dict>
 			<key>match</key>
