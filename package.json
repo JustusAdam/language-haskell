@@ -2,7 +2,7 @@
 	"name": "language-haskell",
     "displayName": "Haskell Syntax Highlighting",
 	"description": "Syntax highlighting and snippets for the Haskell programming language.",
-	"version": "1.4.0",
+	"version": "1.4.1",
     "publisher": "justusadam",
 	"engines": {
 		"vscode": "^0.10.1"
