@@ -1,3 +1,7 @@
+### 1.4.2 - 21.12.2016
+
+- Changing grammar to accomodate indented functions
+
 ### 1.4.1 - 21.12.2016
 
 - Changing grammar to try and fix the markup of function names preceeding type signatures
