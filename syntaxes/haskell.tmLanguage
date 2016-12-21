@@ -460,8 +460,8 @@
 					<string>#type_signature</string>
 				</dict>
 			</array>
-			<key>while</key>
-			<string>^\1\s+</string>
+			<key>end</key>
+			<string>^[^\s]</string>
 		</dict>
 		<dict>
 			<key>match</key>
