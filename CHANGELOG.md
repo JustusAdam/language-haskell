@@ -1,3 +1,7 @@
+## 1.4.3 - 23.12.2016
+
+- Removing auto closing `'` per suggestion from @HuwCampbell, as they are more often used as primes and data kind ticks than character literals.
+
 ### 1.4.2 - 21.12.2016
 
 - Changing grammar to accomodate indented functions
