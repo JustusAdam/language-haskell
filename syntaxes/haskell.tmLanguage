@@ -461,7 +461,7 @@
 				</dict>
 			</array>
 			<key>end</key>
-			<string>^(\1)?(?=[^\s])</string>
+			<string>(?=^(\1)?[^\s])</string>
 		</dict>
 		<dict>
 			<key>match</key>
