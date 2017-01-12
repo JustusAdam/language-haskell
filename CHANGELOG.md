@@ -1,3 +1,7 @@
+## 1.4.4 - 12.01.2017
+
+- Fixed a bug where in consecutive type signatures the later ones are not highlited properly
+
 ## 1.4.3 - 23.12.2016
 
 - Removing auto closing `'` per suggestion from @HuwCampbell, as they are more often used as primes and data kind ticks than character literals.
