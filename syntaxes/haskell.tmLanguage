@@ -181,8 +181,7 @@
 			<string>(?x)
 				\b(type)
 				\s+
-				([\p{Lu}\p{Lt}][\w\p{Nd}_']*)
-				((?:\s+[\p{Ll}][\w\p{Nd}_']*)*)
+				([^=]*)
 				(?:
 					\s+
 					(=)
@@ -198,27 +197,20 @@
 				</dict>
 				<key>2</key>
 				<dict>
-					<key>name</key>
-					<string>storage.type.haskell</string>
-				</dict>
-				<key>3</key>
-				<dict>
 					<key>patterns</key>
 					<array>
 						<dict>
-							<key>match</key>
-							<string>'*[\p{Ll}][\w\p{Nd}_']*</string>
-							<key>name</key>
-							<string>variable.other.generic-type.haskell</string>
+							<key>include</key>
+							<string>#type_signature</string>
 						</dict>
 					</array>
 				</dict>
-				<key>4</key>
+				<key>3</key>
 				<dict>
 					<key>name</key>
 					<string>keyword.other.haskell</string>
 				</dict>
-				<key>5</key>
+				<key>4</key>
 				<dict>
 					<key>patterns</key>
 					<array>
@@ -598,7 +590,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>\)|$</string>
+			<string>\)|$|,|}</string>
 			<key>patterns</key>
 			<array>
 				<dict>
