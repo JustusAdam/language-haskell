@@ -680,6 +680,47 @@
 			<array>
 				<dict>
 					<key>begin</key>
+					<string>^\s*(--\s+\|)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.whitespace.comment.leading.haskell</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(?=^\s*(?!-- ))</string>
+					<key>name</key>
+					<string>comment.block.documentation.haskell</string>
+				</dict>
+				<dict>
+					<key>applyEndPatternLast</key>
+					<integer>1</integer>
+					<key>begin</key>
+					<string>\{-\|</string>
+					<key>captures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.haskell</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>-\}</string>
+					<key>name</key>
+					<string>comment.block.documentation.haskell</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#block_comment</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>begin</key>
 					<string>(^[ \t]+)?(?=--+(?![\p{S}\p{P}&amp;&amp;[^(),;\[\]`{}_"']]))</string>
 					<key>beginCaptures</key>
 					<dict>
