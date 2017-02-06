@@ -559,14 +559,12 @@
 			<string>support.constant.haskell</string>
 		</dict>-->
 		<dict>
-			<key>match</key>
-			<string>\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*</string>
-			<key>name</key>
-			<string>constant.other.haskell</string>
+			<key>include</key>
+			<string>#data_constructor</string>
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>^\s*(?:(let|where)\s+)?([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\b(?=.*?[^\p{P}\p{S}]=[^\p{P}\p{S}])</string>
+			<string>^\s*(?:(let|where)\s+)?([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\b(.*?[^\p{P}\p{S}])(?==[^\p{P}\p{S}])</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -578,6 +576,67 @@
 				<dict>
 					<key>name</key>
 					<string>entity.name.function.haskell</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#arguments</string>
+						</dict>
+					</array>
+				</dict>
+			</dict>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(\\)(.+?)(-&gt;)</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.other.haskell</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#arguments</string>
+						</dict>
+					</array>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.other.haskell</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>entity.lamda.haskell</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>^\s*(.+?)(&lt;-)</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#arguments</string>
+						</dict>
+					</array>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.other.haskell</string>
 				</dict>
 			</dict>
 		</dict>
@@ -856,6 +915,34 @@
 					<string>\b(LANGUAGE|UNPACK|INLINE)\b</string>
 					<key>name</key>
 					<string>keyword.other.preprocessor.haskell</string>
+				</dict>
+			</array>
+		</dict>
+		<key>data_constructor</key>
+		<dict>
+			<key>match</key>
+			<string>\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\b</string>
+			<key>name</key>
+			<string>constant.other.haskell</string>
+		</dict>
+		<key>binding</key>
+		<dict>
+			<key>match</key>
+			<string>\b[\p{Ll}\p{Lo}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\b</string>
+			<key>name</key>
+			<string>variable.parameter.haskell</string>
+		</dict>
+		<key>arguments</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#binding</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#data_constructor</string>
 				</dict>
 			</array>
 		</dict>
