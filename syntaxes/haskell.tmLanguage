@@ -115,24 +115,6 @@
 					<key>include</key>
 					<string>#type_signature</string>
 				</dict>
-				<!--<dict>
-					<key>match</key>
-					<string>\b(Monad|Functor|Eq|Ord|Read|Show|Num|(Frac|Ra)tional|Enum|Bounded|Real(Frac|Float)?|Integral|Floating)\b</string>
-					<key>name</key>
-					<string>support.class.prelude.haskell</string>
-				</dict>-->
-				<!--<dict>
-					<key>match</key>
-					<string>[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*</string>
-					<key>name</key>
-					<string>entity.other.inherited-class.haskell</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>\b[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*</string>
-					<key>name</key>
-					<string>variable.other.generic-type.haskell</string>
-				</dict>-->
 			</array>
 		</dict>
 		<dict>
@@ -320,7 +302,7 @@
 			| case
 			| of
 			| let
-			| in§
+			| in
 			| default
 			)\b
 			</string>
@@ -552,103 +534,9 @@
 			<key>end</key>
 			<string>(?=^(\1)?[^\s])</string>
 		</dict>
-		<!--<dict>
-			<key>match</key>
-			<string>\b(Just|Nothing|Left|Right|True|False|LT|EQ|GT|\(\)|\[\])\b</string>
-			<key>name</key>
-			<string>support.constant.haskell</string>
-		</dict>-->
 		<dict>
 			<key>include</key>
 			<string>#data_constructor</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>^\s*(?:(?:[;{]?\s*\b(let)|\b(where))\b)?\s*([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\b(.*?[^\p{P}\p{S}])(?![\w\s\d])(=)(?=[\w\s\d])</string>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.other.haskell</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.other.haskell</string>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.function.haskell</string>
-				</dict>
-				<key>4</key>
-				<dict>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#arguments</string>
-						</dict>
-					</array>
-				</dict>
-				<key>5</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.other.haskell</string>
-				</dict>
-			</dict>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>(\\)(.+?)(?![\w\s\d])(-&gt;)(?=[\w\s\d])</string>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.other.haskell</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#arguments</string>
-						</dict>
-					</array>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.other.haskell</string>
-				</dict>
-			</dict>
-			<key>name</key>
-			<string>entity.lamda.haskell</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>^\s*(.+?)(?![\w\s\d])(&lt;-)(?=[\w\s\d])</string>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#arguments</string>
-						</dict>
-					</array>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.other.haskell</string>
-				</dict>
-			</dict>
 		</dict>
 		<dict>
 			<key>include</key>
@@ -703,36 +591,6 @@
 			<key>name</key>
 			<string>punctuation.separator.comma.haskell</string>
 		</dict>
-		<!--This below is me testing how to highlight function definitions (doesn't work yet)-->
-		<!--<dict>
-			<key>begin</key>
-			<string>(?=!^\s*)(\p{Ll}[\w\p{Nd}_']*)</string>
-			<key>beginCaptures</key>
-			<dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.function.haskell</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>(?=\||=)</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>match</key>
-					<string>\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*</string>
-					<key>name</key>
-					<string>constant.other.haskell</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>\b\p{Ll}[\w\p{Nd}_']*</string>
-					<key>name</key>
-					<string>variable.parameter.haskell</string>
-				</dict>
-			</array>
-		</dict>-->
 	</array>
 	<key>repository</key>
 	<dict>
@@ -935,27 +793,6 @@
 			<key>name</key>
 			<string>constant.other.haskell</string>
 		</dict>
-		<key>binding</key>
-		<dict>
-			<key>match</key>
-			<string>\b[\p{Ll}\p{Lo}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\b</string>
-			<key>name</key>
-			<string>variable.parameter.haskell</string>
-		</dict>
-		<key>arguments</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#binding</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#data_constructor</string>
-				</dict>
-			</array>
-		</dict>
 		<key>type_signature</key>
 		<dict>
 			<key>patterns</key>
@@ -1013,12 +850,6 @@
 					<key>name</key>
 					<string>keyword.other.big-arrow.haskell</string>
 				</dict>
-				<!--<dict>
-					<key>match</key>
-					<string>\b(Int(eger)?|Maybe|Either|Bool|Float|Double|Char|String|Ordering|ShowS|ReadS|FilePath|IO(Error)?)\b</string>
-					<key>name</key>
-					<string>support.type.prelude.haskell</string>
-				</dict>-->
 				<dict>
 					<key>match</key>
 					<string>\b[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*</string>
