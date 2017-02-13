@@ -1,7 +1,9 @@
 
 
-someFunc = 
+someFunc = do
     another argument
+    arg <- doSomething 5
+    return 6
   where ident = 4
 
 
@@ -10,6 +12,15 @@ anotherFunc arg =
 
   where 
     expression argument = arg + 7
+
+anotherFunc arg = do 
+    { let thing = 5
+    ; arg <- doSomething 5
+    ; let thing = 5
+    ; return 8
+    }
+    
+
 
 -- | Get the username of a registered user. The type signature is so large to allow this function to be used both in 'BotReacting' and 'ScriptDefinition'.
 getUsername :: (HasConfigAccess m, AccessAdapter m, IsAdapter a, MonadIO m, AdapterT m ~ a)

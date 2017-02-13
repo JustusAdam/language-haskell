@@ -564,7 +564,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>^\s*(?:(let|where)\s+)?([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\b(.*?[^\p{P}\p{S}])(?==[^\p{P}\p{S}])</string>
+			<string>^\s*(?:(?:[;{]?\s*\b(let)|\b(where))\b)?\s*([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\b(.*?[^\p{P}\p{S}])(?![\w\s\d])(=)(?=[\w\s\d])</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -575,9 +575,14 @@
 				<key>2</key>
 				<dict>
 					<key>name</key>
-					<string>entity.name.function.haskell</string>
+					<string>keyword.other.haskell</string>
 				</dict>
 				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.function.haskell</string>
+				</dict>
+				<key>4</key>
 				<dict>
 					<key>patterns</key>
 					<array>
@@ -587,11 +592,16 @@
 						</dict>
 					</array>
 				</dict>
+				<key>5</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.other.haskell</string>
+				</dict>
 			</dict>
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>(\\)(.+?)(-&gt;)</string>
+			<string>(\\)(.+?)(?![\w\s\d])(-&gt;)(?=[\w\s\d])</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -620,7 +630,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>^\s*(.+?)(&lt;-)</string>
+			<string>^\s*(.+?)(?![\w\s\d])(&lt;-)(?=[\w\s\d])</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
