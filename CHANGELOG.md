@@ -1,3 +1,12 @@
+## 1.5.0 - 13.02.2017
+
+- Removed highlighting for prelude functions, as it is confusing.
+- New rules:
+    - to recognize and correctly highlight inline type signatures
+    - for `type` to highlight left and right side of `=` as type signature
+    - for `data`to highlight only right side of `=` as type signature
+    - for distinction between comments and haddock documentation
+
 ## 1.4.4 - 12.01.2017
 
 - Fixed a bug where in consecutive type signatures the later ones are not highlited properly
