@@ -1,3 +1,8 @@
+## 2.0.0 - 15.02.2017
+
+- Retroactive version bump due to large previous changes 
+- License changed
+
 ## 1.5.0 - 13.02.2017
 
 - Removed highlighting for prelude functions, as it is confusing.
