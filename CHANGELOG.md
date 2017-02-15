@@ -1,6 +1,6 @@
 ## 1.4.4 - 12.01.2017
 
-- Fixed a bug where in consecutive type signatures the later ones are not highlited properly
+- Fixed a bug where in consecutive type signatures the later ones are not highlighed properly
 
 ## 1.4.3 - 23.12.2016
 

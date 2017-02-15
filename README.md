@@ -4,7 +4,9 @@ Support for the Haskell programming language in visual studio code.
 
 ## Highlighting
 
-Adds highlighting support for Haskell (.hs and .lhs) based on the [Haskell TextMate bundle](https://github.com/textmate/haskell.tmbundle) and Cabal files (.cabal) via a concoction of my own. 
+Adds highlighting support for Haskell (.hs and .lhs).
+This is a (now heavily) modified version of the syntax file from the [Haskell TextMate bundle](https://github.com/textmate/haskell.tmbundle).
+Additionally there is support for and Cabal files (.cabal) via a concoction of my own. 
 
 Also adds automatic indentation after `where`, `do`, `->` etc. and surrounding brackets (`[]`, `{}` etc)
 

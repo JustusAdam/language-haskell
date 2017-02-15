@@ -1,4 +1,10 @@
+module Main where
 
+import Data.Version as V (Version(..))
+
+data MyData a = Record {} | Algebraic a
+
+type MyType = MyData String
 
 someFunc = do
     another argument
@@ -7,6 +13,7 @@ someFunc = do
   where ident = 4
 
 
+anotherFunc :: MyData -> Int
 anotherFunc arg = 
     let something = "hello" :: String in expression
 
