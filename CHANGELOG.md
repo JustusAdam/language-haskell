@@ -1,3 +1,8 @@
+## 2.1.0  - 12.03.2017
+
+- Fixed an issue where type signature detection would not end at end of record definition
+- Added GHC pragmas and directives (thank you to @metaleap)
+
 ## 2.0.0 - 15.02.2017
 
 - Retroactive version bump due to large previous changes 
