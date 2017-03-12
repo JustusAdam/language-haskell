@@ -532,7 +532,8 @@
 				</dict>
 			</array>
 			<key>end</key>
-			<string>(?=^(\1)?[^\s])</string>
+			<string>(?=(^(\1)?[^\s]|}))</string>
+			<!--<string>(?!^((\1\s+[^\s}])|\s*$))</string>-->
 		</dict>
 		<dict>
 			<key>include</key>
@@ -798,6 +799,12 @@
 			<key>patterns</key>
 			<array>
 				<dict>
+					<key>match</key>
+					<string>\(\s*\)</string>
+					<key>name</key>
+					<string>support.constant.unit.haskell</string>
+				</dict>
+				<dict>
 					<key>begin</key>
 					<string>\(</string>
 					<key>end</key>
@@ -805,12 +812,18 @@
 					<key>patterns</key>
 					<array>
 						<dict>
+							<key>match</key>
+							<string>,</string>
+						</dict>
+						<dict>
 							<key>include</key>
 							<string>#type_signature</string>
 						</dict>
 					</array>
 				</dict>
 				<dict>
+					<key>match</key>
+					<string>\(\s*([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\s+([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\)\s*(=&gt;)</string>
 					<key>captures</key>
 					<dict>
 						<key>1</key>
@@ -829,8 +842,6 @@
 							<string>keyword.other.big-arrow.haskell</string>
 						</dict>
 					</dict>
-					<key>match</key>
-					<string>\(\s*([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\s+([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\)\s*(=&gt;)</string>
 					<key>name</key>
 					<string>meta.class-constraint.haskell</string>
 				</dict>
@@ -843,6 +854,12 @@
 					<string>-&gt;</string>
 					<key>name</key>
 					<string>keyword.other.arrow.haskell</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\b(forall)\b</string>
+					<key>name</key>
+					<string>keyword.other.forall.haskell</string>
 				</dict>
 				<dict>
 					<key>match</key>
@@ -863,18 +880,11 @@
 					<string>storage.type.haskell</string>
 				</dict>
 				<dict>
-					<key>match</key>
-					<string>\(\s*\)</string>
-					<key>name</key>
-					<string>support.constant.unit.haskell</string>
-				</dict>
-				<dict>
 					<key>include</key>
 					<string>#comments</string>
 				</dict>
 			</array>
 		</dict>
-		
 	</dict>
 	<key>scopeName</key>
 	<string>source.haskell</string>

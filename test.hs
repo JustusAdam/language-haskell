@@ -4,11 +4,21 @@ import Data.Version as V (Version(..))
 
 data MyData a = Record {} | Algebraic a
 
+data T2 
+    = Constr1 Int
+    | Record2 {
+        field1 :: Int,
+        field2 :: Int
+    }
+    deriving Show
+
+
 type MyType = MyData String
 
 someFunc = do
     another argument
     arg <- doSomething 5
+    let x = 6 :: Int
     return 6
   where ident = 4
 
