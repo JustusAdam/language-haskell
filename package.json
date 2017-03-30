@@ -29,6 +29,10 @@
         "Languages",
         "Snippets"
     ],
+  "activationEvents": [
+    "onLanguage:haskell"
+  ],
+  "main": "./out/src/extension",
 	"contributes": {
         "languages": [{
             "id": "haskell",
@@ -66,6 +70,10 @@
             "path": "./snippets/haskell.json"
         }]
     },
+  "scripts": {
+    "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+    "compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
+  },
 	"devDependencies": {
 		"vscode": "0.10.x"
 	}
