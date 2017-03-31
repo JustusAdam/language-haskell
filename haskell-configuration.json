@@ -22,9 +22,5 @@
        ["'", "'"],
        ["\"", "\""],
        ["`", "`"]
-   ],
-   "indentationRules": {
-       "decreaseIndentPattern": "[\\]})][ \\t]*$/m",
-       "increaseIndentPattern": "((\\b(if\\b.*|then|else|do|of|let|in|where))|=|->|>>=|>=>|=<<|(^(data)( |\t)+(\\w|')+( |\\t)*))( |\\t)*$/"
-   }
+   ]
 }
