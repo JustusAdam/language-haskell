@@ -8,18 +8,8 @@ export function activate(context: vscode.ExtensionContext) {
 		
 		indentationRules: {
 			// ^.*\{[^}"']*$
-			increaseIndentPattern: /((\b(if\b.*|then|else|do|of|let|in|where))|=|->|>>=|>=>|=<<|(^(data)( |\t)+(\w|')+( |\t)*))( |\t)*$/
-		},		
-		
-		comments: {
-			lineComment: '--',
-			blockComment: ['{-', '-}']
-		},
-		
-		brackets: [
-			['{', '}'],
-			['[', ']'],
-			['(', ')']
-		]
+			increaseIndentPattern: /((\b(if\b.*|then|else|do|of|let|in|where))|=|->|>>=|>=>|=<<|(^(data)( |\t)+(\w|')+( |\t)*))( |\t)*$/,
+			decreaseIndentPattern: null
+		}
     })  	
 }
