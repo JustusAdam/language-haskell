@@ -286,12 +286,29 @@
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>match</key>
-					<string>\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*</string>
+					<key>include</key>
+					<string>#derivings</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(deriving)\s+([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.other.haskell</string>
+				</dict>
+				<key>2</key>
+				<dict>
 					<key>name</key>
 					<string>entity.other.inherited-class.haskell</string>
 				</dict>
-			</array>
+			</dict>
+			<key>name</key>
+			<string>meta.deriving.haskell</string>
 		</dict>
 		<dict>
 			<key>match</key>
@@ -704,6 +721,31 @@
 				<dict>
 					<key>include</key>
 					<string>#block_comment</string>
+				</dict>
+			</array>
+		</dict>
+		<key>derivings</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*</string>
+					<key>name</key>
+					<string>entity.other.inherited-class.haskell</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>\(</string>
+					<key>end</key>
+					<string>\)</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#derivings</string>
+						</dict>
+					</array>
 				</dict>
 			</array>
 		</dict>

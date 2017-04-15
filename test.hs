@@ -2,7 +2,7 @@ module Main where
 
 import Data.Version as V (Version(..))
 
-data MyData a = Record {} | Algebraic a
+data MyData a = Record {} | Algebraic a deriving (Show, Eq)
 
 data T2 
     = Constr1 Int
