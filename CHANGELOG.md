@@ -1,3 +1,9 @@
+## 2.1.1 - 15.04.2017
+
+- Fixed two issues with highlighting for deriving clauses
+    - Added a new rule for deriving clauses of single class withut parentheses
+    - Modified old rule inner matches to be recursive -> Adds correct highlighting for parethesised class type arguments
+
 ## 2.1.0  - 12.03.2017
 
 - Fixed an issue where type signature detection would not end at end of record definition
