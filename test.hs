@@ -1,8 +1,19 @@
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 module Main where
 
 import Data.Version as V (Version(..))
+import Control.Monad.State
+import qualified Data.Text as T
+
+data Something a b
+
+data MyState a b = MyState
 
 data MyData a = Record {} | Algebraic a deriving (Show, Eq)
+
+newtype StateMonad b c r = StateMonad (StateT (MyState (Something b c) b) IO r)
+    deriving (MonadState (MyState (Something b c) b), MonadIO, Monad, Functor, Applicative)
 
 data T2 
     = Constr1 Int
@@ -20,7 +31,9 @@ someFunc = do
     arg <- doSomething 5
     let x = 6 :: Int
     return 6
-  where ident = 4
+  where 
+    ident = 4
+    ident' = 9
 
 
 anotherFunc :: MyData -> Int
@@ -37,12 +50,7 @@ anotherFunc arg = do
     ; return 8
     }
     
-
-
--- | Get the username of a registered user. The type signature is so large to allow this function to be used both in 'BotReacting' and 'ScriptDefinition'.
-getUsername :: (HasConfigAccess m, AccessAdapter m, IsAdapter a, MonadIO m, AdapterT m ~ a)
-            => User a -> m L.Text
-getUsername = A.liftAdapterAction . A.getUsername
+data Handler a b c
 
 
 class Manager manager where

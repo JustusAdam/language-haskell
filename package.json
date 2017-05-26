@@ -2,7 +2,7 @@
 	"name": "language-haskell",
     "displayName": "Haskell Syntax Highlighting",
 	"description": "Syntax highlighting and snippets for the Haskell programming language.",
-	"version": "2.1.1",
+	"version": "2.2.0",
     "publisher": "justusadam",
 	"engines": {
 		"vscode": "^0.10.0"
@@ -13,7 +13,7 @@
         "theme": "dark"
     },
     "keywords": [
-        "language", "haskell", "highlight", "syntax", "snippets"
+        "language", "haskell", "highlight", "syntax"
     ],
     "license": "BSD-3-Clause",
     "homepage": "https://github.com/JustusAdam/language-haskell",

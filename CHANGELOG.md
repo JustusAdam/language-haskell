@@ -1,3 +1,7 @@
+## 2.2.0 - 26.05.2017
+
+- Removed snippets by request from @Eugleo
+
 ## 2.1.1 - 15.04.2017
 
 - Fixed two issues with highlighting for deriving clauses
