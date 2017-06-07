@@ -14,10 +14,6 @@ Also adds automatic indentation after `where`, `do`, `->` etc. and surrounding b
 
 ![Screenshot Cabal](./images/Screenshot Cabal 1.png)
 
-## Snippets 
-
-Includes common Haskell code snippets, such as `data` and `newtype` declarations, main module, `if` and `case`. 
-
 ## Bugs
 
 If you happen to notice bugs or have suggestions for improvements visit the [issue section](https://github.com/JustusAdam/language-haskell/issues) of the [repository](https://github.com/JustusAdam/language-haskell).
