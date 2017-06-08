@@ -33,37 +33,40 @@
     ],
     "main": "./out/src/extension",
     "contributes": {
-        "languages": [{
-            "id": "haskell",
-            "aliases": ["Haskell", "haskell"],
-            "extensions": [".hs"],
-            "configuration": "./haskell-configuration.json"
-        }, {
-            "id": "cabal",
-            "aliases": ["cabal", "Cabal"],
-            "extensions": [
-                ".cabal"
-            ],
-            "configuration": "./cabal-configuration.json"
-        }, {
-            "id": "literate haskell",
-            "aliases": ["Literate Haskell", "literate Haskell"],
-            "extensions": [".lhs"],
-            "configuration": "./haskell-configuration.json"
-        }],
-        "grammars": [{
-            "language": "haskell",
-            "scopeName": "source.haskell",
-            "path": "./syntaxes/haskell.tmLanguage"
-        }, {
-            "language": "cabal",
-            "scopeName": "source.cabal",
-            "path": "./syntaxes/cabal.tmLanguage"
-        }, {
-            "language": "literate haskell",
-            "scopeName": "text.tex.latex.haskell",
-            "path": "./syntaxes/literateHaskell.tmLanguage"
-        }]
+        "languages": [
+            {
+                "id": "haskell",
+                "aliases": ["Haskell", "haskell"],
+                "extensions": [".hs"],
+                "configuration": "./haskell-configuration.json"
+            }, {
+                "id": "cabal",
+                "aliases": ["cabal", "Cabal"],
+                "extensions": [
+                    ".cabal"
+                ],
+                "configuration": "./cabal-configuration.json"
+            }, {
+                "id": "literate haskell",
+                "aliases": ["Literate Haskell", "literate Haskell"],
+                "extensions": [".lhs"],
+                "configuration": "./haskell-configuration.json"
+            }],
+        "grammars": [
+            {
+                "language": "haskell",
+                "scopeName": "source.haskell",
+                "path": "./syntaxes/haskell.tmLanguage"
+            }, {
+                "language": "cabal",
+                "scopeName": "source.cabal",
+                "path": "./syntaxes/cabal.tmLanguage"
+            }, {
+                "language": "literate haskell",
+                "scopeName": "text.tex.latex.haskell",
+                "path": "./syntaxes/literateHaskell.tmLanguage"
+            }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",
