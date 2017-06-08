@@ -1,3 +1,7 @@
+## 2.2.1 - 07.06.2017
+
+- Removed snippets contribution from package.json (fixes `ENOENT: no such file or directory` error)
+
 ## 2.2.0 - 26.05.2017
 
 - Removed snippets by request from @Eugleo

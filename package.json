@@ -2,7 +2,7 @@
 	"name": "language-haskell",
     "displayName": "Haskell Syntax Highlighting",
 	"description": "Syntax support for the Haskell programming language.",
-	"version": "2.2.0",
+	"version": "2.2.1",
     "publisher": "justusadam",
 	"engines": {
 		"vscode": "^0.10.0"
@@ -26,8 +26,7 @@
         "email": "dev@justus.science"
     },
     "categories": [
-        "Languages",
-        "Snippets"
+        "Languages"
     ],
     "activationEvents": [
         "onLanguage:haskell"
@@ -64,10 +63,6 @@
             "language": "literate haskell",
             "scopeName": "text.tex.latex.haskell",
             "path": "./syntaxes/literateHaskell.tmLanguage"
-        }],
-        "snippets": [{
-            "language": "haskell",
-            "path": "./snippets/haskell.json"
         }]
     },
     "scripts": {
