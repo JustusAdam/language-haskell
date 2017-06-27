@@ -29,7 +29,7 @@ type MyType = MyData String
 
 someFunc = do
     another argument
-    arg <- doSomething 5
+    arg :: Type
     let x = 6 :: Int
     return 6
   where 
