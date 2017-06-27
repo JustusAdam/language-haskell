@@ -1,5 +1,6 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE RecursiveDo #-}
 module Main where
 
 import Data.Version as V (Version(..))
@@ -35,6 +36,14 @@ someFunc = do
     ident = 4
     ident' = 9
 
+
+recDo = mdo
+    a <- b
+    return b
+
+explicitRecDo = do
+    a <- rec { c <- d }
+    return a
 
 anotherFunc :: MyData -> Int
 anotherFunc arg = 

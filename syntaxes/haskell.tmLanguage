@@ -316,11 +316,10 @@
 			( deriving
 			| where
 			| type([\t ]+(family|role))
-			| case
-			| of
 			| let
 			| in
 			| default
+			| rec
 			)(\b(?!'))
 			</string>
 			<key>name</key>
@@ -334,7 +333,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(do|if|then|else)(\b(?!'))</string>
+			<string>\b(m?do|if|then|else|case|of)(\b(?!'))</string>
 			<key>name</key>
 			<string>keyword.control.haskell</string>
 		</dict>
