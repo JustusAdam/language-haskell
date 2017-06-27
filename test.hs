@@ -31,6 +31,8 @@ someFunc = do
     another argument
     arg :: Type
     let x = 6 :: Int
+    a `Infix.Operator.func` b
+    a `func` b
     return 6
   where 
     ident = 4
