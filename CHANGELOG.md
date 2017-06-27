@@ -1,3 +1,11 @@
+## 2.2.2 - unreleased
+
+- Fixed highlighting for `where` keyword in GADT definition
+- Fixed highlighting for `<-` and following expression when preceeded by type signature
+- Added  `mdo` and `rec` to keywords
+- Added automatic indent for `mdo` blocks
+- Changed keyword regexes to not fire when followed by `'`
+
 ## 2.2.1 - 07.06.2017
 
 - Removed snippets contribution from package.json (fixes `ENOENT: no such file or directory` error)
