@@ -37,6 +37,9 @@ someFunc = do
     ident' = 9
 
 
+data GADT a where
+    Constr :: A -> B -> GADT a
+
 recDo = mdo
     a <- b
     return b

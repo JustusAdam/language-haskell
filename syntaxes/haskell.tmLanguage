@@ -123,7 +123,7 @@
 				\b(data|newtype)
 				\s+
 				([\p{Lu}\p{Lt}][\w\p{Nd}_']*)
-				((?:\s+[\p{Ll}][\w\p{Nd}_']*)*)
+				((?:\s+[\p{Ll}][\w\p{Nd}_']*)*?)
 				\s+
 				(where|=|$)
 			</string>
