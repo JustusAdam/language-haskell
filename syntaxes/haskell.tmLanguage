@@ -47,7 +47,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>\b(module)\b</string>
+			<string>\b(module)(\b(?!'))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -57,7 +57,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>\b(where)\b</string>
+			<string>\b(where)(\b(?!'))</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>1</key>
@@ -88,7 +88,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>\b(class)\b</string>
+			<string>\b(class)(\b(?!'))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -98,7 +98,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>\b(where)\b</string>
+			<string>\b(where)(\b(?!'))</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>1</key>
@@ -206,7 +206,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>\b(instance)\b</string>
+			<string>\b(instance)(\b(?!'))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -216,7 +216,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>\b(where)\b|$</string>
+			<string>\b(where)(\b(?!'))|$</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>1</key>
@@ -237,7 +237,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>\b(import)\b</string>
+			<string>\b(import)(\b(?!'))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -321,20 +321,20 @@
 			| let
 			| in
 			| default
-			)\b
+			)(\b(?!'))
 			</string>
 			<key>name</key>
 			<string>keyword.other.haskell</string>
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\binfix[lr]?\b</string>
+			<string>\binfix[lr]?(\b(?!'))</string>
 			<key>name</key>
 			<string>keyword.operator.haskell</string>
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(do|if|then|else)\b</string>
+			<string>\b(do|if|then|else)(\b(?!'))</string>
 			<key>name</key>
 			<string>keyword.control.haskell</string>
 		</dict>
@@ -576,7 +576,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>\)|$|,|}|\b(in)\b</string>
+			<string>\)|$|,|}|\b(in)(\b(?!'))</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>1</key>
@@ -899,7 +899,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>\b(forall)\b</string>
+					<string>\b(forall)(\b(?!'))</string>
 					<key>name</key>
 					<string>keyword.other.forall.haskell</string>
 				</dict>
