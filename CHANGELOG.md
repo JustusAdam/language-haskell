@@ -1,19 +1,19 @@
 ## 2.2.2 - 27.06.2017
 
 - Fixed highlighting for `where` keyword in GADT definition
-- Fixed highlighting for `<-` and following expression when preceeded by type signature (see #28)
-- Added `mdo` and `rec` to keywords (see #29)
+- Fixed highlighting for `<-` and following expression when preceeded by type signature (see [#28](https://github.com/JustusAdam/language-haskell/issues/28))
+- Added `mdo` and `rec` to keywords (see [#29](https://github.com/JustusAdam/language-haskell/issues/29))
 - Added automatic indent for `mdo` blocks 
-- Changed keyword regexes to not fire when followed by `'` (see #28)
-- Fixed highlighing for qualified infix functions (see #30)
+- Changed keyword regexes to not fire when followed by `'` (see [#31](https://github.com/JustusAdam/language-haskell/issues/31))
+- Fixed highlighing for qualified infix functions (see [#30](https://github.com/JustusAdam/language-haskell/issues/30))
 
 ## 2.2.1 - 07.06.2017
 
-- Removed snippets contribution from package.json (fixes `ENOENT: no such file or directory` error)
+- Removed snippets contribution from package.json (fixes `ENOENT: no such file or directory` error) discovered and fixed by [@dsifford](https://gihub.com/dsifford)
 
 ## 2.2.0 - 26.05.2017
 
-- Removed snippets by request from @Eugleo
+- Removed snippets by request from [@Eugleo](https://github.com/Eugleo)
 
 ## 2.1.1 - 15.04.2017
 
@@ -24,7 +24,7 @@
 ## 2.1.0  - 12.03.2017
 
 - Fixed an issue where type signature detection would not end at end of record definition
-- Added GHC pragmas and directives (thank you to @metaleap)
+- Added GHC pragmas and directives (thank you to [@metaleap](https://github.com/metaleap))
 
 ## 2.0.0 - 15.02.2017
 
@@ -46,7 +46,7 @@
 
 ## 1.4.3 - 23.12.2016
 
-- Removing auto closing `'` per suggestion from @HuwCampbell, as they are more often used as primes and data kind ticks than character literals.
+- Removing auto closing `'` per suggestion from [@HuwCampbell](https://github.com/HuwCampbell), as they are more often used as primes and data kind ticks than character literals.
 
 ### 1.4.2 - 21.12.2016
 
@@ -58,7 +58,7 @@
 
 ### 1.4.0 - 17.12.2016
 
-- Manual merging of changes from https://github.com/textmate/haskell.tmbundle/pull/18 for several markup fixes (most importantly multi line type signatures)
+- Manual merging of changes from [haskell.tmbundle#18](https://github.com/textmate/haskell.tmbundle/pull/18) by [@sanssecours](https://github.com/sanssecours) for several markup fixes (most importantly multi line type signatures)
 
 ### 1.3.0
 
@@ -67,6 +67,6 @@
 
 ### 1.2.3
 
-- PR from @Miguel-Fontes to 
+- PR from [@Miguel-Fontes](https://github.com/Miguel-Fontes) to 
     - add markup for literate haskell files
     - add markup for embedded haskell code in latex
