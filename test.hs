@@ -11,7 +11,12 @@ data Something a b
 
 data MyState a b = MyState
 
-data MyData a = Record {} | Algebraic a deriving (Show, Eq)
+data MyData a 
+    = Record {} 
+    | Algebraic 
+        Int -- this should have the same color as other types
+        a 
+    deriving (Show, Eq)
 
 newtype StateMonad b c r = StateMonad (StateT (MyState (Something b c) b) IO r)
     deriving (MonadState (MyState (Something b c) b), MonadIO, Monad, Functor, Applicative)
@@ -65,6 +70,17 @@ anotherFunc arg = do
     }
     
 data Handler a b c
+
+
+-- funky keyword identifiers with prime
+
+let' = 5
+class' = 4
+module' = 6
+instance' = 7
+where' = 0
+rec' = 6
+import' = 5
 
 
 class Manager manager where

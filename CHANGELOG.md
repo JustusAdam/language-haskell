@@ -1,10 +1,11 @@
-## 2.2.2 - unreleased
+## 2.2.2 - 27.06.2017
 
 - Fixed highlighting for `where` keyword in GADT definition
-- Fixed highlighting for `<-` and following expression when preceeded by type signature
-- Added  `mdo` and `rec` to keywords
-- Added automatic indent for `mdo` blocks
-- Changed keyword regexes to not fire when followed by `'`
+- Fixed highlighting for `<-` and following expression when preceeded by type signature (see #28)
+- Added `mdo` and `rec` to keywords (see #29)
+- Added automatic indent for `mdo` blocks 
+- Changed keyword regexes to not fire when followed by `'` (see #28)
+- Fixed highlighing for qualified infix functions (see #30)
 
 ## 2.2.1 - 07.06.2017
 
