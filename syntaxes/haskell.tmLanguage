@@ -125,7 +125,7 @@
 				([\p{Lu}\p{Lt}][\w\p{Nd}_']*)
 				((?:\s+[\p{Ll}][\w\p{Nd}_']*)*?)
 				\s+
-				(where|=|$)
+				(where|=|$)(?:\b(?!'))
 			</string>
 			<key>captures</key>
 			<dict>
