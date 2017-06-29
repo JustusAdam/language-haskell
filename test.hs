@@ -40,8 +40,8 @@ someFunc = do
     a `func` b
     a :: Bool <- something
     if a then b :: Int else g
-        case a :: Bool of
-            Nothing -> b
+    case (a :: Bool) of
+        Nothing -> b
     return 6
   where 
     ident = 4
@@ -61,7 +61,9 @@ explicitRecDo = do
 
 anotherFunc :: MyData -> Int
 anotherFunc arg = 
-    let something = "hello" :: String in expression
+    let something = "hello" :: String
+    in case a :: B of
+        Just _ -> g
 
   where 
     expression argument = arg + 7

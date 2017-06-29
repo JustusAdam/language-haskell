@@ -1,3 +1,9 @@
+## 2.2.3 - unreleased
+
+- Adapted increaseIndentPattern to skip keywords followed by `'`
+- Fixed terminating type signatures on `else`, `then` etc.
+- Fixed not increasing indent for one line `if`
+
 ## 2.2.2 - 27.06.2017
 
 - Fixed highlighting for `where` keyword in GADT definition
