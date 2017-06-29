@@ -38,6 +38,10 @@ someFunc = do
     let x = 6 :: Int
     a `Infix.Operator.func` b
     a `func` b
+    a :: Bool <- something
+    if a then b :: Int else g
+        case a :: Bool of
+            Nothing -> b
     return 6
   where 
     ident = 4
@@ -81,6 +85,9 @@ instance' = 7
 where' = 0
 rec' = 6
 import' = 5
+if' = 6
+else' = 7
+then' = 0
 
 
 class Manager manager where

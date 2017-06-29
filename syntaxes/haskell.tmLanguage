@@ -575,15 +575,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>\)|$|,|}|(:?<\-)|\b(in)(\b(?!'))</string>
-			<key>endCaptures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.other.haskell</string>
-				</dict>
-			</dict>
+			<string>(?=\)|$|,|}|\b(in|then|else|of)\b(?!')|(:?<\-))</string>
 			<key>patterns</key>
 			<array>
 				<dict>
