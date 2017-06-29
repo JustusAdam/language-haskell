@@ -1,8 +1,8 @@
 ## 2.2.3 - unreleased
 
-- Adapted increaseIndentPattern to skip keywords followed by `'`
+- Adapted increaseIndentPattern to skip keywords followed by `'` (related to the handling of `keyword'` identifiers as reported in [#31](https://github.com/JustusAdam/language-haskell/issues/31))
 - Fixed terminating type signatures on `else`, `then` etc.
-- Fixed not increasing indent for one line `if`
+- Fixed not increasing indent for one-line `if` (see [#34](https://github.com/JustusAdam/language-haskell/issues/34))
 
 ## 2.2.2 - 27.06.2017
 
@@ -19,12 +19,12 @@
 
 ## 2.2.0 - 26.05.2017
 
-- Removed snippets by request from [@Eugleo](https://github.com/Eugleo)
+- Removed snippets by request from [@Eugleo](https://github.com/Eugleo) in [#25](https://github.com/JustusAdam/language-haskell/issues/25)
 
 ## 2.1.1 - 15.04.2017
 
 - Fixed two issues with highlighting for deriving clauses
-    - Added a new rule for deriving clauses of single class withut parentheses
+    - Added a new rule for deriving clauses of single class without parentheses (see [#15](https://github.com/JustusAdam/language-haskell/issues/15) and [#19](https://github.com/JustusAdam/language-haskell/issues/19))
     - Modified old rule inner matches to be recursive -> Adds correct highlighting for parethesised class type arguments
 
 ## 2.1.0  - 12.03.2017
@@ -39,11 +39,11 @@
 
 ## 1.5.0 - 13.02.2017
 
-- Removed highlighting for prelude functions, as it is confusing.
+- Removed highlighting for prelude functions, as it is confusing. (see [#11](https://github.com/JustusAdam/language-haskell/issues/11))
 - New rules:
-    - to recognize and correctly highlight inline type signatures
+    - to recognize and correctly highlight inline type signatures (reported in [#11](https://github.com/JustusAdam/language-haskell/issues/11))
     - for `type` to highlight left and right side of `=` as type signature
-    - for `data`to highlight only right side of `=` as type signature
+    - for `data` to highlight only right side of `=` as type signature
     - for distinction between comments and haddock documentation
 
 ## 1.4.4 - 12.01.2017
@@ -52,7 +52,7 @@
 
 ## 1.4.3 - 23.12.2016
 
-- Removing auto closing `'` per suggestion from [@HuwCampbell](https://github.com/HuwCampbell), as they are more often used as primes and data kind ticks than character literals.
+- Removing auto closing `'` per suggestion from [@HuwCampbell](https://github.com/HuwCampbell) (see [#9](https://github.com/JustusAdam/language-haskell/issues/9))
 
 ### 1.4.2 - 21.12.2016
 
@@ -64,7 +64,7 @@
 
 ### 1.4.0 - 17.12.2016
 
-- Manual merging of changes from [haskell.tmbundle#18](https://github.com/textmate/haskell.tmbundle/pull/18) by [@sanssecours](https://github.com/sanssecours) for several markup fixes (most importantly multi line type signatures)
+- Manual merging of changes from [haskell.tmbundle#18](https://github.com/textmate/haskell.tmbundle/pull/18) by [@sanssecours](https://github.com/sanssecours) for several markup fixes (most importantly multi line type signatures (see [#1](https://github.com/JustusAdam/language-haskell/issues/1)))
 
 ### 1.3.0
 
@@ -74,5 +74,5 @@
 ### 1.2.3
 
 - PR from [@Miguel-Fontes](https://github.com/Miguel-Fontes) to 
-    - add markup for literate haskell files
+    - add markup for literate haskell files (see [#7](https://github.com/JustusAdam/language-haskell/issues/7))
     - add markup for embedded haskell code in latex

@@ -1,7 +1,10 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE RecursiveDo #-}
-module Main where
+module Main 
+    (module M
+    , M
+    ) where
 
 import Data.Version as V (Version(..))
 import Control.Monad.State
@@ -92,7 +95,7 @@ else' = 7
 then' = 0
 
 
-class Manager manager where
+class (AClass a, AnotherClass b) => Manager manager where
     -- | Type of the session state inside the manager. In most cases this will
     -- either be any type or a type constrained by some serialisation typeclass like
     --
