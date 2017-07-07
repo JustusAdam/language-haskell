@@ -128,6 +128,12 @@
             <key>match</key>
             <string>^[ \t]*(if|else)</string>
         </dict>
+        <dict>
+            <key>name</key>
+            <string>comment.line.double-dash</string>
+            <key>match</key>
+            <string>^\s*--.*$</string>
+        </dict>
     </array>
     <key>scopeName</key>
     <string>source.cabal</string>
