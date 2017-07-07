@@ -69,6 +69,7 @@
                 | type
                 | test-module
                 | description
+                | setup-depends
                 ):
             </string>
         </dict>
@@ -94,7 +95,10 @@
             <key>name</key>
             <string>entity.name.section.cabal</string>
             <key>match</key>
-            <string>^(?i)library$</string>
+            <string>^(?ix:
+                ( library
+                | custom-setup
+                ))$</string>
         </dict>
         <dict>
             <key>match</key>
