@@ -1,3 +1,9 @@
+## 2.3 - unreleased
+
+- Merged pull request [#37](https://github.com/JustusAdam/language-haskell/pull/37) by [@jBugman](https://github.com/jBugman)
+    - Adds `custom-setup` section to cabal syntax
+    - Adds support for line comments (`--`) to cabal syntax
+
 ## 2.2.3 - 29.06.2017
 
 - Adapted increaseIndentPattern to skip keywords followed by `'` (related to the handling of `keyword'` identifiers as reported in [#31](https://github.com/JustusAdam/language-haskell/issues/31))
