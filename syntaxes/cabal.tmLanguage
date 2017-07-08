@@ -69,6 +69,7 @@
                 | type
                 | test-module
                 | description
+                | setup-depends
                 ):
             </string>
         </dict>
@@ -94,7 +95,10 @@
             <key>name</key>
             <string>entity.name.section.cabal</string>
             <key>match</key>
-            <string>^(?i)library$</string>
+            <string>^(?ix:
+                ( library
+                | custom-setup
+                ))$</string>
         </dict>
         <dict>
             <key>match</key>
@@ -123,6 +127,12 @@
             <string>keyword.control.cabal</string>
             <key>match</key>
             <string>^[ \t]*(if|else)</string>
+        </dict>
+        <dict>
+            <key>name</key>
+            <string>comment.line.double-dash</string>
+            <key>match</key>
+            <string>^\s*--.*$</string>
         </dict>
     </array>
     <key>scopeName</key>
