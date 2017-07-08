@@ -32,6 +32,10 @@ data T2
     }
     deriving Show
 
+data T3 = T3 
+    { f1 :: Int
+    , f2 :: Int 
+    }
 
 type MyType = MyData String
 
