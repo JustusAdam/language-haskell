@@ -1,0 +1,11 @@
+-- A comment
+
+name: test-name
+author: Someone
+
+library
+    build-depends: base
+
+executable my-exec
+    build-depends: base
+

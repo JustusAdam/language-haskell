@@ -7,4 +7,5 @@ src/**
 .gitignore
 tsconfig.json
 test.hs
+test.cabal
 

@@ -1,8 +1,9 @@
-## 2.3 - unreleased
+## 2.3 - 18.07.2017
 
 - Merged pull request [#37](https://github.com/JustusAdam/language-haskell/pull/37) by [@jBugman](https://github.com/jBugman)
     - Adds `custom-setup` section to cabal syntax
     - Adds support for line comments (`--`) to cabal syntax
+- Changed logo to png (svg is not supported anymore)
 
 ## 2.2.3 - 29.06.2017
 

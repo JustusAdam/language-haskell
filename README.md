@@ -21,4 +21,4 @@ If you happen to notice bugs or have suggestions for improvements visit the [iss
 
 ## Contributors
 
-Thanks to @Miguel-Fontes for enabling support for literate Haskell.
+Thanks to [@Miguel-Fontes](https://github.com/Miguel-Fontes) for enabling support for literate Haskell.
