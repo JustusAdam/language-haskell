@@ -1,3 +1,7 @@
+## 2.3.1 - 18.07.2017
+
+- Patch release to fix version invalidity
+
 ## 2.3 - 18.07.2017
 
 - Merged pull request [#37](https://github.com/JustusAdam/language-haskell/pull/37) by [@jBugman](https://github.com/jBugman)
