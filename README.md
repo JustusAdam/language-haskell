@@ -10,9 +10,9 @@ Additionally there is support for Cabal files (.cabal) via a concoction of my ow
 
 Also adds automatic indentation after `where`, `do`, `->` etc. and surrounding brackets (`[]`, `{}` etc)
 
-![Screenshot Haskell](./images/Screenshot 1.png)
+![Screenshot Haskell](/images/screenshot1.png?raw=true)
 
-![Screenshot Cabal](./images/Screenshot Cabal 1.png)
+![Screenshot Cabal](/images/screenshot-cabal1.png?raw=true)
 
 ## Bugs
 
