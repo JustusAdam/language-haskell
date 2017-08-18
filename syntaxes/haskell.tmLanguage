@@ -410,7 +410,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>\^[A-Z@\[\]\\\^_]</string>
+					<string>\\\^[A-Z@\[\]\\\^_]</string>
 					<key>name</key>
 					<string>constant.character.escape.control.haskell</string>
 				</dict>

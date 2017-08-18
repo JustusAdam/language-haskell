@@ -1,3 +1,7 @@
+## 2.3.2 - 18.08.2017
+
+- Fixed highlighting for alternate control character syntax. Solves issue [#42](https://github.com/JustusAdam/language-haskell/issues/43)
+
 ## 2.3.1 - 18.07.2017
 
 - Patch release to fix version invalidity

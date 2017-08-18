@@ -85,6 +85,9 @@ anotherFunc arg = do
 data Handler a b c
 
 
+astring = "\^A \^@ \^_"
+anotherstring = "^\\"
+
 -- funky keyword identifiers with prime
 
 let' = 5
