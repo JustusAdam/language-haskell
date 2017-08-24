@@ -1,3 +1,8 @@
+## * - unreleased
+
+- Merged pull request [#45](https://github.com/JustusAdam/language-haskell/pull/45) by [@Porges](https://github.com/Porges)
+    - Add support for some UnicodeSyntax
+
 ## 2.3.2 - 18.08.2017
 
 - Fixed highlighting for alternate control character syntax. Solves issue [#42](https://github.com/JustusAdam/language-haskell/issues/43)
