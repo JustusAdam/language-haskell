@@ -513,7 +513,7 @@
                   )
                   (?:\s*,\s*\g&lt;fn&gt;)?
                 )
-                \s*(::)</string>
+                \s*(::|∷)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>2</key>
@@ -565,7 +565,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(::)</string>
+			<string>(::|∷)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -856,7 +856,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>\(\s*([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\s+([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\)\s*(=&gt;)</string>
+					<string>\(\s*([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\s+([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\)\s*(=&gt;|⇒)</string>
 					<key>captures</key>
 					<dict>
 						<key>1</key>
@@ -884,19 +884,19 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>-&gt;</string>
+					<string>-&gt;|→</string>
 					<key>name</key>
 					<string>keyword.other.arrow.haskell</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>\b(forall)(\b(?!'))</string>
+					<string>\b(forall|∀)(\b(?!'))</string>
 					<key>name</key>
 					<string>keyword.other.forall.haskell</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>=&gt;</string>
+					<string>=&gt;|⇒</string>
 					<key>name</key>
 					<string>keyword.other.big-arrow.haskell</string>
 				</dict>
