@@ -33,6 +33,17 @@
     ],
     "main": "./out/src/extension",
     "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "Haskell configuration",
+            "properties": {
+                "haskell.indentationRules.enabled": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether indentationRules are enabled."
+                }
+            }
+        },
         "languages": [
             {
                 "id": "haskell",
