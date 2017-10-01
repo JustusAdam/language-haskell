@@ -40,7 +40,7 @@
                 "haskell.indentationRules.enabled": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Whether indentationRules are enabled."
+                    "description": "Set to 'false' to disable automatically increasing indent on newlines after '=', 'do', 'where' etc."
                 }
             }
         },
