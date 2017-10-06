@@ -1,8 +1,11 @@
-## * - unreleased
+## 2.4.0 - 06.10.2017
 
 - Merged pull request [#45](https://github.com/JustusAdam/language-haskell/pull/45) by [@Porges](https://github.com/Porges)
     - Add support for some UnicodeSyntax
 - Enabling off-side code folding (new feature since vscode 1.17)
+    Folding a region of code does not fold empty lines trailing the region anymore
+- Merged pull request [#47](https://github.com/JustusAdam/language-haskell/pull/47) by [@scott-fleischman](https://github.com/scott-fleischman)
+    - Add `haskell.indentationRules.enabled` setting to disable automatic indentation via user settings
 
 ## 2.3.2 - 18.08.2017
 
