@@ -2,6 +2,7 @@
 
 - Merged pull request [#45](https://github.com/JustusAdam/language-haskell/pull/45) by [@Porges](https://github.com/Porges)
     - Add support for some UnicodeSyntax
+- Enabling off-side code folding (new feature since vscode 1.17)
 
 ## 2.3.2 - 18.08.2017
 
