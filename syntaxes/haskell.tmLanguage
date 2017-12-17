@@ -339,15 +339,15 @@
 		</dict>
 		<dict>
 			<key>comment</key>
-			<string>Floats are always decimal</string>
+			<string>Floats are decimal or hexadecimal</string>
 			<key>match</key>
-			<string>\b([0-9]+\.[0-9]+([eE][+-]?[0-9]+)?|[0-9]+[eE][+-]?[0-9]+)\b</string>
+			<string>\b([0-9](_*[0-9])*\.[0-9](_*[0-9])*(_*[eE][-+]?[0-9](_*[0-9])*)?|[0-9](_*[0-9])*_*[eE][-+]?[0-9](_*[0-9])*|0[xX]_*[0-9a-fA-F](_*[0-9a-fA-F])*\.[0-9a-fA-F](_*[0-9a-fA-F])*(_*[pP][-+]?[0-9](_*[0-9])*)?|0[xX]_*[0-9a-fA-F](_*[0-9a-fA-F])*_*[pP][-+]?[0-9](_*[0-9])*)\b</string>
 			<key>name</key>
 			<string>constant.numeric.float.haskell</string>
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b([0-9]+|0([xX][0-9a-fA-F]+|[oO][0-7]+))\b</string>
+			<string>\b([0-9](_*[0-9])*|0([xX]_*[0-9a-fA-F](_*[0-9a-fA-F])*|[oO]_*[0-7](_*[0-7])*|[bB]_*[01](_*[01])*))\b</string>
 			<key>name</key>
 			<string>constant.numeric.haskell</string>
 		</dict>
