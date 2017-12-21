@@ -1,19 +1,22 @@
 {
-	"name": "language-haskell",
+    "name": "language-haskell",
     "displayName": "Haskell Syntax Highlighting",
-	"description": "Syntax support for the Haskell programming language.",
-	"version": "2.4.0",
+    "description": "Syntax support for the Haskell programming language.",
+    "version": "2.5.0",
     "publisher": "justusadam",
-	"engines": {
-		"vscode": "^0.10.0"
-	},
-	"icon": "images/logo.png",
+    "engines": {
+        "vscode": "^0.10.0"
+    },
+    "icon": "images/logo.png",
     "galleryBanner": {
         "color": "#293845",
         "theme": "dark"
     },
     "keywords": [
-        "language", "haskell", "highlight", "syntax"
+        "language",
+        "haskell",
+        "highlight",
+        "syntax"
     ],
     "license": "BSD-3-Clause",
     "homepage": "https://github.com/JustusAdam/language-haskell",
@@ -47,32 +50,50 @@
         "languages": [
             {
                 "id": "haskell",
-                "aliases": ["Haskell", "haskell"],
-                "extensions": [".hs"],
+                "aliases": [
+                    "Haskell",
+                    "haskell"
+                ],
+                "extensions": [
+                    ".hs"
+                ],
                 "configuration": "./haskell-configuration.json"
-            }, {
+            },
+            {
                 "id": "cabal",
-                "aliases": ["cabal", "Cabal"],
+                "aliases": [
+                    "cabal",
+                    "Cabal"
+                ],
                 "extensions": [
                     ".cabal"
                 ],
                 "configuration": "./cabal-configuration.json"
-            }, {
+            },
+            {
                 "id": "literate haskell",
-                "aliases": ["Literate Haskell", "literate Haskell"],
-                "extensions": [".lhs"],
+                "aliases": [
+                    "Literate Haskell",
+                    "literate Haskell"
+                ],
+                "extensions": [
+                    ".lhs"
+                ],
                 "configuration": "./haskell-configuration.json"
-            }],
+            }
+        ],
         "grammars": [
             {
                 "language": "haskell",
                 "scopeName": "source.haskell",
                 "path": "./syntaxes/haskell.tmLanguage"
-            }, {
+            },
+            {
                 "language": "cabal",
                 "scopeName": "source.cabal",
                 "path": "./syntaxes/cabal.tmLanguage"
-            }, {
+            },
+            {
                 "language": "literate haskell",
                 "scopeName": "text.tex.latex.haskell",
                 "path": "./syntaxes/literateHaskell.tmLanguage"
@@ -84,8 +105,8 @@
         "compile": "tsc -watch -p ./",
         "postinstall": "node ./node_modules/vscode/bin/install"
     },
-	"devDependencies": {
-		"vscode":"^0.11.0",
-        "typescript":"^2.2.2"
-	}
+    "devDependencies": {
+        "typescript": "^2.6.2",
+        "vscode": "^0.11.0"
+    }
 }

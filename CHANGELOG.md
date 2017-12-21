@@ -1,3 +1,8 @@
+## 2.5.0 - unreleased
+
+- Merged pull request [#49](https://github.com/JustusAdam/language-haskell/pull/49) by [@takenobu-hs](https://github.com/takenobu-hs)
+    - Adds support for numeric literals as defined in [this proposal](https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0009-numeric-underscores.rst#new-syntax-this-proposal)
+
 ## 2.4.0 - 06.10.2017
 
 - Merged pull request [#45](https://github.com/JustusAdam/language-haskell/pull/45) by [@Porges](https://github.com/Porges)
