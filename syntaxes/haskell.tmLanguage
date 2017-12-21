@@ -338,18 +338,8 @@
 			<string>keyword.control.haskell</string>
 		</dict>
 		<dict>
-			<key>comment</key>
-			<string>Floats are decimal or hexadecimal</string>
-			<key>match</key>
-			<string>\b([0-9](_*[0-9])*\.[0-9](_*[0-9])*(_*[eE][-+]?[0-9](_*[0-9])*)?|[0-9](_*[0-9])*_*[eE][-+]?[0-9](_*[0-9])*|0[xX]_*[0-9a-fA-F](_*[0-9a-fA-F])*\.[0-9a-fA-F](_*[0-9a-fA-F])*(_*[pP][-+]?[0-9](_*[0-9])*)?|0[xX]_*[0-9a-fA-F](_*[0-9a-fA-F])*_*[pP][-+]?[0-9](_*[0-9])*)\b</string>
-			<key>name</key>
-			<string>constant.numeric.float.haskell</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\b([0-9](_*[0-9])*|0([xX]_*[0-9a-fA-F](_*[0-9a-fA-F])*|[oO]_*[0-7](_*[0-7])*|[bB]_*[01](_*[01])*))\b</string>
-			<key>name</key>
-			<string>constant.numeric.haskell</string>
+			<key>include</key>
+			<string>#numeric_literals</string>
 		</dict>
 		<dict>
 			<key>captures</key>
@@ -372,80 +362,8 @@
 			<string>#pragma</string>
 		</dict>
 		<dict>
-			<key>begin</key>
-			<string>"</string>
-			<key>beginCaptures</key>
-			<dict>
-				<key>0</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.string.begin.haskell</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>"</string>
-			<key>endCaptures</key>
-			<dict>
-				<key>0</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.string.end.haskell</string>
-				</dict>
-			</dict>
-			<key>name</key>
-			<string>string.quoted.double.haskell</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>match</key>
-					<string>\\(NUL|SOH|STX|ETX|EOT|ENQ|ACK|BEL|BS|HT|LF|VT|FF|CR|SO|SI|DLE|DC1|DC2|DC3|DC4|NAK|SYN|ETB|CAN|EM|SUB|ESC|FS|GS|RS|US|SP|DEL|[abfnrtv\\\"'\&amp;])</string>
-					<key>name</key>
-					<string>constant.character.escape.haskell</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>\\o[0-7]+|\\x[0-9A-Fa-f]+|\\[0-9]+</string>
-					<key>name</key>
-					<string>constant.character.escape.octal.haskell</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>\\\^[A-Z@\[\]\\\^_]</string>
-					<key>name</key>
-					<string>constant.character.escape.control.haskell</string>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>\\\s</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>constant.character.escape.begin.haskell</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>\\</string>
-					<key>endCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>constant.character.escape.end.haskell</string>
-						</dict>
-					</dict>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>match</key>
-							<string>\S+</string>
-							<key>name</key>
-							<string>invalid.illegal.character-not-allowed-here.haskell</string>
-						</dict>
-					</array>
-				</dict>
-			</array>
+			<key>include</key>
+			<string>#string_literal</string>
 		</dict>
 		<dict>
 			<key>captures</key>
@@ -915,6 +833,121 @@
 				<dict>
 					<key>include</key>
 					<string>#comments</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#string_literal</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#integer_literal</string>
+				</dict>
+			</array>
+		</dict>
+		<key>string_literal</key>
+		<dict>
+			<key>begin</key>
+			<string>"</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.begin.haskell</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>"</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.end.haskell</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>string.quoted.double.haskell</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\\(NUL|SOH|STX|ETX|EOT|ENQ|ACK|BEL|BS|HT|LF|VT|FF|CR|SO|SI|DLE|DC1|DC2|DC3|DC4|NAK|SYN|ETB|CAN|EM|SUB|ESC|FS|GS|RS|US|SP|DEL|[abfnrtv\\\"'\&amp;])</string>
+					<key>name</key>
+					<string>constant.character.escape.haskell</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\\o[0-7]+|\\x[0-9A-Fa-f]+|\\[0-9]+</string>
+					<key>name</key>
+					<string>constant.character.escape.octal.haskell</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\\\^[A-Z@\[\]\\\^_]</string>
+					<key>name</key>
+					<string>constant.character.escape.control.haskell</string>
+				</dict>
+				<dict>
+					<key>begin</key>
+					<string>\\\s</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>constant.character.escape.begin.haskell</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>\\</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>constant.character.escape.end.haskell</string>
+						</dict>
+					</dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>match</key>
+							<string>\S+</string>
+							<key>name</key>
+							<string>invalid.illegal.character-not-allowed-here.haskell</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>integer_literals</key>
+		<dict>
+			<key>comment</key>
+			<string>Floats are decimal or hexadecimal</string>
+			<key>match</key>
+			<string>\b([0-9](_*[0-9])*\.[0-9](_*[0-9])*(_*[eE][-+]?[0-9](_*[0-9])*)?|[0-9](_*[0-9])*_*[eE][-+]?[0-9](_*[0-9])*|0[xX]_*[0-9a-fA-F](_*[0-9a-fA-F])*\.[0-9a-fA-F](_*[0-9a-fA-F])*(_*[pP][-+]?[0-9](_*[0-9])*)?|0[xX]_*[0-9a-fA-F](_*[0-9a-fA-F])*_*[pP][-+]?[0-9](_*[0-9])*)\b</string>
+			<key>name</key>
+			<string>constant.numeric.float.haskell</string>
+		</dict>
+		<key>float_literals</key>
+		<dict>
+			<key>match</key>
+			<string>\b([0-9](_*[0-9])*|0([xX]_*[0-9a-fA-F](_*[0-9a-fA-F])*|[oO]_*[0-7](_*[0-7])*|[bB]_*[01](_*[01])*))\b</string>
+			<key>name</key>
+			<string>constant.numeric.haskell</string>
+		</dict>
+		<key>numeric_literals</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#integer_literals</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#float_literals</string>
 				</dict>
 			</array>
 		</dict>
