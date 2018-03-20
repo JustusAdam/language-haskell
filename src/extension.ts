@@ -7,7 +7,7 @@ export function activate(context: vscode.ExtensionContext) {
         indentationRules: {
             // ^.*\{[^}"']*$
             increaseIndentPattern: vscode.workspace.getConfiguration('haskell').indentationRules.enabled
-                ? /(\bif\b(?!')(.(?!then))*|\b(then|else|m?do|of|let|in|where)\b(?!')|=|->|>>=|>=>|=<<|(^(data)( |\t)+(\w|')+( |\t)*))( |\t)*$/
+                ? /(\bif\b(?!')(.(?!then))*|\b(then|else|m?do|of|let|in|^(?!module)where)\b(?!')|=|->|>>=|>=>|=<<|(^(data)( |\t)+(\w|')+( |\t)*))( |\t)*$/
                 : null,
             decreaseIndentPattern: null
         },
