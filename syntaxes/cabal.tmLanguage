@@ -77,13 +77,13 @@
             <key>name</key>
             <string>keyword.operator.cabal</string>
             <key>match</key>
-            <string>(==|>=|<=|<|>|\|\||&amp;&amp;|!)</string>
+            <string>(==|>=|&lt;=|&lt;|>|\|\||&amp;&amp;|!)</string>
         </dict>
         <dict>
             <key>name</key>
             <string>constant.numeric.cabal</string>
             <key>match</key>
-            <string>(?<=[^\w])\d+(\.\d+)*(\.\*)?</string>
+            <string>(?&lt;=[^\w])\d+(\.\d+)*(\.\*)?</string>
         </dict>
         <dict>
             <key>name</key>
