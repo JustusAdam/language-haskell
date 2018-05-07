@@ -97,6 +97,16 @@
                 "language": "literate haskell",
                 "scopeName": "text.tex.latex.haskell",
                 "path": "./syntaxes/literateHaskell.tmLanguage"
+            },
+            {
+                "scopeName": "markdown.haskell.codeblock",
+                "path": "./syntaxes/codeblock-haskell.json",
+                "injectTo": [
+                    "text.html.markdown"
+                ],
+                "embeddedLanguages": {
+                    "meta.embedded.block.haskell": "haskell"
+                }
             }
         ]
     },
