@@ -8,7 +8,7 @@
     ],
     "repository": {
         "haskell-code-block": {
-            "begin": "haskell(\\s+[^`~]*)?$",
+            "begin": "(haskell|hs)(\\s+[^`~]*)?$",
             "end": "(^|\\G)(?=\\s*[`~]{3,}\\s*$)",
             "patterns": [
                 {
