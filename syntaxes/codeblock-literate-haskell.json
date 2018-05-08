@@ -3,26 +3,26 @@
     "injectionSelector": "L:markup.fenced_code.block.markdown",
     "patterns": [
         {
-            "include": "#haskell-code-block"
+            "include": "#lhaskell-code-block"
         }
     ],
     "repository": {
-        "haskell-code-block": {
-            "begin": "\\b(haskell|hs)\\b(\\s+[^`~]*)?$",
+        "lhaskell-code-block": {
+            "begin": "\\b(literate-haskell|lhaskell|lhs)\\b(\\s+[^`~]*)?$",
             "end": "(^|\\G)(?=\\s*[`~]{3,}\\s*$)",
             "patterns": [
                 {
                     "begin": "(^|\\G)(\\s*)(.*)",
                     "while": "(^|\\G)(?!\\s*([`~]{3,})\\s*$)",
-                    "contentName": "meta.embedded.block.haskell",
+                    "contentName": "meta.embedded.block.lhaskell",
                     "patterns": [
                         {
-                            "include": "source.haskell"
+                            "include": "text.tex.latex.haskell"
                         }
                     ]
                 }
             ]
         }
     },
-    "scopeName": "markdown.haskell.codeblock"
+    "scopeName": "markdown.lhaskell.codeblock"
 }
