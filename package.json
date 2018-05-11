@@ -62,8 +62,8 @@
             {
                 "id": "cabal",
                 "aliases": [
-                    "cabal",
-                    "Cabal"
+                    "Cabal",
+                    "cabal"
                 ],
                 "extensions": [
                     ".cabal"
