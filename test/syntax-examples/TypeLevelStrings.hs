@@ -15,7 +15,7 @@ data Point = Point Int Int deriving Show
 
 instance Has Point "of" Int where from (Point x _) _ = x
 
-example = from (Point 1 2) (Get :: Label "of")
+example = from (Point 1 2) (Get :: Label "of" 4)
 
 main :: IO ()
 main = undefined

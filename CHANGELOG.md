@@ -1,7 +1,10 @@
-## 2.5.0 - unreleased
+## 3.0.0
 
 - Merged pull request [#49](https://github.com/JustusAdam/language-haskell/pull/49) by [@takenobu-hs](https://github.com/takenobu-hs)
     - Adds support for numeric literals as defined in [this proposal](https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0009-numeric-underscores.rst#new-syntax-this-proposal)
+- Merged Pull requests [#55](https://github.com/JustusAdam/language-haskell/pull/55), [#56](https://github.com/JustusAdam/language-haskell/pull/56) and [#57](https://github.com/JustusAdam/language-haskell/pull/57) by [@glebec](https://github.com/glebec)
+    - Adds code injection to markdown for Haskell (`hs`, `haskell`), literate Haskell (`lhs`, `literate-haskell`) and Cabal (`Cabal`)
+- Fixed parsing for type-level strings ([#50](https://github.com/JustusAdam/language-haskell/pull/50))
 
 ## 2.4.0 - 06.10.2017
 
