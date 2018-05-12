@@ -466,7 +466,7 @@
 				</dict>
 			</array>
 			<key>end</key>
-			<string>(?=(<\-)|(^(\1)?[^\s]|}))</string>
+			<string>(?=(&lt;\-)|(^(\1)?[^\s]|}))</string>
 			<!--<string>(?!^((\1\s+[^\s}])|\s*$))</string>-->
 		</dict>
 		<dict>
@@ -493,7 +493,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>(?=\)|$|,|}|\b(in|then|else|of)\b(?!')|(:?<\-))</string>
+			<string>(?=\)|$|,|}|\b(in|then|else|of)\b(?!')|(:?&lt;\-))</string>
 			<key>patterns</key>
 			<array>
 				<dict>

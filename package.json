@@ -62,8 +62,8 @@
             {
                 "id": "cabal",
                 "aliases": [
-                    "cabal",
-                    "Cabal"
+                    "Cabal",
+                    "cabal"
                 ],
                 "extensions": [
                     ".cabal"
@@ -97,6 +97,36 @@
                 "language": "literate haskell",
                 "scopeName": "text.tex.latex.haskell",
                 "path": "./syntaxes/literateHaskell.tmLanguage"
+            },
+            {
+                "scopeName": "markdown.haskell.codeblock",
+                "path": "./syntaxes/codeblock-haskell.json",
+                "injectTo": [
+                    "text.html.markdown"
+                ],
+                "embeddedLanguages": {
+                    "meta.embedded.block.haskell": "haskell"
+                }
+            },
+            {
+                "scopeName": "markdown.lhaskell.codeblock",
+                "path": "./syntaxes/codeblock-literate-haskell.json",
+                "injectTo": [
+                    "text.html.markdown"
+                ],
+                "embeddedLanguages": {
+                    "meta.embedded.block.lhaskell": "lhaskell"
+                }
+            },
+            {
+                "scopeName": "markdown.cabal.codeblock",
+                "path": "./syntaxes/codeblock-cabal.json",
+                "injectTo": [
+                    "text.html.markdown"
+                ],
+                "embeddedLanguages": {
+                    "meta.embedded.block.cabal": "cabal"
+                }
             }
         ]
     },
