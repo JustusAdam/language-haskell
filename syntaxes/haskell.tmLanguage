@@ -29,7 +29,15 @@
 			<key>comment</key>
 			<string>In case this regex seems unusual for an infix operator, note that Haskell allows any ordinary function application (elem 4 [1..10]) to be rewritten as an infix expression (4 `elem` [1..10]).</string>
 			<key>match</key>
-			<string>(`)([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.)*[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(`)</string>
+			<string>(`)(([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'\.]*)\.)?[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(`)</string>
+			<key>captures</key>
+			<dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>meta.import.qualifier.haskell</string>
+				</dict>
+			</dict>
 			<key>name</key>
 			<string>keyword.operator.function.infix.haskell</string>
 		</dict>
@@ -475,6 +483,10 @@
 		</dict>
 		<dict>
 			<key>include</key>
+			<string>#qualifier</string>
+		</dict>
+		<dict>
+			<key>include</key>
 			<string>#comments</string>
 		</dict>
 		<dict>
@@ -739,11 +751,18 @@
 			</array>
 		</dict>
 		<key>data_constructor</key>
+			<dict>
+				<key>match</key>
+				<string>\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?!\.)\b</string>
+				<key>name</key>
+				<string>constant.other.haskell</string>
+			</dict>
+		<key>qualifier</key>
 		<dict>
 			<key>match</key>
-			<string>\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\b</string>
+			<string>\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?=\.)\b</string>
 			<key>name</key>
-			<string>constant.other.haskell</string>
+			<string>meta.import.qualifier.haskell</string>
 		</dict>
 		<key>type_signature</key>
 		<dict>
@@ -826,9 +845,15 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*</string>
+					<string>\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?!\.)\b</string>
 					<key>name</key>
 					<string>storage.type.haskell</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?=\.)</string>
+					<key>name</key>
+					<string>meta.import.qualifier.haskell</string>
 				</dict>
 				<dict>
 					<key>include</key>
