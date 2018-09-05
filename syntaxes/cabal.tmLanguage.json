@@ -1,0 +1,53 @@
+{
+  "fileTypes": [
+    "cabal"
+  ],
+  "name": "Cabal",
+  "patterns": [
+    {
+      "name": "keyword.other.cabal",
+      "match": "(?ix)(\\n|^)\n                ( name\n                | version\n                | cabal-version\n                | build-type\n                | license(-file)?\n                | copyright\n                | author\n                | maintainer\n                | stability\n                | homepage\n                | bug-reports\n                | package-url\n                | synopsis\n                | data-(files|dir)\n                | description\n                | category\n                | extra-(source|doc|tmp)-files\n                ):\n            "
+    },
+    {
+      "name": "keyword.other.cabal",
+      "match": "(?ix)^[ \\t]+\n                ( build-depends\n                | other-modules\n                | hs-source-dirs\n                | ((other|default)-)?extensions\n                | build-tools\n                | buildable\n                | ghc(-(prof|shared))?-options\n                | (install-)?includes\n                | include-dirs\n                | (c|js)-sources\n                | extra(-ghci)?-libraries\n                | extra-lib-dirs\n                | (cc|cpp|ld)-options\n                | pkgconfig-depends\n                | default-language\n                | frameworks\n                | default\n                | manual\n                | location\n                | branch\n                | tag\n                | subdir\n                | tested-with\n                | exposed(-modules)?\n                | reexported-modules\n                | main-is\n                | type\n                | test-module\n                | description\n                | setup-depends\n                ):\n            "
+    },
+    {
+      "name": "keyword.operator.cabal",
+      "match": "(==|>=|<=|<|>|\\|\\||&&|!)"
+    },
+    {
+      "name": "constant.numeric.cabal",
+      "match": "(?<=[^\\w])\\d+(\\.\\d+)*(\\.\\*)?"
+    },
+    {
+      "name": "markup.underline.link.cabal",
+      "match": "\\w+:/(/[\\w._\\-\\d%])+(\\?[\\w.+_\\-\\d%]+)(&[\\w._+\\-\\d%]+)*"
+    },
+    {
+      "name": "entity.name.section.cabal",
+      "match": "^(?ix:\n                ( library\n                | custom-setup\n                ))$"
+    },
+    {
+      "match": "^(?ix:\n                ( executable\n                | flag\n                | test-suite\n                | source-repository\n                ))( |\\t)+([\\w\\-_]+)$",
+      "captures": {
+        "1": {
+          "name": "entity.name.section.cabal"
+        },
+        "3": {
+          "name": "entity.name.function.cabal"
+        }
+      }
+    },
+    {
+      "name": "keyword.control.cabal",
+      "match": "^[ \\t]*(if|else)"
+    },
+    {
+      "name": "comment.line.double-dash",
+      "match": "^\\s*--.*$"
+    }
+  ],
+  "scopeName": "source.cabal",
+  "uuid": "5eb56f02-df11-40b2-b6d5-fa444522416c"
+}

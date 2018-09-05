@@ -86,17 +86,17 @@
             {
                 "language": "haskell",
                 "scopeName": "source.haskell",
-                "path": "./syntaxes/haskell.tmLanguage"
+                "path": "./syntaxes/haskell.tmLanguage.json"
             },
             {
                 "language": "cabal",
                 "scopeName": "source.cabal",
-                "path": "./syntaxes/cabal.tmLanguage"
+                "path": "./syntaxes/cabal.tmLanguage.json"
             },
             {
                 "language": "literate haskell",
                 "scopeName": "text.tex.latex.haskell",
-                "path": "./syntaxes/literateHaskell.tmLanguage"
+                "path": "./syntaxes/literateHaskell.tmLanguage.json"
             },
             {
                 "scopeName": "markdown.haskell.codeblock",
