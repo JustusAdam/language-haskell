@@ -12,6 +12,23 @@
 	<string>Haskell</string>
 	<key>patterns</key>
 	<array>
+	    <dict>
+			<key>name</key>
+			<string>block.liquidhaskell.haskell</string>
+			<key>contentName</key>
+			<string>block.liquidhaskell.haskell</string>
+			<key>begin</key>
+			<string>\{-@</string>
+			<key>end</key>
+			<string>@-\}</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
 		<dict>
 			<key>captures</key>
 			<dict>
