@@ -25,7 +25,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#type_signature</string>
+					<string>$self</string>
 				</dict>
 			</array>
 		</dict>
