@@ -1,23 +1,25 @@
 ## X.X.X - unreleased
 
-- Merged pull request
-  [#49](https://github.com/JustusAdam/language-haskell/pull/49) by
+- Adds support for numeric literals as defined in [this
+  proposal](https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0009-numeric-underscores.rst#new-syntax-this-proposal)
+  in [#49](https://github.com/JustusAdam/language-haskell/pull/49) by
   [@takenobu-hs](https://github.com/takenobu-hs)
-    - Adds support for numeric literals as defined in [this
-      proposal](https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0009-numeric-underscores.rst#new-syntax-this-proposal)
-- Merged Pull requests
+- Added code injection to markdown for Haskell (`hs`, `haskell`), literate
+  Haskell (`lhs`, `literate-haskell`) and Cabal (`Cabal`) in
   [#55](https://github.com/JustusAdam/language-haskell/pull/55),
   [#56](https://github.com/JustusAdam/language-haskell/pull/56) and
   [#57](https://github.com/JustusAdam/language-haskell/pull/57) by
   [@glebec](https://github.com/glebec)
-    - Adds code injection to markdown for Haskell (`hs`, `haskell`), literate
-      Haskell (`lhs`, `literate-haskell`) and Cabal (`Cabal`)
 - Fixed parsing for type-level strings
   ([#50](https://github.com/JustusAdam/language-haskell/pull/50))
-- Merged pull request
+- Support for LiquidHaskell annotations added in
   [#78](https://github.com/JustusAdam/language-haskell/pull/78) by
   [@ranjitjhala](https://github.com/ranjitjhala)
   - Add support for LiquidHaskell annotations
+- Module qualifiers in infix applications are now distinguished through
+  highlighting. Contrubuted in
+  [#58](https://github.com/JustusAdam/language-haskell/pull/58) by
+  [@sheaf](https://github.com/sheaf)
 
 ## 2.4.0 - 06.10.2017
 
