@@ -32,6 +32,7 @@
                 | description
                 | category
                 | extra-(source|doc|tmp)-files
+                | tested-with
                 ):
             </string>
         </dict>
@@ -62,7 +63,6 @@
                 | branch
                 | tag
                 | subdir
-                | tested-with
                 | exposed(-modules)?
                 | reexported-modules
                 | main-is
