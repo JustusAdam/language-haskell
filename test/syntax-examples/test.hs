@@ -40,6 +40,25 @@ data T3 = T3
 
 type MyType = MyData String
 
+class Empty
+
+abind :: Type
+
+instance Cls
+
+afunc :: Type
+
+class WithConstraint =>
+    LongName
+    where
+
+afunc :: Type 
+
+instance WithConstraint =>
+    LongName
+    where
+
+someFunc :: IO Int
 someFunc = do
     another argument
     arg :: Type

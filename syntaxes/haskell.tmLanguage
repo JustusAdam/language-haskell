@@ -124,7 +124,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>\b(where)(\b(?!'))</string>
+			<string>(\b(where)(\b(?!')))|(?=^\S)</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>1</key>
@@ -242,7 +242,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>\b(where)(\b(?!'))|$</string>
+			<string>(\b(where)(\b(?!'))|(?=^\S))</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>1</key>
