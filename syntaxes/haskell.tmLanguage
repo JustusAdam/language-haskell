@@ -5,6 +5,7 @@
 	<key>fileTypes</key>
 	<array>
 		<string>hs</string>
+		<string>hsig</string>
 	</array>
 	<key>keyEquivalent</key>
 	<string>^~H</string>
@@ -72,7 +73,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>\b(module)(\b(?!'))</string>
+			<string>\b(module|signature)(\b(?!'))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>

@@ -2,7 +2,7 @@
     "name": "language-haskell",
     "displayName": "Haskell Syntax Highlighting",
     "description": "Syntax support for the Haskell programming language.",
-    "version": "2.5.0",
+    "version": "2.5.1",
     "publisher": "justusadam",
     "engines": {
         "vscode": "^0.10.0"
@@ -29,7 +29,7 @@
         "email": "dev@justus.science"
     },
     "categories": [
-        "Languages"
+        "Programming Languages"
     ],
     "activationEvents": [
         "onLanguage:haskell"
@@ -55,6 +55,7 @@
                     "haskell"
                 ],
                 "extensions": [
+                    ".hsig",
                     ".hs"
                 ],
                 "configuration": "./haskell-configuration.json"
