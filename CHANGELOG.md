@@ -20,6 +20,14 @@
   highlighting. Contrubuted in
   [#58](https://github.com/JustusAdam/language-haskell/pull/58) by
   [@sheaf](https://github.com/sheaf)
+- `mixins` keyword added to the cabal grammar. Contributed in
+  [#76](https://github.com/JustusAdam/language-haskell/pull/76) by
+  [@arkrost](https://github.com/arkrost)
+- Highlighting for backpack signature files added. Contributed in
+  [#74](https://github.com/JustusAdam/language-haskell/pull/74) by
+  [@edmundnoble](https://github.com/edmundnoble)
+- Fixed highlighting of empty type classes.
+  ([#66](https://github.com/JustusAdam/language-haskell/issues/66))
 
 ## 2.4.0 - 06.10.2017
 
