@@ -1,4 +1,29 @@
-## X.X.X - unreleased
+## 2.7.0 - unreleased
+
+- Fixed the no-indent regex
+  ([#86](https://github.com/JustusAdam/language-haskell/issues/86))
+- Changing auto indent rules to only trigger on first line after indent.
+  Contributed in [#92](https://github.com/JustusAdam/language-haskell/pull/92)
+  by [@hanjinko](https://github.com/hajinko)
+
+## 2.6.0 - 05.04.2019
+
+- Highlighting for backpack signature files added. Contributed in
+  [#74](https://github.com/JustusAdam/language-haskell/pull/74) by
+  [@edmundnoble](https://github.com/edmundnoble)
+- `mixins` keyword added to the cabal grammar. Contributed in
+  [#76](https://github.com/JustusAdam/language-haskell/pull/76) by
+  [@arkrost](https://github.com/arkrost)
+- Module qualifiers in infix applications are now distinguished through
+  highlighting. Contributed in
+  [#58](https://github.com/JustusAdam/language-haskell/pull/58) by
+  [@sheaf](https://github.com/sheaf)
+- Support for LiquidHaskell annotations added in
+  [#78](https://github.com/JustusAdam/language-haskell/pull/78) by
+  [@ranjitjhala](https://github.com/ranjitjhala)
+  - Add support for LiquidHaskell annotations
+
+## 2.5.0 - 12.05.2018
 
 - Adds support for numeric literals as defined in [this
   proposal](https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0009-numeric-underscores.rst#new-syntax-this-proposal)
@@ -12,20 +37,6 @@
   [@glebec](https://github.com/glebec)
 - Fixed parsing for type-level strings
   ([#50](https://github.com/JustusAdam/language-haskell/pull/50))
-- Support for LiquidHaskell annotations added in
-  [#78](https://github.com/JustusAdam/language-haskell/pull/78) by
-  [@ranjitjhala](https://github.com/ranjitjhala)
-  - Add support for LiquidHaskell annotations
-- Module qualifiers in infix applications are now distinguished through
-  highlighting. Contrubuted in
-  [#58](https://github.com/JustusAdam/language-haskell/pull/58) by
-  [@sheaf](https://github.com/sheaf)
-- `mixins` keyword added to the cabal grammar. Contributed in
-  [#76](https://github.com/JustusAdam/language-haskell/pull/76) by
-  [@arkrost](https://github.com/arkrost)
-- Highlighting for backpack signature files added. Contributed in
-  [#74](https://github.com/JustusAdam/language-haskell/pull/74) by
-  [@edmundnoble](https://github.com/edmundnoble)
 - Fixed highlighting of empty type classes.
   ([#66](https://github.com/JustusAdam/language-haskell/issues/66))
 
