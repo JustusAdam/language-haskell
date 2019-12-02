@@ -1,7 +1,7 @@
 
 import * as vscode from 'vscode';
 
-const MATCH_NOTHING_RE = /(?!x)x/;
+const MATCH_NOTHING_RE = /$^/;
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -15,5 +15,5 @@ export function activate(context: vscode.ExtensionContext) {
             }
         ],
         wordPattern: /([\w'_][\w'_\d]*)|([0-9]+\.[0-9]+([eE][+-]?[0-9]+)?|[0-9]+[eE][+-]?[0-9]+)/
-    })  	
+    })
 }
