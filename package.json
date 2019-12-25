@@ -81,6 +81,16 @@
                     ".lhs"
                 ],
                 "configuration": "./haskell-configuration.json"
+            },
+            {
+                "id": "yaml",
+                "aliases": [
+                    "YAML",
+                    "yaml"
+                ],
+                "filenames": [
+                    "stack.yaml.lock"
+                ]
             }
         ],
         "grammars": [
