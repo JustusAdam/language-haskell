@@ -2,10 +2,10 @@
     "name": "language-haskell",
     "displayName": "Haskell Syntax Highlighting",
     "description": "Syntax support for the Haskell programming language.",
-    "version": "2.6.0",
+    "version": "2.7.0",
     "publisher": "justusadam",
     "engines": {
-        "vscode": "^0.10.0"
+        "vscode": "^1.0.0"
     },
     "icon": "images/logo.png",
     "galleryBanner": {

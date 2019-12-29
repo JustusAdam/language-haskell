@@ -1,4 +1,4 @@
-## 2.7.0 - unreleased
+## 2.7.0 - 29.12.2019
 
 - Fixed the no-indent regex
   ([#86](https://github.com/JustusAdam/language-haskell/issues/86))
