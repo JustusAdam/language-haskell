@@ -71,6 +71,7 @@
                 | description
                 | setup-depends
                 | mixins
+                | import
                 ):
             </string>
         </dict>
