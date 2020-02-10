@@ -72,6 +72,7 @@
                 | setup-depends
                 | mixins
                 | import
+                | autogen-modules
                 ):
             </string>
         </dict>
