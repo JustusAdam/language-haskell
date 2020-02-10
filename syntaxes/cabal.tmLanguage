@@ -108,6 +108,7 @@
                 | flag
                 | test-suite
                 | benchmark
+                | common
                 | source-repository
                 ))( |\t)+([\w\-_]+)$</string>
             <key>captures</key>
