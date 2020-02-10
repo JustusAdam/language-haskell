@@ -107,6 +107,7 @@
                 ( executable
                 | flag
                 | test-suite
+                | benchmark
                 | source-repository
                 ))( |\t)+([\w\-_]+)$</string>
             <key>captures</key>
