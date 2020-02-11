@@ -1,3 +1,9 @@
+## unreleased
+
+- Highlight `common` stanzas in `.cabal` files ([#105](https://github.com/JustusAdam/language-haskell/pull/105))
+- Highlight `benchmark` components in `.cabal` files ([#105](https://github.com/JustusAdam/language-haskell/pull/105))
+- Highlight the `import` and `autogen-modules` fields in `.cabal` files ([#105](https://github.com/JustusAdam/language-haskell/pull/105))
+
 ## 2.7.0 - 29.12.2019
 
 - Fixed the no-indent regex
