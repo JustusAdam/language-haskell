@@ -1,12 +1,15 @@
 {
 	"compilerOptions": {
 		"module": "commonjs",
-		"target": "ES5",
+		"target": "esnext",
 		"outDir": "out",
-		"noLib": true,
-		"sourceMap": true
+		"sourceMap": true,
+		"strict": true,
+		"lib": ["ESNext"],
+		"rootDir": "."
 	},
 	"exclude": [
-		"node_modules"
+		"node_modules",
+		"out"
 	]
 }
