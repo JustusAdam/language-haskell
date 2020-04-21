@@ -5,8 +5,8 @@
     "tasks": [
         {
             "type": "npm",
-            "script": "build",
-            "isBackground": false,
+            "script": "compile",
+            "isBackground": true,
             "label": "npm",
             "group": {
                 "kind": "build",
