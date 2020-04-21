@@ -11,6 +11,7 @@ module Main
 
 module M
     -- ( f
+    -- where
     where
 
 
@@ -117,7 +118,6 @@ anotherFunc arg =
     let something = "hello" :: String
     in case a :: B of
         Just _ -> g
-https://github.com/JustusAdam/language-haskell/issues/108
   where 
     expression argument = arg + 7
 
@@ -129,7 +129,13 @@ anotherFunc arg = do
     }
 
 -- Tests the string literal in the deprecation pragma, should be the same as other string literals.
-{-# DEPRECATED "Test string" #-}
+{-# DEPRECATED testFunction "Test string" #-}
+
+-- Case insensitive pragmas
+
+{-# inline myFunction #-}
+{-# iNlInE #-}
+{-# deprecated foo "Case insensitive pragmas" #-}
     
 data Handler a b c
 

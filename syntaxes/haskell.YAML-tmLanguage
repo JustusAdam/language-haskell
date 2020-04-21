@@ -289,14 +289,14 @@ repository:
     name: meta.preprocessor.haskell
     patterns:
       - match: >-
-          (?x)
+          (?xi)
           \b(LANGUAGE|OPTIONS_GHC|INCLUDE|WARNING
             |MINIMAL|UNPACK|SPECIALISE|OVERLAPS|INCOHERENT
             |NOUNPACK|SOURCE|OVERLAPPING|OVERLAPPABLE|INLINE
             |NOINLINE|INLINE?ABLE|CONLIKE|LINE|COLUMN|RULES
             |SPECIALIZE|COMPLETE)\b
         name: keyword.other.preprocessor.haskell
-      - begin: '\b(DEPRECATED)\b'
+      - begin: '(?i)\b(DEPRECATED)\b'
         beginCaptures:
           '1': {name: keyword.other.preprocessor.haskell}
         end: '(?=#-\})'
