@@ -11,6 +11,7 @@
 - Fixed highlighting for multi line type aliases ([#111](https://github.com/JustusAdam/language-haskell/issues/111))
 - Fixed highlighting of string literals in deprecation pragmas ([#112](https://github.com/JustusAdam/language-haskell/issues/112))
 - Specialized highlighting for `signature`, to permit it as an identifier ([#108](https://github.com/JustusAdam/language-haskell/issues/108))
+- Fixed comments occurring in place of export lists ([#104](https://github.com/JustusAdam/language-haskell/issues/104))
 
 ## 2.7.0 - 29.12.2019
 

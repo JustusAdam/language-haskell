@@ -7,6 +7,18 @@ module Main
     , M
     ) where
 
+-- Comments in export lists
+
+module M
+    -- ( f
+    where
+
+
+module M
+    ( f
+    -- g
+    ) where
+
 import Data.Version as V (Version(..))
 import Control.Monad.State
 import qualified Data.Text as T
@@ -105,7 +117,7 @@ anotherFunc arg =
     let something = "hello" :: String
     in case a :: B of
         Just _ -> g
-
+https://github.com/JustusAdam/language-haskell/issues/108
   where 
     expression argument = arg + 7
 

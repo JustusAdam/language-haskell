@@ -32,6 +32,7 @@ patterns:
     patterns:
       - include: '#module_name'
       - include: '#module_exports'
+      - include: '#comments'
       - match: '[a-z]+'
         name: invalid
   - begin: '\b(class)(\b(?!''))'
