@@ -172,7 +172,7 @@ patterns:
               )+
             \)
           )
-          (?:\s*,\s*\g&lt;fn&gt;)?
+          (?:\s*,\s*\g<fn>)?
         )
         \s*(::|∷)
     beginCaptures:
