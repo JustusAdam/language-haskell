@@ -1,12 +1,14 @@
 ## unreleased
 
-- Highlight `common` stanzas in `.cabal` files ([#105](https://github.com/JustusAdam/language-haskell/pull/105))
-- Highlight `benchmark` components in `.cabal` files ([#105](https://github.com/JustusAdam/language-haskell/pull/105))
-- Highlight the `import` and `autogen-modules` fields in `.cabal` files ([#105](https://github.com/JustusAdam/language-haskell/pull/105))
-- Fix an issue where operators starting with `::` were incorrectly treated as type signatures ([#106](https://github.com/JustusAdam/language-haskell/pull/106))
-- Highlight `COMPLETE` pragmas ([#107](https://github.com/JustusAdam/language-haskell/pull/107))
-- Highlight `INLINEABLE` pragmas ([#107](https://github.com/JustusAdam/language-haskell/pull/107))
-- Highlight `COLUMN` pragmas ([#107](https://github.com/JustusAdam/language-haskell/pull/107))
+- Integrated several contributions from [@robrix](https://github.com/robrix)
+  - Highlight `common` stanzas in `.cabal` files ([#105](https://github.com/JustusAdam/language-haskell/pull/105))
+  - Highlight `benchmark` components in `.cabal` files ([#105](https://github.com/JustusAdam/language-haskell/pull/105))
+  - Highlight the `import` and `autogen-modules` fields in `.cabal` files ([#105](https://github.com/JustusAdam/language-haskell/pull/105))
+  - Fix an issue where operators starting with `::` were incorrectly treated as type signatures ([#106](https://github.com/JustusAdam/language-haskell/pull/106))
+  - Highlight `COMPLETE` pragmas ([#107](https://github.com/JustusAdam/language-haskell/pull/107))
+  - Highlight `INLINEABLE` pragmas ([#107](https://github.com/JustusAdam/language-haskell/pull/107))
+  - Highlight `COLUMN` pragmas ([#107](https://github.com/JustusAdam/language-haskell/pull/107))
+- Fixed highlighting for multi line type aliases ([#111](https://github.com/JustusAdam/language-haskell/issues/111))
 
 ## 2.7.0 - 29.12.2019
 
