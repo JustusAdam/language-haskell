@@ -1,4 +1,4 @@
-## unreleased
+## 3.0.0 - unreleased
 
 - Integrated several contributions from [@robrix](https://github.com/robrix)
   - Highlight `common` stanzas in `.cabal` files ([#105](https://github.com/JustusAdam/language-haskell/pull/105))

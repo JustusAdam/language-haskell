@@ -17,8 +17,3 @@ Also adds automatic indentation after `where`, `do`, `->` etc. and surrounding b
 ## Bugs
 
 If you happen to notice bugs or have suggestions for improvements visit the [issue section](https://github.com/JustusAdam/language-haskell/issues) of the [repository](https://github.com/JustusAdam/language-haskell).
-
-
-## Contributors
-
-Thanks to [@Miguel-Fontes](https://github.com/Miguel-Fontes) for enabling support for literate Haskell.
