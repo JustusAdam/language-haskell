@@ -9,6 +9,7 @@
   - Highlight `INLINEABLE` pragmas ([#107](https://github.com/JustusAdam/language-haskell/pull/107))
   - Highlight `COLUMN` pragmas ([#107](https://github.com/JustusAdam/language-haskell/pull/107))
 - Fixed highlighting for multi line type aliases ([#111](https://github.com/JustusAdam/language-haskell/issues/111))
+- Fixed highlighting of string literals in deprecation pragmas ([#112](https://github.com/JustusAdam/language-haskell/issues/112))
 
 ## 2.7.0 - 29.12.2019
 

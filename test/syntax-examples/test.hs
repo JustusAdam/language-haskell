@@ -115,6 +115,9 @@ anotherFunc arg = do
     ; let thing = 5
     ; return 8
     }
+
+-- Tests the string literal in the deprecation pragma, should be the same as other string literals.
+{-# DEPRECATED "Test string" #-}
     
 data Handler a b c
 
