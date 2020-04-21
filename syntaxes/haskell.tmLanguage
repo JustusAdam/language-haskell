@@ -146,7 +146,7 @@
 		<dict>
 			<key>match</key>
 			<string>(?x)
-				\b(data|newtype)
+				^(\s)*\b(data|newtype)
 				\s+
 				([\p{Lu}\p{Lt}][\w\p{Nd}_']*)
 				((?:\s+[\p{Ll}][\w\p{Nd}_']*)*?)
@@ -155,17 +155,17 @@
 			</string>
 			<key>captures</key>
 			<dict>
-				<key>1</key>
+				<key>2</key>
 				<dict>
 					<key>name</key>
 					<string>keyword.other.haskell</string>
 				</dict>
-				<key>2</key>
+				<key>3</key>
 				<dict>
 					<key>name</key>
 					<string>storage.type.haskell</string>
 				</dict>
-				<key>3</key>
+				<key>4</key>
 				<dict>
 					<key>patterns</key>
 					<array>
@@ -177,7 +177,7 @@
 						</dict>
 					</array>
 				</dict>
-				<key>4</key>
+				<key>5</key>
 				<dict>
 					<key>name</key>
 					<string>keyword.other.haskell</string>
@@ -185,9 +185,9 @@
 			</dict>
 		</dict>
 		<dict>
-			<key>match</key>
+			<key>begin</key>
 			<string>(?x)
-				\b(type)
+				^(\s*)\b(type)
 				\s+
 				([^=]*)
 				(?:
@@ -196,14 +196,14 @@
 					(.*)
 				)?\s*$
 			</string>
-			<key>captures</key>
+			<key>beginCaptures</key>
 			<dict>
-				<key>1</key>
+				<key>2</key>
 				<dict>
 					<key>name</key>
 					<string>keyword.other.haskell</string>
 				</dict>
-				<key>2</key>
+				<key>3</key>
 				<dict>
 					<key>patterns</key>
 					<array>
@@ -213,12 +213,12 @@
 						</dict>
 					</array>
 				</dict>
-				<key>3</key>
+				<key>4</key>
 				<dict>
 					<key>name</key>
 					<string>keyword.other.haskell</string>
 				</dict>
-				<key>4</key>
+				<key>5</key>
 				<dict>
 					<key>patterns</key>
 					<array>
@@ -229,6 +229,15 @@
 					</array>
 				</dict>
 			</dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#type_signature</string>
+				</dict>
+			</array>
+			<key>end</key>
+			<string>(?=(&lt;\-)|(^(\1)?[^\s]|}))</string>
 		</dict>
 		<dict>
 			<key>begin</key>

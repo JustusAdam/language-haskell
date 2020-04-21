@@ -40,6 +40,20 @@ data T3 = T3
 
 type MyType = MyData String
 
+-- Multi-line type aliases
+
+type T a = 
+    Constr 
+    a 
+    Int
+
+-- Multi line type alias with infix constructors
+
+type UserApi = "users" :> Body '[JSON]
+                       :> Post '[JSON]
+        :<|>  "users"  :> Capture "userid"
+                       :> ReqBody '[JSON]
+
 class Empty
 
 abind :: Type
