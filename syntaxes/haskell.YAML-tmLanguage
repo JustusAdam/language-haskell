@@ -22,7 +22,7 @@ patterns:
     name: constant.language.unit.haskell
   - match: '\[\s*\]'
     name: constant.language.empty-list.haskell
-  - begin: '\b(module|signature)(\b(?!''))'
+  - begin: '(\b(module)|^(signature))(\b(?!''))'
     beginCaptures:
       '1': {name: keyword.other.haskell}
     end: '\b(where)(\b(?!''))'

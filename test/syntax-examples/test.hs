@@ -138,6 +138,14 @@ if' = 6
 else' = 7
 then' = 0
 
+-- The identifier 'signature'
+
+f = do
+    let signature = Some value
+    return 0
+  where
+    signature = more testing
+
 
 class (AClass a, AnotherClass b) => Manager manager where
     -- | Type of the session state inside the manager. In most cases this will
