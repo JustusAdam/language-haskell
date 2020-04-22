@@ -61,6 +61,8 @@ patterns:
               '*[\p{Ll}][\w\p{Nd}_']*
             name: variable.other.generic-type.haskell
       '5': {name: keyword.other.haskell}
+  - match: 'type\s+(family|role)'
+    name: keyword.other.haskell
   - begin: >-
       (?x)
         ^(\s*)\b(type)
@@ -130,7 +132,6 @@ patterns:
   - match: >-
       (?x)\b
         ( where
-        | type([\\t ]+(family|role))
         | let
         | in
         | default
@@ -321,7 +322,7 @@ repository:
 
   data_constructor:
     match: >-
-      \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?!\.)\b
+      \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?!\.|\S)
     name: constant.other.haskell
   qualifier:
     match: >-

@@ -56,6 +56,9 @@ data MyData a
 newtype StateMonad b c r = StateMonad (StateT (MyState (Something b c) b) IO r)
     deriving (MonadState (MyState (Something b c) b), MonadIO, Monad, Functor, Applicative)
 
+type family Ticked' x y = r where
+    Ticked' '(a,b) = '(b,c)
+
 data T2 
     = Constr1 Int
     | Record2 {
