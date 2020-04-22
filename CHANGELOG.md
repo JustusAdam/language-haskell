@@ -22,7 +22,8 @@
   ([#104](https://github.com/JustusAdam/language-haskell/issues/104))
 - Pragmas are now case insensitive ([#81](https://github.com/JustusAdam/language-haskell/issues/81))
 - Fixed matcher for end of type annotations. Facilitates indented `module` blocks
-  ([#91](https://github.com/JustusAdam/language-haskell/issues/91)) 
+  ([#91](https://github.com/JustusAdam/language-haskell/issues/91)) and standalone deriving
+  ([#89](https://github.com/JustusAdam/language-haskell/issues/89))
 - Updated cabal grammar ([#93](https://github.com/JustusAdam/language-haskell/issues/93))
 - As a substantial internal change the grammar migratd to the YAML format, to make it easier to
   maintain and develop with.

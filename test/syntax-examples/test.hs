@@ -26,6 +26,10 @@ module M
     myFoo :: Foo
     myFoo = foo
 
+
+    deriving instance SomeClass => Eq a
+    deriving instance Ord a => Ord (Expr a)
+
 class Foo x where
     myFoo :: Foo
 
@@ -73,7 +77,7 @@ type T a =
     Constr 
     a 
     Int
->
+
 -- Multi line type alias with infix constructors
 
 type UserApi = "users" :> Body '[JSON]

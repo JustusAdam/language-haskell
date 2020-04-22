@@ -82,11 +82,17 @@ patterns:
           - {include: '#type_signature'}
     patterns:
       - {include: '#type_signature'}
-    end: '(?=(<\-)|(^(\1)?[^\s]|}))'
-  - begin: '\b(instance)(\b(?!''))'
+    end: | 
+      (?x)
+        (?=(<\-)|})
+        | ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
+  - begin: '^(\s*)\b(instance)(\b(?!''))'
     beginCaptures:
-      '1': {name: keyword.other.haskell}
-    end: '(\b(where)(\b(?!''))|(?=^\S))'
+      '2': {name: keyword.other.haskell}
+    end: |
+      (?x)
+        \b(where)\b(?!')
+        | ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
     endCaptures:
       '1': {name: keyword.other.haskell}
     name: meta.declaration.instance.haskell
@@ -110,6 +116,11 @@ patterns:
     name: meta.deriving.haskell
     patterns:
       - {include: '#derivings'}
+  - match: '\b(deriving) (instance)\b(.*)$'
+    captures:
+      '1': {name: keyword.other.haskell}
+      '2': {name: keyword.other.haskell}
+      '3': {patterns: [{include: '#type_signature'}]}
   - match: >-
       (deriving)\s+([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
     captures:
@@ -118,8 +129,7 @@ patterns:
     name: meta.deriving.haskell
   - match: >-
       (?x)\b
-        ( deriving
-        | where
+        ( where
         | type([\\t ]+(family|role))
         | let
         | in
@@ -191,7 +201,7 @@ patterns:
           (<\-)           # we are the left side of a `x :: Type <- expr` bind statement
           | }             # A block closed? Maybe this should also include `;`, because non-indentation based `do`
         )
-        | ^(?!\1[^\s])    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
+        | ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
   - {include: '#data_constructor'}
   - {include: '#qualifier'}
   - {include: '#comments'}
