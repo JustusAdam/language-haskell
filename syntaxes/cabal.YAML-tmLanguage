@@ -27,20 +27,20 @@ patterns:
   - name: keyword.other.cabal
     match: |
       (?ix)^[ \t]+
-        ( build-depends
-        | other-modules
-        | hs-source-dirs
+        ( (build(-tool)?|pkgconfig|setup)-depends
+        | (hs-source|include|extra-(lib|frameworks))-dirs
         | ((other|default)-)?extensions
         | build-tools
         | buildable
-        | ghc(-(prof|shared))?-options
-        | (install-)?includes
-        | include-dirs
-        | (c|js)-sources
-        | extra(-ghci)?-libraries
-        | extra-lib-dirs
-        | (cc|cpp|ld)-options
-        | pkgconfig-depends
+        | ((install|autogen)-)?includes
+        | (c(xx)?|js)-sources
+        | extra-
+          ( ((ghci|bundled)-)?libraries
+          | (dynamic-)?library-flavours
+          )
+        | (cmm|cxx|cc|cpp|ld|ghc(-(prof|shared))?)-options
+        | (asm|cmm)-(sources|options)
+        | other-languages
         | default-language
         | frameworks
         | default
@@ -50,18 +50,22 @@ patterns:
         | tag
         | subdir
         | exposed(-modules)?
-        | reexported-modules
+        | (other|virtual|autogen|reexported)-modules
         | main-is
         | type
         | test-module
         | description
-        | setup-depends
         | mixins
         | import
-        | autogen-modules
+        | signatures
+        | scope
+        | lib-version-(version|linux)
+        | mod-def-file
+        | options
+        | x-\w[1-9\w_-]*
         ):
   - name: keyword.operator.cabal
-    match: '(==|>=|<=|<|>|\|\||&&|!)'
+    match: '(==|>=|<=|<|>|^>=|\|\||&&|!)'
   - name: constant.numeric.cabal
     match: '(?<=[^\w])\d+(\.\d+)*(\.\*)?'
   - name: markup.underline.link.cabal
@@ -81,6 +85,7 @@ patterns:
         | benchmark
         | common
         | source-repository
+        | foreign-library
         )
       )( |\t)+([\w\-_]+)$
     captures:

@@ -23,7 +23,8 @@
 - Pragmas are now case insensitive ([#81](https://github.com/JustusAdam/language-haskell/issues/81))
 - Fixed matcher for end of type annotations. Facilitates indented `module` blocks
   ([#91](https://github.com/JustusAdam/language-haskell/issues/91)) 
-- As a substantial internal change the grammar changed to the YAML format, to make it easier to
+- Updated cabal grammar ([#93](https://github.com/JustusAdam/language-haskell/issues/93))
+- As a substantial internal change the grammar migratd to the YAML format, to make it easier to
   maintain and develop with.
 
 ## 2.7.0 - 29.12.2019

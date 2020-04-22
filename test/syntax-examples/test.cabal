@@ -5,6 +5,11 @@ author: Someone
 
 library
     build-depends: base
+    extra-library-flavours: test
+    extra-dynamic-library-flavours: test
+    autogen-includes: test.h
+    virtual-modules: M
+    x-my-option-1: test
 
 executable my-exec
     build-depends: base
