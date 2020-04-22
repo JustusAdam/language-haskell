@@ -73,7 +73,7 @@ type T a =
     Constr 
     a 
     Int
-
+>
 -- Multi line type alias with infix constructors
 
 type UserApi = "users" :> Body '[JSON]
@@ -136,7 +136,7 @@ anotherFunc arg =
     expression argument = arg + 7
 
 anotherFunc arg = do 
-    { let thing = 5
+    { let thing = 5>
     ; arg <- doSomething 5
     ; let thing = 5
     ; return 8

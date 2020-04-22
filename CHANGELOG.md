@@ -13,6 +13,7 @@
 - Specialized highlighting for `signature`, to permit it as an identifier ([#108](https://github.com/JustusAdam/language-haskell/issues/108))
 - Fixed comments occurring in place of export lists ([#104](https://github.com/JustusAdam/language-haskell/issues/104))
 - Pragmas are now case insensitive ([#81](https://github.com/JustusAdam/language-haskell/issues/81))
+- Fixed matcher for end of type annotations. Facilitates indented `module` blocks ([#91](https://github.com/JustusAdam/language-haskell/issues/91)) 
 
 ## 2.7.0 - 29.12.2019
 
