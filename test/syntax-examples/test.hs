@@ -20,6 +20,20 @@ module M
     -- g
     ) where
 
+    class Foo x where
+        foo :: Foo
+
+    myFoo :: Foo
+    myFoo = foo
+
+class Foo x where
+    myFoo :: Foo
+
+
+myFoo :: Foo
+myFoo = foo
+
+
 import Data.Version as V (Version(..))
 import Control.Monad.State
 import qualified Data.Text as T
@@ -128,6 +142,11 @@ anotherFunc arg = do
     ; return 8
     }
 
+-- Do non-ascii character highlight properly?
+
+unicöde :: String -> [Char]
+unicöde = undefined
+
 -- Tests the string literal in the deprecation pragma, should be the same as other string literals.
 {-# DEPRECATED testFunction "Test string" #-}
 
@@ -136,6 +155,11 @@ anotherFunc arg = do
 {-# inline myFunction #-}
 {-# iNlInE #-}
 {-# deprecated foo "Case insensitive pragmas" #-}
+    
+
+-- Nested comments
+
+{- {- -} -}
     
 data Handler a b c
 

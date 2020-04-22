@@ -185,16 +185,23 @@ patterns:
     name: meta.function.type-declaration.haskell
     patterns:
       - {include: '#type_signature'}
-    end: '(?=(<\-)|(^(\1)?[^\s]|}))'
+    end: |
+      (?x)
+        (?=               # we look ahead, but we do not want to consume
+          (<\-)           # we are the left side of a `x :: Type <- expr` bind statement
+        | (^(\1)?[^\s]    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaraion/implementation
+          | }             # A block closed? Maybe this should also include `;`, because non-indentation based `do`
+          )
+        )
   - {include: '#data_constructor'}
   - {include: '#qualifier'}
   - {include: '#comments'}
   - {include: '#infix_op'}
-  - begin: '(::|∷)\b'
+  - begin: '(::|∷)'
     beginCaptures:
       '1': {name: keyword.other.double-colon.haskell}
     end: >-
-      (?=\)|$|,|}|\b(in|then|else|of)\b(?!')|(:?<\-))
+      (?=\)|$|,|}|\b(in|then|else|of)\b(?!')|<\-)
     patterns:
       - {include: '#type_signature'}
     name: meta.type-declaration.haskell
@@ -300,8 +307,6 @@ repository:
         beginCaptures:
           '1': {name: keyword.other.preprocessor.haskell}
         end: '(?=#-\})'
-        name: deprecated.pragma
-        applyEndPatternLast: 1
         patterns:
           - {include: '#string_literal'}
 
