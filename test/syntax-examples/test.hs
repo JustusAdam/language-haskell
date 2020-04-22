@@ -241,3 +241,16 @@ class (AClass a, AnotherClass b) => Manager manager where
     managerModifySession f = managerGetSession >>= \sess -> managerSetSession (f sess) >> return sess
 
     {-# MINIMAL managerGetSession, managerSetSession | managerModifySession #-}
+
+-- Deriving via
+
+deriving via (A b c) instance C a
+
+data B = B
+    deriving A via B
+
+
+-- Pattern synonyms
+
+pattern A :: Type
+pattern (A b) = c

@@ -28,6 +28,9 @@
 - Shoddily fixed promotion ticks ([#71](https://github.com/JustusAdam/language-haskell/issues/71))
 - Added support for custom type operators
   ([#70](https://github.com/JustusAdam/language-haskell/issues/70))
+- Support for single-line `deriving via` and `deriving ... via ...` ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
+- Rudimentary support for pattern synonyms ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
+- Better support for type families and type instances ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
 - As a substantial internal change the grammar migratd to the YAML format, to make it easier to
   maintain and develop with.
 

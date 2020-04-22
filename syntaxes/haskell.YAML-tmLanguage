@@ -64,8 +64,9 @@ patterns:
               '*[\p{Ll}][\w\p{Nd}_']*
             name: variable.other.generic-type.haskell
       '5': {name: keyword.other.haskell}
-  - match: 'type\s+(family|role)'
-    name: keyword.other.haskell
+  - match: '^\s*(type\s+(family|role|instance)|pattern)'
+    captures:
+      '1': {name: keyword.other.haskell}
   - begin: >-
       (?x)
         ^(\s*)\b(type)
@@ -121,16 +122,29 @@ patterns:
     name: meta.deriving.haskell
     patterns:
       - {include: '#derivings'}
+  - match: '\b(deriving)\s+(via)\s+\((.*)\)\s+(instance)\b\s+(.*)$'
+    name: test
+    captures:
+      '1': {name: keyword.other.haskell}
+      '2': {name: keyword.other.haskell}
+      '3': {patterns: [{include: '#type_signature'}]}
+      '4': {name: keyword.other.haskell}
+      '5': {name: entity.other.inherited-class.haskell}
   - match: '\b(deriving) (instance)\b(.*)$'
     captures:
       '1': {name: keyword.other.haskell}
       '2': {name: keyword.other.haskell}
       '3': {patterns: [{include: '#type_signature'}]}
-  - match: >-
-      (deriving)\s+([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+  - match: |
+      (?x)
+        (deriving)\s+
+          ([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+          (\s+(via)\s+(.*)$)?
     captures:
       '1': {name: keyword.other.haskell}
       '2': {name: entity.other.inherited-class.haskell}
+      '4': {name: keyword.other.haskell}
+      '5': {patterns: [{include: '#type_signature'}]}
     name: meta.deriving.haskell
   - match: >-
       (?x)\b
