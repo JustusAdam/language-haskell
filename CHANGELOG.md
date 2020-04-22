@@ -1,19 +1,30 @@
 ## 3.0.0 - unreleased
 
 - Integrated several contributions from [@robrix](https://github.com/robrix)
-  - Highlight `common` stanzas in `.cabal` files ([#105](https://github.com/JustusAdam/language-haskell/pull/105))
-  - Highlight `benchmark` components in `.cabal` files ([#105](https://github.com/JustusAdam/language-haskell/pull/105))
-  - Highlight the `import` and `autogen-modules` fields in `.cabal` files ([#105](https://github.com/JustusAdam/language-haskell/pull/105))
-  - Fix an issue where operators starting with `::` were incorrectly treated as type signatures ([#106](https://github.com/JustusAdam/language-haskell/pull/106))
+  - Highlight `common` stanzas in `.cabal` files
+    ([#105](https://github.com/JustusAdam/language-haskell/pull/105))
+  - Highlight `benchmark` components in `.cabal` files
+    ([#105](https://github.com/JustusAdam/language-haskell/pull/105))
+  - Highlight the `import` and `autogen-modules` fields in `.cabal` files
+    ([#105](https://github.com/JustusAdam/language-haskell/pull/105))
+  - Fix an issue where operators starting with `::` were incorrectly treated as type signatures
+    ([#106](https://github.com/JustusAdam/language-haskell/pull/106))
   - Highlight `COMPLETE` pragmas ([#107](https://github.com/JustusAdam/language-haskell/pull/107))
   - Highlight `INLINEABLE` pragmas ([#107](https://github.com/JustusAdam/language-haskell/pull/107))
   - Highlight `COLUMN` pragmas ([#107](https://github.com/JustusAdam/language-haskell/pull/107))
-- Fixed highlighting for multi line type aliases ([#111](https://github.com/JustusAdam/language-haskell/issues/111))
-- Fixed highlighting of string literals in deprecation pragmas ([#112](https://github.com/JustusAdam/language-haskell/issues/112))
-- Specialized highlighting for `signature`, to permit it as an identifier ([#108](https://github.com/JustusAdam/language-haskell/issues/108))
-- Fixed comments occurring in place of export lists ([#104](https://github.com/JustusAdam/language-haskell/issues/104))
+- Fixed highlighting for multi line type aliases
+  ([#111](https://github.com/JustusAdam/language-haskell/issues/111))
+- Fixed highlighting of string literals in deprecation pragmas
+  ([#112](https://github.com/JustusAdam/language-haskell/issues/112))
+- Specialized highlighting for `signature`, to permit it as an identifier
+  ([#108](https://github.com/JustusAdam/language-haskell/issues/108))
+- Fixed comments occurring in place of export lists
+  ([#104](https://github.com/JustusAdam/language-haskell/issues/104))
 - Pragmas are now case insensitive ([#81](https://github.com/JustusAdam/language-haskell/issues/81))
-- Fixed matcher for end of type annotations. Facilitates indented `module` blocks ([#91](https://github.com/JustusAdam/language-haskell/issues/91)) 
+- Fixed matcher for end of type annotations. Facilitates indented `module` blocks
+  ([#91](https://github.com/JustusAdam/language-haskell/issues/91)) 
+- As a substantial internal change the grammar changed to the YAML format, to make it easier to
+  maintain and develop with.
 
 ## 2.7.0 - 29.12.2019
 
