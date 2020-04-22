@@ -167,6 +167,15 @@ unicöde = undefined
 -- Nested comments
 
 {- {- -} -}
+
+-- Custom type operators
+
+data (:->)
+data (:=>) a b c = D
+
+f :: a :-> b -> c :=> e
+
+-- Empty Types
     
 data Handler a b c
 
