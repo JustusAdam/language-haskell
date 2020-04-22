@@ -23,7 +23,8 @@
         {
             "type": "shell",
             "label": "make-json",
-            "command": "./make_json.sh"
+            "command": "make",
+            "args": ["-f", "convert_yaml.makefile"]
         },
         {
             "label": "compile-all",

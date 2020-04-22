@@ -102,12 +102,12 @@
       {
         "language": "cabal",
         "scopeName": "source.cabal",
-        "path": "./syntaxes/cabal.tmLanguage"
+        "path": "./syntaxes/cabal.json"
       },
       {
         "language": "literate haskell",
         "scopeName": "text.tex.latex.haskell",
-        "path": "./syntaxes/literateHaskell.tmLanguage"
+        "path": "./syntaxes/literateHaskell.json"
       },
       {
         "scopeName": "markdown.haskell.codeblock",

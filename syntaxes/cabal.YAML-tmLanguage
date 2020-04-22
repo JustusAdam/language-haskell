@@ -1,0 +1,94 @@
+fileTypes:
+  - cabal
+name: Cabal
+patterns:
+  - name: keyword.other.cabal
+    match: |
+      (?ix)(\n|^)
+        ( name
+        | version
+        | cabal-version
+        | build-type
+        | license(-file)?
+        | copyright
+        | author
+        | maintainer
+        | stability
+        | homepage
+        | bug-reports
+        | package-url
+        | synopsis
+        | data-(files|dir)
+        | description
+        | category
+        | extra-(source|doc|tmp)-files
+        | tested-with
+        ):
+  - name: keyword.other.cabal
+    match: |
+      (?ix)^[ \t]+
+        ( build-depends
+        | other-modules
+        | hs-source-dirs
+        | ((other|default)-)?extensions
+        | build-tools
+        | buildable
+        | ghc(-(prof|shared))?-options
+        | (install-)?includes
+        | include-dirs
+        | (c|js)-sources
+        | extra(-ghci)?-libraries
+        | extra-lib-dirs
+        | (cc|cpp|ld)-options
+        | pkgconfig-depends
+        | default-language
+        | frameworks
+        | default
+        | manual
+        | location
+        | branch
+        | tag
+        | subdir
+        | exposed(-modules)?
+        | reexported-modules
+        | main-is
+        | type
+        | test-module
+        | description
+        | setup-depends
+        | mixins
+        | import
+        | autogen-modules
+        ):
+  - name: keyword.operator.cabal
+    match: '(==|>=|<=|<|>|\|\||&&|!)'
+  - name: constant.numeric.cabal
+    match: '(?<=[^\w])\d+(\.\d+)*(\.\*)?'
+  - name: markup.underline.link.cabal
+    match: '\w+:/(/[\w._\-\d%])+(\?[\w.+_\-\d%]+)(&[\w._+\-\d%]+)*'
+  - name: entity.name.section.cabal
+    match: |
+      ^(?ix:
+        ( library
+        | custom-setup
+        )
+      )$
+  - match: |
+      ^(?ix:
+        ( executable
+        | flag
+        | test-suite
+        | benchmark
+        | common
+        | source-repository
+        )
+      )( |\t)+([\w\-_]+)$
+    captures:
+      '1': {name: entity.name.section.cabal}
+      '3': {name: entity.name.function.cabal}
+  - name: keyword.control.cabal
+    match: '^[ \t]*(if|else)'
+  - name: comment.line.double-dash
+    match: '^\s*--.*$'
+scopeName: source.cabal
+uuid: 5eb56f02-df11-40b2-b6d5-fa444522416c
