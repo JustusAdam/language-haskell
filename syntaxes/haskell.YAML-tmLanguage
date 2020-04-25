@@ -52,17 +52,14 @@ patterns:
           [\p{Lu}\p{Lt}][\w\p{Nd}_']*                   # named type
         | \(\s*:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+\s*\)   # Operator type
         )
-        ((?:\s+[\p{Ll}][\w\\p{Nd}_']*)*?)
-        \s+
-        (where(?:\b(?!')))
+        (.*)
+        \b(where(?:\b(?!')))
     beginCaptures:
       '2': {name: keyword.other.haskell}
       '3': {name: storage.type.haskell}
       '4':
         patterns:
-          - match: >-
-              '*[\p{Ll}][\w\p{Nd}_']*
-            name: variable.other.generic-type.haskell
+          - include: '#type_signature'
       '5': {name: keyword.other.haskell}
     name: meta.declaration.type.gadt.haskell
     end: | 
@@ -80,6 +77,14 @@ patterns:
             ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
         patterns:
           - include: '#type_signature'
+      - begin: '(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)\s*(::|∷)'
+        beginCaptures:
+          '1': {name: constant.other.haskell}
+          '2': {name: keyword.operator.double-colon.haskell}
+        end: '$'
+        patterns: 
+          - include: '#type_signature'
+
   - begin: >-
       (?x)
         ^(\s)*\b(data|newtype)
@@ -88,15 +93,14 @@ patterns:
           [\p{Lu}\p{Lt}][\w\p{Nd}_']*                   # named type
         | \(\s*:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+\s*\)   # Operator type
         )
-        ((?:\s+[\p{Ll}][\w\\p{Nd}_']*)*)
-        \s+
+        ([^=]*)
         (=|$)
     beginCaptures:
       '2': {name: keyword.other.haskell}
       '3': {name: storage.type.haskell}
       '4':
         patterns:
-          - include: '#type_variable'
+          - include: '#type_signature'
       '5': {name: keyword.other.haskell}
     end: | 
       (?x)

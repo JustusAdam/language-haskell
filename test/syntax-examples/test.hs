@@ -239,6 +239,17 @@ data Exts = forall var . Class var => Exts var
 data Exts where 
     F :: forall var . Class var => Exts var
 
+-- Kind signatures
+
+data D (a :: Kind) (b :: k -> [Type]) = D
+data D (a :: Kind) (b :: k -> [Type]) where
+
+data D :: k -> [Type] where
+
+-- GADT with single case
+
+data D a where D :: Int -> D String
+
 -- The identifier 'signature'
 
 f = do
