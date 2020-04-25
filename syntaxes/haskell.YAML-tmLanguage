@@ -440,39 +440,36 @@ repository:
       - begin: \(
         end: \)
         patterns:
-          - {match: ','}
-          - {include: '#type_signature'}
-      - match: |
-          (?x)
-            \(\s*
-              ([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\s+ # Class constructor
-              ([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)         # Type variable
-            \)\s*
-            (=>|⇒)
-        captures:
-          '1': {name: entity.other.inherited-class.haskell}
-          '2': {name: variable.other.generic-type.haskell}
-          '3': {name: keyword.other.big-arrow.haskell}
-        name: meta.class-constraint.haskell
+          - match: ','
+          - include: '#type_signature'
       - match: '(?<=[\s())\w\d]):[\p{S}\p{P}&&[^(),;\[\]`{}_"'']]+(?=[\s()\w\d])'
         comment: Operator type
         name: keyword.operator.haskell
-      - {include: '#pragma'}
+      - include: '#pragma'
       - match: '->|→'
         name: keyword.other.arrow.haskell
-      - match: '\b(forall|∀)(\b(?!''))'
-        name: keyword.other.forall.haskell
+      - include: '#forall'
       - match: '=>|⇒'
         name: keyword.other.big-arrow.haskell
-      - match: '\b[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
-        name: variable.other.generic-type.haskell
-      - match: '\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*(?!\.)\b'
-        name: storage.type.haskell
-      - match: '\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*(?=\.)'
-        name: entity.name.namespace
-      - {include: '#comments'}
-      - {include: '#string_literal'}
-      - {include: '#integer_literal'}
+      - include: '#type_variable'
+      - include: '#type_constructor'
+      - include: '#namespace'
+      - include: '#comments'
+      - include: '#string_literal'
+      - include: '#integer_literal'
+  namespace:
+    match: '\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*(?=\.)'
+    name: entity.name.namespace
+  type_variable:
+    match: '\b[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
+    name: variable.other.generic-type.haskell
+  type_constructor:
+    match: '\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*(?!\.)\b'
+    name: storage.type.haskell
+  forall:
+    match: '\b(forall|∀)\b(?!'')'
+    captures: 
+      '1': {name: keyword.other.forall.haskell}
   string_literal:
     begin: '"'
     beginCaptures:
