@@ -31,6 +31,11 @@
 - Support for single-line `deriving via` and `deriving ... via ...` ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
 - Rudimentary support for pattern synonyms ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
 - Better support for type families and type instances ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
+- Improved support for type definitions
+  - Constructors are now highlighted properly in definitions
+  - Fixed highlighting for records ([#38](https://github.com/JustusAdam/language-haskell/issues/38))
+  - Type signatures are now highlighted properly in single-line type definitions
+  - GADT's can now span multiple lines ([#102](https://github.com/JustusAdam/language-haskell/issues/102))
 - As a substantial internal change the grammar migratd to the YAML format, to make it easier to
   maintain and develop with.
 

@@ -56,8 +56,12 @@ data MyData a
 newtype StateMonad b c r = StateMonad (StateT (MyState (Something b c) b) IO r)
     deriving (MonadState (MyState (Something b c) b), MonadIO, Monad, Functor, Applicative)
 
+-- Ticks in type constructors
+
 type family Ticked' x y = r where
     Ticked' '(a,b) = '(b,c)
+
+-- Simple data declarations
 
 data T2 
     = Constr1 Int
@@ -195,6 +199,38 @@ import' = 5
 if' = 6
 else' = 7
 then' = 0
+
+-- Proper record syntax
+-- These three should all be coloured the same way
+
+data Data = Data { foo :: Int, bar :: Int }
+data Data = Data { 
+    foo :: Int, bar :: Int 
+  }
+data Data = Data { 
+    foo :: Int, 
+    bar :: Int
+    }
+data Data = Data { 
+      foo :: Int
+    , bar :: Int
+    }
+
+-- GADT's
+
+data Expr a where
+    I   :: Int  -> Expr Int
+    B   :: Bool -> Expr Bool
+    Add :: Expr Int 
+        -> Expr Int -> Expr Int
+    Mul :: Expr Int 
+        -> Expr Int -> Expr Int
+    Eq  :: Eq a => 
+        Expr a -> Expr a -> Expr Bool
+
+-- Inline data declarations
+
+data A = A (Some Type) | B Int String | C Bool
 
 -- The identifier 'signature'
 

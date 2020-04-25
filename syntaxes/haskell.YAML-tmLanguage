@@ -44,7 +44,43 @@ patterns:
     name: meta.declaration.class.haskell
     patterns:
       - {include: '#type_signature'}
-  - match: >-
+  - begin: >-
+      (?x)
+        ^(\s)*\b(data)
+        \s+
+        (
+          [\p{Lu}\p{Lt}][\w\p{Nd}_']*                   # named type
+        | \(\s*:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+\s*\)   # Operator type
+        )
+        ((?:\s+[\p{Ll}][\w\\p{Nd}_']*)*?)
+        \s+
+        (where(?:\b(?!')))
+    beginCaptures:
+      '2': {name: keyword.other.haskell}
+      '3': {name: storage.type.haskell}
+      '4':
+        patterns:
+          - match: >-
+              '*[\p{Ll}][\w\p{Nd}_']*
+            name: variable.other.generic-type.haskell
+      '5': {name: keyword.other.haskell}
+    name: meta.declaration.type.gadt.haskell
+    end: | 
+      (?x)
+        (?=\bderiving\b)
+        |^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
+    patterns:
+      - include: '#deriving'
+      - begin: '^(\s*)(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)\s*(::|∷)'
+        beginCaptures:
+          '2': {name: constant.other.haskell}
+          '3': {name: keyword.operator.double-colon.haskell}
+        end: |
+          (?x)
+            ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
+        patterns:
+          - include: '#type_signature'
+  - begin: >-
       (?x)
         ^(\s)*\b(data|newtype)
         \s+
@@ -54,8 +90,8 @@ patterns:
         )
         ((?:\s+[\p{Ll}][\w\\p{Nd}_']*)*?)
         \s+
-        (where(?:\b(?!'))|=|$)
-    captures:
+        (=|$)
+    beginCaptures:
       '2': {name: keyword.other.haskell}
       '3': {name: storage.type.haskell}
       '4':
@@ -64,6 +100,36 @@ patterns:
               '*[\p{Ll}][\w\p{Nd}_']*
             name: variable.other.generic-type.haskell
       '5': {name: keyword.other.haskell}
+    end: | 
+      (?x)
+        ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
+    name: meta.declaration.type.haskell
+    patterns:
+      - include: '#deriving'
+      - include: '#record_decl'
+      - begin: '^(\s*)(\||=)\s*(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)(?:\s*(::|))?'
+        beginCaptures:
+          '2': {name: keyword.operator.haskell}
+          '3': {name: constant.other.haskell}
+          '4': {name: keyword.operator.double-colon.haskell}
+        name: multiline
+        end: |
+          (?x)
+              (?=\||\bderiving\b)
+            | ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
+        patterns:
+          - include: '#record_decl' 
+          - include: '#type_signature'
+      - begin: '\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
+        beginCaptures: 
+          '0': {name: constant.other.haskell}
+        end: '\||$'
+        endCaptures:
+          '0': {name: keyword.operator.haskell}
+        comment: Inline data constructors i.e. `A a b | B c d` 
+        patterns:
+          - include: '#record_decl' 
+          - include: '#type_signature'
   - match: '^\s*(type\s+(family|role|instance)|pattern)'
     captures:
       '1': {name: keyword.other.haskell}
@@ -90,8 +156,7 @@ patterns:
       - {include: '#type_signature'}
     end: | 
       (?x)
-        (?=(<\-)|})
-        | ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
+        ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
   - begin: '^(\s*)\b(instance)(\b(?!''))'
     beginCaptures:
       '2': {name: keyword.other.haskell}
@@ -113,15 +178,9 @@ patterns:
     patterns:
       - match: (qualified|as|hiding)
         name: keyword.other.haskell
-      - {include: '#module_name'}
-      - {include: '#module_exports'}
-  - begin: '(deriving)\s*\('
-    beginCaptures:
-      '1': {name: keyword.other.haskell}
-    end: \)
-    name: meta.deriving.haskell
-    patterns:
-      - {include: '#derivings'}
+      - include: '#module_name'
+      - include: '#module_exports'
+  - include: '#deriving'
   - match: '\b(deriving)\s+(via)\s+\((.*)\)\s+(instance)\b\s+(.*)$'
     name: test
     captures:
@@ -135,17 +194,6 @@ patterns:
       '1': {name: keyword.other.haskell}
       '2': {name: keyword.other.haskell}
       '3': {patterns: [{include: '#type_signature'}]}
-  - match: |
-      (?x)
-        (deriving)\s+
-          ([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
-          (\s+(via)\s+(.*)$)?
-    captures:
-      '1': {name: keyword.other.haskell}
-      '2': {name: entity.other.inherited-class.haskell}
-      '4': {name: keyword.other.haskell}
-      '5': {patterns: [{include: '#type_signature'}]}
-    name: meta.deriving.haskell
   - match: >-
       (?x)\b
         ( where
@@ -188,42 +236,11 @@ patterns:
         )
         (')
     name: string.quoted.single.haskell
-  - begin: |
-      (?x)^(\s*)
-        (?<fn>
-          (?:
-            [\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
-          | \(
-              (?!--+\))
-              (?:
-                (?![(),;\[\]`{}_"'])[\p{S}\p{P}]
-              )+
-            \)
-          )
-          (?:\s*,\s*\g<fn>)?
-        )
-        \s*(::|∷)
-    beginCaptures:
-      '2':
-        patterns:
-          - match: '[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
-            name: entity.name.function.haskell
-          - {include: '#infix_op'}
-      '3': {name: keyword.other.double-colon.haskell}
-    name: meta.function.type-declaration.haskell
-    patterns:
-      - {include: '#type_signature'}
-    end: |
-      (?x)
-        (?=               # we look ahead, but we do not want to consume
-          (<\-)           # we are the left side of a `x :: Type <- expr` bind statement
-          | }             # A block closed? Maybe this should also include `;`, because non-indentation based `do`
-        )
-        | ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
-  - {include: '#data_constructor'}
-  - {include: '#qualifier'}
-  - {include: '#comments'}
-  - {include: '#infix_op'}
+  - include: '#fun_decl'
+  - include: '#data_constructor'
+  - include: '#qualifier'
+  - include: '#comments'
+  - include: '#infix_op'
   - begin: '(::|∷)'
     beginCaptures:
       '1': {name: keyword.other.double-colon.haskell}
@@ -279,6 +296,27 @@ repository:
             end: \n
             name: comment.line.double-dash.haskell
       - {include: '#block_comment'}
+  deriving:
+    patterns:
+      - begin: '(deriving)\s*\('
+        beginCaptures:
+          '1': {name: keyword.other.haskell}
+        end: \)
+        name: meta.deriving.haskell
+        patterns:
+          - include: '#derivings'
+
+      - match: |
+          (?x)
+            (deriving)\s+
+              ([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+              (\s+(via)\s+(.*)$)?
+        captures:
+          '1': {name: keyword.other.haskell}
+          '2': {name: entity.other.inherited-class.haskell}
+          '4': {name: keyword.other.haskell}
+          '5': {patterns: [{include: '#type_signature'}]}
+        name: meta.deriving.haskell
   derivings:
     patterns:
       - match: >-
@@ -345,6 +383,56 @@ repository:
     match: >-
       \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?=\.)\b
     name: meta.import.qualifier.haskell
+  record_decl:
+    begin: '{'
+    end: '}'
+    name: record.decl
+    patterns: 
+      - begin: >-
+          (?x)
+          ([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+          (?:\s*,\s*([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*))*
+          \s(::|∷)
+        end: ',|(?=})'
+        beginCaptures:
+          '1': {name: entity.name.field.haskell}
+          '2': {name: entity.name.field.haskell}
+          '3': {name: keyword.double-colon.haskell}
+        patterns: 
+          - include: '#type_signature'
+  fun_decl:
+    begin: |
+      (?x)^(\s*)
+        (?<fn>
+          (?:
+            [\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
+          | \(
+              (?!--+\))
+              (?:
+                (?![(),;\[\]`{}_"'])[\p{S}\p{P}]
+              )+
+            \)
+          )
+          (?:\s*,\s*\g<fn>)?
+        )
+        \s*(::|∷)
+    beginCaptures:
+      '2':
+        patterns:
+          - match: '[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
+            name: entity.name.function.haskell
+          - {include: '#infix_op'}
+      '3': {name: keyword.double-colon.haskell}
+    name: meta.function.type-declaration.haskell
+    patterns:
+      - {include: '#type_signature'}
+    end: |
+      (?x)
+        (?=               # we look ahead, but we do not want to consume
+          (<\-)           # we are the left side of a `x :: Type <- expr` bind statement
+          | }             # A block closed? Maybe this should also include `;`, because non-indentation based `do`
+        )
+        | ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
   type_signature:
     patterns:
       - match: '\(\s*\)'
