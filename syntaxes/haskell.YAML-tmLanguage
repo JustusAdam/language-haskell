@@ -88,7 +88,7 @@ patterns:
           [\p{Lu}\p{Lt}][\w\p{Nd}_']*                   # named type
         | \(\s*:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+\s*\)   # Operator type
         )
-        ((?:\s+[\p{Ll}][\w\\p{Nd}_']*)*?)
+        ((?:\s+[\p{Ll}][\w\\p{Nd}_']*)*)
         \s+
         (=|$)
     beginCaptures:
@@ -96,22 +96,19 @@ patterns:
       '3': {name: storage.type.haskell}
       '4':
         patterns:
-          - match: >-
-              '*[\p{Ll}][\w\p{Nd}_']*
-            name: variable.other.generic-type.haskell
+          - include: '#type_variable'
       '5': {name: keyword.other.haskell}
     end: | 
       (?x)
-        ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
-    name: meta.declaration.type.haskell
+        ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/*
     patterns:
-      - include: '#deriving'
+      - include: '#existential'
       - include: '#record_decl'
-      - begin: '^(\s*)(\||=)\s*(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)(?:\s*(::|))?'
+      - include: '#deriving'
+      - begin: '^(\s*)(\||=)\s*(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)'
         beginCaptures:
           '2': {name: keyword.operator.haskell}
           '3': {name: constant.other.haskell}
-          '4': {name: keyword.operator.double-colon.haskell}
         name: multiline
         end: |
           (?x)
@@ -374,7 +371,19 @@ repository:
         end: '(?=#-\})'
         patterns:
           - {include: '#string_literal'}
-
+  existential:
+    begin: '\b(forall|∀)(?!'')\b'
+    beginCaptures: 
+      '1': {name: keyword.forall.haskell}
+    end: '(?<=\s|\w)(=>|⇒)'
+    endCaptures: 
+      '1': {name: keyword.operator.big-arrow.haskell}
+    patterns: 
+      - include: '#type_variable'
+      - include: '#type_constructor'
+      - include: '#namespace'
+      - match: '\.'
+        name: keyword.operator.period.haskell
   data_constructor:
     match: >-
       \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?!\.|\S)
@@ -503,7 +512,7 @@ repository:
     name: constant.numeric.haskell
   numeric_literals:
     patterns:
-      - {include: '#integer_literals'}
-      - {include: '#float_literals'}
+      - include: '#integer_literals'
+      - include: '#float_literals'
 scopeName: source.haskell
 uuid: 5C034675-1F6D-497E-8073-369D37E2FD7D

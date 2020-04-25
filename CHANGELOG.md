@@ -36,6 +36,7 @@
   - Fixed highlighting for records ([#38](https://github.com/JustusAdam/language-haskell/issues/38))
   - Type signatures are now highlighted properly in single-line type definitions
   - GADT's can now span multiple lines ([#102](https://github.com/JustusAdam/language-haskell/issues/102))
+  - Implemented existential types ([#39](https://github.com/JustusAdam/language-haskell/issues/39))
 - As a substantial internal change the grammar migratd to the YAML format, to make it easier to
   maintain and develop with.
 

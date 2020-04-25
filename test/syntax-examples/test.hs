@@ -232,6 +232,13 @@ data Expr a where
 
 data A = A (Some Type) | B Int String | C Bool
 
+-- Forall in existential types 
+
+data Exts = forall var . Class var => Exts var
+
+data Exts where 
+    F :: forall var . Class var => Exts var
+
 -- The identifier 'signature'
 
 f = do
