@@ -426,11 +426,20 @@ repository:
     end: \)
     endCaptures:
       '0': {name: punctuation.paren.haskell}
+    applyEndPatternLast: 1
     name: meta.declaration.exports.haskell
     patterns:
       - match: '\b(module)\b(?!'')'
         captures:
           '1': {name: keyword.other.module.haskell}
+      - include: '#comma'
+      - include: '#export_constructs'
+      - begin: '\('
+        end: '\)'
+        patterns:
+          - include: '#export_constructs'
+  export_constructs:
+    patterns:
       - match: '\b(pattern)\b(?!'')'
         captures:
           '1': {name: keyword.other.haskell}
@@ -440,12 +449,10 @@ repository:
       - match: >-
           \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
         name: storage.type.haskell
-      - include: '#comma'
       - include: '#infix_op'
-      - comment: 'So named because I don''t know what to call this.'
-        match: '\(.*?\)'
-        name: meta.other.unknown.haskell
       - include: '#comments'
+      - match: '\(\s*:[\p{S}\p{P}&&[^(),;\[\]`{}_"'']]+\s*\)'
+        name: storage.type.haskell
   comma:
     match: ','
     name: punctuation.separator.comma.haskell

@@ -33,6 +33,19 @@ module M
     deriving instance SomeClass => Eq a
     deriving instance Ord a => Ord (Expr a)
 
+
+-- Parens in export lists
+
+module Main (
+   Foo((+-)), func1
+   , Bar((:->), (:->>)), Baz, func5
+    ) where
+
+import Data.Sequence (Seq())
+
+
+
+
 class Foo x where
     myFoo :: Foo
 
