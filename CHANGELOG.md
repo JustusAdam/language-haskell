@@ -1,3 +1,8 @@
+## x.x.x - Unreleased
+
+- Add support for deriving strategies, and improve leniency for whitespace in deriving declarations
+  ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
+
 ## 3.0.0 - 26.04.2020
 
 - Integrated several contributions from [@robrix](https://github.com/robrix)
