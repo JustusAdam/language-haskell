@@ -250,6 +250,10 @@ data D :: k -> [Type] where
 
 data D a where D :: Int -> D String
 
+-- Type level integers
+
+function :: A 24 -> B "symbol"
+
 -- The identifier 'signature'
 
 f = do
@@ -257,7 +261,6 @@ f = do
     return 0
   where
     signature = more testing
-
 
 class (AClass a, AnotherClass b) => Manager manager where
     -- | Type of the session state inside the manager. In most cases this will
