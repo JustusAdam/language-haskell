@@ -311,6 +311,12 @@ patterns:
       [\p{S}\p{P}&&[^(),;\[\]`{}_"']]+
     name: keyword.operator.haskell
   - include: '#comma'
+  - match: '^\s*(foreign)\s+(import|export)\s+(ccall|cplusplus|dotnet|jvm|stdcall)\b(?!'')'
+    name: meta.import.foreign.haskell
+    captures:
+      '1': {name: keyword.other.foreign.haskell}
+      '2': {name: keyword.other.haskell}
+      '3': {name: keyword.other.haskell}
 repository:
   block_comment:
     applyEndPatternLast: 1

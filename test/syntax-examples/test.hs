@@ -254,6 +254,27 @@ data D a where D :: Int -> D String
 
 function :: A 24 -> B "symbol"
 
+-- foreign imports
+
+foreign import ccall "string.h strlen"  
+   cstrlen :: Ptr CChar -> IO CSize 
+
+foreign export cplusplus  "string.h strlen"  
+foreign import dotnet "string.h strlen"  
+
+foreign import ccall "errno.h &errno" errno :: Ptr CInt 
+foreign import ccall "&" bar :: Ptr CInt 
+foreign import ccall foo :: CInt 
+
+-- Also should work for indented modules, hence here again with indent
+
+    foreign import jvm "string.h strlen"  
+        cstrlen :: Ptr CChar -> IO CSize 
+    foreign import stdcall "string.h strlen"  
+
+foreign export ccall "addInt"   (+) :: Int   -> Int   -> Int  
+foreign export ccall "addFloat" (+) :: Float -> Float -> Float 
+
 -- The identifier 'signature'
 
 f = do
