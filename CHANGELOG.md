@@ -47,6 +47,8 @@
   ([#18](https://github.com/JustusAdam/language-haskell/issues/18))
 - Fixed parentheses handling in export lists and made the colouring more consistent
   ([#69](https://github.com/JustusAdam/language-haskell/issues/69))
+- Corrected comment delimiter for literate Haskell files. By [@sjorn3](https://github.com/sjorn3) in
+  [#87](https://github.com/JustusAdam/language-haskell/pull/87/files)
 - As a substantial internal change the grammar migratd to the YAML format, to make it easier to
   maintain and develop with.
 - Refined many of the tm scopes with new information available from the parser
