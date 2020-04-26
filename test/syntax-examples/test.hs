@@ -275,6 +275,15 @@ foreign import ccall foo :: CInt
 foreign export ccall "addInt"   (+) :: Int   -> Int   -> Int  
 foreign export ccall "addFloat" (+) :: Float -> Float -> Float 
 
+-- Type application
+
+function = 
+    let l = [] @[Int] in
+    let x = "Hello" @String in
+    let c@(Some pattern) = undefined in
+    let g = f @(g -> String) in
+    undefined
+
 -- The identifier 'signature'
 
 f = do

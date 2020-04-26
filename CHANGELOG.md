@@ -41,6 +41,7 @@
   - `data` and `newtype`s can now include kind signatures ([#35](https://github.com/JustusAdam/language-haskell/issues/35))
 - Support for foreign imports (see https://www.haskell.org/onlinereport/haskell2010/haskellch8.html)
   ([#44](https://github.com/JustusAdam/language-haskell/issues/44))
+- Support for visible type applications ([#73](https://github.com/JustusAdam/language-haskell/issues/73))
 - As a substantial internal change the grammar migratd to the YAML format, to make it easier to
   maintain and develop with.
 - Refined many of the tm scopes with new information available from the parser
