@@ -428,6 +428,12 @@ repository:
       '0': {name: punctuation.paren.haskell}
     name: meta.declaration.exports.haskell
     patterns:
+      - match: '\b(module)\b(?!'')'
+        captures:
+          '1': {name: keyword.other.module.haskell}
+      - match: '\b(pattern)\b(?!'')'
+        captures:
+          '1': {name: keyword.other.haskell}
       - match: >-
           \b[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
         name: entity.name.function.haskell

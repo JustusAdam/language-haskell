@@ -2,8 +2,11 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE RecursiveDo #-}
 
+-- Module keyword in export list 
+
 module Main 
     (module M
+    , pattern Q
     , M
     ) where
 

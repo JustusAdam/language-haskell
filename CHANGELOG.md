@@ -43,6 +43,8 @@
   ([#44](https://github.com/JustusAdam/language-haskell/issues/44))
 - Support for visible type applications ([#73](https://github.com/JustusAdam/language-haskell/issues/73))
 - Support for nested block comments by [@reactormonk](https://github.com/reactormonk)
+- `module` and `pattern` keyword in export lists
+  ([#18](https://github.com/JustusAdam/language-haskell/issues/18))
 - As a substantial internal change the grammar migratd to the YAML format, to make it easier to
   maintain and develop with.
 - Refined many of the tm scopes with new information available from the parser
