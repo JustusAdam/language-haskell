@@ -80,7 +80,7 @@
         "extensions": [
           ".lhs"
         ],
-        "configuration": "./haskell-configuration.json"
+        "configuration": "./literate-haskell-configuration.json"
       },
       {
         "id": "yaml",
