@@ -12,6 +12,16 @@
     "color": "#293845",
     "theme": "dark"
   },
+  "files" : [
+    "src/*",
+    "syntaxes/*.json",
+    "images/",
+    "README.md",
+    "LICENSE",
+    "*-configuration.json",
+    "tsconfig.json",
+    "CHANGELOG.md"
+  ],
   "keywords": [
     "language",
     "haskell",
