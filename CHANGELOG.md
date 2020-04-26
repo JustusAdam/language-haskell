@@ -1,4 +1,4 @@
-## 3.0.0 - unreleased
+## 3.0.0 - 26.04.2020
 
 - Integrated several contributions from [@robrix](https://github.com/robrix)
   - Highlight `common` stanzas in `.cabal` files
