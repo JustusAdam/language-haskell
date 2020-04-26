@@ -1,3 +1,7 @@
+## x.x.x - unreleased
+
+- Highlighting for data families and instances ([#72](https://github.com/JustusAdam/language-haskell/issues/72)).
+
 ## 3.0.0 - 26.04.2020
 
 - Integrated several contributions from [@robrix](https://github.com/robrix)
