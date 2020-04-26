@@ -2,7 +2,7 @@
   "name": "language-haskell",
   "displayName": "Haskell Syntax Highlighting",
   "description": "Syntax support for the Haskell programming language.",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "publisher": "justusadam",
   "engines": {
     "vscode": "^1.0.0"
@@ -12,7 +12,7 @@
     "color": "#293845",
     "theme": "dark"
   },
-  "files" : [
+  "files": [
     "src/*",
     "syntaxes/*.json",
     "images/",
