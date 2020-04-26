@@ -509,7 +509,7 @@ repository:
           (?x)
           ([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
           (?:\s*,\s*([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*))*
-          \s(::|∷)
+          \s+(::|∷)
         end: ',|(?=})'
         beginCaptures:
           '1': {name: variable.other.definition.field.haskell}

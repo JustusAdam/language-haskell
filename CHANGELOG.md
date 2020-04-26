@@ -1,3 +1,8 @@
+## x.x.x - unreleased
+
+- Fix regression: allow extra spaces between record field and type signature
+  ([#118](https://github.com/JustusAdam/language-haskell/issues/118))
+
 ## 3.0.0 - 26.04.2020
 
 - Integrated several contributions from [@robrix](https://github.com/robrix)
