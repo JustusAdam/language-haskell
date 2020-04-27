@@ -1,3 +1,7 @@
+## x.x.x - unreleased
+
+- Enable highlighting for `.hs-boot` files ([#117](https://github.com/JustusAdam/language-haskell/issues/117)).
+
 ## 3.0.0 - 26.04.2020
 
 - Integrated several contributions from [@robrix](https://github.com/robrix)
