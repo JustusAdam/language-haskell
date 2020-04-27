@@ -381,9 +381,9 @@ pattern A, B :: Type
 type family TF a b where
 type instance TF (a,a) c = (a,c)
 
-data   family DF (x :: Bool)
-data instance DF 'True = DCTrue Int
-data instance DF 'False where
+data    family   DF (x :: Bool)
+newtype instance DF 'True = DCTrue Int
+data    instance DF 'False where
    DCFalse :: Float -> DF 'False
 
 -- Regression #122

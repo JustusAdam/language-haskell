@@ -196,7 +196,7 @@ patterns:
         ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
     patterns:
       - include: '#type_signature'
-  - match: '^\s*((type|data)\s+(family|instance)|type\s+role|pattern)'
+  - match: '^\s*((type|data)\s+(family|instance)|newtype\s+instance|type\s+role|pattern)'
     captures:
       '1': {name: keyword.other.haskell}
   - begin: >-
