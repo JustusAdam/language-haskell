@@ -179,7 +179,7 @@ patterns:
         patterns:
           - include: '#record_decl' 
           - include: '#type_signature'
-  - match: '^\s*(type\s+(family|role|instance)|pattern)'
+  - match: '^\s*((type|data)\s+(family|instance)|type\s+role|pattern)'
     captures:
       '1': {name: keyword.other.haskell}
   - begin: >-
