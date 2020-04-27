@@ -13,7 +13,7 @@
 - Enabling pragmas in multiline comments
   ([#116](https://github.com/JustusAdam/language-haskell/issues/116))
 - Fixed highlighting for infix constructors
-  ([#120]https://github.com/JustusAdam/language-haskell/issues/120)
+  ([#120](https://github.com/JustusAdam/language-haskell/issues/120))
 - Added support for multiline type signatures for pattern synonyms
 - Fixed fixed multi pattern synonym type declarations ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
 
