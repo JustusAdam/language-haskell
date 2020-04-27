@@ -385,6 +385,12 @@ f (A,B) = 3
 f ( A,B ) = 3
 f ( A ,B ) = 3
 
+-- Infix constructors
+
+f = 
+    a `C.A.Constr` b
+    a `Constr` b
+    a `C.A.f` b
 
 -- Pragmas in comment blocks
 

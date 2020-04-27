@@ -11,12 +11,15 @@ patterns:
     patterns: {include: $self}
   - captures:
       '3': {name: entity.name.namespace}
+      '4': 
+        patterns:
+          - include: '#data_constructor'
     comment: |
       In case this regex seems unusual for an infix operator, note that Haskell
       allows any ordinary function application (elem 4 [1..10]) to be rewritten
       as an infix expression (4 `elem` [1..10]).
     match: >-
-      (`)(([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}''\.]*)\.)?[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*(`)
+      (`)(([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}''\.]*)\.)?([\p{Ll}\p{Lu}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)(`)
     name: keyword.operator.function.infix.haskell
   - match: '\(\s*\)'
     name: constant.language.unit.haskell
