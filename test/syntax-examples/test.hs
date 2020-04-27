@@ -377,3 +377,10 @@ data   family DF (x :: Bool)
 data instance DF 'True = DCTrue Int
 data instance DF 'False where
    DCFalse :: Float -> DF 'False
+
+-- Regression #122
+-- All three constructors should be the same
+
+f (A,B) = 3
+f ( A,B ) = 3
+f ( A ,B ) = 3

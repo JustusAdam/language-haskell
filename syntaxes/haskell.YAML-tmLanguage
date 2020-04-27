@@ -499,7 +499,7 @@ repository:
         name: keyword.operator.period.haskell
   data_constructor:
     match: >-
-      \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?!\.|\S)
+      \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\b
     name: constant.other.haskell
   qualifier:
     match: >-

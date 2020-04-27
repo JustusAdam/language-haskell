@@ -8,6 +8,8 @@
   ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
 - Fixed highlighting for GADT's when `::` follows on a new line
   ([#119](https://github.com/JustusAdam/language-haskell/issues/119))
+- Fixed regression [#122](https://github.com/JustusAdam/language-haskell/issues/122), constructor
+  patterns
 
 ## 3.0.0 - 26.04.2020
 
