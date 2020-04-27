@@ -351,6 +351,7 @@ class (AClass a, AnotherClass b) => Manager manager where
 -- Deriving via and deriving strategies
 
 deriving via (A b c) instance C a
+deriving via Integer instance C a
 
 data B = B
     deriving A via B
@@ -366,6 +367,13 @@ deriving newtype instance Eq   ( N Int )
 
 pattern A :: Type
 pattern (A b) = c
+
+pattern B :: A -> B
+          -> C
+
+-- Multiple pattern synonym type declarations
+
+pattern A, B :: Type
 
 
 -- Type and data families

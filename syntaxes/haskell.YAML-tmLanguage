@@ -183,6 +183,19 @@ patterns:
         patterns:
           - include: '#record_decl' 
           - include: '#type_signature'
+  - begin: '(\s*)(pattern)\s+(.*?)\s+(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
+    beginCaptures:
+      '2': {name: keyword.other.haskell}
+      '3': 
+        patterns:
+          - include: '#comma'
+          - include: '#data_constructor'
+      '4': {name: keyword.operator.double-colon.haskell}
+    end: | 
+      (?x)
+        ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
+    patterns:
+      - include: '#type_signature'
   - match: '^\s*((type|data)\s+(family|instance)|type\s+role|pattern)'
     captures:
       '1': {name: keyword.other.haskell}
@@ -234,7 +247,7 @@ patterns:
       - include: '#module_name'
       - include: '#module_exports'
   - include: '#deriving'
-  - match: '\b(deriving)\s+(via)\s+\((.*)\)\s+(instance)\b\s+(.*)$'
+  - match: '\b(deriving)\s+(via)\s+(.*)\s+(instance)\b\s+(.*)$'
     name: test
     captures:
       '1': {name: keyword.other.deriving.haskell}
@@ -328,7 +341,7 @@ patterns:
   - include: '#comments'
   - include: '#infix_op'
   - include: '#double_colon'
-  - begin: '(::|∷)'
+  - begin: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
     beginCaptures:
       '1': {name: keyword.other.double-colon.haskell}
     end: >-
@@ -583,7 +596,7 @@ repository:
       - include: '#comments'
       - include: '#string_literal'
   double_colon:
-    match: '(::|∷)(?![\w\s''])'
+    match: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
     captures:
       '1': {name: keyword.other.double-colon.haskell}
   namespace:
