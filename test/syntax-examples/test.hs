@@ -221,15 +221,16 @@ then' = 0
 
 data Data = Data { foo :: Int, bar :: Int }
 data Data = Data { 
-    foo :: Int, bar :: Int 
+    foo :: Int, bar :: Int -- comment
   }
 data Data = Data { 
-    foo :: Int, 
-    bar :: Int
+    foo :: Int, -- comment1
+    bar :: Int  -- comment2
     }
 data Data = Data { 
-      foo :: Int
-    , bar :: Int
+      foos :: Int -- comment1
+    , bars :: Int -- comment2
+    , baz  :: Int -- comment3
     }
 
 -- GADT's
