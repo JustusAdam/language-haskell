@@ -343,7 +343,7 @@ patterns:
   - include: '#double_colon'
   - begin: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
     beginCaptures:
-      '1': {name: keyword.other.double-colon.haskell}
+      '1': {name: keyword.operator.double-colon.haskell}
     end: >-
       (?=\)|$|,|}|\b(in|then|else|of)\b(?!')|<\-)
     patterns:
