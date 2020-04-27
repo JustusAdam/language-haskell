@@ -350,7 +350,7 @@ patterns:
 repository:
   block_comment:
     applyEndPatternLast: 1
-    begin: '\{-(?!#)'
+    begin: '\{-'
     captures:
       '0': {name: punctuation.definition.comment.haskell}
     end: '-\}'

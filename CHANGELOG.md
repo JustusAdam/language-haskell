@@ -10,6 +10,8 @@
   ([#119](https://github.com/JustusAdam/language-haskell/issues/119))
 - Fixed regression [#122](https://github.com/JustusAdam/language-haskell/issues/122), constructor
   patterns
+- Enabling pragmas in multiline comments
+  ([#116](https://github.com/JustusAdam/language-haskell/issues/116))
 
 ## 3.0.0 - 26.04.2020
 

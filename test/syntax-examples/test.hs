@@ -384,3 +384,8 @@ data instance DF 'False where
 f (A,B) = 3
 f ( A,B ) = 3
 f ( A ,B ) = 3
+
+
+-- Pragmas in comment blocks
+
+{-  {-# PRAGMA  #-} -}
