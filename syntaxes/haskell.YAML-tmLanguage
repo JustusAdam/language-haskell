@@ -69,7 +69,7 @@ patterns:
         |^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
     patterns:
       - include: '#deriving'
-      - begin: '^(\s*)(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)\s*(::|∷)'
+      - begin: '^(\s*)(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)\b'
         beginCaptures:
           '2': {name: constant.other.haskell}
           '3': {name: keyword.operator.double-colon.haskell}
@@ -77,8 +77,9 @@ patterns:
           (?x)
             ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
         patterns:
+          - include: '#double_colon'
           - include: '#type_signature'
-      - begin: '(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)\s*(::|∷)'
+      - begin: '(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)\b'
         beginCaptures:
           '1': {name: constant.other.haskell}
           '2': {name: keyword.operator.double-colon.haskell}
@@ -323,6 +324,7 @@ patterns:
   - include: '#qualifier'
   - include: '#comments'
   - include: '#infix_op'
+  - include: '#double_colon'
   - begin: '(::|∷)'
     beginCaptures:
       '1': {name: keyword.other.double-colon.haskell}
@@ -577,6 +579,10 @@ repository:
       - include: '#namespace'
       - include: '#comments'
       - include: '#string_literal'
+  double_colon:
+    match: '(::|∷)(?![\w\s''])'
+    captures:
+      '1': {name: keyword.other.double-colon.haskell}
   namespace:
     match: '\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*(?=\.)'
     name: entity.name.namespace

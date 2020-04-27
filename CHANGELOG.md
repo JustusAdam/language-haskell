@@ -6,6 +6,8 @@
   ([#118](https://github.com/JustusAdam/language-haskell/issues/118))
 - Add support for deriving strategies, and improve leniency for whitespace in deriving declarations
   ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
+- Fixed highlighting for GADT's when `::` follows on a new line
+  ([#119](https://github.com/JustusAdam/language-haskell/issues/119))
 
 ## 3.0.0 - 26.04.2020
 

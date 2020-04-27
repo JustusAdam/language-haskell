@@ -234,6 +234,7 @@ data Data = Data {
     }
 
 -- GADT's
+-- These should all highlight the same way
 
 data Expr a where
     I   :: Int  -> Expr Int
@@ -242,7 +243,8 @@ data Expr a where
         -> Expr Int -> Expr Int
     Mul :: Expr Int 
         -> Expr Int -> Expr Int
-    Eq  :: Eq a => 
+    Eq  
+      :: Eq a => 
         Expr a -> Expr a -> Expr Bool
 
 -- Inline data declarations
