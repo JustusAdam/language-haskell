@@ -3,14 +3,22 @@
 name: test-name
 author: Someone
 
+common common
+  build-depends: base
+
 library
-    build-depends: base
+    import: common
+    build-depends: template-haskell
     extra-library-flavours: test
     extra-dynamic-library-flavours: test
     autogen-includes: test.h
     virtual-modules: M
     x-my-option-1: test
 
-executable my-exec
-    build-depends: base
+library sublib
+  import: common
+  visibility: private
+  hs-source-dirs: src
 
+executable my-exec
+    build-depends: test-name, sublib
