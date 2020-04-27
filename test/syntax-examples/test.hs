@@ -31,7 +31,7 @@ module M
 
 
     deriving instance SomeClass => Eq a
-    deriving instance Ord a => Ord (Expr a)
+    deriving     instance Ord a => Ord (Expr a)
 
 
 -- Parens in export lists
@@ -346,12 +346,18 @@ class (AClass a, AnotherClass b) => Manager manager where
 
     {-# MINIMAL managerGetSession, managerSetSession | managerModifySession #-}
 
--- Deriving via
+-- Deriving via and deriving strategies
 
 deriving via (A b c) instance C a
 
 data B = B
     deriving A via B
+    deriving stock    Generic
+    deriving anyclass NFData
+
+newtype N a = MkN a
+deriving   stock instance Show ( N Int )
+deriving newtype instance Eq   ( N Int )
 
 
 -- Pattern synonyms

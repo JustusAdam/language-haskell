@@ -4,6 +4,8 @@
 - Highlighting for data families and instances ([#72](https://github.com/JustusAdam/language-haskell/issues/72)).
 - Fix regression: allow extra spaces between record field and type signature
   ([#118](https://github.com/JustusAdam/language-haskell/issues/118))
+- Add support for deriving strategies, and improve leniency for whitespace in deriving declarations
+  ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
 
 ## 3.0.0 - 26.04.2020
 

@@ -238,11 +238,12 @@ patterns:
       '3': {patterns: [{include: '#type_signature'}]}
       '4': {name: keyword.other.instance.haskell}
       '5': {name: entity.other.inherited-class.haskell}
-  - match: '\b(deriving) (instance)\b(.*)$'
+  - match: '\b(deriving)\s+(?:(stock|newtype|anyclass)\s+)?(instance)\b(.*)$'
     captures:
       '1': {name: keyword.other.deriving.haskell}
-      '2': {name: keyword.other.instance.haskell}
-      '3': {patterns: [{include: '#type_signature'}]}
+      '2': {name: keyword.other.deriving.haskell}
+      '3': {name: keyword.other.instance.haskell}
+      '4': {patterns: [{include: '#type_signature'}]}
   - match: >-
       (?x)\b
         (?: (where)
@@ -384,9 +385,10 @@ repository:
       - {include: '#block_comment'}
   deriving:
     patterns:
-      - begin: '(deriving)\s*\('
+      - begin: '(deriving)(?:\s+(stock|newtype|anyclass))?\s*\('
         beginCaptures:
           '1': {name: keyword.other.deriving.haskell}
+          '2': {name: keyword.other.deriving.haskell}
         end: \)
         name: meta.deriving.haskell
         patterns:
@@ -394,14 +396,15 @@ repository:
 
       - match: |
           (?x)
-            (deriving)\s+
+            (deriving)(?:\s+(stock|newtype|anyclass))?\s+
               ([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
               (\s+(via)\s+(.*)$)?
         captures:
-          '1': {name: keyword.other.haskell}
-          '2': {name: entity.other.inherited-class.haskell}
-          '4': {name: keyword.other.haskell}
-          '5': {patterns: [{include: '#type_signature'}]}
+          '1': {name: keyword.other.deriving.haskell}
+          '2': {name: keyword.other.deriving.haskell}
+          '3': {name: entity.other.inherited-class.haskell}
+          '5': {name: keyword.other.deriving.haskell}
+          '6': {patterns: [{include: '#type_signature'}]}
         name: meta.deriving.haskell
   derivings:
     patterns:
