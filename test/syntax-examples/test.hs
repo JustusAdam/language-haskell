@@ -403,3 +403,8 @@ f =
 -- Pragmas in comment blocks
 
 {-  {-# PRAGMA  #-} -}
+
+-- Double colon inside type signatures
+
+colons :: forall (a :: (k :: l)). a -> (x :: a) -> k
+data X ( a :: ( x :: k ) ) :: k
