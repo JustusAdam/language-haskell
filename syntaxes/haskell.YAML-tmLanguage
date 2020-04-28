@@ -581,6 +581,8 @@ repository:
           - include: '#comma'
           - include: '#type_signature'
       - include: '#integer_literals'
+      - match: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
+        name: keyword.operator.double-colon.haskell
       - match: '(?<=[\s())\w\d]):[\p{S}\p{P}&&[^(),;\[\]`{}_"'']]+(?=[\s()\w\d])'
         comment: Operator type
         name: keyword.operator.custom.haskell
