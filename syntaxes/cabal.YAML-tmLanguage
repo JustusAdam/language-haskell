@@ -51,6 +51,7 @@ patterns:
         | subdir
         | exposed(-modules)?
         | (other|virtual|autogen|reexported)-modules
+        | visibility
         | main-is
         | type
         | test-module
@@ -85,6 +86,7 @@ patterns:
         | benchmark
         | common
         | source-repository
+        | library
         | foreign-library
         )
       )( |\t)+([\w\-_]+)$
