@@ -1,6 +1,7 @@
 #!/bin/bash
 
-echo "Current directory is: $PWD"
+baseDir=$(dirname $PWD)
+echo "Running tests from base directory $baseDir"
 
 # Arrays containing full test filepaths.
 named=($PWD/tests/*)
@@ -23,11 +24,11 @@ ticketsBroken=(
   "T0072a.hs"
   "T0072b.hs"
   "T0072c.hs"
+  "T0071.hs"
   "T0073.hs"
   "T0091.hs"
   "T0112.hs"
   "T0121.hs"
-  "T0122.hs"
   "T0131.hs"
   "T0132.hs"
 )
@@ -78,12 +79,12 @@ runTests () {
     case $ext in
   
       "hs" | "hs-boot" | "hsig" )
-        syntax="$PWD/../syntaxes/haskell.json"
+        syntax="$baseDir/syntaxes/haskell.json"
         source="source.haskell"
         ;;
   
       "cabal" )
-        syntax="$PWD/../syntaxes/cabal.json"
+        syntax="$baseDir/syntaxes/cabal.json"
         source="source.cabal"
         ;;
 

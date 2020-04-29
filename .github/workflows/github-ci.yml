@@ -1,0 +1,40 @@
+name: language-haskell CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+
+      - uses: actions/checkout@v2
+        
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install -g js-yaml vscode-tmgrammar-test
+
+      - name: Generate grammar JSON files
+        run: |
+          cd syntaxes
+          js-yaml haskell.YAML-tmLanguage > haskell.json
+          js-yaml   cabal.YAML-tmLanguage >   cabal.json
+
+      - name: Run tests
+        run: |
+          cd test
+          chmod +x test.sh
+          ./test.sh
