@@ -580,9 +580,7 @@ repository:
       - include: '#integer_literals'
       - match: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
         name: keyword.operator.double-colon.haskell
-      - match: '(?<=[\s())\w\d]):[\p{S}\p{P}&&[^(),;\[\]`{}_"'']]+(?=[\s()\w\d])'
-        comment: Operator type
-        name: keyword.operator.custom.haskell
+      - include: '#type_operator'
       - include: '#pragma'
       - match: '->|→'
         name: keyword.operator.arrow.haskell
@@ -605,8 +603,33 @@ repository:
     match: '\b[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
     name: variable.other.generic-type.haskell
   type_constructor:
-    match: '\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*(?!\.)\b'
-    name: storage.type.haskell
+    patterns:
+      # Type starting with a capital letter (with or without promotion tick)
+      - match: '(?<!'')('')?\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*(?!\.)\b'
+        name: storage.type.haskell
+        captures:
+          '1': {name: keyword.operator.promotion.haskell}
+      # Prefix form of a type operator (with or without promotion tick)
+      - match: '('')?(\()(:[\p{S}\p{P}&&[^(),;\[\]`{}_"'']]+)(\))'
+        captures:
+          '1': {name: keyword.operator.promotion.haskell}
+          '2': {name: punctuation.paren.haskell}
+          '4': {name: punctuation.paren.haskell}
+        name: storage.type.operator.prefix.haskell
+  type_operator:
+    patterns:
+      # Type operator
+      - match: '(?<=[\s())\w\d])('')?:[\p{S}\p{P}&&[^(),;\[\]`{}_"'']]+(?=[\s()\w\d])'
+        name: storage.type.operator.haskell
+        captures:
+          '1': {name: keyword.operator.promotion.haskell}
+      # Infix form
+      - match: '('')?(`)([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']+)(`)'
+        captures:
+          '1': {name: keyword.operator.promotion.haskell}
+          '2': {name: punctuation.backtick.haskell}
+          '4': {name: punctuation.backtick.haskell}
+        name: storage.type.operator.infix.haskell
   forall:
     match: '\b(forall|∀)\b(?!'')'
     captures: 
