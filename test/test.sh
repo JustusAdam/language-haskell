@@ -26,7 +26,6 @@ ticketsBroken=(
   "T0071.hs"
   "T0073.hs"
   "T0091.hs"
-  "T0112.hs"
   "T0121.hs"
   "T0131.hs"
   "T0132.hs"
