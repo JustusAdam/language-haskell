@@ -32,9 +32,19 @@
     
      {-# PRAGMA #-}
 --   ^^^^^^^^^^^^^^ comment.block.haskell
+
+    {-|
+      commented
+--    ^^^^^^^^^ comment.block.haskell
+      out
+      docs -}
+--    ^^^^^^^ comment.block.haskell
+
+    {-@ liquid haskell @-}
+--  ^^^^^^^^^^^^^^^^^^^^^^ comment.block.haskell
     
-    -}
---  ^^ comment.block.haskell
+-}
+-- <-- comment.block.haskell
   
     foo :: Bar
 --  ^^^^^^^^^^ - comment.line.double-dash.haskell comment.block.haskell
