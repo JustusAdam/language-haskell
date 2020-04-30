@@ -85,6 +85,7 @@ patterns:
             ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
         patterns:
           - include: '#double_colon'
+          - include: '#record_decl'
           - include: '#type_signature'
       - begin: '(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)\b'
         beginCaptures:

@@ -5,3 +5,14 @@ data A where
 --         ^^^^^^         ^^^^^^ meta.record.definition.haskell variable.other.definition.field.haskell
 --         ^^^^^^         ^^^^^^^ - variable.other.generic-type.haskell
 --                   ^^^            ^^^ meta.record.definition.haskell storage.type.haskell
+
+data B where
+  B
+    :: { field3 :: Bool
+--       ^^^^^^ meta.record.definition.haskell variable.other.definition.field.haskell
+--       ^^^^^^^ - variable.other.generic-type.haskell
+       , field4 :: Int
+--       ^^^^^^ meta.record.definition.haskell variable.other.definition.field.haskell
+--       ^^^^^^^ - variable.other.generic-type.haskell
+       }
+    -> B

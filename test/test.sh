@@ -15,7 +15,6 @@ namedBroken=(
   "QualifiedInfix.hs"
 )
 ticketsBroken=(
-  "T0020b.hs"
   "T0028b.hs"
   "T0028c.hs"
   "T0039b.hs"
