@@ -185,7 +185,7 @@ patterns:
           - include: '#type_signature'
   - begin: '(\s*)(pattern)\s+(.*?)\s+(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
     beginCaptures:
-      '2': {name: keyword.other.haskell}
+      '2': {name: keyword.other.pattern.haskell}
       '3': 
         patterns:
           - include: '#comma'
@@ -196,9 +196,15 @@ patterns:
         ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
     patterns:
       - include: '#type_signature'
-  - match: '^\s*((type|data)\s+(family|instance)|type\s+role|pattern)'
+  - match: '^\s*(?:(type\s+family)|(type\s+instance)|(data\s+family)|(data\s+instance)|(newtype\s+instance)|(type\s+role)|(pattern))'
     captures:
-      '1': {name: keyword.other.haskell}
+      '1': {name: keyword.other.type-family.haskell}
+      '2': {name: keyword.other.type-instance.haskell}
+      '3': {name: keyword.other.data-family.haskell}
+      '4': {name: keyword.other.data-instance.haskell}
+      '5': {name: keyword.other.newtype-instance.haskell}
+      '6': {name: keyword.other.type-role.haskell}
+      '7': {name: keyword.other.pattern.haskell}
   - begin: >-
       (?x)
         ^(\s*)\b(type)
@@ -248,17 +254,16 @@ patterns:
       - include: '#module_exports'
   - include: '#deriving'
   - match: '\b(deriving)\s+(via)\s+(.*)\s+(instance)\b\s+(.*)$'
-    name: test
     captures:
       '1': {name: keyword.other.deriving.haskell}
-      '2': {name: keyword.other.haskell}
+      '2': {name: keyword.other.via.haskell}
       '3': {patterns: [{include: '#type_signature'}]}
       '4': {name: keyword.other.instance.haskell}
-      '5': {name: entity.other.inherited-class.haskell}
+      '5': {patterns: [{include: '#type_signature'}]}
   - match: '\b(deriving)\s+(?:(stock|newtype|anyclass)\s+)?(instance)\b(.*)$'
     captures:
       '1': {name: keyword.other.deriving.haskell}
-      '2': {name: keyword.other.deriving.haskell}
+      '2': {name: keyword.other.deriving-strategy.haskell}
       '3': {name: keyword.other.instance.haskell}
       '4': {patterns: [{include: '#type_signature'}]}
   - match: >-
@@ -357,12 +362,13 @@ patterns:
       [\p{S}\p{P}&&[^(),;\[\]`{}_"']]+
     name: keyword.operator.haskell
   - include: '#comma'
-  - match: '^\s*(foreign)\s+(import|export)\s+(ccall|cplusplus|dotnet|jvm|stdcall)\b(?!'')'
+  - match: '^\s*(foreign)\s+(?:(import)|(export))\s+(ccall|cplusplus|dotnet|jvm|stdcall)\b(?!'')'
     name: meta.import.foreign.haskell
     captures:
       '1': {name: keyword.other.foreign.haskell}
-      '2': {name: keyword.other.haskell}
-      '3': {name: keyword.other.haskell}
+      '2': {name: keyword.other.import.haskell}
+      '3': {name: keyword.other.export.haskell}
+      '4': {name: keyword.other.calling-convention.haskell}
 repository:
   block_comment:
     applyEndPatternLast: 1
@@ -406,11 +412,11 @@ repository:
       - begin: '(deriving)(?:\s+(stock|newtype|anyclass))?\s*\('
         beginCaptures:
           '1': {name: keyword.other.deriving.haskell}
-          '2': {name: keyword.other.deriving.haskell}
+          '2': {name: keyword.other.deriving-strategy.haskell}
         end: \)
         name: meta.deriving.haskell
         patterns:
-          - include: '#derivings'
+          - include: '#type_signature'
 
       - match: |
           (?x)
@@ -419,20 +425,11 @@ repository:
               (\s+(via)\s+(.*)$)?
         captures:
           '1': {name: keyword.other.deriving.haskell}
-          '2': {name: keyword.other.deriving.haskell}
-          '3': {name: entity.other.inherited-class.haskell}
-          '5': {name: keyword.other.deriving.haskell}
+          '2': {name: keyword.other.deriving-strategy.haskell}
+          '3': {patterns: [{include: '#type_signature'}]}
+          '5': {name: keyword.other.via.haskell}
           '6': {patterns: [{include: '#type_signature'}]}
         name: meta.deriving.haskell
-  derivings:
-    patterns:
-      - match: >-
-          \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
-        name: entity.other.inherited-class.haskell
-      - begin: \(
-        end: \)
-        patterns:
-          - include: '#derivings'
   infix_op:
     comment: >
       An operator cannot be composed entirely of '-' characters; 
@@ -463,7 +460,7 @@ repository:
     patterns:
       - match: '\b(pattern)\b(?!'')'
         captures:
-          '1': {name: keyword.other.haskell}
+          '1': {name: keyword.other.pattern.haskell}
       - match: >-
           \b[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
         name: entity.name.function.haskell
