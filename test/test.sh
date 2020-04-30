@@ -22,7 +22,6 @@ ticketsBroken=(
   "T0043b.hs"
   "T0044.hs"
   "T0072a.hs"
-  "T0072b.hs"
   "T0072c.hs"
   "T0071.hs"
   "T0073.hs"
@@ -117,6 +116,7 @@ runTests () {
         then
           fails+=("$name")
           echo -e "${RED}Fail (unexpected)${NC} $file"
+          echo $result
         else
           echo -e "${YELLOW}Fail   (expected)${NC} $file"
         fi
