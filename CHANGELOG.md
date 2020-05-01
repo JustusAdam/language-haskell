@@ -20,6 +20,7 @@
 - Allow unparenthesised `via` clauses, and highlight the derived instance code as usual.
 - Improve support for promotion ticks ([#136](https://github.com/JustusAdam/language-haskell/issues/136)).
 - Support record syntax in GADTs.
+- Address regression in LiquidHaskell highlighting ([#131](https://github.com/JustusAdam/language-haskell/issues/136)).
 
 ## 3.0.0 - 26.04.2020
 
