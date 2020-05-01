@@ -18,7 +18,8 @@
 - Fixed fixed multi pattern synonym type declarations ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
 - Add support for cabal [internal libraries](https://www.haskell.org/cabal/users-guide/developing-packages.html#sublibs).
 - Allow unparenthesised `via` clauses, and highlight the derived instance code as usual.
-- Improve support for promotion ticks ([#136](https://github.com/JustusAdam/language-haskell/issues/136)).
+- Improve highlighting of ticks ([#136](https://github.com/JustusAdam/language-haskell/issues/136)),
+  ([#71](https://github.com/JustusAdam/language-haskell/issues/71)).
 - Support record syntax in GADTs.
 - Address regression in LiquidHaskell highlighting ([#131](https://github.com/JustusAdam/language-haskell/issues/136)).
 
