@@ -75,7 +75,16 @@ patterns:
     end: | 
       (?x)
         (?=\bderiving\b)
-        | ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
+        |^(?!          # It ends *unless* the *new* line is:
+            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
+          | \s*        # - Only a little bit of whitespace followed by
+            (?: $      #   - The end of the line (i.e. empty line)
+            | \{-      #   - The start of a block comment
+            |--+       #   - The start of a single-line comment
+               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
+                       # The double dash may not be followed by other operator characters,
+                       # then it would be an operator, not a comment
+          )
     patterns:
       - include: '#deriving'
       - include: '#comments'
@@ -119,7 +128,16 @@ patterns:
     name: meta.declaration.newtype.haskell
     end: | 
       (?x)
-        ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
+         ^(?!          # It ends *unless* the *new* line is:
+            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
+          | \s*        # - Only a little bit of whitespace followed by
+            (?: $      #   - The end of the line (i.e. empty line)
+            | \{-      #   - The start of a block comment
+            |--+       #   - The start of a single-line comment
+               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
+                       # The double dash may not be followed by other operator characters,
+                       # then it would be an operator, not a comment
+          )
     patterns:
       - include: '#existential'
       - include: '#record_decl'
@@ -132,8 +150,17 @@ patterns:
         name: multiline
         end: |
           (?x)
-              (?=\||\bderiving\b)
-            | ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
+            (?=\||\bderiving\b)  # A deriving clause could be futher indented
+            | ^(?!          # It ends *unless* the *new* line is:
+                 \1\s+\S    # - Some haskell stuff, but more indented (continuation)
+               | \s*        # - Only a little bit of whitespace followed by
+                 (?: $      #   - The end of the line (i.e. empty line)
+                 | \{-      #   - The start of a block comment
+                 |--+       #   - The start of a single-line comment
+                    (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
+                            # The double dash may not be followed by other operator characters,
+                            # then it would be an operator, not a comment
+               )
         patterns:
           - include: '#record_decl' 
           - include: '#type_signature'
@@ -168,8 +195,16 @@ patterns:
       '7': {name: keyword.operator.eq.haskell}
     end: | 
       (?x)
-        ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
-    name: meta.declaration.adt.haskell
+         ^(?!          # It ends *unless* the *new* line is:
+            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
+          | \s*        # - Only a little bit of whitespace followed by
+            (?: $      #   - The end of the line (i.e. empty line)
+            | \{-      #   - The start of a block comment
+            |--+       #   - The start of a single-line comment
+               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
+                       # The double dash may not be followed by other operator characters,
+                       # then it would be an operator, not a comment
+          )
     patterns:
       - include: '#existential'
       - include: '#record_decl'
@@ -182,8 +217,17 @@ patterns:
           '4': {name: constant.other.haskell}
         end: |
           (?x)
-              (?=\||\bderiving\b)
-            | ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
+            (?=\||\bderiving\b)  # A deriving clause could be futher indented
+            | ^(?!          # It ends *unless* the *new* line is:
+                 \1\s+\S    # - Some haskell stuff, but more indented (continuation)
+               | \s*        # - Only a little bit of whitespace followed by
+                 (?: $      #   - The end of the line (i.e. empty line)
+                 | \{-      #   - The start of a block comment
+                 |--+       #   - The start of a single-line comment
+                    (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
+                            # The double dash may not be followed by other operator characters,
+                            # then it would be an operator, not a comment
+               )
         patterns:
           - include: '#record_decl' 
           - include: '#type_signature'
@@ -207,7 +251,16 @@ patterns:
       '4': {name: keyword.operator.double-colon.haskell}
     end: | 
       (?x)
-        ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
+         ^(?!          # It ends *unless* the *new* line is:
+            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
+          | \s*        # - Only a little bit of whitespace followed by
+            (?: $      #   - The end of the line (i.e. empty line)
+            | \{-      #   - The start of a block comment
+            |--+       #   - The start of a single-line comment
+               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
+                       # The double dash may not be followed by other operator characters,
+                       # then it would be an operator, not a comment
+          )
     patterns:
       - include: '#type_signature'
   - match: '^\s*(?:(?:(type)\s+(family))|(?:(data)\s+(family))|(?:(type)\s+(role))|(pattern))'
@@ -242,7 +295,16 @@ patterns:
           - include: '#type_signature'
     end: | 
       (?x)
-        ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
+         ^(?!          # It ends *unless* the *new* line is:
+            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
+          | \s*        # - Only a little bit of whitespace followed by
+            (?: $      #   - The end of the line (i.e. empty line)
+            | \{-      #   - The start of a block comment
+            |--+       #   - The start of a single-line comment
+               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
+                       # The double dash may not be followed by other operator characters,
+                       # then it would be an operator, not a comment
+          )
     endCaptures:
       '1': {name: keyword.operator.eq.haskell}
     patterns:
@@ -256,7 +318,16 @@ patterns:
     end: |
       (?x)
         \b(where)\b(?!')
-        | ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
+        |^(?!          # It ends *unless* the *new* line is:
+            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
+          | \s*        # - Only a little bit of whitespace followed by
+            (?: $      #   - The end of the line (i.e. empty line)
+            | \{-      #   - The start of a block comment
+            |--+       #   - The start of a single-line comment
+               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
+                       # The double dash may not be followed by other operator characters,
+                       # then it would be an operator, not a comment
+          )
     endCaptures:
       '1': {name: keyword.other.where.haskell}
     name: meta.declaration.instance.haskell
@@ -592,7 +663,16 @@ repository:
           (<\-)           # we are the left side of a `x :: Type <- expr` bind statement
           | }             # A block closed? Maybe this should also include `;`, because non-indentation based `do`
         )
-        | ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
+        |^(?!          # It ends *unless* the *new* line is:
+            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
+          | \s*        # - Only a little bit of whitespace followed by
+            (?: $      #   - The end of the line (i.e. empty line)
+            | \{-      #   - The start of a block comment
+            |--+       #   - The start of a single-line comment
+               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
+                       # The double dash may not be followed by other operator characters,
+                       # then it would be an operator, not a comment
+          )
   type_signature:
     patterns:
       - match: '\(\s*\)'
