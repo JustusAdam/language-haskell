@@ -10,7 +10,9 @@ patterns:
     end: '@-\}'
     patterns:
       - include: '$self'
-  - captures:
+  - match: >-
+      (`)((?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.)*)([\p{Ll}\p{Lu}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)(`)
+    captures:
       '1': {name: punctuation.backtick.haskell}
       '2': {name: entity.name.namespace.haskell}
       '3':
@@ -21,8 +23,6 @@ patterns:
       In case this regex seems unusual for an infix operator, note that Haskell
       allows any ordinary function application (elem 4 [1..10]) to be rewritten
       as an infix expression (4 `elem` [1..10]).
-    match: >-
-      (`)([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}''\.]*\.)?([\p{Ll}\p{Lu}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)(`)
     name: keyword.operator.function.infix.haskell
   - match: '\(\s*\)'
     name: constant.language.unit.haskell
@@ -76,7 +76,7 @@ patterns:
         |^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
     patterns:
       - include: '#deriving'
-      - begin: '^(\s*)(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)\b'
+      - begin: '^(\s*)(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)'
         beginCaptures:
           '2': {name: constant.other.haskell}
           '3': {name: keyword.operator.double-colon.haskell}
@@ -87,7 +87,7 @@ patterns:
           - include: '#double_colon'
           - include: '#record_decl'
           - include: '#type_signature'
-      - begin: '(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)\b'
+      - begin: '(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)'
         beginCaptures:
           '1': {name: constant.other.haskell}
           '2': {name: keyword.operator.double-colon.haskell}
@@ -333,6 +333,7 @@ patterns:
       '6': {name: punctuation.definition.string.end.haskell}
     match: |
       (?x)
+        (?<![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'])
         (')
         (?:
           [\ -\[\]-~]                         # Basic Char
@@ -359,13 +360,15 @@ patterns:
     patterns:
       - include: '#type_signature'
     name: meta.type-declaration.haskell
-  - comment: >
+  - match: >-
+      ((?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.)*)([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)
+    comment: >
       In case this regex seems overly general, note that Haskell permits 
       the definition of new operators which can be nearly any string of 
       punctuation characters, such as $%^&*.
-    match: >-
-      [\p{S}\p{P}&&[^(),;\[\]`{}_"']]+
-    name: keyword.operator.haskell
+    captures:
+      '1': {name: entity.name.namespace.haskell}
+      '2': {name: keyword.operator.haskell}
   - include: '#comma'
   - match: '^\s*(foreign)\s+(?:(import)|(export))\s+(ccall|cplusplus|dotnet|jvm|stdcall)\b(?!'')'
     name: meta.import.foreign.haskell
@@ -520,12 +523,12 @@ repository:
         name: keyword.operator.period.haskell
   data_constructor:
     match: >-
-      \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\b
+      \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?![\.''\w])
     name: constant.other.haskell
   qualifier:
     match: >-
-      \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?=\.)\b
-    name: meta.import.qualifier.haskell
+      \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.
+    name: entity.name.namespace.haskell
   record_decl:
     begin: '{'
     end: '}'
@@ -613,7 +616,7 @@ repository:
   type_constructor:
     patterns:
       # Type starting with a capital letter (with or without promotion tick)
-      - match: '(?<!'')('')?\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*(?!\.)\b'
+      - match: '(?<!'')('')?\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*(?![\.''\w])'
         name: storage.type.haskell
         captures:
           '1': {name: keyword.operator.promotion.haskell}
