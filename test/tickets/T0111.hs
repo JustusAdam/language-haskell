@@ -11,11 +11,11 @@ type T a =
 -- Multi line type alias with infix constructors
 
 type UserApi = "users" :> Body '[JSON]
---                     ^^ storage.type.operator.haskell
+--                     ^^ storage.type.operator.infix.haskell
                        :> Post '[JSON]
 --                        ^^^^ storage.type.haskell
           :<|> "users" :> Capture "userid"
---        ^^^^ storage.type.operator.haskell
+--        ^^^^         ^^ storage.type.operator.infix.haskell
 --                                ^^^^^^^^ string.quoted.double.haskell
                        :> ReqBody '[JSON]
 --                        ^^^^^^^ storage.type.haskell

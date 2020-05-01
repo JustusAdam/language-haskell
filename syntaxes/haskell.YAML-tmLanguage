@@ -361,14 +361,15 @@ patterns:
       - include: '#type_signature'
     name: meta.type-declaration.haskell
   - match: >-
-      ((?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.)*)([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)
+      ((?:(?<!'')('')?[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.)*)([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)
     comment: >
       In case this regex seems overly general, note that Haskell permits 
       the definition of new operators which can be nearly any string of 
       punctuation characters, such as $%^&*.
     captures:
-      '1': {name: entity.name.namespace.haskell}
-      '2': {name: keyword.operator.haskell}
+      '1': {name: keyword.operator.promotion.haskell}
+      '2': {name: entity.name.namespace.haskell}
+      '3': {name: keyword.operator.haskell}
   - include: '#comma'
   - match: '^\s*(foreign)\s+(?:(import)|(export))\s+(ccall|cplusplus|dotnet|jvm|stdcall)\b(?!'')'
     name: meta.import.foreign.haskell
@@ -518,7 +519,6 @@ repository:
     patterns: 
       - include: '#type_variable'
       - include: '#type_constructor'
-      - include: '#namespace'
       - match: '\.'
         name: keyword.operator.period.haskell
   data_constructor:
@@ -581,66 +581,125 @@ repository:
         | ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
   type_signature:
     patterns:
-      - match: '\(\s*\)'
+      - match: '('')?\(\s*\)'
+        captures:
+          '1': {name: keyword.operator.promotion.haskell}
         name: support.constant.unit.haskell
-      - begin: \(
-        end: \)
-        patterns:
-          - include: '#comma'
-          - include: '#type_signature'
+      - match: '('')?\[\s*\]'
+        captures:
+          '1': {name: keyword.operator.promotion.haskell}
+        name: support.constant.empty-list.haskell
       - include: '#integer_literals'
       - match: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
         name: keyword.operator.double-colon.haskell
-      - include: '#type_operator'
-      - include: '#pragma'
       - match: '->|→'
         name: keyword.operator.arrow.haskell
       - include: '#forall'
       - match: '=>|⇒'
         name: keyword.operator.big-arrow.haskell
-      - include: '#type_variable'
-      - include: '#type_constructor'
-      - include: '#namespace'
-      - include: '#comments'
       - include: '#string_literal'
+      - match: '''[^'']'''
+        name: invalid
+      - include: '#type_operator'
+      - include: '#type_constructor'
+      - begin: '('')?(\()'
+        end: '(\))'
+        beginCaptures:
+          '1': {name: keyword.operator.promotion.haskell}
+          '2': {name: punctuation.paren.haskell}
+        endCaptures:
+          '1': {name: punctuation.paren.haskell}
+        patterns:
+          - include: '#comma'
+          - include: '#type_signature'
+      - begin: '('')?(\[)'
+        end: '(\])'
+        beginCaptures:
+          '1': {name: keyword.operator.promotion.haskell}
+          '2': {name: punctuation.bracket.haskell}
+        endCaptures:
+          '1': {name: punctuation.bracket.haskell}
+        patterns:
+          - include: '#comma'
+          - include: '#type_signature'
+      - include: '#pragma'
+      - include: '#comments'
+      - include: '#type_variable'
   double_colon:
     match: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
     captures:
       '1': {name: keyword.other.double-colon.haskell}
-  namespace:
-    match: '\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.'
-    name: entity.name.namespace.haskell
   type_variable:
     match: '\b[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
     name: variable.other.generic-type.haskell
   type_constructor:
     patterns:
-      # Type starting with a capital letter (with or without promotion tick)
-      - match: '(?<!'')('')?\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*(?![\.''\w])'
-        name: storage.type.haskell
+      # Type starting with a capital letter (optional promotion & qualification)
+      - match: >-
+          (?x)
+            # Optional promotion tick
+              (')?
+            # Optional qualified name
+              ((?:\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.)*)
+            # Type constructor proper
+              (\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
         captures:
           '1': {name: keyword.operator.promotion.haskell}
-      # Prefix form of a type operator (with or without promotion tick)
-      - match: '('')?(\()(:[\p{S}\p{P}&&[^(),;\[\]`{}_"'']]+)(\))'
+          '2': {name: entity.name.namespace.haskell}
+          '3': {name: storage.type.haskell}
+      # Prefix form of a type operator (optional promotion & qualification)
+      - match: >-
+          (?x)
+            # Optional promotion tick
+              (')?
+            # Opening parenthesis
+              (\()
+            # Optional qualified name
+              ((?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.)*)
+            # Type operator proper
+              ([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)
+            # Closing parenthesis
+              (\))
         captures:
           '1': {name: keyword.operator.promotion.haskell}
           '2': {name: punctuation.paren.haskell}
-          '4': {name: punctuation.paren.haskell}
-        name: storage.type.operator.prefix.haskell
+          '3': {name: entity.name.namespace.haskell}
+          '4': {name: storage.type.operator.prefix.haskell }
+          '5': {name: punctuation.paren.haskell}
   type_operator:
     patterns:
-      # Type operator
-      - match: '(?<=[\s())\w\d])('')?:[\p{S}\p{P}&&[^(),;\[\]`{}_"'']]+(?=[\s()\w\d])'
-        name: storage.type.operator.haskell
+      # Symbolic type operator (optional promotion & qualification)
+      - match: >-
+          (?x)
+            # Optional promotion tick
+              (?:(?<!')('))?
+            # Optional qualified name
+              ((?:\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.)*)
+            # Type operator proper
+              ([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)
         captures:
-          '1': {name: keyword.operator.promotion.haskell}
-      # Infix form
-      - match: '('')?(`)([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']+)(`)'
+          '1': {name: keyword.operator.promotion.haskell }
+          '2': {name: entity.name.namespace.haskell }
+          '3': {name: storage.type.operator.infix.haskell }
+      # Infix form of alphanumeric type (optional promotion & qualification)
+      - match: >-
+          (?x)
+            # Optional promotion tick
+              (')?
+            # Opening backtick
+              (\`)
+            # Optional qualified name
+              ((?:\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.)*)
+            # Type constructor proper
+              ([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+            # Closing backtick
+              (`)
         captures:
           '1': {name: keyword.operator.promotion.haskell}
           '2': {name: punctuation.backtick.haskell}
-          '4': {name: punctuation.backtick.haskell}
-        name: storage.type.operator.infix.haskell
+          '3': {name: entity.name.namespace.haskell}
+          '4': {name: storage.type.infix.haskell}
+          '5': {name: punctuation.backtick.haskell}
   forall:
     match: '\b(forall|∀)\b(?!'')'
     captures: 
