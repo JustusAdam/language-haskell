@@ -21,6 +21,8 @@
 - Improve support for promotion ticks ([#136](https://github.com/JustusAdam/language-haskell/issues/136)).
 - Support record syntax in GADTs.
 - Address regression in LiquidHaskell highlighting ([#131](https://github.com/JustusAdam/language-haskell/issues/136)).
+- Fixed several issues involving multi-line type/data declarations,
+  including allowing intervening comments ([#147](https://github.com/JustusAdam/language-haskell/pull/147)).
 
 ## 3.0.0 - 26.04.2020
 

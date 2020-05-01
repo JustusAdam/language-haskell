@@ -54,7 +54,7 @@ patterns:
       - {include: '#type_signature'}
   - begin: >-
       (?x)
-        ^(\s)*\b(data)
+        ^(\s*)\b(?:(?:(data)\s+(instance))|(data))
         \s+
         (
           [\p{Lu}\p{Lt}][\w\p{Nd}_']*                   # named type
@@ -64,25 +64,28 @@ patterns:
         \b(where(?:\b(?!')))
     beginCaptures:
       '2': {name: keyword.other.data.haskell}
-      '3': {name: storage.type.haskell}
-      '4':
+      '3': {name: keyword.other.instance.haskell}
+      '4': {name: keyword.other.data.haskell}
+      '5': {name: storage.type.haskell}
+      '6':
         patterns:
           - include: '#type_signature'
-      '5': {name: keyword.other.where.haskell}
+      '7': {name: keyword.other.where.haskell}
     name: meta.declaration.type.gadt.haskell
     end: | 
       (?x)
         (?=\bderiving\b)
-        |^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
+        | ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
     patterns:
       - include: '#deriving'
+      - include: '#comments'
       - begin: '^(\s*)(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)\b'
         beginCaptures:
           '2': {name: constant.other.haskell}
           '3': {name: keyword.operator.double-colon.haskell}
         end: |
           (?x)
-            ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
+            ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
         patterns:
           - include: '#double_colon'
           - include: '#record_decl'
@@ -96,7 +99,7 @@ patterns:
           - include: '#type_signature'
   - begin: >-
       (?x)
-        ^(\s)*\b(newtype)
+        ^(\s*)\b(?:(?:(newtype)\s+(instance))|(newtype))
         \s+
         (
           [\p{Lu}\p{Lt}][\w\p{Nd}_']*                   # named type
@@ -106,19 +109,22 @@ patterns:
         (?:(=)|$)
     beginCaptures:
       '2': {name: keyword.other.newtype.haskell}
-      '3': {name: storage.type.haskell}
-      '4':
+      '3': {name: keyword.other.instance.haskell}
+      '4': {name: keyword.other.newtype.haskell}
+      '5': {name: storage.type.haskell}
+      '6':
         patterns:
           - include: '#type_signature'
-      '5': {name: keyword.other.eq.haskell}
+      '7': {name: keyword.operator.eq.haskell}
     name: meta.declaration.newtype.haskell
     end: | 
       (?x)
-        ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/*
+        ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
     patterns:
       - include: '#existential'
       - include: '#record_decl'
       - include: '#deriving'
+      - include: '#comments'
       - begin: '^(\s*)(=)?\s*(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)'
         beginCaptures:
           '2': {name: keyword.operator.eq.haskell}
@@ -127,7 +133,7 @@ patterns:
         end: |
           (?x)
               (?=\||\bderiving\b)
-            | ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
+            | ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
         patterns:
           - include: '#record_decl' 
           - include: '#type_signature'
@@ -143,7 +149,7 @@ patterns:
           - include: '#type_signature'
   - begin: >-
       (?x)
-        ^(\s)*\b(data)
+        ^(\s*)\b(?:(?:(data)\s+(instance))|(data))
         \s+
         (
           [\p{Lu}\p{Lt}][\w\p{Nd}_']*                   # named type
@@ -153,19 +159,22 @@ patterns:
         (?:(=)|$)
     beginCaptures:
       '2': {name: keyword.other.data.haskell}
-      '3': {name: storage.type.haskell}
-      '4':
+      '3': {name: keyword.other.instance.haskell}
+      '4': {name: keyword.other.data.haskell}
+      '5': {name: storage.type.haskell}
+      '6':
         patterns:
           - include: '#type_signature'
-      '5': {name: keyword.operator.eq.haskell}
+      '7': {name: keyword.operator.eq.haskell}
     end: | 
       (?x)
-        ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/*
+        ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
     name: meta.declaration.adt.haskell
     patterns:
       - include: '#existential'
       - include: '#record_decl'
       - include: '#deriving'
+      - include: '#comments'
       - begin: '^(\s*)(?:(\|)|(=))\s*(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)'
         beginCaptures:
           '2': {name: keyword.operator.pipe.haskell}
@@ -174,7 +183,7 @@ patterns:
         end: |
           (?x)
               (?=\||\bderiving\b)
-            | ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
+            | ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
         patterns:
           - include: '#record_decl' 
           - include: '#type_signature'
@@ -198,21 +207,21 @@ patterns:
       '4': {name: keyword.operator.double-colon.haskell}
     end: | 
       (?x)
-        ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
+        ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
     patterns:
       - include: '#type_signature'
-  - match: '^\s*(?:(type\s+family)|(type\s+instance)|(data\s+family)|(data\s+instance)|(newtype\s+instance)|(type\s+role)|(pattern))'
+  - match: '^\s*(?:(?:(type)\s+(family))|(?:(data)\s+(family))|(?:(type)\s+(role))|(pattern))'
     captures:
-      '1': {name: keyword.other.type-family.haskell}
-      '2': {name: keyword.other.type-instance.haskell}
-      '3': {name: keyword.other.data-family.haskell}
-      '4': {name: keyword.other.data-instance.haskell}
-      '5': {name: keyword.other.newtype-instance.haskell}
-      '6': {name: keyword.other.type-role.haskell}
+      '1': {name: keyword.other.type.haskell}
+      '2': {name: keyword.other.family.haskell}
+      '3': {name: keyword.other.data.haskell}
+      '4': {name: keyword.other.family.haskell}
+      '5': {name: keyword.other.type.haskell}
+      '6': {name: keyword.other.role.haskell}
       '7': {name: keyword.other.pattern.haskell}
   - begin: >-
       (?x)
-        ^(\s*)\b(type)
+        ^(\s*)\b(?:(?:(type)\s+(instance))|(type))
           \s+
           ([^=]*)
           (?:
@@ -222,25 +231,32 @@ patterns:
           )?\s*$
     beginCaptures:
       '2': {name: keyword.other.type.haskell}
-      '3':
-        patterns:
-          - include: '#type_signature'
-      '4': {name: keyword.operator.eq.haskell}
+      '3': {name: keyword.other.instance.haskell}
+      '4': {name: keyword.other.type.haskell}
       '5':
         patterns:
           - include: '#type_signature'
-    patterns:
-      - include: '#type_signature'
+      '6': {name: keyword.operator.eq.haskell}
+      '7':
+        patterns:
+          - include: '#type_signature'
     end: | 
       (?x)
-        ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
+        ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
+    endCaptures:
+      '1': {name: keyword.operator.eq.haskell}
+    patterns:
+      - include: '#type_signature'
+      - match: '^(?:\s*(=))'
+        captures:
+          '1': {name: keyword.operator.eq.haskell}
   - begin: '^(\s*)\b(instance)(\b(?!''))'
     beginCaptures:
       '2': {name: keyword.other.instance.haskell}
     end: |
       (?x)
         \b(where)\b(?!')
-        | ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
+        | ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
     endCaptures:
       '1': {name: keyword.other.where.haskell}
     name: meta.declaration.instance.haskell
@@ -527,10 +543,10 @@ repository:
       \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?=\.)\b
     name: meta.import.qualifier.haskell
   record_decl:
-    begin: '{'
-    end: '}'
+    begin: '{(?!-)'
+    end: '(?<!-)}'
     name: meta.record.definition.haskell
-    patterns: 
+    patterns:
       - begin: >-
           (?x)
           ([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
@@ -569,13 +585,14 @@ repository:
     name: meta.function.type-declaration.haskell
     patterns:
       - include: '#type_signature'
+      - include: '#comments'
     end: |
       (?x)
         (?=               # we look ahead, but we do not want to consume
           (<\-)           # we are the left side of a `x :: Type <- expr` bind statement
           | }             # A block closed? Maybe this should also include `;`, because non-indentation based `do`
         )
-        | ^(?!\1\s+\S|\s*$)    # at least one, no-further indented, non-whitespace character. I.e. a same-level declaration/implementation
+        | ^(?!\1\s+\S|\s*$|\s*\{-|\s*-*--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$) # at least one, no-further indented, non-commented non-whitespace character. I.e. a same-level declaration/implementation
   type_signature:
     patterns:
       - match: '\(\s*\)'
@@ -603,7 +620,7 @@ repository:
   double_colon:
     match: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
     captures:
-      '1': {name: keyword.other.double-colon.haskell}
+      '1': {name: keyword.operator.double-colon.haskell}
   namespace:
     match: '\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.'
     name: entity.name.namespace.haskell
