@@ -466,6 +466,9 @@ repository:
       - match: '\b(pattern)\b(?!'')'
         captures:
           '1': {name: keyword.other.pattern.haskell}
+      - match: '\b(type)\b(?!'')'
+        captures:
+          '1': {name: keyword.other.type.haskell}
       - match: >-
           \b[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
         name: entity.name.function.haskell

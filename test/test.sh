@@ -10,9 +10,13 @@ tickets=($PWD/tickets/*)
 # Arrays containing filenames of broken tests.
 namedBroken=(
   "Comments.hs"
+  "Exports.hs"
+  "Haddocks.hs"
   "InvalidClosingBlockComment.hs"
   "Keywords.hs"
+  "MultiLineTypeSignatures.hs"
   "QualifiedInfix.hs"
+  "TypeSigs.hs"
 )
 ticketsBroken=(
   "T0028b.hs"
@@ -21,6 +25,7 @@ ticketsBroken=(
   "T0043b.hs"
   "T0044.hs"
   "T0072a.hs"
+  "T0072b2.hs"
   "T0072c.hs"
   "T0071.hs"
   "T0073.hs"
