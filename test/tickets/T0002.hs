@@ -7,8 +7,8 @@ module Module
 --     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.line.double-dash.haskell
     foo
 --  ^^^ meta.declaration.exports.haskell entity.name.function.haskell
-    {- | disable, too
---     ^^^^^^^^^^^^^^^ comment.block.haskell
+    {- disable, too
+--     ^^^^^^^^^^^^ comment.block.haskell
     -}
   , bar, bar
 --  ^^^ meta.declaration.exports.haskell entity.name.function.haskell

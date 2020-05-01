@@ -6,10 +6,10 @@ keyEquivalent: ^~H
 name: Haskell
 patterns:
   - name: block.liquidhaskell.haskell
-    contentName: block.liquidhaskell.haskell
     begin: '\{-@'
     end: '@-\}'
-    patterns: {include: $self}
+    patterns:
+      - include: '$self'
   - captures:
       '1': {name: punctuation.backtick.haskell}
       '2': {name: entity.name.namespace.haskell}
