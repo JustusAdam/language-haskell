@@ -17,3 +17,28 @@ type T a
 {- comment line not gobbled up by the preprocessor -}
   = Int
 --  ^^^ storage.type.haskell
+
+
+data Foo a -- = y
+--         ^^^^^^ comment.line.double-dash.haskell
+  = A
+
+data Foo a {- = y -}
+--         ^^^^^^^^^ comment.block.haskell
+  = A
+
+type Foo a -- = A
+--         ^^^^^^ comment.line.double-dash.haskell
+  = A
+
+type Foo a {- = a -}
+--         ^^^^^^^^^ comment.block.haskell
+  = A
+
+f   -- :: xyz
+--  ^^^^^^^^^ comment.line.double-dash.haskell
+  :: A -> B
+
+f   {- :: xyz -}
+--  ^^^^^^^^^^^^ comment.line.double-dash.haskell
+  :: A -> B

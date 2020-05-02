@@ -600,6 +600,8 @@ repository:
       - include: '#string_literal'
       - match: '''[^'']'''
         name: invalid
+      - include: '#pragma'
+      - include: '#comments'
       - include: '#type_operator'
       - include: '#type_constructor'
       - begin: '('')?(\()'
@@ -622,8 +624,6 @@ repository:
         patterns:
           - include: '#comma'
           - include: '#type_signature'
-      - include: '#pragma'
-      - include: '#comments'
       - include: '#type_variable'
   double_colon:
     match: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
