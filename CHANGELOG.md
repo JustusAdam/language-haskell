@@ -25,6 +25,7 @@
 - Fixed several issues involving multi-line type/data declarations,
   including allowing intervening comments ([#147](https://github.com/JustusAdam/language-haskell/pull/147)).
 - Add support for visible kind application (and miscellaneous fixes for visible type application).
+- Allow C preprocessor instructions to appear in module exports.
 
 ## 3.0.0 - 26.04.2020
 

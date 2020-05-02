@@ -37,6 +37,7 @@ patterns:
       '1': {name: keyword.other.where.haskell}
     name: meta.declaration.module.haskell
     patterns:
+      - include: '#cpp'
       - include: '#module_name'
       - include: '#module_exports'
       - include: '#pragma'
@@ -389,11 +390,7 @@ patterns:
     name: keyword.control.haskell
   - include: '#numeric_literals'
   - include: '#type_application'
-  - captures:
-      '1': {name: punctuation.definition.preprocessor.c}
-    comment: 'In addition to Haskell''s "native" syntax, GHC permits the C preprocessor to be run on a source file.'
-    match: '^\s*(#)\s*\w+'
-    name: meta.preprocessor.c
+  - include: '#cpp'
   - include: '#pragma'
   - include: '#string_literal'
   - captures:
@@ -488,6 +485,12 @@ repository:
             end: \n
             name: comment.line.double-dash.haskell
       - {include: '#block_comment'}
+  cpp:
+    captures:
+      '1': {name: punctuation.definition.preprocessor.c}
+    comment: 'In addition to Haskell''s "native" syntax, GHC permits the C preprocessor to be run on a source file.'
+    match: '^\s*(#).*$'
+    name: meta.preprocessor.c
   deriving:
     patterns:
       - begin: '(deriving)(?:\s+(stock|newtype|anyclass))?\s*\('
@@ -532,6 +535,7 @@ repository:
         captures:
           '1': {name: keyword.other.module.haskell}
       - include: '#comma'
+      - include: '#cpp'
       - include: '#export_constructs'
       - begin: '\('
         end: '\)'
