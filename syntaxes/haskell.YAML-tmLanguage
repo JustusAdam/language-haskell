@@ -388,33 +388,7 @@ patterns:
   - match: '\b(m?do|if|then|else|case|of)(\b(?!''))'
     name: keyword.control.haskell
   - include: '#numeric_literals'
-  - match: '(?<![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}''])(@)\s*([\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']+)'
-    captures:
-      '1': {name: keyword.operator.at.haskell}
-      '2': 
-        patterns:
-          - include: '#type_variable'
-          - include: '#type_constructor'
-  - begin: '(?<![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}''])(@)\s*(\()'
-    beginCaptures: 
-      '1': {name: keyword.operator.at.haskell}
-      '2': {name: punctuation.paren.haskell}
-    end: '\)'
-    endCaptures:
-      '0': {name: punctuation.paren.haskell}
-    name: meta.type-application.haskell
-    patterns:
-      - include: '#type_signature'
-  - begin: '(?<![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}''])(@)\s*(\[)'
-    beginCaptures: 
-      '1': {name: keyword.operator.at.haskell}
-      '2': {name: punctuation.brace.haskell}
-    end: '\]'
-    name: meta.type-application.haskell
-    endCaptures:
-      '0': {name: punctuation.brace.haskell}
-    patterns:
-      - include: '#type_signature'
+  - include: '#type_application'
   - captures:
       '1': {name: punctuation.definition.preprocessor.c}
     comment: 'In addition to Haskell''s "native" syntax, GHC permits the C preprocessor to be run on a source file.'
@@ -687,6 +661,37 @@ repository:
                        # The double dash may not be followed by other operator characters,
                        # then it would be an operator, not a comment
           )
+  type_application:
+    patterns:
+      - begin: '(?<=[\s,;\[\]{}"])(@)('')?(\()'
+        beginCaptures: 
+          '1': {name: keyword.operator.at.haskell}
+          '2': {name: keyword.operator.promotion.haskell}
+          '3': {name: punctuation.paren.haskell}
+        end: '\)'
+        endCaptures:
+          '0': {name: punctuation.paren.haskell}
+        name: meta.type-application.haskell
+        patterns:
+          - include: '#type_signature'
+      - begin: '(?<=[\s,;\[\]{}"])(@)('')?(\[)'
+        beginCaptures: 
+          '1': {name: keyword.operator.at.haskell}
+          '2': {name: keyword.operator.promotion.haskell}
+          '3': {name: punctuation.bracket.haskell}
+        end: '\]'
+        name: meta.type-application.haskell
+        endCaptures:
+          '0': {name: punctuation.bracket.haskell}
+        patterns:
+          - include: '#type_signature'
+      - begin: '(?<=[\s,;\[\]{}"])(@)(?=[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}''])'
+        beginCaptures: 
+          '1': {name: keyword.operator.at.haskell}
+        end: '[^\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']'
+        name: meta.type-application.haskell
+        patterns:
+          - include: '#type_signature'
   type_signature:
     patterns:
       - match: '('')?\(\s*\)'
@@ -708,6 +713,7 @@ repository:
       - include: '#string_literal'
       - match: '''[^'']'''
         name: invalid
+      - include: '#type_application'
       - include: '#pragma'
       - include: '#comments'
       - include: '#type_operator'
