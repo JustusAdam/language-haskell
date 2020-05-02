@@ -10,6 +10,7 @@ anotherFunc arg =
 --  ^^^ keyword.other.let.haskell
     in case a :: B of
 --  ^^ keyword.other.in.haskell
+--            ^^ keyword.operator.double-colon.haskell
 --     ^^^^        ^^ keyword.control.haskell
         Just _ -> do
 --             ^^ keyword.operator.haskell
