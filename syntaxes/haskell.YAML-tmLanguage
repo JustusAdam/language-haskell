@@ -51,9 +51,9 @@ patterns:
       (?x)
         ^(\s*)\b(?:(?:(data)\s+(instance))|(data))
         \s+
-        (
-          [\p{Lu}\p{Lt}][\w\p{Nd}_']*                   # named type
-        | \(\s*:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+\s*\)   # Operator type
+        (?:
+          ([\p{Lu}\p{Lt}][\w\p{Nd}_']*)                  # named type
+        | \(\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)  # Operator type
         )
         (.*)
         \b(where(?:\b(?!')))
@@ -62,10 +62,11 @@ patterns:
       '3': {name: keyword.other.instance.haskell}
       '4': {name: keyword.other.data.haskell}
       '5': {name: storage.type.haskell}
-      '6':
+      '6': {name: storage.type.operator.haskell}
+      '7':
         patterns:
           - include: '#type_signature'
-      '7': {name: keyword.other.where.haskell}
+      '8': {name: keyword.other.where.haskell}
     name: meta.declaration.type.gadt.haskell
     end: | 
       (?x)
@@ -103,20 +104,23 @@ patterns:
           - include: '#double_colon'
           - include: '#record_decl'
           - include: '#type_signature'
-      - begin: '(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)'
+      - begin: >-
+          (?x)
+            (\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}]*) # named constructor
+           |\(\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)  # prefix operator
         beginCaptures:
           '1': {name: constant.other.haskell}
-          '2': {name: keyword.operator.double-colon.haskell}
+          '2': {name: constant.other.haskell}
         end: '$'
-        patterns: 
+        patterns:
           - include: '#type_signature'
   - begin: >-
       (?x)
         ^(\s*)\b(?:(?:(newtype)\s+(instance))|(newtype))
         \s+
-        (
-          [\p{Lu}\p{Lt}][\w\p{Nd}_']*                   # named type
-        | \(\s*:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+\s*\)   # Operator type
+        (?:
+          ([\p{Lu}\p{Lt}][\w\p{Nd}_']*)                  # named type
+        | \(\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)  # Operator type
         )
         ([^=]*)
         (?:(=)|$)
@@ -125,10 +129,11 @@ patterns:
       '3': {name: keyword.other.instance.haskell}
       '4': {name: keyword.other.newtype.haskell}
       '5': {name: storage.type.haskell}
-      '6':
+      '6': {name: storage.type.operator.haskell}
+      '7':
         patterns:
           - include: '#type_signature'
-      '7': {name: keyword.operator.eq.haskell}
+      '8': {name: keyword.operator.eq.haskell}
     name: meta.declaration.newtype.haskell
     end: | 
       (?x)
@@ -182,9 +187,9 @@ patterns:
       (?x)
         ^(\s*)\b(?:(?:(data)\s+(instance))|(data))
         \s+
-        (
-          [\p{Lu}\p{Lt}][\w\p{Nd}_']*                   # named type
-        | \(\s*:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+\s*\)   # Operator type
+        (?:
+          ([\p{Lu}\p{Lt}][\w\p{Nd}_']*)                  # named type
+        | \(\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)  # Operator type
         )
         ([^=]*)
         (?:(=)|$)
@@ -193,11 +198,12 @@ patterns:
       '3': {name: keyword.other.instance.haskell}
       '4': {name: keyword.other.data.haskell}
       '5': {name: storage.type.haskell}
-      '6':
+      '6': {name: storage.type.operator.haskell}
+      '7':
         patterns:
           - include: '#type_signature'
-      '7': {name: keyword.operator.eq.haskell}
-    end: | 
+      '8': {name: keyword.operator.eq.haskell}
+    end: |
       (?x)
          ^(?!          # It ends *unless* the *new* line is:
             \1\s+\S    # - Some haskell stuff, but more indented (continuation)
@@ -215,11 +221,19 @@ patterns:
       - include: '#existential'
       - include: '#record_decl'
       - include: '#deriving'
-      - begin: '^(\s*)(?:(\|)|(=))\s*(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)'
+      - begin: >-
+          (?x)
+            ^(\s*)
+              (?:(\|)|(=))\s*
+              (?:
+                 (\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+                |\(\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)\s*\)
+              )\s*
         beginCaptures:
           '2': {name: keyword.operator.pipe.haskell}
           '3': {name: keyword.operator.eq.haskell}
           '4': {name: constant.other.haskell}
+          '5': {name: constant.other.haskell}
         end: |
           (?x)
             (?=\||\bderiving\b)  # A deriving clause could be futher indented
@@ -236,7 +250,11 @@ patterns:
         patterns:
           - include: '#record_decl' 
           - include: '#type_signature'
-      - begin: '\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
+      - begin: >-
+          (?x)
+            ( (?:\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+            | (?:\(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*\))
+            )
         beginCaptures: 
           '0': {name: constant.other.haskell}
         end: '\||$'
@@ -391,11 +409,11 @@ patterns:
       '1': {name: keyword.other.where.haskell}
       '2': {name: keyword.other.let.haskell}
       '3': {name: keyword.other.in.haskell}
-      '4': {name: keyword.other.haskell}
-      '5': {name: keyword.other.haskell}
+      '4': {name: keyword.other.default.haskell}
+      '5': {name: keyword.control.haskell}
   - match: '\binfix[lr]?(\b(?!''))'
     name: keyword.operator.haskell
-  - match: '\b(m?do|if|then|else|case|of)(\b(?!''))'
+  - match: '\b(m?do|if|then|else|case|of|proc)(\b(?!''))'
     name: keyword.control.haskell
   - include: '#numeric_literals'
   - include: '#type_application'
@@ -428,15 +446,32 @@ patterns:
   - include: '#data_constructor'
   - include: '#qualifier'
   - include: '#infix_op'
-  - include: '#double_colon'
   - begin: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
     beginCaptures:
       '1': {name: keyword.operator.double-colon.haskell}
     end: >-
-      (?=\)|$|,|}|\b(in|then|else|of)\b(?!')|<\-)
+      (?x)
+        # End type annotation when seeing one of:
+        (?=
+          \)                          # closing parenthesis
+          |$                          # end of line
+          |,                          # comma
+          |}                          # closing bracket
+          |\b(in|then|else|of)\b(?!') # keyword
+          |                           # symbolic keyword except (->)
+          (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])((<-)|(=)|(-<)|(-<<))([(),;\[\]`{}_"']|[^\p{S}\p{P}])
+        )
     patterns:
       - include: '#type_signature'
     name: meta.type-declaration.haskell
+  - match: '(?<![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])(?:(\\)|(<-)|(->)|(=)|(-<)|(-<<))(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
+    captures:
+      '1': {name: keyword.operator.lambda.haskell}
+      '2': {name: keyword.operator.arrow.left.haskell}
+      '3': {name: keyword.operator.arrow.haskell}
+      '4': {name: keyword.operator.eq.haskell}
+      '5': {name: keyword.operator.arrow.left.tail.haskell}
+      '6': {name: keyword.operator.arrow.left.tail.double.haskell}
   - match: >-
       ((?:(?<!'')('')?[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.)*)([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)
     comment: >
@@ -537,12 +572,16 @@ repository:
           '6': {patterns: [{include: '#type_signature'}]}
         name: meta.deriving.haskell
   infix_op:
-    comment: >
-      An operator cannot be composed entirely of '-' characters; 
-      instead, it should be matched as a comment.
-    match: >-
-      (\((?!--+\))[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+\)|\(,+\))
-    name: entity.name.function.infix.haskell
+    patterns:
+      - match: '\(\s*,[\s,]*\)'
+        name: support.constant.tuple.haskell
+      - comment: >
+          An operator cannot be composed entirely of '-' characters; 
+          instead, it should be matched as a comment.
+        match: >-
+          \(\s*((?!--+\))[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)
+        captures:
+          '1': {name: entity.name.function.infix.haskell}
   module_exports:
     begin: \(
     beginCaptures:
@@ -573,7 +612,7 @@ repository:
             # Data constructor
             ([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
             # Prefix form of symbolic constructor
-            | (\(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+\))
+            | \(\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)
         endCaptures:
           '1': {name: constant.other.haskell}
           '2': {name: constant.other.haskell}
@@ -587,10 +626,10 @@ repository:
             # Type name
             ([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
             # Prefix form of type operator
-            | (\([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+\))
+            | \(\s*([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)
         endCaptures:
           '1': {name: storage.type.haskell}
-          '2': {name: storage.type.operator.prefix.haskell}
+          '2': {name: storage.type.operator.haskell}
         patterns:
           - include: '#comment_like'
       - match: >-
@@ -601,8 +640,9 @@ repository:
         name: storage.type.haskell
       - include: '#infix_op'
       - include: '#comment_like'
-      - match: '\(\s*:[\p{S}\p{P}&&[^(),;\[\]`{}_"'']]+\s*\)'
-        name: storage.type.haskell
+      - match: '\(\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"'']]+)\s*\)'
+        captures:
+          '1': {name: storage.type.haskell}
   comma:
     match: ','
     name: punctuation.separator.comma.haskell
@@ -666,7 +706,7 @@ repository:
     begin: |
       (?x)
         (?:([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
-          |(\([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+\))
+          |\(\s*([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)
         )
     end: ',|(?=})'
     beginCaptures:
@@ -684,16 +724,16 @@ repository:
         (?<fn>
           (?:
             [\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
-          | \(
+          | \(\s*
               (?!--+\))
               (?:
                 (?![(),;\[\]`{}_"'])[\p{S}\p{P}]
               )+
-            \)
+            \s*\)
           )
           (?:\s*,\s*\g<fn>)?
         )
-        \s*(::|∷)
+        \s*(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])
     beginCaptures:
       '2':
         patterns:
@@ -706,9 +746,19 @@ repository:
       - include: '#type_signature'
     end: |
       (?x)
-        (?=               # we look ahead, but we do not want to consume
-          (<\-)           # we are the left side of a `x :: Type <- expr` bind statement
-          | }             # A block closed? Maybe this should also include `;`, because non-indentation based `do`
+        (?= 
+          # we look ahead, but we do not want to consume
+
+            # are we to the left side of a symbolic keyword such as = or <- ?
+              # non-symbolic character
+              (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
+              # symbolic keyword except (->)
+              ((<-)|(=)|(-<)|(-<<))
+              # non-symbolic character
+              ([(),;\[\]`{}_"']|[^\p{S}\p{P}])
+
+            # A block closed? Maybe this should also include `;`, because non-indentation based `do`
+            |}
         )
         |^(?!          # It ends *unless* the *new* line is:
             \1\s+\S    # - Some haskell stuff, but more indented (continuation)
@@ -827,18 +877,18 @@ repository:
             # Optional promotion tick
               (')?
             # Opening parenthesis
-              (\()
+              (\()\s*
             # Optional qualified name
               ((?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.)*)
             # Type operator proper
               ([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)
             # Closing parenthesis
-              (\))
+              \s*(\))
         captures:
           '1': {name: keyword.operator.promotion.haskell}
           '2': {name: punctuation.paren.haskell}
           '3': {name: entity.name.namespace.haskell}
-          '4': {name: storage.type.operator.prefix.haskell }
+          '4': {name: storage.type.operator.haskell }
           '5': {name: punctuation.paren.haskell}
   type_operator:
     patterns:

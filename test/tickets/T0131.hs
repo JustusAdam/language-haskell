@@ -3,7 +3,7 @@
 {-@ incr :: x:Nat -> {v:Nat | v > x} @-}
 -- <--------------------------------------- block.liquidhaskell.haskell
 --       ^^ keyword.operator.double-colon.haskell
---                ^^ keyword.operator.haskell
+--                ^^ keyword.operator.arrow.haskell
 --  -------------------------------- - comment.block.haskell
 incr :: Int -> Int 
 incr x = x + 1 

@@ -15,7 +15,7 @@ import M
   , pattern P
 --  ^^^^^^^ keyword.other.pattern.haskell
 --          ^ constant.other.haskell
-  , pattern (:|)
+  , pattern (:| )
 --  ^^^^^^^ keyword.other.pattern.haskell
 --           ^^ constant.other.haskell
   , pattern -- Q,)
@@ -28,14 +28,14 @@ import M
   , type T
 --  ^^^^ keyword.other.type.haskell
 --       ^ storage.type.haskell
-  , type (:-)
+  , type (:- )
 --  ^^^^ keyword.other.type.haskell
---        ^^ storage.type.operator.prefix.haskell
+--        ^^ storage.type.operator.haskell
   , type (<+>)
 --  ^^^^ keyword.other.type.haskell
---        ^^^ storage.type.operator.prefix.haskell
+--        ^^^ storage.type.operator.haskell
   , type {- T -}
 --  ^^^^ keyword.other.type.haskell
       (<->)
---    ^^^^^ storage.type.operator.prefix.haskell
+--     ^^^ storage.type.operator.haskell
   )

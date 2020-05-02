@@ -4,6 +4,6 @@ someFunc :: IO ()
 someFunc = do
   result <- ioAction
   result :: Int <- ioAction
---              ^^ keyword.operator.haskell
+--              ^^ keyword.operator.arrow.left.haskell
   ( result :: Int ) <- ioAction
---                  ^^ keyword.operator.haskell
+--                  ^^ keyword.operator.arrow.left.haskell

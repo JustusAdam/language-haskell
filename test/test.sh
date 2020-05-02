@@ -13,11 +13,9 @@ namedBroken=(
   "NearReserved.hs"
   "QualifiedInfix.hs"
   "ReservedInComments.hs"
-  "TypeSigs.hs"
   "TypeVsData.hs"
 )
 ticketsBroken=(
-  "T0028b.hs"
   "T0028c.hs"
   "T0039b.hs"
   "T0043b.hs"

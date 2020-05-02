@@ -21,12 +21,12 @@ x :: T ->
 --    ^ storage.type.haskell
 
 y
-    :: T ->
+  :: T ->
 
   -- comment
   {-
     comment
   -}
 
-        T
+      T
 --    ^ storage.type.haskell

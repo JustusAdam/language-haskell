@@ -30,13 +30,13 @@ module M
 --       ^ storage.type.haskell
   , type (:-)
 --  ^^^^ keyword.other.type.haskell
---        ^^ storage.type.operator.prefix.haskell
+--        ^^ storage.type.operator.haskell
   , type (<+>)
 --  ^^^^ keyword.other.type.haskell
---        ^^^ storage.type.operator.prefix.haskell
+--        ^^^ storage.type.operator.haskell
   , type {- T -}
 --  ^^^^ keyword.other.type.haskell
       (<->)
---    ^^^^^ storage.type.operator.prefix.haskell
+--     ^^^ storage.type.operator.haskell
   )
   where
