@@ -115,7 +115,7 @@ runTests () {
         then
           fails+=("$name")
           echo -e "${RED}Fail (unexpected)${NC} $file"
-          echo -e $result
+          echo -e "$result"
         else
           echo -e "${YELLOW}Fail   (expected)${NC} $file"
         fi
