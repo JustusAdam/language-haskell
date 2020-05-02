@@ -4,8 +4,8 @@ someFunc :: IO ()
 someFunc = do
   result <- ioAction
   result :: Int <- ioAction
--- <~~------ meta.function.type-declaration.haskell
 --          ^^^ storage.type.haskell
+--              ^^ keyword.operator.arrow.left.haskell
   ( result :: Int ) <- ioAction
 --            ^^^ storage.type.haskell
---  ^^^^^^ meta.function.type-declaration.haskell
+--                  ^^ keyword.operator.arrow.left.haskell

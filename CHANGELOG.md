@@ -32,6 +32,7 @@
 - Improved highlighting for module imports with unusual indentation.
 - Support for Haddock documentation heralds `*`, `^`, `$`.
 - Fix regression for comments inside record definitions ([#131](https://github.com/JustusAdam/language-haskell/issues/136))
+- Improved support for reserved symbolic operators.
 
 ## 3.0.0 - 26.04.2020
 

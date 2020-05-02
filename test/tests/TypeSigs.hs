@@ -2,47 +2,69 @@
 
 f :: ( x :: Int ) -> Int
 -- <~~-- ^^ keyword.operator.double-colon.haskell
+--                ^^ keyword.operator.arrow.haskell
 --          ^^^      ^^^ storage.type.haskell
 f x = do
 --  ^ keyword.operator.eq.haskell
   let x :: Int
 --      ^^ keyword.operator.double-colon.haskell
 --         ^^^ storage.type.haskell
-      x = 3
+      x = A
 --      ^ keyword.operator.eq.haskell
+--        ^ constant.other.haskell
   let
     y :: Int
 --    ^^ keyword.operator.double-colon.haskell
 --       ^^^ storage.type.haskell
-    y = 3
+    y = A
 --    ^ keyword.operator.eq.haskell
-    z :: Int = 3
+--      ^ constant.other.haskell
+    z :: Int = A
 --    ^^ keyword.operator.double-colon.haskell
 --       ^^^ storage.type.haskell
-    ( w :: Int ) = 4
+--           ^ keyword.operator.eq.haskell
+--             ^ constant.other.haskell
+    z :: Int == A
+--    ^^ keyword.operator.double-colon.haskell
+--       ^^^ storage.type.haskell
+--           ^^ storage.type.operator.infix.haskell
+--           ^^ - keyword.operator.eq.haskell
+--              ^ storage.type.haskell
+    ( w :: Int ) = A
 --      ^^ keyword.operator.double-colon.haskell
 --         ^^^ storage.type.haskell
 --               ^ keyword.operator.eq.haskell
-  x :: Int <- 3
+--                 ^ constant.other.haskell
+  x :: Int <- A
 --  ^^ keyword.operator.double-colon.haskell
 --     ^^^ storage.type.haskell
---         ^^ keyword.operator.haskell
-  ( x :: Int ) <- 4
+--         ^^ keyword.operator.arrow.left.haskell
+--            ^ constant.other.haskell
+  x :: Int <-- A
+--  ^^ keyword.operator.double-colon.haskell
+--         ^^^ storage.type.operator.infix.haskell
+--         ^^^ - keyword.operator.arrow.left.haskell
+--     ^^^     ^ storage.type.haskell
+--            
+  ( x :: Int ) <- A
 --    ^^ keyword.operator.double-colon.haskell
 --       ^^^ storage.type.haskell
---             ^^ keyword.operator.haskell
+--             ^^ keyword.operator.arrow.left.haskell
+--                ^ constant.other.haskell
   case x :: Int of
 --       ^^ keyword.operator.double-colon.haskell
 --          ^^^ storage.type.haskell
-    ( 2 :: Int ) -> 3
+    ( 2 :: Int ) -> A
 --      ^^ keyword.operator.double-colon.haskell
 --         ^^^ storage.type.haskell
---               ^^ keyword.operator.haskell
+--               ^^ keyword.operator.arrow.haskell
+--                  ^ constant.other.haskell
   where x :: Int
 --        ^^ keyword.operator.double-colon.haskell
 --           ^^^ storage.type.haskell
-        x = 3
+        x = A
 --        ^ keyword.operator.eq.haskell
+--          ^ constant.other.haskell
   where
     y :: Int
 --    ^^ keyword.operator.double-colon.haskell

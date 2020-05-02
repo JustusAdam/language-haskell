@@ -44,7 +44,7 @@
   type T = '(:+) '(AC.:+) 'AC.:++ 'AC.++
 --         ^     ^        ^ keyword.operator.promotion.haskell
 --                 ^^^     ^^^ entity.name.namespace.haskell
---           ^^       ^^ storage.type.operator.prefix.haskell
+--           ^^       ^^ storage.type.operator.haskell
 --                            ^^^     ^^ storage.type.operator.infix.haskell
 --         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - invalid
 

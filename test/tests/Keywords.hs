@@ -5,7 +5,7 @@ anotherFunc :: MyData -> Int
 --                    ^^ keyword.operator.arrow.haskell
 anotherFunc arg = 
     let something = "hello" :: String
---                ^ keyword.operator.haskell
+--                ^ keyword.operator.eq.haskell
 --                          ^^ keyword.operator.double-colon.haskell
 --  ^^^ keyword.other.let.haskell
     in case a :: B of
@@ -13,7 +13,7 @@ anotherFunc arg =
 --            ^^ keyword.operator.double-colon.haskell
 --     ^^^^        ^^ keyword.control.haskell
         Just _ -> do
---             ^^ keyword.operator.haskell
+--             ^^ keyword.operator.arrow.haskell
 --                ^^ keyword.control.haskell
           if a
 --        ^^ keyword.control.haskell
