@@ -2,7 +2,7 @@
 
 {-@ incr :: x:Nat -> {v:Nat | v > x} @-}
 -- <--------------------------------------- block.liquidhaskell.haskell
---       ^^ keyword.other.double-colon.haskell
+--       ^^ keyword.operator.double-colon.haskell
 --                ^^ keyword.operator.haskell
 --  -------------------------------- - comment.block.haskell
 incr :: Int -> Int 
