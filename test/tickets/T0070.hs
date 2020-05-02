@@ -8,6 +8,7 @@ data (:=>) a b c = D
 --                 ^ constant.other.haskell
 
 f :: a :-> b -> c :=> e
---     ^^^ storage.type.operator.haskell
---                ^^^ storage.type.operator.haskell
+--     ^^^ storage.type.operator.infix.haskell
+--           ^^ keyword.operator.arrow.haskell
+--                ^^^ storage.type.operator.infix.haskell
 
