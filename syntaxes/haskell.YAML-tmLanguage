@@ -660,18 +660,24 @@ repository:
     end: '(?<!-)}'
     name: meta.record.definition.haskell
     patterns:
-      - begin: >-
-          (?x)
-          ([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
-          (?:\s*,\s*([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*))*
-          \s+(::|∷)
-        end: ',|(?=})'
-        beginCaptures:
-          '1': {name: variable.other.definition.field.haskell}
-          '2': {name: variable.other.definition.field.haskell}
-          '3': {name: keyword.operator.double-colon.haskell}
-        patterns: 
-          - include: '#type_signature'
+      - include: '#comment_like'
+      - include: '#record_field'
+  record_field:
+    begin: |
+      (?x)
+        (?:([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+          |(\([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+\))
+        )
+    end: ',|(?=})'
+    beginCaptures:
+      '1': {name: variable.other.definition.field.haskell}
+      '2': {name: variable.other.definition.field.haskell}
+    patterns:
+      - include: '#comment_like'
+      - include: '#comma'
+      - include: '#double_colon'
+      - include: '#type_signature'
+      - include: '#record_field'
   fun_decl:
     begin: |
       (?x)^(\s*)
@@ -698,7 +704,6 @@ repository:
     name: meta.function.type-declaration.haskell
     patterns:
       - include: '#type_signature'
-      - include: '#comment_like'
     end: |
       (?x)
         (?=               # we look ahead, but we do not want to consume
