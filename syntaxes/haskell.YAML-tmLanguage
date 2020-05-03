@@ -5,11 +5,7 @@ fileTypes:
 keyEquivalent: ^~H
 name: Haskell
 patterns:
-  - name: block.liquidhaskell.haskell
-    begin: '\{-@'
-    end: '@-\}'
-    patterns:
-      - include: '$self'
+  - include: '#comment_like'
   - match: >-
       (`)((?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.)*)([\p{Ll}\p{Lu}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)(`)
     captures:
@@ -37,11 +33,9 @@ patterns:
       '1': {name: keyword.other.where.haskell}
     name: meta.declaration.module.haskell
     patterns:
-      - include: '#cpp'
+      - include: '#comment_like'
       - include: '#module_name'
       - include: '#module_exports'
-      - include: '#pragma'
-      - include: '#comments'
       - match: '[a-z]+'
         name: invalid
   - begin: '\b(class)(\b(?!''))'
@@ -87,12 +81,11 @@ patterns:
                        # then it would be an operator, not a comment
           )
     patterns:
+      - include: '#comment_like'
       - include: '#deriving'
-      - include: '#comments'
-      - begin: '^(\s*)(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)\b'
+      - begin: '^(\s*)(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)'
         beginCaptures:
           '2': {name: constant.other.haskell}
-          '3': {name: keyword.operator.double-colon.haskell}
         end: |
           (?x)
             (?=\bderiving\b)
@@ -150,10 +143,10 @@ patterns:
                        # then it would be an operator, not a comment
           )
     patterns:
+      - include: '#comment_like'
       - include: '#existential'
       - include: '#record_decl'
       - include: '#deriving'
-      - include: '#comments'
       - begin: '^(\s*)(=)?\s*(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)'
         beginCaptures:
           '2': {name: keyword.operator.eq.haskell}
@@ -218,10 +211,10 @@ patterns:
           )
     name: meta.declaration.adt.haskell
     patterns:
+      - include: '#comment_like'
       - include: '#existential'
       - include: '#record_decl'
       - include: '#deriving'
-      - include: '#comments'
       - begin: '^(\s*)(?:(\|)|(=))\s*(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)'
         beginCaptures:
           '2': {name: keyword.operator.pipe.haskell}
@@ -346,14 +339,30 @@ patterns:
     patterns:
       - include: '#type_signature'
   - begin: >-
-      \b(import)(\b(?!'))
+      ^(\s*)(import)(\b(?!'))
     beginCaptures:
-      '1': {name: keyword.other.import.haskell}
-    end: '($|;|(?=--))'
+      '2': {name: keyword.other.import.haskell}
+    end: |
+      (?x)
+        \b(where)\b(?!')
+        |^(?!          # It ends *unless* the *new* line is:
+            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
+          | \s*        # - Only a little bit of whitespace followed by
+            (?: $      #   - The end of the line (i.e. empty line)
+            | \{-      #   - The start of a block comment
+            |--+       #   - The start of a single-line comment
+               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
+                       # The double dash may not be followed by other operator characters,
+                       # then it would be an operator, not a comment
+          )
     name: meta.import.haskell
     patterns:
-      - match: (qualified|as|hiding)
-        name: keyword.other.haskell
+      - include: '#comment_like'
+      - match: (qualified)|(as)|(hiding)
+        captures:
+          '1': {name: keyword.other.qualified.haskell}
+          '2': {name: keyword.other.as.haskell}
+          '3': {name: keyword.other.hiding.haskell}
       - include: '#module_name'
       - include: '#module_exports'
   - include: '#deriving'
@@ -390,8 +399,6 @@ patterns:
     name: keyword.control.haskell
   - include: '#numeric_literals'
   - include: '#type_application'
-  - include: '#cpp'
-  - include: '#pragma'
   - include: '#string_literal'
   - captures:
       '1': {name: punctuation.definition.string.begin.haskell}
@@ -415,10 +422,11 @@ patterns:
         )
         (')
     name: string.quoted.single.haskell
+  - match: '-\}'
+    name: invalid
   - include: '#fun_decl'
   - include: '#data_constructor'
   - include: '#qualifier'
-  - include: '#comments'
   - include: '#infix_op'
   - include: '#double_colon'
   - begin: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
@@ -459,13 +467,21 @@ repository:
       - include: '#block_comment'
   comments:
     patterns:
-      - begin: '^\s*(--\s+\|)'
+      # Haddock block: consecutive double-dashed lines, the first one starting with `-- |` or `-- $`
+      - begin: '^(\s*)(--\s[\|\$])'
         beginCaptures:
-          '1': {name: punctuation.whitespace.comment.leading.haskell}
-        end: '(?=^(?!\s*--\s))'
+          '2': {name: punctuation.whitespace.comment.leading.haskell}
+        end: '(?=^(?!\1--+(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])))'
         name: comment.block.documentation.haskell
+      # Haddock inline annotation (not necessarily at the start of a line)
+      - begin: '(^[ \t]+)?(--\s[\^\*])'
+        beginCaptures: 
+          '1': {name: punctuation.whitespace.comment.leading.haskell}
+        end: \n
+        name: comment.line.documentation.haskell
+      # Haddock block using {- -} comments
       - applyEndPatternLast: 1
-        begin: '\{-\|'
+        begin: '\{-\s?[\|\$\*\^]'
         captures:
           '0': {name: punctuation.definition.comment.haskell}
         end: '-\}'
@@ -485,6 +501,12 @@ repository:
             end: \n
             name: comment.line.double-dash.haskell
       - {include: '#block_comment'}
+  comment_like:
+    patterns:
+      - include: '#cpp'
+      - include: '#pragma'
+      - include: '#liquid-haskell'
+      - include: '#comments'
   cpp:
     captures:
       '1': {name: punctuation.definition.preprocessor.c}
@@ -543,12 +565,34 @@ repository:
           - include: '#export_constructs'
   export_constructs:
     patterns:
-      - match: '\b(pattern)\b(?!'')'
-        captures:
+      - begin: '\b(pattern)\b(?!'')'
+        beginCaptures:
           '1': {name: keyword.other.pattern.haskell}
-      - match: '\b(type)\b(?!'')'
-        captures:
+        end: >-
+         (?x)
+            # Data constructor
+            ([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+            # Prefix form of symbolic constructor
+            | (\(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+\))
+        endCaptures:
+          '1': {name: constant.other.haskell}
+          '2': {name: constant.other.haskell}
+        patterns:
+          - include: '#comment_like'
+      - begin: '\b(type)\b(?!'')'
+        beginCaptures:
           '1': {name: keyword.other.type.haskell}
+        end: >-
+         (?x)
+            # Type name
+            ([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+            # Prefix form of type operator
+            | (\([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+\))
+        endCaptures:
+          '1': {name: storage.type.haskell}
+          '2': {name: storage.type.operator.prefix.haskell}
+        patterns:
+          - include: '#comment_like'
       - match: >-
           \b[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
         name: entity.name.function.haskell
@@ -556,7 +600,7 @@ repository:
           \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
         name: storage.type.haskell
       - include: '#infix_op'
-      - include: '#comments'
+      - include: '#comment_like'
       - match: '\(\s*:[\p{S}\p{P}&&[^(),;\[\]`{}_"'']]+\s*\)'
         name: storage.type.haskell
   comma:
@@ -585,6 +629,12 @@ repository:
         end: '(?=#-\})'
         patterns:
           - {include: '#string_literal'}
+  liquid-haskell:
+    name: block.liquidhaskell.haskell
+    begin: '\{-@'
+    end: '@-\}'
+    patterns:
+      - include: '$self'
   existential:
     begin: '\b(forall|∀)(?!'')\b'
     beginCaptures: 
@@ -648,7 +698,7 @@ repository:
     name: meta.function.type-declaration.haskell
     patterns:
       - include: '#type_signature'
-      - include: '#comments'
+      - include: '#comment_like'
     end: |
       (?x)
         (?=               # we look ahead, but we do not want to consume
@@ -698,6 +748,7 @@ repository:
           - include: '#type_signature'
   type_signature:
     patterns:
+      - include: '#comment_like'
       - match: '('')?\(\s*\)'
         captures:
           '1': {name: keyword.operator.promotion.haskell}
@@ -717,9 +768,9 @@ repository:
       - include: '#string_literal'
       - match: '''[^'']'''
         name: invalid
+      - match: '-\}'
+        name: invalid
       - include: '#type_application'
-      - include: '#pragma'
-      - include: '#comments'
       - include: '#type_operator'
       - include: '#type_constructor'
       - begin: '('')?(\()'

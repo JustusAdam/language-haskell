@@ -26,6 +26,11 @@
   including allowing intervening comments ([#147](https://github.com/JustusAdam/language-haskell/pull/147)).
 - Add support for visible kind application (and miscellaneous fixes for visible type application).
 - Allow C preprocessor instructions to appear in module exports.
+- Fix highlighting of GADT constructors that end with apostrophes.
+- Improved highlighting of `type T` and `pattern P` in module imports/exports.
+- Fix pragmas sometimes being highlighted as comments ([#150](https://github.com/JustusAdam/language-haskell/pull/150)).
+- Improved highlighting for module imports with unusual indentation.
+- Support for Haddock documentation heralds `*`, `^`, `$`.
 
 ## 3.0.0 - 26.04.2020
 

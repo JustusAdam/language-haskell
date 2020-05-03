@@ -3,7 +3,7 @@
 module Module
 -- <------ meta.declaration.module.haskell
   (
-    -- * main func  <- disable highlighting
+    --   main func  <- disable highlighting
 --     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ comment.line.double-dash.haskell
     foo
 --  ^^^ meta.declaration.exports.haskell entity.name.function.haskell

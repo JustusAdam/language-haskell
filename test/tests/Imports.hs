@@ -1,6 +1,6 @@
--- SYNTAX TEST "source.haskell" "Exports"
+-- SYNTAX TEST "source.haskell" "Imports"
 
-module M 
+import M
   ( T(f,C,g)
 --  ^ storage.type.haskell
 --    ^   ^ entity.name.function.haskell
@@ -39,4 +39,3 @@ module M
       (<->)
 --    ^^^^^ storage.type.operator.prefix.haskell
   )
-  where
