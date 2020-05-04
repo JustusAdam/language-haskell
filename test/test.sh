@@ -17,7 +17,6 @@ namedBroken=(
 )
 ticketsBroken=(
   "T0028c.hs"
-  "T0039b.hs"
   "T0072b2.hs"
   "T0072c.hs"
   "T0132.hs"

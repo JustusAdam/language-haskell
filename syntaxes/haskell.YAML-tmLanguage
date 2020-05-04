@@ -438,12 +438,31 @@ patterns:
           |}                          # closing bracket
           |\b(in|then|else|of)\b(?!') # keyword
           |                           # symbolic keyword except (->)
-          (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])((<-)|(=)|(-<)|(-<<))([(),;\[\]`{}_"']|[^\p{S}\p{P}])
+            (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
+            (?:
+               (\\|λ)
+              |(<-|←)
+              |(=)
+              |(-<|↢)
+              |(-<<|⤛)
+            )
+            ([(),;\[\]`{}_"']|[^\p{S}\p{P}])
         )
     patterns:
       - include: '#type_signature'
     name: meta.type-declaration.haskell
-  - match: '(?<![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])(?:(\\)|(<-)|(->)|(=)|(-<)|(-<<))(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
+  - match: |
+      (?x)
+        (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])
+        (?:
+           (\\|λ)
+          |(<-|←)
+          |(->|→)
+          |(=)
+          |(-<|↢)
+          |(-<<|⤛)
+        )
+        (?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])
     captures:
       '1': {name: keyword.operator.lambda.haskell}
       '2': {name: keyword.operator.arrow.left.haskell}
@@ -725,10 +744,9 @@ repository:
               # non-symbolic character
               (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
               # symbolic keyword except (->)
-              ((<-)|(=)|(-<)|(-<<))
+              ((<-|←)|(=)|(-<|↢)|(-<<|⤛))
               # non-symbolic character
               ([(),;\[\]`{}_"']|[^\p{S}\p{P}])
-
             # A block closed? Maybe this should also include `;`, because non-indentation based `do`
             |}
         )
@@ -787,9 +805,9 @@ repository:
       - include: '#integer_literals'
       - match: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
         name: keyword.operator.double-colon.haskell
+      - include: '#forall'
       - match: '->|→'
         name: keyword.operator.arrow.haskell
-      - include: '#forall'
       - match: '=>|⇒'
         name: keyword.operator.big-arrow.haskell
       - include: '#string_literal'
@@ -897,9 +915,17 @@ repository:
           '4': {name: storage.type.infix.haskell}
           '5': {name: punctuation.backtick.haskell}
   forall:
-    match: '\b(forall|∀)\b(?!'')'
-    captures: 
+    begin: '\b(forall|∀)\b(?!'')'
+    end: '(\.)|(->|→)'
+    beginCaptures: 
       '1': {name: keyword.other.forall.haskell}
+    endCaptures:
+      '1': {name: keyword.operator.period.haskell}
+      '2': {name: keyword.operator.arrow.haskell}
+    patterns:
+      - include: '#comment_like'
+      - include: '#type_variable'
+      - include: '#type_signature'
   string_literal:
     begin: '"'
     beginCaptures:
