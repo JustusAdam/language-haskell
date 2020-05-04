@@ -38,6 +38,7 @@ patterns:
       - include: '#module_exports'
       - match: '[a-z]+'
         name: invalid
+  - include: '#ffi'
   - begin: '\b(class)(\b(?!''))'
     beginCaptures:
       '1': {name: keyword.other.class.haskell}
@@ -101,6 +102,7 @@ patterns:
                            # then it would be an operator, not a comment
               )
         patterns:
+          - include: '#comment_like'
           - include: '#double_colon'
           - include: '#record_decl'
           - include: '#type_signature'
@@ -376,18 +378,16 @@ patterns:
     name: meta.import.haskell
     patterns:
       - include: '#comment_like'
-      - match: (qualified)|(as)|(hiding)
+      - match: (qualified|as|hiding)
         captures:
-          '1': {name: keyword.other.qualified.haskell}
-          '2': {name: keyword.other.as.haskell}
-          '3': {name: keyword.other.hiding.haskell}
+          '1': {name: "keyword.other.$1.haskell"}
       - include: '#module_name'
       - include: '#module_exports'
   - include: '#deriving'
   - match: '\b(deriving)\s+(via)\s+(.*)\s+(instance)\b\s+(.*)$'
     captures:
       '1': {name: keyword.other.deriving.haskell}
-      '2': {name: keyword.other.via.haskell}
+      '2': {name: keyword.other.deriving.strategy.via.haskell}
       '3': {patterns: [{include: '#type_signature'}]}
       '4': {name: keyword.other.instance.haskell}
       '5': {patterns: [{include: '#type_signature'}]}
@@ -483,13 +483,6 @@ patterns:
       '2': {name: entity.name.namespace.haskell}
       '3': {name: keyword.operator.haskell}
   - include: '#comma'
-  - match: '^\s*(foreign)\s+(?:(import)|(export))\s+(ccall|cplusplus|dotnet|jvm|stdcall)\b(?!'')'
-    name: meta.import.foreign.haskell
-    captures:
-      '1': {name: keyword.other.foreign.haskell}
-      '2': {name: keyword.other.import.haskell}
-      '3': {name: keyword.other.export.haskell}
-      '4': {name: keyword.other.calling-convention.haskell}
 repository:
   block_comment:
     applyEndPatternLast: 1
@@ -553,7 +546,7 @@ repository:
       - begin: '(deriving)(?:\s+(stock|newtype|anyclass))?\s*\('
         beginCaptures:
           '1': {name: keyword.other.deriving.haskell}
-          '2': {name: keyword.other.deriving-strategy.haskell}
+          '2': {name: "keyword.other.deriving.strategy.$2.haskell"}
         end: \)
         name: meta.deriving.haskell
         patterns:
@@ -566,9 +559,9 @@ repository:
               (\s+(via)\s+(.*)$)?
         captures:
           '1': {name: keyword.other.deriving.haskell}
-          '2': {name: keyword.other.deriving-strategy.haskell}
+          '2': {name: "keyword.other.deriving.strategy.$2.haskell"}
           '3': {patterns: [{include: '#type_signature'}]}
-          '5': {name: keyword.other.via.haskell}
+          '5': {name: keyword.other.deriving.strategy.via.haskell}
           '6': {patterns: [{include: '#type_signature'}]}
         name: meta.deriving.haskell
   infix_op:
@@ -963,5 +956,86 @@ repository:
     patterns:
       - include: '#integer_literals'
       - include: '#float_literals'
+
+  ffi:
+    begin: '^(\s*)(foreign)\s+(import|export)\s+'
+    beginCaptures:
+      '2': {name: keyword.other.foreign.haskell}
+      '3': {name: "keyword.other.$3.haskell"}
+    name: meta.$3.foreign.haskell
+    end: |
+      (?x)
+         ^(?!          # It ends *unless* the *new* line is:
+            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
+          | \s*        # - Only a little bit of whitespace followed by
+            (?: $      #   - The end of the line (i.e. empty line)
+            | \{-      #   - The start of a block comment
+            |--+       #   - The start of a single-line comment
+               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
+                       # The double dash may not be followed by other operator characters,
+                       # then it would be an operator, not a comment
+          )
+    patterns:
+      - include: '#comment_like'
+      - match: '\b(ccall|cplusplus|dotnet|jvm|stdcall|prim|capi)\s+'
+        captures:
+          '1': {name: "keyword.other.calling-convention.$1.haskell"}
+      - begin: '(?=")|(?=\b([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)\b(?!''))'
+        end: '(?=(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']]))'
+        patterns:
+          # safe/unsafe/interruptible keywords,
+          # but we must take care to still allow a function named "safe" without such a keyword
+          # for instance:
+          #
+          # foreign import ccall safe foo :: ...
+          #                      ^^^^ keyword
+          #
+          # foreign import ccall safe :: ...
+          #                      ^^^^ not a keyword
+          - include: '#comment_like'
+          - match: |
+              (?x)
+                \b(safe|unsafe|interruptible)\b(?!')
+                \s*
+                (?:(")(.*[^\\])("))?
+                \s*
+                (?:
+                  (?:\b([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\b(?!'))
+                 |(?:\(\s*(?!--+\))([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\))
+                )
+            captures:
+              '1': {name: "keyword.other.safety.$1.haskell"}
+              '2': {name: "punctuation.definition.string.begin.haskell string.quoted.double.haskell"}
+              '3': {name: "entity.name.foreign.haskell string.quoted.double.haskell" }
+              '4': {name: "punctuation.definition.string.end.haskell string.quoted.double.haskell"}
+              '5': {name: entity.name.function.haskell}
+              '6': {name: entity.name.function.infix.haskell}
+          # Assume that if there is no function name on this line, it will appear on the next line
+          - match: |
+              (?x)
+                \b(safe|unsafe|interruptible)\b(?!')
+                \s*
+                (?:(")(.*[^\\])("))?
+                \s*$
+            captures:
+              '1': {name: "keyword.other.safety.$1.haskell"}
+              '2': {name: "punctuation.definition.string.begin.haskell string.quoted.double.haskell"}
+              '3': {name: "entity.name.foreign.haskell string.quoted.double.haskell" }
+              '4': {name: "punctuation.definition.string.end.haskell string.quoted.double.haskell"}
+          - match: '(?:(")(.*[^\\])("))'
+            captures:
+              '1': {name: "punctuation.definition.string.begin.haskell string.quoted.double.haskell"}
+              '2': {name: "entity.name.foreign.haskell string.quoted.double.haskell" }
+              '3': {name: "punctuation.definition.string.end.haskell string.quoted.double.haskell"}
+          - match: |
+              (?x)
+                 (?:\b([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\b(?!'))
+                |(?:\(\s*(?!--+\))([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\))
+            captures:
+              '1': {name: entity.name.function.haskell}
+              '2': {name: entity.name.function.infix.haskell}
+      - include: '#double_colon'
+      - include: '#type_signature'
+      
 scopeName: source.haskell
 uuid: 5C034675-1F6D-497E-8073-369D37E2FD7D

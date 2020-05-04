@@ -33,6 +33,10 @@
 - Support for Haddock documentation heralds `*`, `^`, `$`.
 - Fix regression for comments inside record definitions ([#131](https://github.com/JustusAdam/language-haskell/issues/136))
 - Improved support for reserved symbolic operators.
+- Improve highlighting in foreign import/export declaration:
+   - more calling conventions recognised,
+   - recognise safe/unsafe/interruptible keywords,
+   - correct highlighting of type signature, including over multiple lines.
 
 ## 3.0.0 - 26.04.2020
 
