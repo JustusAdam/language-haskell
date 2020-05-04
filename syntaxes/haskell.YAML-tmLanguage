@@ -66,12 +66,13 @@ patterns:
       '6': {name: storage.type.operator.haskell}
       '7':
         patterns:
+          - include: '#comment_like'
           - include: '#type_signature'
       '8': {name: keyword.other.where.haskell}
     name: meta.declaration.type.gadt.haskell
     end: | 
       (?x)
-        (?=\bderiving\b)
+        (?=\bderiving\b(?!'))
         |^(?!          # It ends *unless* the *new* line is:
             \1\s+\S    # - Some haskell stuff, but more indented (continuation)
           | \s*        # - Only a little bit of whitespace followed by
@@ -90,7 +91,7 @@ patterns:
           '2': {name: constant.other.haskell}
         end: |
           (?x)
-            (?=\bderiving\b)
+            (?=\bderiving\b(?!'))
             |^(?!          # It ends *unless* the *new* line is:
                 \1\s+\S    # - Some haskell stuff, but more indented (continuation)
               | \s*        # - Only a little bit of whitespace followed by
@@ -103,6 +104,7 @@ patterns:
               )
         patterns:
           - include: '#comment_like'
+          - include: '#deriving'
           - include: '#double_colon'
           - include: '#record_decl'
           - include: '#type_signature'
@@ -139,7 +141,8 @@ patterns:
     name: meta.declaration.newtype.haskell
     end: | 
       (?x)
-         ^(?!          # It ends *unless* the *new* line is:
+        (?=\bderiving\b(?!'))
+        |^(?!          # It ends *unless* the *new* line is:
             \1\s+\S    # - Some haskell stuff, but more indented (continuation)
           | \s*        # - Only a little bit of whitespace followed by
             (?: $      #   - The end of the line (i.e. empty line)
@@ -151,6 +154,7 @@ patterns:
           )
     patterns:
       - include: '#comment_like'
+      - include: '#deriving'
       - include: '#existential'
       - include: '#record_decl'
       - include: '#deriving'
@@ -161,7 +165,7 @@ patterns:
         name: multiline
         end: |
           (?x)
-            (?=\||\bderiving\b)  # A deriving clause could be futher indented
+            (?=\||\bderiving\b(?!'))  # A deriving clause could be futher indented
             | ^(?!          # It ends *unless* the *new* line is:
                  \1\s+\S    # - Some haskell stuff, but more indented (continuation)
                | \s*        # - Only a little bit of whitespace followed by
@@ -173,6 +177,8 @@ patterns:
                             # then it would be an operator, not a comment
                )
         patterns:
+          - include: '#comment_like'
+          - include: '#deriving'
           - include: '#record_decl' 
           - include: '#type_signature'
       - begin: '\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
@@ -183,6 +189,8 @@ patterns:
           '0': {name: keyword.operator.haskell}
         comment: Inline data constructors i.e. `A a b | B c d` 
         patterns:
+          - include: '#comment_like'
+          - include: '#deriving'
           - include: '#record_decl' 
           - include: '#type_signature'
   - begin: >-
@@ -207,7 +215,8 @@ patterns:
       '8': {name: keyword.operator.eq.haskell}
     end: |
       (?x)
-         ^(?!          # It ends *unless* the *new* line is:
+        (?=\||\bderiving\b(?!'))
+        |^(?!          # It ends *unless* the *new* line is:
             \1\s+\S    # - Some haskell stuff, but more indented (continuation)
           | \s*        # - Only a little bit of whitespace followed by
             (?: $      #   - The end of the line (i.e. empty line)
@@ -221,8 +230,8 @@ patterns:
     patterns:
       - include: '#comment_like'
       - include: '#existential'
-      - include: '#record_decl'
       - include: '#deriving'
+      - include: '#record_decl'
       - begin: >-
           (?x)
             ^(\s*)
@@ -238,7 +247,7 @@ patterns:
           '5': {name: constant.other.haskell}
         end: |
           (?x)
-            (?=\||\bderiving\b)  # A deriving clause could be futher indented
+            (?=\||\bderiving\b(?!'))  # A deriving clause could be futher indented
             | ^(?!          # It ends *unless* the *new* line is:
                  \1\s+\S    # - Some haskell stuff, but more indented (continuation)
                | \s*        # - Only a little bit of whitespace followed by
@@ -250,6 +259,8 @@ patterns:
                             # then it would be an operator, not a comment
                )
         patterns:
+          - include: '#comment_like'
+          - include: '#deriving'
           - include: '#record_decl' 
           - include: '#type_signature'
       - begin: >-
@@ -264,6 +275,8 @@ patterns:
           '0': {name: keyword.operator.pipe.haskell}
         comment: Inline data constructors i.e. `A a b | B c d` 
         patterns:
+          - include: '#comment_like'
+          - include: '#deriving'
           - include: '#record_decl' 
           - include: '#type_signature'
   - begin: '(\s*)(pattern)\s+(.*?)\s+(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
@@ -313,6 +326,7 @@ patterns:
       '4': {name: keyword.other.type.haskell}
       '5':
         patterns:
+          - include: '#comment-like'
           - include: '#type_signature'
       '6': {name: keyword.operator.eq.haskell}
       '7':

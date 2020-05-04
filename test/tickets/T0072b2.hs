@@ -1,9 +1,9 @@
 -- SYNTAX TEST "source.haskell" "Deriving strategies (different lines)"
 
-data B = B deriving A via B
---         ^^^^^^^^ keyword.other.deriving.haskell
---                    ^^^ keyword.other.deriving.strategy.via.haskell
---                  ^     ^ storage.type.haskell
+newtype B = B deriving A via B
+--            ^^^^^^^^ keyword.other.deriving.haskell
+--                       ^^^ keyword.other.deriving.strategy.via.haskell
+--                     ^     ^ storage.type.haskell
 data B = B deriving stock    ( Eq, Generic )
 --         ^^^^^^^^ keyword.other.deriving.haskell
 --                  ^^^^^ keyword.other.deriving.strategy.stock.haskell
