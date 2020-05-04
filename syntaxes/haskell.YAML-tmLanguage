@@ -5,6 +5,7 @@ fileTypes:
 keyEquivalent: ^~H
 name: Haskell
 patterns:
+  - include: '#liquid_haskell'
   - include: '#comment_like'
   - match: >-
       (`)((?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.)*)([\p{Ll}\p{Lu}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)(`)
@@ -77,7 +78,7 @@ patterns:
             \1\s+\S    # - Some haskell stuff, but more indented (continuation)
           | \s*        # - Only a little bit of whitespace followed by
             (?: $      #   - The end of the line (i.e. empty line)
-            | \{-      #   - The start of a block comment
+            |\{-[^@]   #   - The start of a block comment
             |--+       #   - The start of a single-line comment
                (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
                        # The double dash may not be followed by other operator characters,
@@ -96,7 +97,7 @@ patterns:
                 \1\s+\S    # - Some haskell stuff, but more indented (continuation)
               | \s*        # - Only a little bit of whitespace followed by
                 (?: $      #   - The end of the line (i.e. empty line)
-                | \{-      #   - The start of a block comment
+                |\{-[^@]   #   - The start of a block comment
                 |--+       #   - The start of a single-line comment
                    (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
                            # The double dash may not be followed by other operator characters,
@@ -146,7 +147,7 @@ patterns:
             \1\s+\S    # - Some haskell stuff, but more indented (continuation)
           | \s*        # - Only a little bit of whitespace followed by
             (?: $      #   - The end of the line (i.e. empty line)
-            | \{-      #   - The start of a block comment
+            |\{-[^@]   #   - The start of a block comment
             |--+       #   - The start of a single-line comment
                (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
                        # The double dash may not be followed by other operator characters,
@@ -155,7 +156,8 @@ patterns:
     patterns:
       - include: '#comment_like'
       - include: '#deriving'
-      - include: '#existential'
+      - include: '#forall'
+      - include: '#context'
       - include: '#record_decl'
       - include: '#deriving'
       - begin: '^(\s*)(=)?\s*(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)'
@@ -170,7 +172,7 @@ patterns:
                  \1\s+\S    # - Some haskell stuff, but more indented (continuation)
                | \s*        # - Only a little bit of whitespace followed by
                  (?: $      #   - The end of the line (i.e. empty line)
-                 | \{-      #   - The start of a block comment
+                 |\{-[^@]   #   - The start of a block comment
                  |--+       #   - The start of a single-line comment
                     (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
                             # The double dash may not be followed by other operator characters,
@@ -220,7 +222,7 @@ patterns:
             \1\s+\S    # - Some haskell stuff, but more indented (continuation)
           | \s*        # - Only a little bit of whitespace followed by
             (?: $      #   - The end of the line (i.e. empty line)
-            | \{-      #   - The start of a block comment
+            |\{-[^@]   #   - The start of a block comment
             |--+       #   - The start of a single-line comment
                (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
                        # The double dash may not be followed by other operator characters,
@@ -229,8 +231,9 @@ patterns:
     name: meta.declaration.adt.haskell
     patterns:
       - include: '#comment_like'
-      - include: '#existential'
       - include: '#deriving'
+      - include: '#forall'
+      - include: '#context'
       - include: '#record_decl'
       - begin: >-
           (?x)
@@ -252,7 +255,7 @@ patterns:
                  \1\s+\S    # - Some haskell stuff, but more indented (continuation)
                | \s*        # - Only a little bit of whitespace followed by
                  (?: $      #   - The end of the line (i.e. empty line)
-                 | \{-      #   - The start of a block comment
+                 |\{-[^@]   #   - The start of a block comment
                  |--+       #   - The start of a single-line comment
                     (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
                             # The double dash may not be followed by other operator characters,
@@ -293,7 +296,7 @@ patterns:
             \1\s+\S    # - Some haskell stuff, but more indented (continuation)
           | \s*        # - Only a little bit of whitespace followed by
             (?: $      #   - The end of the line (i.e. empty line)
-            | \{-      #   - The start of a block comment
+            |\{-[^@]   #   - The start of a block comment
             |--+       #   - The start of a single-line comment
                (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
                        # The double dash may not be followed by other operator characters,
@@ -338,7 +341,7 @@ patterns:
             \1\s+\S    # - Some haskell stuff, but more indented (continuation)
           | \s*        # - Only a little bit of whitespace followed by
             (?: $      #   - The end of the line (i.e. empty line)
-            | \{-      #   - The start of a block comment
+            |\{-[^@]   #   - The start of a block comment
             |--+       #   - The start of a single-line comment
                (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
                        # The double dash may not be followed by other operator characters,
@@ -361,7 +364,7 @@ patterns:
             \1\s+\S    # - Some haskell stuff, but more indented (continuation)
           | \s*        # - Only a little bit of whitespace followed by
             (?: $      #   - The end of the line (i.e. empty line)
-            | \{-      #   - The start of a block comment
+            |\{-[^@]   #   - The start of a block comment
             |--+       #   - The start of a single-line comment
                (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
                        # The double dash may not be followed by other operator characters,
@@ -383,7 +386,7 @@ patterns:
             \1\s+\S    # - Some haskell stuff, but more indented (continuation)
           | \s*        # - Only a little bit of whitespace followed by
             (?: $      #   - The end of the line (i.e. empty line)
-            | \{-      #   - The start of a block comment
+            |\{-[^@]   #   - The start of a block comment
             |--+       #   - The start of a single-line comment
                (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
                        # The double dash may not be followed by other operator characters,
@@ -433,7 +436,7 @@ patterns:
   - include: '#type_application'
   - include: '#string_literal'
   - include: '#char_literal'
-  - match: '-\}'
+  - match: '(?<!@)-\}'
     name: invalid
   - include: '#fun_decl'
   - include: '#data_constructor'
@@ -545,7 +548,6 @@ repository:
     patterns:
       - include: '#cpp'
       - include: '#pragma'
-      - include: '#liquid-haskell'
       - include: '#comments'
   cpp:
     captures:
@@ -674,24 +676,25 @@ repository:
         end: '(?=#-\})'
         patterns:
           - {include: '#string_literal'}
-  liquid-haskell:
+  liquid_haskell:
     name: block.liquidhaskell.haskell
     begin: '\{-@'
     end: '@-\}'
     patterns:
       - include: '$self'
-  existential:
-    begin: '\b(forall|∀)(?!'')\b'
-    beginCaptures: 
-      '1': {name: keyword.other.forall.haskell}
-    end: '(?<=\s|\w)(=>|⇒)'
-    endCaptures: 
-      '1': {name: keyword.operator.big-arrow.haskell}
-    patterns: 
-      - include: '#type_variable'
-      - include: '#type_constructor'
-      - match: '\.'
-        name: keyword.operator.period.haskell
+  context:
+    match: |
+      (?x)
+        (.*)
+        (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
+        (=>|⇒)
+        (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
+    captures:
+      '1':
+         patterns:
+            - include: '#comment_like'
+            - include: '#type_signature'
+      '2': {name: keyword.operator.big-arrow.haskell}
   data_constructor:
     match: >-
       \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?![\.''\w])
@@ -768,7 +771,7 @@ repository:
             \1\s+\S    # - Some haskell stuff, but more indented (continuation)
           | \s*        # - Only a little bit of whitespace followed by
             (?: $      #   - The end of the line (i.e. empty line)
-            | \{-      #   - The start of a block comment
+            |\{-[^@]   #   - The start of a block comment
             |--+       #   - The start of a single-line comment
                (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
                        # The double dash may not be followed by other operator characters,
@@ -827,7 +830,7 @@ repository:
       - include: '#string_literal'
       - match: '''[^'']'''
         name: invalid
-      - match: '-\}'
+      - match: '(?<!@)-\}'
         name: invalid
       - include: '#type_application'
       - include: '#type_operator'
@@ -905,6 +908,7 @@ repository:
               ((?:\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.)*)
             # Type operator proper
               ([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)
+                # (?!@-\})(?:(?<!@)-(?!\}))([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)
         captures:
           '1': {name: keyword.operator.promotion.haskell }
           '2': {name: entity.name.namespace.haskell }
@@ -1011,7 +1015,7 @@ repository:
             \1\s+\S    # - Some haskell stuff, but more indented (continuation)
           | \s*        # - Only a little bit of whitespace followed by
             (?: $      #   - The end of the line (i.e. empty line)
-            | \{-      #   - The start of a block comment
+            |\{-[^@]   #   - The start of a block comment
             |--+       #   - The start of a single-line comment
                (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
                        # The double dash may not be followed by other operator characters,

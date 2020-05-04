@@ -5,4 +5,5 @@
     {-@ f :: (Ord a) => xs:[a] -> (IncrList a) @-}
 --  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ block.liquidhaskell.haskell
 --  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - comment.block.haskell
+--                                             ^^^ - storage.type.operator.infix.haskell
     f :: [a] -> [a]

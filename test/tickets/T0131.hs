@@ -5,5 +5,6 @@
 --       ^^ keyword.operator.double-colon.haskell
 --                ^^ keyword.operator.arrow.haskell
 --  -------------------------------- - comment.block.haskell
+--                                   ^^^ - keyword.type.operator.haskell
 incr :: Int -> Int 
 incr x = x + 1 

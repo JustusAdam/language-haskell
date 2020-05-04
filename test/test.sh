@@ -20,6 +20,7 @@ ticketsBroken=(
   "T0072b2.hs"
   "T0072c.hs"
   "T0132.hs"
+  "T0150b.hs"
 )
 
 # Colours used to display test outputs.
