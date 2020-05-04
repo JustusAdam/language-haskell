@@ -418,28 +418,7 @@ patterns:
   - include: '#numeric_literals'
   - include: '#type_application'
   - include: '#string_literal'
-  - captures:
-      '1': {name: punctuation.definition.string.begin.haskell}
-      '2': {name: constant.character.escape.haskell}
-      '3': {name: constant.character.escape.octal.haskell}
-      '4': {name: constant.character.escape.hexadecimal.haskell}
-      '5': {name: constant.character.escape.control.haskell}
-      '6': {name: punctuation.definition.string.end.haskell}
-    match: |
-      (?x)
-        (?<![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'])
-        (')
-        (?:
-          [\ -\[\]-~]                         # Basic Char
-        | (\\(?:NUL|SOH|STX|ETX|EOT|ENQ|ACK|BEL|BS|HT|LF|VT|FF|CR|SO|SI|DLE
-             |DC1|DC2|DC3|DC4|NAK|SYN|ETB|CAN|EM|SUB|ESC|FS|GS|RS
-             |US|SP|DEL|[abfnrtv\\\"'\\&]))   # Escapes
-        | (\\o[0-7]+)                         # Octal Escapes
-        | (\\x[0-9A-Fa-f]+)                   # Hexadecimal Escapes
-        | (\^[A-Z@\[\]\\\^_])                 # Control Chars
-        )
-        (')
-    name: string.quoted.single.haskell
+  - include: '#char_literal'
   - match: '-\}'
     name: invalid
   - include: '#fun_decl'
@@ -945,6 +924,29 @@ repository:
         patterns:
           - match: \S+
             name: invalid.illegal.character-not-allowed-here.haskell
+  char_literal:
+    captures:
+      '1': {name: punctuation.definition.string.begin.haskell}
+      '2': {name: constant.character.escape.haskell}
+      '3': {name: constant.character.escape.octal.haskell}
+      '4': {name: constant.character.escape.hexadecimal.haskell}
+      '5': {name: constant.character.escape.control.haskell}
+      '6': {name: punctuation.definition.string.end.haskell}
+    match: |
+      (?x)
+        (?<![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'])
+        (')
+        (?:
+          [\ -\[\]-~]                         # Basic Char
+        | (\\(?:NUL|SOH|STX|ETX|EOT|ENQ|ACK|BEL|BS|HT|LF|VT|FF|CR|SO|SI|DLE
+             |DC1|DC2|DC3|DC4|NAK|SYN|ETB|CAN|EM|SUB|ESC|FS|GS|RS
+             |US|SP|DEL|[abfnrtv\\\"'\\&]))   # Escapes
+        | (\\o[0-7]+)                         # Octal Escapes
+        | (\\x[0-9A-Fa-f]+)                   # Hexadecimal Escapes
+        | (\\\^[A-Z@\[\]\\\^_])                 # Control Chars
+        )
+        (')
+    name: string.quoted.single.haskell
   float_literals:
     comment: 'Floats are decimal or hexadecimal'
     match: '\b([0-9](_*[0-9])*\.[0-9](_*[0-9])*(_*[eE][-+]?[0-9](_*[0-9])*)?|[0-9](_*[0-9])*_*[eE][-+]?[0-9](_*[0-9])*|0[xX]_*[0-9a-fA-F](_*[0-9a-fA-F])*\.[0-9a-fA-F](_*[0-9a-fA-F])*(_*[pP][-+]?[0-9](_*[0-9])*)?|0[xX]_*[0-9a-fA-F](_*[0-9a-fA-F])*_*[pP][-+]?[0-9](_*[0-9])*)\b'
