@@ -10,12 +10,13 @@ import M ( pattern Q )
 --                 ^ constant.other.haskell
 
 
-pattern A :: Type
+pattern A :: T
 -- <------- keyword.other.pattern.haskell
 --      ^ constant.other.haskell
-pattern (A b) = c
+--           ^ storage.type.haskell
+pattern (A b) = C
 -- <------- keyword.other.pattern.haskell
---       ^ constant.other.haskell
+--       ^      ^ constant.other.haskell
 
 pattern B :: A -> B
 -- <------- keyword.other.pattern.haskell
@@ -24,6 +25,7 @@ pattern B :: A -> B
           -> C
 --           ^ storage.type.haskell
 
-pattern A, B :: Type
+pattern A, B :: T
 -- <------- keyword.other.pattern.haskell
 --      ^  ^ constant.other.haskell
+--              ^ storage.type.haskell

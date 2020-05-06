@@ -46,6 +46,7 @@
 - Support for role annotation keywords (nominal/representational/phantom).
 - Fix regression in highlighting subsequent lines in a multi-line type signature
   when the initial `::` appears appears first on a line.
+- Correct highlighting of types in type families.
 
 ## 3.0.0 - 26.04.2020
 

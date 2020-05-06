@@ -98,11 +98,55 @@ patterns:
       - include: '#comment_like'
       - include: '#deriving'
       - include: '#gadt_constructor'
+  - include: '#role_annotation'
+  - name: 'meta.declaration.pattern.type.haskell'
+    begin: '(\s*)(pattern)\s+(.*?)\s+(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
+    beginCaptures:
+      '2': {name: keyword.other.pattern.haskell}
+      '3': 
+        patterns:
+          - include: '#comma'
+          - include: '#data_constructor'
+      '4': {name: keyword.operator.double-colon.haskell}
+    end: | 
+      (?x) # Detect end of pattern type definition by decreasing indentation:
+        (?=\}|;)       # Explicit indentation
+        |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
+            \1\s+\S    # - more indented, or
+          | \s*        # - starts with whitespace, followed by:
+            (?: $      #   - the end of the line (i.e. empty line), or
+            |\{-[^@]   #   - the start of a block comment, or
+            |--+       #   - the start of a single-line comment.
+               (?![\p{S}\p{P}&&[^(),;\[\]{}`_"']]).*$) # non-symbol
+                       # The double dash may not be followed by other operator characters
+                       # (then it would be an operator, not a comment)
+          )
+    patterns:
+      - include: '#type_signature'
+  - name: 'meta.declaration.pattern.haskell'
+    begin: '^\s*(pattern)\b(?!'')'
+    captures:
+      '1': {name: keyword.other.pattern.haskell}
+    end: | 
+      (?x) # Detect end of pattern type definition by decreasing indentation:
+        (?=\}|;)       # Explicit indentation
+        |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
+            \1\s+\S    # - more indented, or
+          | \s*        # - starts with whitespace, followed by:
+            (?: $      #   - the end of the line (i.e. empty line), or
+            |\{-[^@]   #   - the start of a block comment, or
+            |--+       #   - the start of a single-line comment.
+               (?![\p{S}\p{P}&&[^(),;\[\]{}`_"']]).*$) # non-symbol
+                       # The double dash may not be followed by other operator characters
+                       # (then it would be an operator, not a comment)
+          )
+    patterns:
+      - include: '$self'
   # ADT declaration (no "where" keyword on the same line)
   - begin: >-
       (?x)
         # Data declaration
-        ^(\s*)(data|newtype)(?:\s+(instance))?\s+
+        ^(\s*)(data|newtype)(?:\s+(family|instance))?\s+
         # Keep consuming characters until:
         (((?!
         # the equals symbol or the start of a single-line comment, or
@@ -119,7 +163,7 @@ patterns:
         ).)*)
     beginCaptures:
       '2': {name: keyword.other.$2.haskell}
-      '3': {name: keyword.other.instance.haskell}
+      '3': {name: keyword.other.$3.haskell}
       '4':
         patterns:
           - include: '#type_signature'
@@ -146,16 +190,45 @@ patterns:
       - include: '#context'
       - include: '#record_decl'
       - include: '#type_signature'
-  - begin: '(\s*)(pattern)\s+(.*?)\s+(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
+  - name: 'meta.declaration.type.family.haskell'
+    begin: >-
+      (?x)
+        # Type family
+        ^(\s*)(type)\s+(family)\b(?!')
+        # Keep consuming characters until:
+        (((?!
+        # the equals symbol or the start of a single-line comment, or
+          (?: 
+            (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
+            (?:=|--+)
+            (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
+          )
+        # the "where" keyword, or
+        | \bwhere\b(?!')
+        # the start of a block comment.
+        | {-
+        #
+        ).)*)
     beginCaptures:
-      '2': {name: keyword.other.pattern.haskell}
-      '3': 
+      '2': {name: keyword.other.type.haskell}
+      '3': {name: keyword.other.family.haskell}
+      '4':
         patterns:
-          - include: '#comma'
-          - include: '#data_constructor'
-      '4': {name: keyword.operator.double-colon.haskell}
+          - include: "#comment_like"
+          - match: >-
+             (?x)
+               (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
+               (?:(=)|(\|))
+               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
+            captures:
+              '1': {name: keyword.operator.eq.haskell}
+              '2': {name: keyword.operator.pipe.type.haskell}
+          - match: '\b(where)\b(?!'')'
+            captures:
+              '1': {name: keyword.other.where.haskell}
+          - include: '#type_signature'
     end: | 
-      (?x) # Detect end of pattern type definition by decreasing indentation:
+      (?x) # Detect end of type family by decreasing indentation:
         (?=\}|;)       # Explicit indentation
         |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
             \1\s+\S    # - more indented, or
@@ -168,16 +241,19 @@ patterns:
                        # (then it would be an operator, not a comment)
           )
     patterns:
+      - match: '\b(where)\b(?!'')'
+        name: keyword.other.where.haskell
+      - match: >-
+          (?x)
+            (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
+            (?:(=)|(\|))
+            (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
+        captures:
+          '1': {name: keyword.operator.eq.haskell}
+          '2': {name: keyword.operator.pipe.type.haskell}
       - include: '#type_signature'
-  - include: '#role_annotation'
-  - match: '^\s*(?:(?:(type)\s+(family))|(?:(data)\s+(family))|(pattern))'
-    captures:
-      '1': {name: keyword.other.type.haskell}
-      '2': {name: keyword.other.family.haskell}
-      '3': {name: keyword.other.data.haskell}
-      '4': {name: keyword.other.family.haskell}
-      '5': {name: keyword.other.pattern.haskell}
-  - begin: >-
+  - name: 'meta.declaration.type.haskell'
+    begin: >-
       (?x)
         # Type declaration
         ^(\s*)(type)(?:\s+(instance))?\s+
@@ -655,6 +731,7 @@ repository:
           )
   adt_constructor:
     patterns:
+      - include: '#comment_like'
       - begin: >-
           (?x)
             (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
