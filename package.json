@@ -83,6 +83,17 @@
         "configuration": "./cabal-configuration.json"
       },
       {
+        "id": "C2Hs",
+        "aliases": [
+          "C2Hs",
+          "c2hs"
+        ],
+        "extensions": [
+          ".chs"
+        ],
+        "configuration": "./C2Hs-configuration.json"
+      },
+      {
         "id": "literate haskell",
         "aliases": [
           "Literate Haskell",
@@ -114,6 +125,11 @@
         "language": "cabal",
         "scopeName": "source.cabal",
         "path": "./syntaxes/cabal.json"
+      },
+      {
+        "language": "C2Hs",
+        "scopeName": "source.c2hs",
+        "path": "./syntaxes/C2Hs.json"
       },
       {
         "language": "literate haskell",
