@@ -2,6 +2,7 @@
 
 fun = do
     x :: T -> T <- D ( \ (x :: T) -> D )
+--                        ^ - variable.other.generic-type.haskell
 --       ^    ^                ^ storage.type.haskell
 --                 ^                 ^ constant.other.haskell
 
@@ -9,7 +10,7 @@ a = D { a = D :: T } D
 --               ^  storage.type.haskell
 --  ^       ^        ^ constant.other.haskell
 
-x :: T ->
+x  :: T ->
 
     -- comment
     {-
@@ -20,13 +21,15 @@ x :: T ->
       T
 --    ^ storage.type.haskell
 
-y
+
+x 
   :: T ->
 
-  -- comment
-  {-
-    comment
-  -}
+    -- comment
+    {-
+      comment
+    -}
+     
 
       T
 --    ^ storage.type.haskell

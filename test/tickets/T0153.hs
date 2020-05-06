@@ -7,7 +7,6 @@
 --                    ^^^ constant.other.haskell
 --         ^     ^        ^ variable.other.generic-type.haskell
 --       ^     ^            ^ storage.type.haskell
---  ^^^^^^^^^^^^^^^^^^^^^^^^^ meta.declaration.adt.haskell
     data E x = forall x. Bar x A
 --  ^^^^ keyword.other.data.haskell
 --           ^ keyword.operator.eq.haskell
@@ -16,7 +15,6 @@
 --                       ^^^ constant.other.haskell
 --         ^          ^      ^ variable.other.generic-type.haskell
 --       ^                     ^ storage.type.haskell
---  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.declaration.adt.haskell
     data E x = forall x . C x => Bar x A
 --  ^^^^ keyword.other.data.haskell
 --           ^ keyword.operator.eq.haskell
@@ -26,8 +24,6 @@
 --                               ^^^ constant.other.haskell
 --         ^          ^              ^ variable.other.generic-type.haskell
 --       ^                ^            ^ storage.type.haskell
---  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.declaration.adt.haskell
-
 
     f :: forall x. C x => Bar x A
 --  ^  entity.name.function.haskell
@@ -37,6 +33,3 @@
 --                     ^^ keyword.operator.big-arrow.haskell
 --              ^    ^        ^ variable.other.generic-type.haskell
 --                 ^      ^^^     storage.type.haskell
---  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.function.type-declaration.haskell
---  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - meta.declaration.adt.haskell
-

@@ -1,6 +1,5 @@
 -- SYNTAX TEST "source.haskell" "Indentation in imports"
 
-
     import
 --  ^^^^^^ keyword.other.import.haskell    
             qualified

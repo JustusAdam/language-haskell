@@ -11,7 +11,7 @@ f
   :: A -> B
 --   ^    ^ storage.type.haskell
 
-f 
+f
   :: forall a b
 --   ^^^^^^ keyword.other.forall.haskell
 --          ^ ^ variable.other.generic-type.haskell

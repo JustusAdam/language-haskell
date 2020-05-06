@@ -38,6 +38,7 @@
    - recognise safe/unsafe/interruptible keywords,
    - correct highlighting of type signature, including over multiple lines.
 - Bugfix for escaped character literals (e.g. `'\^A'`).
+- Support for role annotation keywords (nominal/representational/phantom).
 
 ## 3.0.0 - 26.04.2020
 

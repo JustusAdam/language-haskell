@@ -19,7 +19,6 @@
   -- comment line not gobbled up by the preprocessor
 -- <~~-------------------------------------------------- comment.line.double-dash.haskell
       MkFoo :: Foo
---    ^^^^^^^^^^^^ meta.declaration.type.gadt.haskell
 --    ^^^^^ constant.other.haskell
 --             ^^^ storage.type.haskell
   

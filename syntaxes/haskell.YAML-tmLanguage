@@ -115,7 +115,7 @@ patterns:
            |\(\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)  # prefix operator
         beginCaptures:
           '1': {name: constant.other.haskell}
-          '2': {name: constant.other.haskell}
+          '2': {name: constant.other.opeator.haskell}
         end: '$'
         patterns:
           - include: '#type_signature'
@@ -304,15 +304,14 @@ patterns:
           )
     patterns:
       - include: '#type_signature'
-  - match: '^\s*(?:(?:(type)\s+(family))|(?:(data)\s+(family))|(?:(type)\s+(role))|(pattern))'
+  - include: '#role_annotation'
+  - match: '^\s*(?:(?:(type)\s+(family))|(?:(data)\s+(family))|(pattern))'
     captures:
       '1': {name: keyword.other.type.haskell}
       '2': {name: keyword.other.family.haskell}
       '3': {name: keyword.other.data.haskell}
       '4': {name: keyword.other.family.haskell}
-      '5': {name: keyword.other.type.haskell}
-      '6': {name: keyword.other.role.haskell}
-      '7': {name: keyword.other.pattern.haskell}
+      '5': {name: keyword.other.pattern.haskell}
   - begin: >-
       (?x)
         ^(\s*)\b(?:(?:(type)\s+(instance))|(type))
@@ -726,6 +725,32 @@ repository:
       - include: '#double_colon'
       - include: '#type_signature'
       - include: '#record_field'
+  role_annotation:
+    patterns:
+      - begin: '(\s*)(type)\s+(role)\b(?!'')'
+        beginCaptures:
+          '2': {name: keyword.other.type.haskell}
+          '3': {name: keyword.other.role.haskell}
+        end: >-
+          (?x) # Detect end of block by decreasing indentation:
+            (?=\}|;)       # Explicit indentation
+            |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
+                \1\s+\S    # - more indented, or
+              | \s*        # - starts with whitespace, followed by:
+                (?: $      #   - the end of the line (i.e. empty line), or
+                |\{-[^@]   #   - the start of a block comment, or
+                |--+       #   - the start of a single-line comment.
+                   (?![\p{S}\p{P}&&[^(),;\[\]{}`_"']]).*$) # non-symbol
+                           # The double dash may not be followed by other operator characters
+                           # (then it would be an operator, not a comment)
+              )
+        name: meta.role-annotation.haskell
+        patterns:
+          - include: '#comment_like'
+          - include: '#type_constructor'
+          - match: '\b(nominal|representational|phantom)\b(?!'')'
+            captures:
+              '1': {name: "keyword.other.role.$1.haskell"}
   fun_decl:
     begin: |
       (?x)^(\s*)

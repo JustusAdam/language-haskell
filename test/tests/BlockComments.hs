@@ -37,7 +37,6 @@
 over multiple lines  -}
 -- <---------------------- comment.block.haskell
       MkFoo :: Foo
---    ^^^^^^^^^^^^ meta.declaration.type.gadt.haskell
 --    ^^^^^ constant.other.haskell
 --             ^^^ storage.type.haskell
   
