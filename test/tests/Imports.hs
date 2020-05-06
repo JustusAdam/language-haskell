@@ -17,7 +17,7 @@ import M
 --          ^ constant.other.haskell
   , pattern (:| )
 --  ^^^^^^^ keyword.other.pattern.haskell
---           ^^ constant.other.haskell
+--           ^^ constant.other.operator.haskell
   , pattern -- Q,)
 --  ^^^^^^^ keyword.other.pattern.haskell
       Q

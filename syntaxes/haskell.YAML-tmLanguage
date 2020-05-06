@@ -21,10 +21,16 @@ patterns:
       allows any ordinary function application (elem 4 [1..10]) to be rewritten
       as an infix expression (4 `elem` [1..10]).
     name: keyword.operator.function.infix.haskell
-  - match: '\(\s*\)'
+  - match: '(\()\s*(\))'
     name: constant.language.unit.haskell
-  - match: '\[\s*\]'
+    captures:
+      '1': {name: punctuation.paren.haskell}
+      '2': {name: punctuation.paren.haskell}
+  - match: '(\[)\s*(\])'
     name: constant.language.empty-list.haskell
+    captures:
+      '1': {name: punctuation.bracket.haskell}
+      '2': {name: punctuation.bracket.haskell}
   - begin: '(\b(module)|^(signature))(\b(?!''))'
     beginCaptures:
       '2': {name: keyword.other.module.haskell}
@@ -505,11 +511,14 @@ repository:
     name: meta.preprocessor.c
   deriving:
     patterns:
-      - begin: '(deriving)(?:\s+(stock|newtype|anyclass))?\s*\('
+      - begin: '(deriving)(?:\s+(stock|newtype|anyclass))?\s*(\()'
         beginCaptures:
           '1': {name: keyword.other.deriving.haskell}
           '2': {name: "keyword.other.deriving.strategy.$2.haskell"}
-        end: \)
+          '3': {name: punctuation.paren.haskell}
+        end: '(\))'
+        endCaptures:
+          '1': {name: punctuation.paren.haskell}
         name: meta.deriving.haskell
         patterns:
           - include: '#type_signature'
@@ -529,15 +538,20 @@ repository:
         name: keyword.other.deriving.strategy.via.haskell
   infix_op:
     patterns:
-      - match: '\(\s*,[\s,]*\)'
+      - match: '(\()\s*,[\s,]*(\))'
         name: support.constant.tuple.haskell
+        captures:
+          '1': {name: punctuation.paren.haskell}
+          '2': {name: punctuation.paren.haskell}
       - comment: >
           An operator cannot be composed entirely of '-' characters; 
           instead, it should be matched as a comment.
         match: >-
-          \(\s*((?!--+\))[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)
+          (\()\s*((?!--+\))[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\))
         captures:
-          '1': {name: entity.name.function.infix.haskell}
+          '1': {name: punctuation.paren.haskell}
+          '2': {name: entity.name.function.infix.haskell}
+          '3': {name: punctuation.paren.haskell}
   module_exports:
     begin: \(
     beginCaptures:
@@ -555,7 +569,11 @@ repository:
       - include: '#cpp'
       - include: '#export_constructs'
       - begin: '\('
+        beginCaptures:
+          '0': {name: punctuation.paren.haskell}
         end: '\)'
+        endCaptures:
+          '0': {name: punctuation.paren.haskell}
         patterns:
           - include: '#export_constructs'
   export_constructs:
@@ -568,10 +586,12 @@ repository:
             # Data constructor
             ([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
             # Prefix form of symbolic constructor
-            | \(\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)
+            | (\()\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\))
         endCaptures:
           '1': {name: constant.other.haskell}
-          '2': {name: constant.other.haskell}
+          '2': {name: punctuation.paren.haskell}
+          '3': {name: constant.other.operator.haskell}
+          '4': {name: punctuation.paren.haskell}
         patterns:
           - include: '#comment_like'
       - begin: '\b(type)\b(?!'')'
@@ -582,10 +602,12 @@ repository:
             # Type name
             ([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
             # Prefix form of type operator
-            | \(\s*([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)
+            | (\()\s*([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\))
         endCaptures:
           '1': {name: storage.type.haskell}
-          '2': {name: storage.type.operator.haskell}
+          '2': {name: punctuation.paren.haskell}
+          '3': {name: storage.type.operator.haskell}
+          '4': {name: punctuation.paren.haskell}
         patterns:
           - include: '#comment_like'
       - match: >-
@@ -596,9 +618,6 @@ repository:
         name: storage.type.haskell
       - include: '#infix_op'
       - include: '#comment_like'
-      - match: '\(\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"'']]+)\s*\)'
-        captures:
-          '1': {name: storage.type.haskell}
   comma:
     match: ','
     name: punctuation.separator.comma.haskell
@@ -667,12 +686,14 @@ repository:
     begin: |
       (?x)
         (?:([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
-          |\(\s*([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)
+          |(\()\s*([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\))
         )
     end: ',|(?=})'
     beginCaptures:
       '1': {name: variable.other.definition.field.haskell}
-      '2': {name: variable.other.definition.field.haskell}
+      '2': {name: punctuation.paren.haskell}
+      '3': {name: variable.other.definition.field.haskell}
+      '4': {name: punctuation.paren.haskell}
     patterns:
       - include: '#comment_like'
       - include: '#comma'
@@ -898,13 +919,17 @@ repository:
   type_signature:
     patterns:
       - include: '#comment_like'
-      - match: '('')?\(\s*\)'
+      - match: '('')?(\()\s*(\))'
         captures:
           '1': {name: keyword.operator.promotion.haskell}
+          '2': {name: punctuation.paren.haskell}
+          '3': {name: punctuation.paren.haskell}
         name: support.constant.unit.haskell
-      - match: '('')?\[\s*\]'
+      - match: '('')?(\[)\s*(\])'
         captures:
           '1': {name: keyword.operator.promotion.haskell}
+          '2': {name: punctuation.bracket.haskell}
+          '3': {name: punctuation.bracket.haskell}
         name: support.constant.empty-list.haskell
       - include: '#integer_literals'
       - match: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
