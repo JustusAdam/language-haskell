@@ -94,6 +94,18 @@
         "configuration": "./C2Hs-configuration.json"
       },
       {
+        "id": "Hsc2Hs",
+        "aliases": [
+          "Hsc2Hs",
+          "HsC2Hs",
+          "hsc2hs"
+        ],
+        "extensions": [
+          ".hsc"
+        ],
+        "configuration": "./Hsc2Hs-configuration.json"
+      },
+      {
         "id": "literate haskell",
         "aliases": [
           "Literate Haskell",
@@ -130,6 +142,11 @@
         "language": "C2Hs",
         "scopeName": "source.c2hs",
         "path": "./syntaxes/C2Hs.json"
+      },
+      {
+        "language": "Hsc2Hs",
+        "scopeName": "source.hsc",
+        "path": "./syntaxes/Hsc2Hs.json"
       },
       {
         "language": "literate haskell",

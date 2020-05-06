@@ -1,0 +1,8 @@
+{
+  "fileTypes": [ "hsc" ],
+  "name": "Hsc2Hs",
+  "scopeName": "source.hsc",
+  "patterns": [
+    { "include": "source.haskell" }
+  ]
+  }
