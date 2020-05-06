@@ -12,8 +12,6 @@ namedBroken=(
   "MagicHash.hs"
 )
 ticketsBroken=(
-  "T0028c.hs"
-  "T0072b3.hs"
   "T0150b.hs"
 )
 

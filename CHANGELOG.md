@@ -6,8 +6,6 @@
   ([#118](https://github.com/JustusAdam/language-haskell/issues/118))
 - Add support for deriving strategies, and improve leniency for whitespace in deriving declarations
   ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
-
-  ([#119](https://github.com/JustusAdam/language-haskell/issues/119))
 - Fixed regression [#122](https://github.com/JustusAdam/language-haskell/issues/122), constructor
   patterns
 - Enabling pragmas in multiline comments
@@ -17,7 +15,9 @@
 - Added support for multiline type signatures for pattern synonyms
 - Fixed fixed multi pattern synonym type declarations ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
 - Add support for cabal [internal libraries](https://www.haskell.org/cabal/users-guide/developing-packages.html#sublibs).
-- Allow unparenthesised `via` clauses, and highlight the derived instance code as usual.
+- Improvements to `deriving via`:
+  - Allow unparenthesised `via` clauses, and highlight the derived instance code as usual,
+  - Highlight multiline `deriving via` clauses (in most situations).
 - Improve highlighting of ticks ([#136](https://github.com/JustusAdam/language-haskell/issues/136)),
   ([#71](https://github.com/JustusAdam/language-haskell/issues/71)).
 - Several fixes to data type declarations:
