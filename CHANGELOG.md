@@ -6,7 +6,7 @@
   ([#118](https://github.com/JustusAdam/language-haskell/issues/118))
 - Add support for deriving strategies, and improve leniency for whitespace in deriving declarations
   ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
-- Fixed highlighting for GADT's when `::` follows on a new line
+
   ([#119](https://github.com/JustusAdam/language-haskell/issues/119))
 - Fixed regression [#122](https://github.com/JustusAdam/language-haskell/issues/122), constructor
   patterns
@@ -20,7 +20,12 @@
 - Allow unparenthesised `via` clauses, and highlight the derived instance code as usual.
 - Improve highlighting of ticks ([#136](https://github.com/JustusAdam/language-haskell/issues/136)),
   ([#71](https://github.com/JustusAdam/language-haskell/issues/71)).
-- Support record syntax in GADTs.
+- Several fixes to data type declarations:
+  - Highlight infix data constructors ([#132](https://github.com/JustusAdam/language-haskell/issues/132))
+  - Correctly parse comments on the same line as a data declaration,
+  - Fix regression in for GADT constructors when `::` follows on a new line
+    ([#119](https://github.com/JustusAdam/language-haskell/issues/119))
+  - Support record syntax in GADTs.
 - Address regression in LiquidHaskell highlighting ([#131](https://github.com/JustusAdam/language-haskell/issues/136)).
 - Fixed several issues involving multi-line type/data declarations,
   including allowing intervening comments ([#147](https://github.com/JustusAdam/language-haskell/pull/147)).
@@ -39,6 +44,8 @@
    - correct highlighting of type signature, including over multiple lines.
 - Bugfix for escaped character literals (e.g. `'\^A'`).
 - Support for role annotation keywords (nominal/representational/phantom).
+- Fix regression in highlighting subsequent lines in a multi-line type signature
+  when the initial `::` appears appears first on a line.
 
 ## 3.0.0 - 26.04.2020
 

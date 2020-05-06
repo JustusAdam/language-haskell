@@ -8,10 +8,10 @@ type family a ==> b = a --> b
 --                  ^ keyword.operator.eq.haskell
 --            ^^^ - keyword.operator.eq.haskell keyword.operator.big-arrow.haskell
 --                      ^^^ - keyword.operator.arrow.haskell
-data a :==> b = a == b
---            ^ keyword.operator.eq.haskell
---     ^^^^ - keyword.operator.eq.haskell keyword.operator.big-arrow.haskell
---                ^^ - keyword.operator.eq.haskell
+data a ==> b = a :== b
+--           ^ keyword.operator.eq.haskell
+--     ^^^ - keyword.operator.eq.haskell keyword.operator.big-arrow.haskell
+--               ^^^ - keyword.operator.eq.haskell
 data a :==> b where
 --     ^^^^ - keyword.operator.eq.haskell keyword.operator.big-arrow.haskell
   (::: ) :: a ::: b -> c :==> d

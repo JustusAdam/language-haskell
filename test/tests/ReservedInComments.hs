@@ -1,4 +1,3 @@
-
 -- SYNTAX TEST "source.haskell" "Reserved names in comments"
 
 data A = B -- where

@@ -55,7 +55,20 @@ patterns:
   - begin: >-
       (?x)
         ^(\s*)(data|newtype)(?:\s+(instance))?\s+
-        ((?:(?!\bwhere\b(?!')).)*)
+        # Keep consuming characters until:
+        ((?:(?!
+        # the equals symbol or the start of a single-line comment, or
+          (?: 
+            (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
+            (?:=|--+)
+            (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
+          )
+        # the "where" or "deriving" keywords, or
+        | (?:\b(?:where|deriving)\b(?!'))
+        # the start of a block comment.
+        | {-
+        #
+        ).)*)
         \b(where)\b(?!')
     beginCaptures:
       '2': {name: keyword.other.$2.haskell}
@@ -166,24 +179,24 @@ patterns:
       '5': {name: keyword.other.pattern.haskell}
   - begin: >-
       (?x)
-        ^(\s*)\b(?:(?:(type)\s+(instance))|(type))
-          \s+
-          ([^=]*)
-          (?:
-            \s+
-            (=)
-            (.*)
-          )?\s*$
+        # Type declaration
+        ^(\s*)(type)(?:\s+(instance))?\s+
+        # Keep consuming characters until:
+        (((?!
+        # the equals symbol or the start of a single-line comment, or
+          (?: 
+            (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
+            (?:=|--+)
+            (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
+          )
+        # the start of a block comment.
+        | {-
+        #
+        ).)*)
     beginCaptures:
       '2': {name: keyword.other.type.haskell}
       '3': {name: keyword.other.instance.haskell}
-      '4': {name: keyword.other.type.haskell}
-      '5':
-        patterns:
-          - include: '#comment-like'
-          - include: '#type_signature'
-      '6': {name: keyword.operator.eq.haskell}
-      '7':
+      '4':
         patterns:
           - include: '#type_signature'
     end: | 
@@ -199,13 +212,15 @@ patterns:
                        # The double dash may not be followed by other operator characters
                        # (then it would be an operator, not a comment)
           )
-    endCaptures:
-      '1': {name: keyword.operator.eq.haskell}
     patterns:
-      - include: '#type_signature'
-      - match: '^(?:\s*(=))'
+      - match: >-
+          (?x)
+            (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
+            (=)                                  # equals sign
+            (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
         captures:
           '1': {name: keyword.operator.eq.haskell}
+      - include: '#type_signature'
   - begin: '^(\s*)\b(instance)(\b(?!''))'
     beginCaptures:
       '2': {name: keyword.other.instance.haskell}
@@ -300,32 +315,7 @@ patterns:
   - include: '#data_constructor'
   - include: '#qualifier'
   - include: '#infix_op'
-  - begin: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
-    beginCaptures:
-      '1': {name: keyword.operator.double-colon.haskell}
-    end: >-
-      (?x)
-        # End type annotation when seeing one of:
-        (?=
-          \)                          # closing parenthesis
-          |$                          # end of line
-          |,                          # comma
-          |}                          # closing bracket
-          |\b(in|then|else|of)\b(?!') # keyword
-          |                           # symbolic keyword except (->)
-            (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
-            (?:
-               (\\|λ)
-              |(<-|←)
-              |(=)
-              |(-<|↢)
-              |(-<<|⤛)
-            )
-            ([(),;\[\]`{}_"']|[^\p{S}\p{P}])
-        )
-    patterns:
-      - include: '#type_signature'
-    name: meta.type-declaration.haskell
+  - include: '#start_type_signature'
   - match: |
       (?x)
         (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])
@@ -562,8 +552,12 @@ repository:
       \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.
     name: entity.name.namespace.haskell
   record_decl:
-    begin: '{(?!-)'
-    end: '(?<!-)}'
+    begin: '({)(?!-)'
+    beginCaptures:
+      '1': {name: punctuation.brace.haskell}
+    end: '(?<!-)(})'
+    endCaptures:
+      '1': {name: punctuation.brace.haskell}
     name: meta.record.definition.haskell
     patterns:
       - include: '#comment_like'
@@ -618,14 +612,13 @@ repository:
             [\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
           | \(\s*
               (?!--+\))
-              (?:
-                (?![(),;\[\]`{}_"'])[\p{S}\p{P}]
-              )+
+              [\p{S}\p{P}&&[^(),:;\[\]`{}_"']]
+              [\p{S}\p{P}&&[^(),;\[\]`{}_"']]*
             \s*\)
           )
           (?:\s*,\s*\g<fn>)?
         )
-        \s*(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])
+        \s*(?<![\p{S}\p{P}&&[^\),;\]`}_"']])(::|∷)(?![\p{S}\p{P}&&[^\(,;\[`{_"']])
     beginCaptures:
       '2':
         patterns:
@@ -686,7 +679,7 @@ repository:
               # Then either
               \s*
                 # - a symbolic infix constructor, or
-              (?:(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)
+              (?:(?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)
                 # - an alphabetic infix constructor
               | (`)([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)(`)
               )
@@ -852,6 +845,70 @@ repository:
     match: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
     captures:
       '1': {name: keyword.operator.double-colon.haskell}
+  start_type_signature:
+    patterns:
+      - begin: '^(\s*)(::|∷)(?![\p{S}\p{P}&&[^\(,;\[`{_"'']])'
+        beginCaptures:
+          '2': {name: keyword.operator.double-colon.haskell}
+        end: >-
+          (?x)
+            # End type annotation when seeing one of:
+            (?=
+              \)                          # closing parenthesis
+              |,                          # comma
+              |\b(in|then|else|of)\b(?!') # keyword
+              |                           # symbolic keyword except (->)
+                (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
+                (?:
+                   (\\|λ)
+                  |(<-|←)
+                  |(=)
+                  |(-<|↢)
+                  |(-<<|⤛)
+                )
+                ([(),;\[\]`{}_"']|[^\p{S}\p{P}])
+              # Decreasing indentation:
+              | (?=\}|;)      # Explicit indentation
+              |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
+                  \1\s*\S    # - equally indented, or
+                | \s*        # - starts with whitespace, followed by:
+                  (?: $      #   - the end of the line (i.e. empty line), or
+                  |\{-[^@]   #   - the start of a block comment, or
+                  |--+       #   - the start of a single-line comment.
+                     (?![\p{S}\p{P}&&[^(),;\[\]{}`_"']]).*$) # non-symbol
+                             # The double dash may not be followed by other operator characters
+                             # (then it would be an operator, not a comment)
+                )
+            )
+        patterns:
+          - include: '#type_signature'
+        name: meta.type-declaration.haskell
+      - begin: '(?<![\p{S}\p{P}&&[^\(,;\[`{_"'']])(::|∷)(?![\p{S}\p{P}&&[^\(,;\[`{_"'']])'
+        beginCaptures:
+          '1': {name: keyword.operator.double-colon.haskell}
+        end: >-
+          (?x)
+            # End type annotation when seeing one of:
+            (?=
+              \)                          # closing parenthesis
+              |,                          # comma
+              |\b(in|then|else|of)\b(?!') # keyword
+              |                           # symbolic keyword except (->)
+                (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
+                (?:
+                   (\\|λ)
+                  |(<-|←)
+                  |(=)
+                  |(-<|↢)
+                  |(-<<|⤛)
+                )
+                ([(),;\[\]`{}_"']|[^\p{S}\p{P}])
+              # Indentation 
+              |(?=\}|;)      # Explicit indentation
+              |$             # End of line
+            )
+        patterns:
+          - include: '#type_signature'
   type_variable:
     match: '\b(?!forall)[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
     name: variable.other.generic-type.haskell
@@ -900,7 +957,6 @@ repository:
               ((?:\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.)*)
             # Type operator proper
               ([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)
-                # (?!@-\})(?:(?<!@)-(?!\}))([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)
         captures:
           '1': {name: keyword.operator.promotion.haskell }
           '2': {name: entity.name.namespace.haskell }

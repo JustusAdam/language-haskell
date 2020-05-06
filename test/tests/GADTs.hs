@@ -23,35 +23,11 @@
 --         ^^ keyword.operator.double-colon.haskell
 --            ^ ^ ^ ^ storage.type.haskell
 
-    data G (a :: A) b (c :: C) :: Type
---  ^^^^ keyword.other.data.haskell
---          ^          ^ variable.other.generic-type.haskell
---            ^^         ^^    ^^ keyword.operator.double-colon.haskell
---       ^       ^          ^     ^^^^ storage.type.haskell
-      where
---    ^^^^^^ keyword.other.where.haskell
-      A :: G a b c
---    ^ constant.other.haskell
---      ^^ keyword.operator.double-colon.haskell
---         ^ storage.type.haskell
---           ^ ^ ^ variable.other.generic-type.haskell
-      (:&) :: G A B c
---     ^^ constant.other.operator.haskell
---         ^^ keyword.operator.double-colon.haskell
---            ^ ^ ^ storage.type.haskell
---                  ^ variable.other.generic-type.haskell
-      (:!!!!!!!!!!!!!!!!!!!!!!!!)
---     ^^^^^^^^^^^^^^^^^^^^^^^^^ constant.other.operator.haskell
-        :: a -> b -> G a b c
---      ^^ keyword.operator.double-colon.haskell
---                   ^ storage.type.haskell
---         ^    ^      ^ ^ ^ variable.other.generic-type.haskell
-
 
     data (a :: A) `G` (c :: C) :: Type where
 --  ^^^^ keyword.other.data.haskell
 --        ^            ^ variable.other.generic-type.haskell
---                 ^ storage.type.haskell
+--                 ^ storage.type.infix.haskell
 --          ^^           ^^    ^^ keyword.operator.double-colon.haskell
 --             ^            ^     ^^^^ storage.type.haskell
 --                                     ^^^^^^ keyword.other.where.haskell
@@ -74,7 +50,7 @@
 
     data (a :: A) :& (b :: B) :: Type where
 --  ^^^^ keyword.other.data.haskell
---                ^^ storage.type.operator.haskell
+--                ^^ storage.type.operator.infix.haskell
 --        ^           ^ variable.other.generic-type.haskell
 --          ^^          ^^    ^^ keyword.operator.double-colon.haskell
 --             ^           ^     ^^^^ storage.type.haskell
@@ -82,6 +58,6 @@
 
     data a :& b where
 --  ^^^^ keyword.other.data.haskell
---         ^^ storage.type.operator.haskell
+--         ^^ storage.type.operator.infix.haskell
 --       ^    ^ variable.other.generic-type.haskell
 --              ^^^^^^ keyword.other.where.haskell
