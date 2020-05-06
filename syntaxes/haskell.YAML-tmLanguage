@@ -49,239 +49,90 @@ patterns:
     name: meta.declaration.class.haskell
     patterns:
       - {include: '#type_signature'}
+  # GADT declaration
+  # must find `where` keyword on the same line
+  # (only way to distinguish between GADT and ADT)
   - begin: >-
       (?x)
-        ^(\s*)\b(?:(?:(data)\s+(instance))|(data))
-        \s+
-        (?:
-          ([\p{Lu}\p{Lt}][\w\p{Nd}_']*)                  # named type
-        | \(\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)  # Operator type
-        )
-        (.*)
-        \b(where(?:\b(?!')))
+        ^(\s*)(data|newtype)(?:\s+(instance))?\s+
+        ((?:(?!\bwhere\b(?!')).)*)
+        \b(where)\b(?!')
     beginCaptures:
-      '2': {name: keyword.other.data.haskell}
+      '2': {name: keyword.other.$2.haskell}
       '3': {name: keyword.other.instance.haskell}
-      '4': {name: keyword.other.data.haskell}
-      '5': {name: storage.type.haskell}
-      '6': {name: storage.type.operator.haskell}
-      '7':
+      '4': 
         patterns:
-          - include: '#comment_like'
           - include: '#type_signature'
-      '8': {name: keyword.other.where.haskell}
-    name: meta.declaration.type.gadt.haskell
+      '5': {name: keyword.other.where.haskell}
+    name: meta.declaration.$2.generalized.haskell
     end: | 
-      (?x)
-        (?=\bderiving\b(?!'))
-        |^(?!          # It ends *unless* the *new* line is:
-            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
-          | \s*        # - Only a little bit of whitespace followed by
-            (?: $      #   - The end of the line (i.e. empty line)
-            |\{-[^@]   #   - The start of a block comment
-            |--+       #   - The start of a single-line comment
-               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
-                       # The double dash may not be followed by other operator characters,
-                       # then it would be an operator, not a comment
-          )
+      (?x) # Detect end of data declaration:
+               # Deriving clause
+         (?=\bderiving\b(?!'))  
+               # Decreasing indentation
+         |(?=\}|;)      # Explicit indentation
+         |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
+             \1\s+\S    # - more indented, or
+           | \s*        # - starts with whitespace, followed by:
+             (?: $      #   - the end of the line (i.e. empty line), or
+             |\{-[^@]   #   - the start of a block comment, or
+             |--+       #   - the start of a single-line comment.
+                (?![\p{S}\p{P}&&[^(),;\[\]{}`_"']]).*$) # non-symbol
+                        # The double dash may not be followed by other operator characters
+                        # (then it would be an operator, not a comment)
+           )
     patterns:
       - include: '#comment_like'
       - include: '#deriving'
-      - begin: '^(\s*)(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)'
-        beginCaptures:
-          '2': {name: constant.other.haskell}
-        end: |
-          (?x)
-            (?=\bderiving\b(?!'))
-            |^(?!          # It ends *unless* the *new* line is:
-                \1\s+\S    # - Some haskell stuff, but more indented (continuation)
-              | \s*        # - Only a little bit of whitespace followed by
-                (?: $      #   - The end of the line (i.e. empty line)
-                |\{-[^@]   #   - The start of a block comment
-                |--+       #   - The start of a single-line comment
-                   (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
-                           # The double dash may not be followed by other operator characters,
-                           # then it would be an operator, not a comment
-              )
-        patterns:
-          - include: '#comment_like'
-          - include: '#deriving'
-          - include: '#double_colon'
-          - include: '#record_decl'
-          - include: '#type_signature'
-      - begin: >-
-          (?x)
-            (\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}]*) # named constructor
-           |\(\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)  # prefix operator
-        beginCaptures:
-          '1': {name: constant.other.haskell}
-          '2': {name: constant.other.opeator.haskell}
-        end: '$'
-        patterns:
-          - include: '#type_signature'
+      - include: '#gadt_constructor'
+  # ADT declaration (no "where" keyword on the same line)
   - begin: >-
       (?x)
-        ^(\s*)\b(?:(?:(newtype)\s+(instance))|(newtype))
-        \s+
-        (?:
-          ([\p{Lu}\p{Lt}][\w\p{Nd}_']*)                  # named type
-        | \(\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)  # Operator type
-        )
-        ([^=]*)
-        (?:(=)|$)
+        # Data declaration
+        ^(\s*)(data|newtype)(?:\s+(instance))?\s+
+        # Keep consuming characters until:
+        (((?!
+        # the equals symbol or the start of a single-line comment, or
+          (?: 
+            (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
+            (?:=|--+)
+            (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
+          )
+        # the "where" or "deriving" keywords, or
+        | (?:\b(?:where|deriving)\b(?!'))
+        # the start of a block comment.
+        | {-
+        #
+        ).)*)
     beginCaptures:
-      '2': {name: keyword.other.newtype.haskell}
+      '2': {name: keyword.other.$2.haskell}
       '3': {name: keyword.other.instance.haskell}
-      '4': {name: keyword.other.newtype.haskell}
-      '5': {name: storage.type.haskell}
-      '6': {name: storage.type.operator.haskell}
-      '7':
+      '4':
         patterns:
           - include: '#type_signature'
-      '8': {name: keyword.operator.eq.haskell}
-    name: meta.declaration.newtype.haskell
-    end: | 
-      (?x)
-        (?=\bderiving\b(?!'))
-        |^(?!          # It ends *unless* the *new* line is:
-            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
-          | \s*        # - Only a little bit of whitespace followed by
-            (?: $      #   - The end of the line (i.e. empty line)
-            |\{-[^@]   #   - The start of a block comment
-            |--+       #   - The start of a single-line comment
-               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
-                       # The double dash may not be followed by other operator characters,
-                       # then it would be an operator, not a comment
-          )
+    name: meta.declaration.$2.algebraic.haskell
+    end: >-
+      (?x) # Detect end of data declaration: 
+           # Decreasing indentation
+         (?=\}|;)      # Explicit indentation
+         |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
+             \1\s+\S    # - more indented, or
+           | \s*        # - starts with whitespace, followed by:
+             (?: $      #   - the end of the line (i.e. empty line), or
+             |\{-[^@]   #   - the start of a block comment, or
+             |--+       #   - the start of a single-line comment.
+                (?![\p{S}\p{P}&&[^(),;\[\]{}`_"']]).*$) # non-symbol
+                        # The double dash may not be followed by other operator characters
+                        # (then it would be an operator, not a comment)
+           )
     patterns:
       - include: '#comment_like'
       - include: '#deriving'
       - include: '#forall'
+      - include: '#adt_constructor'
       - include: '#context'
       - include: '#record_decl'
-      - include: '#deriving'
-      - begin: '^(\s*)(=)?\s*(\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)'
-        beginCaptures:
-          '2': {name: keyword.operator.eq.haskell}
-          '3': {name: constant.other.haskell}
-        name: multiline
-        end: |
-          (?x)
-            (?=\||\bderiving\b(?!'))  # A deriving clause could be futher indented
-            | ^(?!          # It ends *unless* the *new* line is:
-                 \1\s+\S    # - Some haskell stuff, but more indented (continuation)
-               | \s*        # - Only a little bit of whitespace followed by
-                 (?: $      #   - The end of the line (i.e. empty line)
-                 |\{-[^@]   #   - The start of a block comment
-                 |--+       #   - The start of a single-line comment
-                    (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
-                            # The double dash may not be followed by other operator characters,
-                            # then it would be an operator, not a comment
-               )
-        patterns:
-          - include: '#comment_like'
-          - include: '#deriving'
-          - include: '#record_decl' 
-          - include: '#type_signature'
-      - begin: '\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
-        beginCaptures: 
-          '0': {name: constant.other.haskell}
-        end: '$'
-        endCaptures:
-          '0': {name: keyword.operator.haskell}
-        comment: Inline data constructors i.e. `A a b | B c d` 
-        patterns:
-          - include: '#comment_like'
-          - include: '#deriving'
-          - include: '#record_decl' 
-          - include: '#type_signature'
-  - begin: >-
-      (?x)
-        ^(\s*)\b(?:(?:(data)\s+(instance))|(data))
-        \s+
-        (?:
-          ([\p{Lu}\p{Lt}][\w\p{Nd}_']*)                  # named type
-        | \(\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\)  # Operator type
-        )
-        ([^=]*)
-        (?:(=)|$)
-    beginCaptures:
-      '2': {name: keyword.other.data.haskell}
-      '3': {name: keyword.other.instance.haskell}
-      '4': {name: keyword.other.data.haskell}
-      '5': {name: storage.type.haskell}
-      '6': {name: storage.type.operator.haskell}
-      '7':
-        patterns:
-          - include: '#type_signature'
-      '8': {name: keyword.operator.eq.haskell}
-    end: |
-      (?x)
-        (?=\||\bderiving\b(?!'))
-        |^(?!          # It ends *unless* the *new* line is:
-            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
-          | \s*        # - Only a little bit of whitespace followed by
-            (?: $      #   - The end of the line (i.e. empty line)
-            |\{-[^@]   #   - The start of a block comment
-            |--+       #   - The start of a single-line comment
-               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
-                       # The double dash may not be followed by other operator characters,
-                       # then it would be an operator, not a comment
-          )
-    name: meta.declaration.adt.haskell
-    patterns:
-      - include: '#comment_like'
-      - include: '#deriving'
-      - include: '#forall'
-      - include: '#context'
-      - include: '#record_decl'
-      - begin: >-
-          (?x)
-            ^(\s*)
-              (?:(\|)|(=))\s*
-              (?:
-                 (\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
-                |\(\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)\s*\)
-              )\s*
-        beginCaptures:
-          '2': {name: keyword.operator.pipe.haskell}
-          '3': {name: keyword.operator.eq.haskell}
-          '4': {name: constant.other.haskell}
-          '5': {name: constant.other.haskell}
-        end: |
-          (?x)
-            (?=\||\bderiving\b(?!'))  # A deriving clause could be futher indented
-            | ^(?!          # It ends *unless* the *new* line is:
-                 \1\s+\S    # - Some haskell stuff, but more indented (continuation)
-               | \s*        # - Only a little bit of whitespace followed by
-                 (?: $      #   - The end of the line (i.e. empty line)
-                 |\{-[^@]   #   - The start of a block comment
-                 |--+       #   - The start of a single-line comment
-                    (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
-                            # The double dash may not be followed by other operator characters,
-                            # then it would be an operator, not a comment
-               )
-        patterns:
-          - include: '#comment_like'
-          - include: '#deriving'
-          - include: '#record_decl' 
-          - include: '#type_signature'
-      - begin: >-
-          (?x)
-            ( (?:\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
-            | (?:\(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*\))
-            )
-        beginCaptures: 
-          '0': {name: constant.other.haskell}
-        end: '\||$'
-        endCaptures:
-          '0': {name: keyword.operator.pipe.haskell}
-        comment: Inline data constructors i.e. `A a b | B c d` 
-        patterns:
-          - include: '#comment_like'
-          - include: '#deriving'
-          - include: '#record_decl' 
-          - include: '#type_signature'
+      - include: '#type_signature'
   - begin: '(\s*)(pattern)\s+(.*?)\s+(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
     beginCaptures:
       '2': {name: keyword.other.pattern.haskell}
@@ -291,16 +142,17 @@ patterns:
           - include: '#data_constructor'
       '4': {name: keyword.operator.double-colon.haskell}
     end: | 
-      (?x)
-         ^(?!          # It ends *unless* the *new* line is:
-            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
-          | \s*        # - Only a little bit of whitespace followed by
-            (?: $      #   - The end of the line (i.e. empty line)
-            |\{-[^@]   #   - The start of a block comment
-            |--+       #   - The start of a single-line comment
-               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
-                       # The double dash may not be followed by other operator characters,
-                       # then it would be an operator, not a comment
+      (?x) # Detect end of pattern type definition by decreasing indentation:
+        (?=\}|;)       # Explicit indentation
+        |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
+            \1\s+\S    # - more indented, or
+          | \s*        # - starts with whitespace, followed by:
+            (?: $      #   - the end of the line (i.e. empty line), or
+            |\{-[^@]   #   - the start of a block comment, or
+            |--+       #   - the start of a single-line comment.
+               (?![\p{S}\p{P}&&[^(),;\[\]{}`_"']]).*$) # non-symbol
+                       # The double dash may not be followed by other operator characters
+                       # (then it would be an operator, not a comment)
           )
     patterns:
       - include: '#type_signature'
@@ -335,16 +187,17 @@ patterns:
         patterns:
           - include: '#type_signature'
     end: | 
-      (?x)
-         ^(?!          # It ends *unless* the *new* line is:
-            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
-          | \s*        # - Only a little bit of whitespace followed by
-            (?: $      #   - The end of the line (i.e. empty line)
-            |\{-[^@]   #   - The start of a block comment
-            |--+       #   - The start of a single-line comment
-               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
-                       # The double dash may not be followed by other operator characters,
-                       # then it would be an operator, not a comment
+      (?x) # Detect end of type definition by decreasing indentation:
+        (?=\}|;)       # Explicit indentation
+        |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
+            \1\s+\S    # - more indented, or
+          | \s*        # - starts with whitespace, followed by:
+            (?: $      #   - the end of the line (i.e. empty line), or
+            |\{-[^@]   #   - the start of a block comment, or
+            |--+       #   - the start of a single-line comment.
+               (?![\p{S}\p{P}&&[^(),;\[\]{}`_"']]).*$) # non-symbol
+                       # The double dash may not be followed by other operator characters
+                       # (then it would be an operator, not a comment)
           )
     endCaptures:
       '1': {name: keyword.operator.eq.haskell}
@@ -357,17 +210,20 @@ patterns:
     beginCaptures:
       '2': {name: keyword.other.instance.haskell}
     end: |
-      (?x)
+      (?x) # Detect end of instance declaration:
+        # 'where' keyword
         \b(where)\b(?!')
-        |^(?!          # It ends *unless* the *new* line is:
-            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
-          | \s*        # - Only a little bit of whitespace followed by
-            (?: $      #   - The end of the line (i.e. empty line)
-            |\{-[^@]   #   - The start of a block comment
-            |--+       #   - The start of a single-line comment
-               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
-                       # The double dash may not be followed by other operator characters,
-                       # then it would be an operator, not a comment
+        # Decreasing indentation
+        |(?=\}|;)      # Explicit indentation
+        |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
+            \1\s+\S    # - more indented, or
+          | \s*        # - starts with whitespace, followed by:
+            (?: $      #   - the end of the line (i.e. empty line), or
+            |\{-[^@]   #   - the start of a block comment, or
+            |--+       #   - the start of a single-line comment.
+               (?![\p{S}\p{P}&&[^(),;\[\]{}`_"']]).*$) # non-symbol
+                       # The double dash may not be followed by other operator characters
+                       # (then it would be an operator, not a comment)
           )
     endCaptures:
       '1': {name: keyword.other.where.haskell}
@@ -379,17 +235,20 @@ patterns:
     beginCaptures:
       '2': {name: keyword.other.import.haskell}
     end: |
-      (?x)
+      (?x) # Detect end of import
+        # 'where' keyword
         \b(where)\b(?!')
-        |^(?!          # It ends *unless* the *new* line is:
-            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
-          | \s*        # - Only a little bit of whitespace followed by
-            (?: $      #   - The end of the line (i.e. empty line)
-            |\{-[^@]   #   - The start of a block comment
-            |--+       #   - The start of a single-line comment
-               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
-                       # The double dash may not be followed by other operator characters,
-                       # then it would be an operator, not a comment
+        # Decreasing indentation
+        |(?=\}|;)      # Explicit indentation
+        |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
+            \1\s+\S    # - more indented, or
+          | \s*        # - starts with whitespace, followed by:
+            (?: $      #   - the end of the line (i.e. empty line), or
+            |\{-[^@]   #   - the start of a block comment, or
+            |--+       #   - the start of a single-line comment.
+               (?![\p{S}\p{P}&&[^(),;\[\]{}`_"']]).*$) # non-symbol
+                       # The double dash may not be followed by other operator characters
+                       # (then it would be an operator, not a comment)
           )
     name: meta.import.haskell
     patterns:
@@ -779,29 +638,137 @@ repository:
       - include: '#type_signature'
     end: |
       (?x)
+        # End of type annotation:
+          # To the left of a reserved symbolic keyword such as = or <-
         (?= 
-          # we look ahead, but we do not want to consume
-
-            # are we to the left side of a symbolic keyword such as = or <- ?
-              # non-symbolic character
-              (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
-              # symbolic keyword except (->)
-              ((<-|←)|(=)|(-<|↢)|(-<<|⤛))
-              # non-symbolic character
-              ([(),;\[\]`{}_"']|[^\p{S}\p{P}])
-            # A block closed? Maybe this should also include `;`, because non-indentation based `do`
-            |}
+            # non-symbolic character
+            (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
+            # symbolic keyword except (->)
+            ((<-|←)|(=)|(-<|↢)|(-<<|⤛))
+            # non-symbolic character
+            ([(),;\[\]`{}_"']|[^\p{S}\p{P}])
         )
-        |^(?!          # It ends *unless* the *new* line is:
-            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
-          | \s*        # - Only a little bit of whitespace followed by
-            (?: $      #   - The end of the line (i.e. empty line)
-            |\{-[^@]   #   - The start of a block comment
-            |--+       #   - The start of a single-line comment
-               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
-                       # The double dash may not be followed by other operator characters,
-                       # then it would be an operator, not a comment
+        # Decreasing indentation:
+        |(?=\}|;)      # Explicit indentation
+        |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
+            \1\s+\S    # - more indented, or
+          | \s*        # - starts with whitespace, followed by:
+            (?: $      #   - the end of the line (i.e. empty line), or
+            |\{-[^@]   #   - the start of a block comment, or
+            |--+       #   - the start of a single-line comment.
+               (?![\p{S}\p{P}&&[^(),;\[\]{}`_"']]).*$) # non-symbol
+                       # The double dash may not be followed by other operator characters
+                       # (then it would be an operator, not a comment)
           )
+  adt_constructor:
+    patterns:
+      - begin: >-
+          (?x)
+            (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
+            (?:(=)|(\|))
+            (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
+        beginCaptures:
+          '1': {name: keyword.operator.eq.haskell}
+          '2': {name: keyword.operator.pipe.haskell}
+        end: >-
+          (?x)
+            (?: # Infix data constructor
+              \s*
+              # First argument
+              (?:
+              # Simple type
+              |(?<!')\b((?:[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'])+)
+              # Parenthesised type (TODO: ensure the bracketing is balanced)
+              |('?\([^\)]*\))
+              # Bracketed type (TODO: ensure the bracketing is balanced)
+              |('?\[[^\)]*\])
+              )
+              # Then either
+              \s*
+                # - a symbolic infix constructor, or
+              (?:(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)
+                # - an alphabetic infix constructor
+              | (`)([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)(`)
+              )
+            ) # Otherwise, prefix data constructor, either:
+            | # - an alphabetic data constructor e.g. "Cons_123"
+              (?:(?<!')\b([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*))
+            | # - a symbolic (prefix) data constructor
+              (\()\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)\s*(\))
+        endCaptures:
+          '1':
+            patterns:
+             - include: '#type_signature'
+          '2':
+            patterns:
+              - include: '#type_signature'
+          '3':
+            patterns:
+              - include: '#type_signature'
+          '4': {name: constant.other.operator.haskell}
+          '5': {name: punctuation.backtick.haskell}
+          '6': {name: constant.other.haskell}
+          '7': {name: punctuation.backtick.haskell}
+          '8': {name: constant.other.haskell}
+          '9': {name: punctuation.paren.haskell}
+          '10': {name: constant.other.operator.haskell}
+          '11': {name: punctuation.paren.haskell}
+        patterns:
+          - include: '#comment_like'
+          - include: '#deriving'
+          - include: '#record_decl'
+          - include: '#forall'
+          - include: '#context'
+  gadt_constructor:
+    patterns:
+      # GADT constructor on start of line
+      - begin: >-
+          (?x)
+             ^(\s*)
+                (?:
+                  (\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+                |(\()\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)\s*(\))
+                )
+        beginCaptures:
+          '2': {name: constant.other.haskell}
+          '3': {name: punctuation.paren.haskell}
+          '4': {name: constant.other.operator.haskell}
+          '5': {name: punctuation.paren.haskell}
+        end: |
+          (?x)
+            # GADT constructor ends
+            (?=\bderiving\b(?!'))  
+                  # Decreasing indentation
+            |(?=\}|;)      # Explicit indentation
+            |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
+                \1\s+\S    # - more indented, or
+              | \s*        # - starts with whitespace, followed by:
+                (?: $      #   - the end of the line (i.e. empty line), or
+                |\{-[^@]   #   - the start of a block comment, or
+                |--+       #   - the start of a single-line comment.
+                   (?![\p{S}\p{P}&&[^(),;\[\]{}`_"']]).*$) # non-symbol
+                           # The double dash may not be followed by other operator characters
+                           # (then it would be an operator, not a comment)
+              )
+        patterns:
+          - include: '#comment_like'
+          - include: '#deriving'
+          - include: '#double_colon'
+          - include: '#record_decl'
+          - include: '#type_signature'
+      # Remaining case: GADT constructor not on start of line
+      - begin: >-
+          (?x)
+            (\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}]*) # named constructor
+           |(\()\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)\s*(\))  # prefix operator
+        beginCaptures:
+          '1': {name: constant.other.haskell}
+          '2': {name: punctuation.paren.haskell}
+          '3': {name: constant.other.operator.haskell}
+          '4': {name: punctuation.paren.haskell}
+        end: '$'
+        patterns:
+          - include: '#type_signature'
   type_application:
     patterns:
       - begin: '(?<=[\s,;\[\]{}"])(@)('')?(\()'
@@ -886,7 +853,7 @@ repository:
     captures:
       '1': {name: keyword.operator.double-colon.haskell}
   type_variable:
-    match: '\b[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
+    match: '\b(?!forall)[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
     name: variable.other.generic-type.haskell
   type_constructor:
     patterns:
@@ -1035,16 +1002,17 @@ repository:
       '3': {name: "keyword.other.$3.haskell"}
     name: meta.$3.foreign.haskell
     end: |
-      (?x)
-         ^(?!          # It ends *unless* the *new* line is:
-            \1\s+\S    # - Some haskell stuff, but more indented (continuation)
-          | \s*        # - Only a little bit of whitespace followed by
-            (?: $      #   - The end of the line (i.e. empty line)
-            |\{-[^@]   #   - The start of a block comment
-            |--+       #   - The start of a single-line comment
-               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]).*$)
-                       # The double dash may not be followed by other operator characters,
-                       # then it would be an operator, not a comment
+      (?x) # Detect end of FFI block by decreasing indentation:
+        (?=\}|;)       # Explicit indentation
+        |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
+            \1\s+\S    # - more indented, or
+          | \s*        # - starts with whitespace, followed by:
+            (?: $      #   - the end of the line (i.e. empty line), or
+            |\{-[^@]   #   - the start of a block comment, or
+            |--+       #   - the start of a single-line comment.
+               (?![\p{S}\p{P}&&[^(),;\[\]{}`_"']]).*$) # non-symbol
+                       # The double dash may not be followed by other operator characters
+                       # (then it would be an operator, not a comment)
           )
     patterns:
       - include: '#comment_like'
