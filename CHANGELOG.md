@@ -13,7 +13,7 @@
 - Fixed highlighting for infix constructors
   ([#120](https://github.com/JustusAdam/language-haskell/issues/120))
 - Added support for multiline type signatures for pattern synonyms
-- Fixed fixed multi pattern synonym type declarations ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
+- Allow declaration of several pattern synonym type at once ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
 - Add support for cabal [internal libraries](https://www.haskell.org/cabal/users-guide/developing-packages.html#sublibs).
 - Improvements to `deriving via`:
   - Allow unparenthesised `via` clauses, and highlight the derived instance code as usual,
@@ -23,7 +23,7 @@
 - Several fixes to data type declarations:
   - Highlight infix data constructors ([#132](https://github.com/JustusAdam/language-haskell/issues/132))
   - Correctly parse comments on the same line as a data declaration,
-  - Fix regression in for GADT constructors when `::` follows on a new line
+  - Fix regression with GADT constructors when `::` follows on a new line
     ([#119](https://github.com/JustusAdam/language-haskell/issues/119))
   - Support record syntax in GADTs.
 - Address regression in LiquidHaskell highlighting ([#131](https://github.com/JustusAdam/language-haskell/issues/136)).

@@ -900,6 +900,10 @@ repository:
           '4': {name: punctuation.paren.haskell}
         end: '$'
         patterns:
+          - include: '#comment_like'
+          - include: '#deriving'
+          - include: '#double_colon'
+          - include: '#record_decl'
           - include: '#type_signature'
   type_application:
     patterns:
