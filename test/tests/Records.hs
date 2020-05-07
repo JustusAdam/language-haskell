@@ -1,7 +1,7 @@
 -- SYNTAX TEST "source.haskell" "Special record syntax"
 
   f :: Rec -> T
-  f record@{ A = a, B = b, ..} 
+  f record@{ a = A, b = B, .. }
 --        ^ keyword.operator.infix.tight.at.haskell
 --                         ^^ keyword.operator.double-dot.haskell
 

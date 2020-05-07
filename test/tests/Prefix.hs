@@ -25,3 +25,7 @@
    1 - 2
 --   ^ - keyword.operator.prefix.minus.haskell
 --   ^ keyword.operator.infix.haskell
+   a -+ b
+--   ^ - keyword.operator.prefix.minus.haskell
+   a -#b
+--   ^ - keyword.operator.prefix.minus.haskell

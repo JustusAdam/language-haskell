@@ -1205,7 +1205,7 @@ repository:
           (?x)
             (?<![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\p{S}\p{P}&&[^(,;\[`{]])  # Disallow closing characters
             (?:(~)|(!)|(-)|(\$)|(\$\$))
-            (?=[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\p{S}\p{P}&&[^\#),;\]`}]]) # Require opening character
+            (?=[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\(\{\[]) # Require opening character (non operator symbol)
         captures:
           '1': {name: keyword.operator.prefix.tilde.haskell}
           '2': {name: keyword.operator.prefix.bang.haskell}
