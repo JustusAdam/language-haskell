@@ -49,6 +49,7 @@
 - Correct highlighting of types in type families.
 - Special highlighting for bang patterns and irrefutable patterns ([#145](https://github.com/JustusAdam/language-haskell/issues/145)).
 - Opt-in highlighting for magic hash using `keyword.operator.hash` and `keyword.operator.postfix.hash`.
+- Support for unrestricted OverloadedLabels ([#68](https://github.com/JustusAdam/language-haskell/issues/68)).
 
 ## 3.0.0 - 26.04.2020
 

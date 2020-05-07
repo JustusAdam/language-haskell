@@ -405,6 +405,7 @@ patterns:
     name: meta.fixity-declaration.haskell
   - match: '\b(m?do|if|then|else|case|of|proc)(\b(?!''))'
     name: keyword.control.haskell
+  - include: '#overloaded_label'
   - include: '#reserved_symbol'
   - include: '#fun_decl'
   - include: '#type_application'
@@ -413,7 +414,7 @@ patterns:
   - include: '#start_type_signature'
   - include: '#prefix_op'
   - include: '#infix_op'
-  - begin: '(\()(#)'
+  - begin: '(\()(#)\s'
     end: '(#)(\))'
     beginCaptures:
       '1': {name: punctuation.paren.haskell}
@@ -497,7 +498,7 @@ repository:
     captures:
       '1': {name: punctuation.definition.preprocessor.c}
     comment: 'In addition to Haskell''s "native" syntax, GHC permits the C preprocessor to be run on a source file.'
-    match: '^\s*(#).*$'
+    match: '^(#).*$' # `#` must be the first character on the line
     name: meta.preprocessor.c
   deriving:
     patterns:
@@ -1125,6 +1126,25 @@ repository:
           '3': {name: entity.name.namespace.haskell}
           '4': {name: storage.type.operator.haskell }
           '5': {name: punctuation.paren.haskell}
+  overloaded_label:
+    patterns:
+      # See https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0170-unrestricted-overloadedlabels.rst
+      - match: >-
+          (?x) 
+            (?<![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\p{S}\p{P}&&[^(,;\[`{]]) # Disallow closing characters
+            (\#)
+              (?:
+              # String
+              ("(?:\\"|[^"])*")
+              # Sequence of allowed label identifiers
+              |[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'\.]+
+              )
+        captures:
+          '1': {name: keyword.operator.prefix.hash.haskell}
+          '2':
+            patterns:
+              - include: '#string_literal'
+        name: entity.name.label.haskell
   reserved_symbol:
     patterns:
       # Fully reserved symbols,
@@ -1332,7 +1352,7 @@ repository:
               (?x)
                 \b(safe|unsafe|interruptible)\b(?!')
                 \s*
-                (?:(")(.*[^\\])("))?
+                ("(?:\\"|[^"])*")?
                 \s*
                 (?:
                   (?:\b([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\b(?!'))
@@ -1340,28 +1360,33 @@ repository:
                 )
             captures:
               '1': {name: "keyword.other.safety.$1.haskell"}
-              '2': {name: "punctuation.definition.string.begin.haskell string.quoted.double.haskell"}
-              '3': {name: "entity.name.foreign.haskell string.quoted.double.haskell" }
-              '4': {name: "punctuation.definition.string.end.haskell string.quoted.double.haskell"}
-              '5': {name: entity.name.function.haskell}
-              '6': {name: entity.name.function.infix.haskell}
+              '2': 
+                name: entity.name.foreign.haskell
+                patterns:
+                  - include: '#string_literal'
+              '3': {name: entity.name.function.haskell}
+              '4': {name: entity.name.function.infix.haskell}
           # Assume that if there is no function name on this line, it will appear on the next line
           - match: |
               (?x)
                 \b(safe|unsafe|interruptible)\b(?!')
                 \s*
-                (?:(")(.*[^\\])("))?
+                ("(?:\\"|[^"])*")?
                 \s*$
             captures:
               '1': {name: "keyword.other.safety.$1.haskell"}
-              '2': {name: "punctuation.definition.string.begin.haskell string.quoted.double.haskell"}
-              '3': {name: "entity.name.foreign.haskell string.quoted.double.haskell" }
-              '4': {name: "punctuation.definition.string.end.haskell string.quoted.double.haskell"}
-          - match: '(?:(")(.*[^\\])("))'
+              '2': 
+                name: entity.name.foreign.haskell
+                patterns:
+                  - include: '#string_literal'
+          - match: >-
+              (?x)
+                "(?:\\"|[^"])*"
             captures:
-              '1': {name: "punctuation.definition.string.begin.haskell string.quoted.double.haskell"}
-              '2': {name: "entity.name.foreign.haskell string.quoted.double.haskell" }
-              '3': {name: "punctuation.definition.string.end.haskell string.quoted.double.haskell"}
+              '0': 
+                name: entity.name.foreign.haskell
+                patterns:
+                  - include: '#string_literal'
           - match: |
               (?x)
                  (?:\b([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\b(?!'))
