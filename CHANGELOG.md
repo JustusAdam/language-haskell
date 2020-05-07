@@ -48,6 +48,7 @@
   when the initial `::` appears appears first on a line.
 - Correct highlighting of types in type families.
 - Special highlighting for bang patterns and irrefutable patterns ([#145](https://github.com/JustusAdam/language-haskell/issues/145)).
+- Special highlighting for record `@` syntax (tight infix `@`).
 - Opt-in highlighting for magic hash using `keyword.operator.hash` and `keyword.operator.postfix.hash`.
 - Support for unrestricted OverloadedLabels ([#68](https://github.com/JustusAdam/language-haskell/issues/68)).
 
