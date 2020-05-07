@@ -935,7 +935,7 @@ repository:
       - begin: '(?<=[\s,;\[\]{}"])(@)(?=[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}''])'
         beginCaptures: 
           '1': {name: keyword.operator.prefix.at.haskell}
-        end: '[^\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']'
+        end: '(?![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}''])'
         name: meta.type-application.haskell
         patterns:
           - include: '#type_signature'
