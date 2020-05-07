@@ -1316,16 +1316,43 @@ repository:
     name: string.quoted.single.haskell
   float_literals:
     comment: 'Floats are decimal or hexadecimal'
-    match: '\b([0-9](_*[0-9])*\.[0-9](_*[0-9])*(_*[eE][-+]?[0-9](_*[0-9])*)?|[0-9](_*[0-9])*_*[eE][-+]?[0-9](_*[0-9])*|0[xX]_*[0-9a-fA-F](_*[0-9a-fA-F])*\.[0-9a-fA-F](_*[0-9a-fA-F])*(_*[pP][-+]?[0-9](_*[0-9])*)?|0[xX]_*[0-9a-fA-F](_*[0-9a-fA-F])*_*[pP][-+]?[0-9](_*[0-9])*)\b'
-    name: constant.numeric.float.haskell
+    match: >-
+      (?x)
+        \b(?<!')
+        (?:  # Decimal
+          ([0-9][_0-9]*\.[0-9][_0-9]*(?:[eE][-+]?[0-9][_0-9]*)?
+          |[0-9][_0-9]*[eE][-+]?[0-9][_0-9]*
+          )
+        |    # Hexadecimal
+          (0[xX]_*[0-9a-fA-F][_0-9a-fA-F]*\.[0-9a-fA-F][_0-9a-fA-F]*(?:[pP][-+]?[0-9][_0-9]*)?
+          |0[xX]_*[0-9a-fA-F][_0-9a-fA-F]*[pP][-+]?[0-9][_0-9]*
+          )
+        )\b(?!')
+    captures:
+      '1': {name: constant.numeric.floating.decimal.haskell}
+      '2': {name: constant.numeric.floating.hexadecimal.haskell}
   integer_literals:
-    match: '\b([0-9](_*[0-9])*|0([xX]_*[0-9a-fA-F](_*[0-9a-fA-F])*|[oO]_*[0-7](_*[0-7])*|[bB]_*[01](_*[01])*))\b'
-    name: constant.numeric.haskell
+    match: >-
+      (?x)
+        \b(?<!')
+        (?:
+          ([0-9][_0-9]*)                    # Decimal integer
+        | (0[xX]_*[0-9a-fA-F][_0-9a-fA-F]*) # Hexadecimal integer
+        | (0[oO]_*[0-7][_0-7]*)             # Octal integer
+        | (0[bB]_*[01][_01]*)               # Binary integer
+        )
+        \b(?!')
+    captures:
+      '1': {name: constant.numeric.integral.decimal.haskell}
+      '2': {name: constant.numeric.integral.hexadecimal.haskell}
+      '3': {name: constant.numeric.integral.octal.haskell}
+      '4': {name: constant.numeric.integral.binary.haskell}
   numeric_literals:
     patterns:
-      - include: '#integer_literals'
+      # Need to try to parse floating literals first,
+      # to avoid having leftover dots.
       - include: '#float_literals'
-
+      - include: '#integer_literals'
   ffi:
     begin: '^(\s*)(foreign)\s+(import|export)\s+'
     beginCaptures:

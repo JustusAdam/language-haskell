@@ -51,6 +51,7 @@
 - Special highlighting for record `@` syntax (tight infix `@`).
 - Opt-in highlighting for magic hash using `keyword.operator.hash` and `keyword.operator.postfix.hash`.
 - Support for unrestricted OverloadedLabels ([#68](https://github.com/JustusAdam/language-haskell/issues/68)).
+- Fix for floating point numeric literals not being highlighted properly.
 
 ## 3.0.0 - 26.04.2020
 
