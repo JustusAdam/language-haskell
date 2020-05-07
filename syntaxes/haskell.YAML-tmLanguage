@@ -525,7 +525,7 @@ repository:
           '5': {name: keyword.other.deriving.strategy.via.haskell}
           '6': {patterns: [{include: '#type_signature'}]}
         name: meta.deriving.haskell
-      - match: '(?<!'')(via)(?!'')'
+      - match: '(?<!'')(via)\b(?!'')'
         name: keyword.other.deriving.strategy.via.haskell
   prefix_op:
     patterns:
@@ -1097,7 +1097,7 @@ repository:
         patterns:
           - include: '#type_signature'
   type_variable:
-    match: '\b(?!forall)[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
+    match: '\b(?!forall\b(?!''))[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
     name: variable.other.generic-type.haskell
   type_constructor:
     patterns:
