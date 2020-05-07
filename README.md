@@ -1,10 +1,11 @@
-# Haskell Language support
+# Haskell Language support [![Tests](https://github.com/JustusAdam/language-haskell/workflows/language-haskell%20CI/badge.svg)](https://github.com/JustusAdam/language-haskell/actions)
 
-Support for the Haskell programming language in visual studio code.
 
-## Highlighting
+Support for the Haskell programming language in Visual Studio Code.
 
-Adds highlighting support for Haskell (.hs and .lhs). This is a (now heavily) modified version of
+## Syntax highlighting
+
+Adds syntax highlighting support for Haskell (.hs and .lhs). This is a (now heavily) modified version of
 the syntax file from the [Haskell TextMate bundle](https://github.com/textmate/haskell.tmbundle).
 Additionally there is support for Cabal files (.cabal) via a concoction of my own. 
 
