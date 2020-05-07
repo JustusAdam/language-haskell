@@ -7,3 +7,14 @@
 
   f val@( pattern )
 --     ^ keyword.operator.infix.tight.at.haskell
+  f (+)@(g)
+--     ^ keyword.operator.infix.tight.at.haskell
+
+  f@@g
+-- ^^ -keyword.operator.infix.tight.at.haskell
+
+  f (+)@@(g)
+--     ^^ -keyword.operator.infix.tight.at.haskell
+
+  f a@+b
+--   ^ -keyword.operator.infix.tight.at.haskell
