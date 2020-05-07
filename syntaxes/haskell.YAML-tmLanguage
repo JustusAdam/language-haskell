@@ -540,7 +540,11 @@ repository:
   infix_op:
     patterns:
       - match: >-
-          ((?:(?<!'')('')?[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.)*)(\#+|[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+(?<!\#))
+          (?x)
+            ((?:(?<!'')('')?[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.)*)
+            (\#+|[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+(?<!\#))
+              # Workaround for LiquidHaskell
+                (?:(?<!@-)|(?!\}))(?:(?<!@)|(?!-\}))
         comment: >
           In case this regex seems overly general, note that Haskell permits 
           the definition of new operators which can be nearly any string of 
@@ -1191,6 +1195,8 @@ repository:
               ((?:\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.)*)
             # Type operator proper
               (\#+|[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+(?<!\#))
+                # Workaround for LiquidHaskell
+                  (?:(?<!@-)|(?!\}))(?:(?<!@)|(?!-\}))
         captures:
           '1': {name: keyword.operator.promotion.haskell }
           '2': {name: entity.name.namespace.haskell }
@@ -1359,10 +1365,12 @@ repository:
           - match: |
               (?x)
                  (?:\b([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\b(?!'))
-                |(?:\(\s*(?!--+\))([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\))
+                |(?:(\()\s*(?!--+\))([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\)))
             captures:
               '1': {name: entity.name.function.haskell}
-              '2': {name: entity.name.function.infix.haskell}
+              '2': {name: punctuation.paren.haskell}
+              '3': {name: entity.name.function.infix.haskell}
+              '4': {name: punctuation.paren.haskell}
       - include: '#double_colon'
       - include: '#type_signature'
       

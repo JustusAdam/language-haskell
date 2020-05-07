@@ -11,7 +11,6 @@ tickets=($PWD/tickets/*)
 namedBroken=(
 )
 ticketsBroken=(
-  "T0150b.hs"
 )
 
 # Colours used to display test outputs.
