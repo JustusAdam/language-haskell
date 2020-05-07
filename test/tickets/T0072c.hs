@@ -19,7 +19,7 @@ type family CTF3 (a :: A) = (r :: A) | r -> a where
 --   ^^^^^^ keyword.other.family.haskell
 --                        ^ keyword.operator.eq.haskell
 --                     ^          ^ storage.type.haskell
---                                   ^ keyword.operator.pipe.type.haskell
+--                                   ^ keyword.operator.pipe.haskell
 --                ^          ^         ^    ^ variable.other.generic-type.haskell
 --                                            ^^^^^ keyword.other.where.haskell
 
@@ -38,7 +38,7 @@ type family CTF4
 --                  ^ storage.type.haskell
             | r -> a b
 --            ^    ^ ^ variable.other.generic-type.haskell
---          ^ keyword.operator.pipe.type.haskell
+--          ^ keyword.operator.pipe.haskell
             where
 --          ^^^^^ keyword.other.where.haskell
 

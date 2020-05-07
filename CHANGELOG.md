@@ -47,6 +47,7 @@
 - Fix regression in highlighting subsequent lines in a multi-line type signature
   when the initial `::` appears appears first on a line.
 - Correct highlighting of types in type families.
+- Special highlighting for bang patterns and irrefutable patterns ([#145](https://github.com/JustusAdam/language-haskell/issues/145)).
 
 ## 3.0.0 - 26.04.2020
 

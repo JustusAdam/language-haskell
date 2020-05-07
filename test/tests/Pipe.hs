@@ -1,9 +1,9 @@
 -- SYNTAX TEST "source.haskell" "Using | in types in an ADT"
 
 
-    data A = A (T1 | T2) | A { f :: A | B }
+    data A = A (T1 || T2) | A { f :: A |-| B }
 --  ^^^^ keyword.other.data.haskell
---                       ^ keyword.operator.pipe.haskell
---                             ^ variable.other.definition.field.haskell
---                 ^                  ^ storage.type.operator.infix.haskell
---       ^      ^^   ^^             ^   ^ storage.type.haskell
+--                        ^ keyword.operator.pipe.haskell
+--                              ^ variable.other.definition.field.haskell
+--                 ^^                  ^^^ storage.type.operator.infix.haskell
+--       ^      ^^    ^^             ^     ^ storage.type.haskell

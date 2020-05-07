@@ -7,22 +7,18 @@ name: Haskell
 patterns:
   - include: '#liquid_haskell'
   - include: '#comment_like'
-  - match: >-
-      (`)((?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.)*)([\p{Ll}\p{Lu}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)(`)
-    captures:
-      '1': {name: punctuation.backtick.haskell}
-      '2': {name: entity.name.namespace.haskell}
-      '3':
-        patterns:
-          - include: '#data_constructor'
-      '4': {name: punctuation.backtick.haskell}
-    comment: |
-      In case this regex seems unusual for an infix operator, note that Haskell
-      allows any ordinary function application (elem 4 [1..10]) to be rewritten
-      as an infix expression (4 `elem` [1..10]).
-    name: keyword.operator.function.infix.haskell
+  - include: '#numeric_literals'
+  - include: '#string_literal'
+  - include: '#char_literal'
+  - match: '(?<!@)-\}'
+    name: invalid
   - match: '(\()\s*(\))'
     name: constant.language.unit.haskell
+    captures:
+      '1': {name: punctuation.paren.haskell}
+      '2': {name: punctuation.paren.haskell}
+  - match: '(\()\s*,[\s,]*(\))'
+    name: support.constant.tuple.haskell
     captures:
       '1': {name: punctuation.paren.haskell}
       '2': {name: punctuation.paren.haskell}
@@ -109,7 +105,7 @@ patterns:
     begin: '^(\s*)(pattern)\s+(.*?)\s+(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
     beginCaptures:
       '2': {name: keyword.other.pattern.haskell}
-      '3': 
+      '3':
         patterns:
           - include: '#comma'
           - include: '#data_constructor'
@@ -221,14 +217,6 @@ patterns:
       '4':
         patterns:
           - include: "#comment_like"
-          - match: >-
-             (?x)
-               (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
-               (?:(=)|(\|))
-               (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
-            captures:
-              '1': {name: keyword.operator.eq.haskell}
-              '2': {name: keyword.operator.pipe.type.haskell}
           - match: '\b(where)\b(?!'')'
             captures:
               '1': {name: keyword.other.where.haskell}
@@ -249,14 +237,6 @@ patterns:
     patterns:
       - match: '\b(where)\b(?!'')'
         name: keyword.other.where.haskell
-      - match: >-
-          (?x)
-            (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
-            (?:(=)|(\|))
-            (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
-        captures:
-          '1': {name: keyword.operator.eq.haskell}
-          '2': {name: keyword.operator.pipe.type.haskell}
       - include: '#type_signature'
   - name: 'meta.declaration.type.haskell'
     begin: >-
@@ -295,13 +275,6 @@ patterns:
                        # (then it would be an operator, not a comment)
           )
     patterns:
-      - match: >-
-          (?x)
-            (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
-            (=)                                  # equals sign
-            (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
-        captures:
-          '1': {name: keyword.operator.eq.haskell}
       - include: '#type_signature'
   - begin: '^(\s*)\b(instance)(\b(?!''))'
     beginCaptures:
@@ -407,50 +380,25 @@ patterns:
       '3': {name: keyword.other.in.haskell}
       '4': {name: keyword.other.default.haskell}
       '5': {name: keyword.control.haskell}
-  - match: '\binfix[lr]?(\b(?!''))'
-    name: keyword.operator.haskell
+  - match: '^\s*(infix[lr]?)\s+(.*)'
+    captures:
+      '1': {name: "keyword.other.$1.haskell"}
+      '2':
+        patterns:
+          - include: '#comment_like'
+          - include: '#integer_literals'
+          - include: "#infix_op"
+    name: meta.fixity-declaration.haskell
   - match: '\b(m?do|if|then|else|case|of|proc)(\b(?!''))'
     name: keyword.control.haskell
-  - include: '#numeric_literals'
-  - include: '#type_application'
-  - include: '#string_literal'
-  - include: '#char_literal'
-  - match: '(?<!@)-\}'
-    name: invalid
+  - include: '#reserved_symbol'
   - include: '#fun_decl'
-  - include: '#data_constructor'
+  - include: '#type_application'
   - include: '#qualifier'
-  - include: '#infix_op'
+  - include: '#data_constructor'
   - include: '#start_type_signature'
-  - match: |
-      (?x)
-        (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])
-        (?:
-           (\\|λ)
-          |(<-|←)
-          |(->|→)
-          |(=)
-          |(-<|↢)
-          |(-<<|⤛)
-        )
-        (?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])
-    captures:
-      '1': {name: keyword.operator.lambda.haskell}
-      '2': {name: keyword.operator.arrow.left.haskell}
-      '3': {name: keyword.operator.arrow.haskell}
-      '4': {name: keyword.operator.eq.haskell}
-      '5': {name: keyword.operator.arrow.left.tail.haskell}
-      '6': {name: keyword.operator.arrow.left.tail.double.haskell}
-  - match: >-
-      ((?:(?<!'')('')?[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.)*)([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)
-    comment: >
-      In case this regex seems overly general, note that Haskell permits 
-      the definition of new operators which can be nearly any string of 
-      punctuation characters, such as $%^&*.
-    captures:
-      '1': {name: keyword.operator.promotion.haskell}
-      '2': {name: entity.name.namespace.haskell}
-      '3': {name: keyword.operator.haskell}
+  - include: '#prefix_op'
+  - include: '#infix_op'
   - include: '#comma'
 repository:
   block_comment:
@@ -536,13 +484,8 @@ repository:
         name: meta.deriving.haskell
       - match: '(?<!'')(via)(?!'')'
         name: keyword.other.deriving.strategy.via.haskell
-  infix_op:
+  prefix_op:
     patterns:
-      - match: '(\()\s*,[\s,]*(\))'
-        name: support.constant.tuple.haskell
-        captures:
-          '1': {name: punctuation.paren.haskell}
-          '2': {name: punctuation.paren.haskell}
       - comment: >
           An operator cannot be composed entirely of '-' characters; 
           instead, it should be matched as a comment.
@@ -552,6 +495,32 @@ repository:
           '1': {name: punctuation.paren.haskell}
           '2': {name: entity.name.function.infix.haskell}
           '3': {name: punctuation.paren.haskell}
+  infix_op:
+    patterns:
+      - match: >-
+          ((?:(?<!'')('')?[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.)*)([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)
+        comment: >
+          In case this regex seems overly general, note that Haskell permits 
+          the definition of new operators which can be nearly any string of 
+          punctuation characters, such as $%^&*.
+        captures:
+          '1': {name: keyword.operator.promotion.haskell}
+          '2': {name: entity.name.namespace.haskell}
+          '3': {name: keyword.operator.infix.haskell}
+      - match: >-
+          (`)((?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.)*)([\p{Ll}\p{Lu}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)(`)
+        captures:
+          '1': {name: punctuation.backtick.haskell}
+          '2': {name: entity.name.namespace.haskell}
+          '3':
+            patterns:
+              - include: '#data_constructor'
+          '4': {name: punctuation.backtick.haskell}
+        comment: |
+          In case this regex seems unusual for an infix operator, note that Haskell
+          allows any ordinary function application (elem 4 [1..10]) to be rewritten
+          as an infix expression (4 `elem` [1..10]).
+        name: keyword.operator.function.infix.haskell
   module_exports:
     begin: \(
     beginCaptures:
@@ -616,7 +585,7 @@ repository:
       - match: >-
           \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
         name: storage.type.haskell
-      - include: '#infix_op'
+      - include: '#prefix_op'
       - include: '#comment_like'
   comma:
     match: ','
@@ -746,7 +715,7 @@ repository:
         patterns:
           - match: '[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
             name: entity.name.function.haskell
-          - include: '#infix_op'
+          - include: '#prefix_op'
       '3': {name: keyword.operator.double-colon.haskell}
     name: meta.function.type-declaration.haskell
     patterns:
@@ -935,8 +904,6 @@ repository:
       - match: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
         name: keyword.operator.double-colon.haskell
       - include: '#forall'
-      - match: '->|→'
-        name: keyword.operator.arrow.haskell
       - match: '=>|⇒'
         name: keyword.operator.big-arrow.haskell
       - include: '#string_literal'
@@ -945,6 +912,7 @@ repository:
       - match: '(?<!@)-\}'
         name: invalid
       - include: '#type_application'
+      - include: '#reserved_symbol'
       - include: '#type_operator'
       - include: '#type_constructor'
       - begin: '('')?(\()'
@@ -1073,6 +1041,57 @@ repository:
           '3': {name: entity.name.namespace.haskell}
           '4': {name: storage.type.operator.haskell }
           '5': {name: punctuation.paren.haskell}
+  reserved_symbol:
+    patterns:
+      # Fully reserved symbols,
+      # not including '::' (special treatment as it starts type highlighting),
+      # nor '=>' (it highlights its precedent as a type).
+      - match: >-
+          (?x)
+            (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])
+            (?:
+               (\.\.)
+              |(:)
+              |(=)
+              |(\\)     # λ not reserved as it is a letter
+              |(\|)
+              |(<-|←)
+              |(->|→)
+              |(-<|↢)
+              |(-<<|⤛)
+              |(>-|⤚)
+              |(>>-|⤜)
+              |(∀)
+            )
+            (?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])
+        captures:
+          '1': {name: keyword.operator.double-dot.haskell}
+          '2': {name: keyword.operator.colon.haskell}
+          '3': {name: keyword.operator.eq.haskell}
+          '4': {name: keyword.operator.lambda.haskell}
+          '5': {name: keyword.operator.pipe.haskell}
+          '6': {name: keyword.operator.arrow.left.haskell}
+          '7': {name: keyword.operator.arrow.haskell}
+          '8': {name: keyword.operator.arrow.left.tail.haskell}
+          '9': {name: keyword.operator.arrow.left.tail.double.haskell}
+          '10': {name: keyword.operator.arrow.tail.haskell}
+          '11': {name: keyword.operator.arrow.tail.double.haskell}
+          '12': {name: keyword.other.forall.haskell}
+      # Reserved prefix symbols,
+      # not including '@' (special treatment as a type application starts type highlighting).
+      - match: >-
+         (?x)
+           (?<![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\p{S}\p{P}&&[^(,;\[`{]]) # Disallow closing characters
+           (?:(~)|(!)|(-))
+           (?=[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\p{S}\p{P}&&[^),;\]`}]])  # Require opening character
+        captures:
+          '1': {name: keyword.operator.prefix.tilde.haskell}
+          '2': {name: keyword.operator.prefix.bang.haskell}
+          '3': {name: keyword.operator.prefix.minus.haskell}
+      # Other reserved symbols not included:
+      #   - Prefix $ and $$ (needs TemplateHaskell)
+      #   - Prefix # (needs OverloadedLabels)
+      #   - Suffix # (needs MagicHash)
   type_operator:
     patterns:
       # Symbolic type operator (optional promotion & qualification)
