@@ -17,11 +17,25 @@ patterns:
     captures:
       '1': {name: punctuation.paren.haskell}
       '2': {name: punctuation.paren.haskell}
+  - match: '(\()(#)\s*(#)(\))'
+    name: constant.language.unit.unboxed.haskell
+    captures:
+      '1': {name: punctuation.paren.haskell}
+      '2': {name: keyword.operator.hash.haskell}
+      '3': {name: keyword.operator.hash.haskell}
+      '4': {name: punctuation.paren.haskell}
   - match: '(\()\s*,[\s,]*(\))'
     name: support.constant.tuple.haskell
     captures:
       '1': {name: punctuation.paren.haskell}
       '2': {name: punctuation.paren.haskell}
+  - match: '(\()(#)\s*,[\s,]*(#)(\))'
+    name: support.constant.tuple.unboxed.haskell
+    captures:
+      '1': {name: punctuation.paren.haskell}
+      '2': {name: keyword.operator.hash.haskell}
+      '3': {name: keyword.operator.hash.haskell}
+      '4': {name: punctuation.paren.haskell}
   - match: '(\[)\s*(\])'
     name: constant.language.empty-list.haskell
     captures:
@@ -399,7 +413,35 @@ patterns:
   - include: '#start_type_signature'
   - include: '#prefix_op'
   - include: '#infix_op'
-  - include: '#comma'
+  - begin: '(\()(#)'
+    end: '(#)(\))'
+    beginCaptures:
+      '1': {name: punctuation.paren.haskell}
+      '2': {name: keyword.operator.hash.haskell}
+    endCaptures:
+      '1': {name: keyword.operator.hash.haskell}
+      '2': {name: punctuation.paren.haskell}
+    patterns:
+      - include: '#comma'
+      - include: '$self'
+  - begin: '(\()'
+    end: '(\))'
+    beginCaptures:
+      '1': {name: punctuation.paren.haskell}
+    endCaptures:
+      '1': {name: punctuation.paren.haskell}
+    patterns:
+      - include: '#comma'
+      - include: '$self'
+  - begin: '(\[)'
+    end: '(\])'
+    beginCaptures:
+      '1': {name: punctuation.bracket.haskell}
+    endCaptures:
+      '1': {name: punctuation.bracket.haskell}
+    patterns:
+      - include: '#comma'
+      - include: '$self'
 repository:
   block_comment:
     applyEndPatternLast: 1
@@ -894,6 +936,33 @@ repository:
           '2': {name: punctuation.paren.haskell}
           '3': {name: punctuation.paren.haskell}
         name: support.constant.unit.haskell
+      - match: '(\()(#)\s*(#)(\))'
+        name: support.constant.unit.unboxed.haskell
+        captures:
+          '1': {name: punctuation.paren.haskell}
+          '2': {name: keyword.operator.hash.haskell}
+          '3': {name: keyword.operator.hash.haskell}
+          '4': {name: punctuation.paren.haskell}
+      - match: '('')?(\()\s*,[\s,]*(\))'
+        captures:
+          '1': {name: keyword.operator.promotion.haskell}
+          '2': {name: punctuation.paren.haskell}
+          '3': {name: punctuation.paren.haskell}
+        name: support.constant.tuple.haskell
+      - match: '(\()(#)\s*(#)(\))'
+        name: support.constant.unit.unboxed.haskell
+        captures:
+          '1': {name: punctuation.paren.haskell}
+          '2': {name: keyword.operator.hash.haskell}
+          '3': {name: keyword.operator.hash.haskell}
+          '4': {name: punctuation.paren.haskell}
+      - match: '(\()(#)\s*,[\s,]*(#)(\))'
+        captures:
+          '1': {name: punctuation.paren.haskell}
+          '2': {name: keyword.operator.hash.haskell}
+          '3': {name: keyword.operator.hash.haskell}
+          '4': {name: punctuation.paren.haskell}
+        name: support.constant.tuple.unboxed.haskell
       - match: '('')?(\[)\s*(\])'
         captures:
           '1': {name: keyword.operator.promotion.haskell}
@@ -915,6 +984,17 @@ repository:
       - include: '#reserved_symbol'
       - include: '#type_operator'
       - include: '#type_constructor'
+      - begin: '(\()(#)'
+        end: '(#)(\))'
+        beginCaptures:
+          '1': {name: punctuation.paren.haskell}
+          '2': {name: keyword.operator.hash.haskell}
+        endCaptures:
+          '1': {name: keyword.operator.hash.haskell}
+          '2': {name: punctuation.paren.haskell}
+        patterns:
+          - include: '#comma'
+          - include: '#type_signature'
       - begin: '('')?(\()'
         end: '(\))'
         beginCaptures:
@@ -1080,18 +1160,27 @@ repository:
       # Reserved prefix symbols,
       # not including '@' (special treatment as a type application starts type highlighting).
       - match: >-
-         (?x)
-           (?<![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\p{S}\p{P}&&[^(,;\[`{]]) # Disallow closing characters
-           (?:(~)|(!)|(-))
-           (?=[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\p{S}\p{P}&&[^),;\]`}]])  # Require opening character
+          (?x)
+            (?<![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\p{S}\p{P}&&[^(,;\[`{]]) # Disallow closing characters
+            (?:(~)|(!)|(-)|(\#))
+            (?=[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\p{S}\p{P}&&[^),;\]`}]])  # Require opening character
         captures:
           '1': {name: keyword.operator.prefix.tilde.haskell}
           '2': {name: keyword.operator.prefix.bang.haskell}
           '3': {name: keyword.operator.prefix.minus.haskell}
-      # Other reserved symbols not included:
-      #   - Prefix $ and $$ (needs TemplateHaskell)
-      #   - Prefix # (needs OverloadedLabels)
-      #   - Suffix # (needs MagicHash)
+          '4': {name: keyword.operator.prefix.hash.haskell}
+      # Reserved postfix symbol: '#'
+      # This allows users to specify highlighting of '#' dependent on theme,
+      # as we are unfortunately unable to make a decision based on enabled extensions.
+      - match: >-
+          (?x)
+            (?<=[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\p{S}\p{P}&&[^,;\[`{]])   # Require closing characters
+            (\#+)
+            (?![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\p{S}\p{P}&&[^\#),;\]`}]]) # Disallow opening character
+        captures:
+          '1': {name: keyword.operator.postfix.hash.haskell}
+       #Other reserved symbols not included:
+       #  - Prefix $ and $$ (needs TemplateHaskell)
   type_operator:
     patterns:
       # Symbolic type operator (optional promotion & qualification)

@@ -9,7 +9,6 @@ tickets=($PWD/tickets/*)
 
 # Arrays containing filenames of broken tests.
 namedBroken=(
-  "MagicHash.hs"
 )
 ticketsBroken=(
   "T0150b.hs"
