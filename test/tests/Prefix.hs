@@ -20,3 +20,8 @@
     a ~ b
 --    ^ - keyword.operator.prefix.tilde.haskell
 
+   -1
+-- ^ keyword.operator.prefix.minus.haskell
+   1 - 2
+--   ^ - keyword.operator.prefix.minus.haskell
+--   ^ keyword.operator.infix.haskell

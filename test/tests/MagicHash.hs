@@ -24,12 +24,12 @@
 --         ^   ^ - keyword.operator.hash.haskell keyword.operator.postfix.hash.haskell
 --         ^   ^ storage.type.operator.infix.haskell
 
-    f :: A +## b
+    f :: A -## b
 --          ^^ keyword.operator.postfix.hash.haskell
+--         ^ - keyword.operator.prefix.minus.haskell
 
     g = a +## b
 --         ^^ keyword.operator.postfix.hash.haskell
-
 
     f :: A ## b
 --         ^^ - keyword.operator.hash.haskell keyword.operator.postfix.hash.haskell
