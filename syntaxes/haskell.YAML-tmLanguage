@@ -745,12 +745,15 @@ repository:
     patterns:
       - begin: |
           (?x)
-            (?:([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+            (?:([\p{Ll}\p{Lu}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.']*)
               |(\()\s*([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\))
             )
         end: '(,)|(?=})'
         beginCaptures:
-          '1': {name: variable.other.member.haskell}
+          '1': 
+            name: variable.other.member.haskell
+            patterns:
+              - include: '#qualifier'
           '2': {name: punctuation.paren.haskell}
           '3': {name: variable.other.member.haskell}
           '4': {name: punctuation.paren.haskell}
