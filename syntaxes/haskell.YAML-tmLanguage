@@ -593,19 +593,17 @@ repository:
         endCaptures:
           '0': {name: punctuation.paren.haskell}
         patterns:
+          - match: >-
+              (?x)
+                (?<=[\(,\s])
+                (\.\.)
+                (?=[\),\s])
+            captures:
+              '1': {name: variable.other.member.wildcard.haskell}
           - include: '#export_constructs'
   export_constructs:
     patterns:
       - include: '#comment_like'
-      - match: >-
-          (?x)
-            (?:(\()|(?<=[,\s]))
-            \s*(\.\.)\s*
-            (?:(\))|(?=[,\s]))
-        captures:
-          '1': {name: punctuation.paren.haskell} 
-          '2': {name: variable.other.member.wildcard.haskell}
-          '3': {name: punctuation.paren.haskell} 
       - begin: '\b(?<!'')(pattern)\b(?!'')'
         beginCaptures:
           '1': {name: keyword.other.pattern.haskell}
