@@ -4,8 +4,11 @@ module M
   ( T(f,C,g)
 --  ^ storage.type.haskell
 --    ^   ^ entity.name.function.haskell
-  , S(..)
+  , S((:<..<), .. )
 --  ^ storage.type.haskell
+--       ^^ - variable.other.member.wildcard.haskell
+--     ^^^^^ entity.name.function.infix.haskell
+--             ^^ variable.other.member.wildcard.haskell
   , (:->)((:>))
   , (:<>)(C,a,D,E)
   , A((<>), (:>>))

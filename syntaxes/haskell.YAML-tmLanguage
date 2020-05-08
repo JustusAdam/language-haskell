@@ -41,11 +41,11 @@ patterns:
     captures:
       '1': {name: punctuation.bracket.haskell}
       '2': {name: punctuation.bracket.haskell}
-  - begin: '(\b(module)|^(signature))(\b(?!''))'
+  - begin: '(\b(?<!'')(module)|^(signature))(\b(?!''))'
     beginCaptures:
       '2': {name: keyword.other.module.haskell}
       '3': {name: keyword.other.signature.haskell}
-    end: '\b(where)(\b(?!''))'
+    end: '\b(?<!'')(where)(\b(?!''))'
     endCaptures:
       '1': {name: keyword.other.where.haskell}
     name: meta.declaration.module.haskell
@@ -56,10 +56,10 @@ patterns:
       - match: '[a-z]+'
         name: invalid
   - include: '#ffi'
-  - begin: '\b(class)(\b(?!''))'
+  - begin: '\b(?<!'')(class)(\b(?!''))'
     beginCaptures:
       '1': {name: keyword.other.class.haskell}
-    end: '(\b(where)(\b(?!'')))|(?=^\S)'
+    end: '(\b(?<!'')(where)(\b(?!'')))|(?=^\S)'
     endCaptures:
       '1': {name: keyword.other.where.haskell}
     name: meta.declaration.class.haskell
@@ -80,12 +80,12 @@ patterns:
             (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
           )
         # the "where" or "deriving" keywords, or
-        | (?:\b(?:where|deriving)\b(?!'))
+        | (?:\b(?<!')(?:where|deriving)\b(?!'))
         # the start of a block comment.
         | {-
         #
         ).)*)
-        \b(where)\b(?!')
+        \b(?<!')(where)\b(?!')
     beginCaptures:
       '2': {name: keyword.other.$2.haskell}
       '3': {name: keyword.other.instance.haskell}
@@ -97,7 +97,7 @@ patterns:
     end: | 
       (?x) # Detect end of data declaration:
                # Deriving clause
-         (?=\bderiving\b(?!'))  
+         (?=(?<!')\bderiving\b(?!'))  
                # Decreasing indentation
          |(?=\}|;)      # Explicit indentation
          |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
@@ -172,7 +172,7 @@ patterns:
             (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
           )
         # the "where" or "deriving" keywords, or
-        | (?:\b(?:where|deriving)\b(?!'))
+        | (?:\b(?<!')(?:where|deriving)\b(?!'))
         # the start of a block comment.
         | {-
         #
@@ -220,7 +220,7 @@ patterns:
             (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
           )
         # the "where" keyword, or
-        | \bwhere\b(?!')
+        | \b(?<!')where\b(?!')
         # the start of a block comment.
         | {-
         #
@@ -231,7 +231,7 @@ patterns:
       '4':
         patterns:
           - include: "#comment_like"
-          - match: '\b(where)\b(?!'')'
+          - match: '\b(?<!'')(where)\b(?!'')'
             captures:
               '1': {name: keyword.other.where.haskell}
           - include: '#type_signature'
@@ -249,7 +249,7 @@ patterns:
                        # (then it would be an operator, not a comment)
           )
     patterns:
-      - match: '\b(where)\b(?!'')'
+      - match: '\b(?<!'')(where)\b(?!'')'
         name: keyword.other.where.haskell
       - include: '#type_signature'
   - name: 'meta.declaration.type.haskell'
@@ -290,13 +290,13 @@ patterns:
           )
     patterns:
       - include: '#type_signature'
-  - begin: '^(\s*)\b(instance)(\b(?!''))'
+  - begin: '^(\s*)(instance)(\b(?!''))'
     beginCaptures:
       '2': {name: keyword.other.instance.haskell}
     end: |
       (?x) # Detect end of instance declaration:
         # 'where' keyword
-        \b(where)\b(?!')
+        \b(?<!')(where)\b(?!')
         # Decreasing indentation
         |(?=\}|;)      # Explicit indentation
         |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
@@ -321,7 +321,7 @@ patterns:
     end: |
       (?x) # Detect end of import
         # 'where' keyword
-        \b(where)\b(?!')
+        \b(?<!')(where)\b(?!')
         # Decreasing indentation
         |(?=\}|;)      # Explicit indentation
         |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
@@ -343,7 +343,7 @@ patterns:
       - include: '#module_name'
       - include: '#module_exports'
   - include: '#deriving'
-  - begin: '^(\s*)\b(deriving)\s+(via)\b(?!'')(.*)$'
+  - begin: '^(\s*)(deriving)\s+(via)\b(?!'')(.*)$'
     beginCaptures:
       '2': {name: keyword.other.deriving.haskell}
       '3': {name: keyword.other.deriving.strategy.via.haskell}
@@ -374,7 +374,7 @@ patterns:
       - match: '(?<!'')\b(instance)\b(?!'')'
         name: keyword.other.instance.haskell
       - include: '#type_signature'
-  - match: '\b(deriving)\s+(?:(stock|newtype|anyclass)\s+)?(instance)\b(.*)$'
+  - match: '(?<!'')\b(deriving)\s+(?:(stock|newtype|anyclass)\s+)?(instance)\b(?!'')(.*)$'
     captures:
       '1': {name: keyword.other.deriving.haskell}
       '2': {name: keyword.other.deriving-strategy.haskell}
@@ -527,7 +527,7 @@ repository:
           '5': {name: keyword.other.deriving.strategy.via.haskell}
           '6': {patterns: [{include: '#type_signature'}]}
         name: meta.deriving.haskell
-      - match: '(?<!'')(via)\b(?!'')'
+      - match: '(?<!'')\b(via)\b(?!'')'
         name: keyword.other.deriving.strategy.via.haskell
   prefix_op:
     patterns:
@@ -580,11 +580,11 @@ repository:
     applyEndPatternLast: 1
     name: meta.declaration.exports.haskell
     patterns:
-      - match: '\b(module)\b(?!'')'
+      - include: '#comment_like'
+      - match: '\b(?<!'')(module)\b(?!'')'
         captures:
           '1': {name: keyword.other.module.haskell}
       - include: '#comma'
-      - include: '#cpp'
       - include: '#export_constructs'
       - begin: '\('
         beginCaptures:
@@ -596,7 +596,17 @@ repository:
           - include: '#export_constructs'
   export_constructs:
     patterns:
-      - begin: '\b(pattern)\b(?!'')'
+      - include: '#comment_like'
+      - match: >-
+          (?x)
+            (?:(\()|(?<=[,\s]))
+            \s*(\.\.)\s*
+            (?:(\))|(?=[,\s]))
+        captures:
+          '1': {name: punctuation.paren.haskell} 
+          '2': {name: variable.other.member.wildcard.haskell}
+          '3': {name: punctuation.paren.haskell} 
+      - begin: '\b(?<!'')(pattern)\b(?!'')'
         beginCaptures:
           '1': {name: keyword.other.pattern.haskell}
         end: >-
@@ -612,7 +622,7 @@ repository:
           '4': {name: punctuation.paren.haskell}
         patterns:
           - include: '#comment_like'
-      - begin: '\b(type)\b(?!'')'
+      - begin: '\b(?<!'')(type)\b(?!'')'
         beginCaptures:
           '1': {name: keyword.other.type.haskell}
         end: >-
@@ -629,13 +639,12 @@ repository:
         patterns:
           - include: '#comment_like'
       - match: >-
-          \b[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
+         (?<!')\b[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
         name: entity.name.function.haskell
       - match: >-
-          \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
+          (?<!')\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
         name: storage.type.haskell
       - include: '#prefix_op'
-      - include: '#comment_like'
   comma:
     match: ','
     name: punctuation.separator.comma.haskell
@@ -683,11 +692,11 @@ repository:
       '2': {name: keyword.operator.big-arrow.haskell}
   data_constructor:
     match: >-
-      \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?![\.''\w])
+      \b(?<!')[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?![\.'\w])
     name: constant.other.haskell
   qualifier:
     match: >-
-      \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.
+      \b(?<!')[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.
     name: entity.name.namespace.haskell
   record_decl:
     begin: '({)(?!-)'
@@ -776,7 +785,7 @@ repository:
         patterns:
           - include: '#comment_like'
           - include: '#type_constructor'
-          - match: '\b(nominal|representational|phantom)\b(?!'')'
+          - match: '\b(?<!'')(nominal|representational|phantom)\b(?!'')'
             captures:
               '1': {name: "keyword.other.role.$1.haskell"}
   fun_decl:
@@ -916,7 +925,7 @@ repository:
           (?x)
              ^(\s*)
                 (?:
-                  (\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+                  (\b(?<!')[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
                 |(\()\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)\s*(\))
                 )
         beginCaptures:
@@ -927,7 +936,7 @@ repository:
         end: |
           (?x)
             # GADT constructor ends
-            (?=\bderiving\b(?!'))  
+            (?=\b(?<!'')deriving\b(?!'))  
                   # Decreasing indentation
             |(?=\}|;)      # Explicit indentation
             |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
@@ -949,8 +958,8 @@ repository:
       # Remaining case: GADT constructor not on start of line
       - begin: >-
           (?x)
-            (\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}]*) # named constructor
-           |(\()\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)\s*(\))  # prefix operator
+            (\b(?<!')[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}]*) # named constructor
+           |(\()\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)\s*(\))    # prefix operator
         beginCaptures:
           '1': {name: constant.other.haskell}
           '2': {name: punctuation.paren.haskell}
@@ -1103,10 +1112,10 @@ repository:
           (?x)
             # End type annotation when seeing one of:
             (?=
-              \)                          # closing parenthesis
-              |,                          # comma
-              |\b(in|then|else|of)\b(?!') # keyword
-              |                           # symbolic keyword except (->)
+              \)                                # closing parenthesis
+              |,                                # comma
+              |(?<!')\b(in|then|else|of)\b(?!') # keyword
+              |                                 # symbolic keyword except (->)
                 (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
                 (?:
                    (\\|λ)
@@ -1139,10 +1148,10 @@ repository:
           (?x)
             # End type annotation when seeing one of:
             (?=
-              \)                          # closing parenthesis
-              |,                          # comma
-              |\b(in|then|else|of)\b(?!') # keyword
-              |                           # symbolic keyword except (->)
+              \)                                # closing parenthesis
+              |,                                # comma
+              |\b(?<!')(in|then|else|of)\b(?!') # keyword
+              |                                 # symbolic keyword except (->)
                 (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
                 (?:
                    (\\|λ)
@@ -1159,7 +1168,7 @@ repository:
         patterns:
           - include: '#type_signature'
   type_variable:
-    match: '\b(?!forall\b(?!''))[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
+    match: '\b(?<!'')(?!forall\b(?!''))[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
     name: variable.other.generic-type.haskell
   type_constructor:
     patterns:
@@ -1306,7 +1315,7 @@ repository:
             # Opening backtick
               (\`)
             # Optional qualified name
-              ((?:\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.)*)
+              ((?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.)*)
             # Type constructor proper
               ([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
             # Closing backtick
@@ -1318,7 +1327,7 @@ repository:
           '4': {name: storage.type.infix.haskell}
           '5': {name: punctuation.backtick.haskell}
   forall:
-    begin: '\b(forall|∀)\b(?!'')'
+    begin: '\b(?<!'')(forall|∀)\b(?!'')'
     end: '(\.)|(->|→)'
     beginCaptures: 
       '1': {name: keyword.other.forall.haskell}
@@ -1436,10 +1445,10 @@ repository:
           )
     patterns:
       - include: '#comment_like'
-      - match: '\b(ccall|cplusplus|dotnet|jvm|stdcall|prim|capi)\s+'
+      - match: '\b(?<!'')(ccall|cplusplus|dotnet|jvm|stdcall|prim|capi)\s+'
         captures:
           '1': {name: "keyword.other.calling-convention.$1.haskell"}
-      - begin: '(?=")|(?=\b([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)\b(?!''))'
+      - begin: '(?=")|(?=\b(?<!'')([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)\b(?!''))'
         end: '(?=(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']]))'
         patterns:
           # safe/unsafe/interruptible keywords,
@@ -1454,12 +1463,12 @@ repository:
           - include: '#comment_like'
           - match: |
               (?x)
-                \b(safe|unsafe|interruptible)\b(?!')
+                \b(?<!')(safe|unsafe|interruptible)\b(?!')
                 \s*
                 ("(?:\\"|[^"])*")?
                 \s*
                 (?:
-                  (?:\b([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\b(?!'))
+                  (?:\b(?<!'')([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\b(?!'))
                  |(?:\(\s*(?!--+\))([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*\))
                 )
             captures:
@@ -1473,7 +1482,7 @@ repository:
           # Assume that if there is no function name on this line, it will appear on the next line
           - match: |
               (?x)
-                \b(safe|unsafe|interruptible)\b(?!')
+                \b(?<!')(safe|unsafe|interruptible)\b(?!')
                 \s*
                 ("(?:\\"|[^"])*")?
                 \s*$
@@ -1493,7 +1502,7 @@ repository:
                   - include: '#string_literal'
           - match: |
               (?x)
-                 (?:\b([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\b(?!'))
+                 (?:\b(?<!'')([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\b(?!'))
                 |(?:(\()\s*(?!--+\))([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\)))
             captures:
               '1': {name: entity.name.function.haskell}
