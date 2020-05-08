@@ -535,7 +535,10 @@ repository:
           An operator cannot be composed entirely of '-' characters; 
           instead, it should be matched as a comment.
         match: >-
-          (\()\s*((?!--+\))[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\))
+          (?x)
+            (?<![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'])
+            (\()\s*((?!--+\))[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\))
+            (?![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'])
         captures:
           '1': {name: punctuation.paren.haskell}
           '2': {name: entity.name.function.infix.haskell}
