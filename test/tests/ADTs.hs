@@ -60,11 +60,11 @@
     data D3 = C5 { f5 :: T5, g5 :: T5 } | C6 T6
 --  ^^^^ keyword.other.data.haskell
 --          ^ keyword.operator.eq.haskell
---                 ^^        ^^ variable.other.field.definition.haskell
+--                 ^^        ^^ variable.other.member.definition.haskell
 --                       ^^        ^^        ^^ storage.type.haskell
 --                                      ^ keyword.operator.pipe.haskell
 --            ^^                          ^^ constant.other.haskell
             | C7 { f7 :: T7 }
 --          ^ keyword.operator.pipe.haskell
---                 ^^ variable.other.field.definition.haskell
+--                 ^^ variable.other.member.definition.haskell
 --                       ^^ storage.type.haskell

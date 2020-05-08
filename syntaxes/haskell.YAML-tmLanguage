@@ -719,9 +719,9 @@ repository:
         )
     end: ',|(?=})'
     beginCaptures:
-      '1': {name: variable.other.field.definition.haskell}
+      '1': {name: variable.other.member.definition.haskell}
       '2': {name: punctuation.paren.haskell}
-      '3': {name: variable.other.field.definition.haskell}
+      '3': {name: variable.other.member.definition.haskell}
       '4': {name: punctuation.paren.haskell}
     patterns:
       - include: '#comment_like'
@@ -738,9 +738,9 @@ repository:
             )
         end: ',|(?=})'
         beginCaptures:
-          '1': {name: variable.other.field.haskell}
+          '1': {name: variable.other.member.haskell}
           '2': {name: punctuation.paren.haskell}
-          '3': {name: variable.other.field.haskell}
+          '3': {name: variable.other.member.haskell}
           '4': {name: punctuation.paren.haskell}
         patterns:
           - include: '#comment_like'
@@ -748,7 +748,7 @@ repository:
           - include: '$self'
       - match: '(?<![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])(\.\.)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
         captures:
-          '1': { name: variable.other.field.wildcard.haskell }
+          '1': { name: variable.other.member.wildcard.haskell }
   role_annotation:
     patterns:
       - begin: '^(\s*)(type)\s+(role)\b(?!'')'
