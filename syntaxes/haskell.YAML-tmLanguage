@@ -380,20 +380,23 @@ patterns:
       '2': {name: keyword.other.deriving-strategy.haskell}
       '3': {name: keyword.other.instance.haskell}
       '4': {patterns: [{include: '#type_signature'}]}
-  - match: >-
-      (?x)\b
-        (?: (where)
-        | (let)
-        | (in)
-        | (default)
-        | (rec)
-        )(\b(?!'))
+  # Layout heralds
+  - begin: '(?<!'')\b(?:(where|let|in|m?do)|of)\s*(\{)(?!-)'
+    end: '(\})'
+    beginCaptures:
+      '1': { name: keyword.other.$1.haskell}
+      '2': { name: keyword.control.of.haskell}
+      '3': { name: punctuation.brace.haskell}
+    endCaptures:
+      '1': {name: punctuation.brace.haskell}
+    patterns:
+      - include: '#self'
+      - match: ';'
+        name: {punctuation.semicolon.haskell}
+  - match: '\b(?<!'')(?:(where|let|in|default)|(m?do|if|then|else|case|of|proc|rec))\b(?!'')'
     captures:
-      '1': {name: keyword.other.where.haskell}
-      '2': {name: keyword.other.let.haskell}
-      '3': {name: keyword.other.in.haskell}
-      '4': {name: keyword.other.default.haskell}
-      '5': {name: keyword.control.haskell}
+      '1': {name: keyword.other.$1.haskell}
+      '2': {name: keyword.control.$2.haskell}
   - match: '^\s*(infix[lr]?)\s+(.*)'
     captures:
       '1': {name: "keyword.other.$1.haskell"}
@@ -403,8 +406,6 @@ patterns:
           - include: '#integer_literals'
           - include: "#infix_op"
     name: meta.fixity-declaration.haskell
-  - match: '\b(m?do|if|then|else|case|of|proc)(\b(?!''))'
-    name: keyword.control.haskell
   - include: '#overloaded_label'
   - include: '#type_application'
   - include: '#reserved_symbol'
@@ -443,6 +444,7 @@ patterns:
     patterns:
       - include: '#comma'
       - include: '$self'
+  - include: '#record'
 repository:
   block_comment:
     applyEndPatternLast: 1
@@ -697,8 +699,19 @@ repository:
     name: meta.record.definition.haskell
     patterns:
       - include: '#comment_like'
+      - include: '#record_decl_field'
+  record:
+    begin: '({)(?!-)'
+    beginCaptures:
+      '1': {name: punctuation.brace.haskell}
+    end: '(?<!-)(})'
+    endCaptures:
+      '1': {name: punctuation.brace.haskell}
+    name: meta.record.haskell
+    patterns:
+      - include: '#comment_like'
       - include: '#record_field'
-  record_field:
+  record_decl_field:
     begin: |
       (?x)
         (?:([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
@@ -706,16 +719,36 @@ repository:
         )
     end: ',|(?=})'
     beginCaptures:
-      '1': {name: variable.other.definition.field.haskell}
+      '1': {name: variable.other.field.definition.haskell}
       '2': {name: punctuation.paren.haskell}
-      '3': {name: variable.other.definition.field.haskell}
+      '3': {name: variable.other.field.definition.haskell}
       '4': {name: punctuation.paren.haskell}
     patterns:
       - include: '#comment_like'
       - include: '#comma'
       - include: '#double_colon'
       - include: '#type_signature'
-      - include: '#record_field'
+      - include: '#record_decl_field'
+  record_field:
+    patterns:
+      - begin: |
+          (?x)
+            (?:([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+              |(\()\s*([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\))
+            )
+        end: ',|(?=})'
+        beginCaptures:
+          '1': {name: variable.other.field.haskell}
+          '2': {name: punctuation.paren.haskell}
+          '3': {name: variable.other.field.haskell}
+          '4': {name: punctuation.paren.haskell}
+        patterns:
+          - include: '#comment_like'
+          - include: '#comma'
+          - include: '$self'
+      - match: '(?<![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])(\.\.)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
+        captures:
+          '1': { name: variable.other.field.wildcard.haskell }
   role_annotation:
     patterns:
       - begin: '^(\s*)(type)\s+(role)\b(?!'')'

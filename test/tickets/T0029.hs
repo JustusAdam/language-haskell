@@ -2,5 +2,5 @@
 
 f = do
   rec a <- go a
--- <~~--- keyword.control.haskell
+-- <~~--- keyword.control.rec.haskell
   return a

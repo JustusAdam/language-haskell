@@ -1,9 +1,17 @@
 -- SYNTAX TEST "source.haskell" "Special record syntax"
 
   f :: Rec -> T
-  f record@{ a = A, b = B, .. }
+  f record@( Rec { a = A, b = B, .. } )
 --        ^ keyword.operator.infix.tight.at.haskell
---                         ^^ keyword.operator.double-dot.haskell
+--                 ^      ^ variable.other.field.haskell
+--                               ^^ variable.other.field.wildcard.haskell
+--               ^^^^^^^^^^^^^^^^^^^^ meta.record.haskell
+
+  f :: Rec -> Rec
+  f x = x { a = A, b = B, .. }
+--          ^      ^ variable.other.field.haskell
+--                        ^^ variable.other.field.wildcard.haskell
+--        ^^^^^^^^^^^^^^^^^^^^ meta.record.haskell
 
   f val@( pattern )
 --     ^ keyword.operator.infix.tight.at.haskell
