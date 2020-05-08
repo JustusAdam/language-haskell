@@ -1,8 +1,8 @@
 -- SYNTAX TEST "source.haskell" "Bug with wildcard export consuming a single parenthesis"
 
 module M
-  ( S(..)
---    ^^ variable.other.member.wildcard.haskell
+  ( S1(..), S2 (..)
+--     ^^       ^^ variable.other.member.wildcard.haskell
   , T
     ( .. , ( ..! ), ( :.. ), P, Q )
 --    ^^ variable.other.member.wildcard.haskell

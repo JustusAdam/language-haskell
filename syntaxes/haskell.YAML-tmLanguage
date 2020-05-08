@@ -536,9 +536,7 @@ repository:
           instead, it should be matched as a comment.
         match: >-
           (?x)
-            (?<![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'])
-            (\()\s*((?!--+\))[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\))
-            (?![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'])
+            (\()\s*((?!(?:--+|\.\.)\))[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\))
         captures:
           '1': {name: punctuation.paren.haskell}
           '2': {name: entity.name.function.infix.haskell}
@@ -596,14 +594,10 @@ repository:
         endCaptures:
           '0': {name: punctuation.paren.haskell}
         patterns:
-          - match: >-
-              (?x)
-                (?<=[\(,\s])
-                (\.\.)
-                (?=[\),\s])
-            captures:
-              '1': {name: variable.other.member.wildcard.haskell}
+          - include: '#comment_like'
+          - include: '#record_wildcard'
           - include: '#export_constructs'
+          - include: '#comma'
   export_constructs:
     patterns:
       - include: '#comment_like'
@@ -645,6 +639,7 @@ repository:
       - match: >-
           (?<!')\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
         name: storage.type.haskell
+      - include: '#record_wildcard'
       - include: '#prefix_op'
   comma:
     match: ','
@@ -741,6 +736,14 @@ repository:
       - include: '#double_colon'
       - include: '#type_signature'
       - include: '#record_decl_field'
+  record_wildcard:
+    match: >- 
+      (?x)
+        (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
+        (\.\.)
+        (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
+    captures:
+      '1': {name: variable.other.member.wildcard.haskell}
   record_field:
     patterns:
       - begin: |
@@ -763,9 +766,7 @@ repository:
           - include: '#comment_like'
           - include: '#comma'
           - include: '$self'
-      - match: '(?<![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])(\.\.)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
-        captures:
-          '1': { name: variable.other.member.wildcard.haskell }
+      - include: '#record_wildcard'
   role_annotation:
     patterns:
       - begin: '^(\s*)(type)\s+(role)\b(?!'')'
