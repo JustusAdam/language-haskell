@@ -381,12 +381,12 @@ patterns:
       '3': {name: keyword.other.instance.haskell}
       '4': {patterns: [{include: '#type_signature'}]}
   # Layout heralds
-  - begin: '(?<!'')\b(?:(where|let|in|m?do)|of)\s*(\{)(?!-)'
+  - begin: '(?<!'')\b(?:(where|let|m?do)|(of))\s*(\{)(?!-)'
     end: '(\})'
     beginCaptures:
-      '1': { name: keyword.other.$1.haskell}
-      '2': { name: keyword.control.of.haskell}
-      '3': { name: punctuation.brace.haskell}
+      '1': {name: keyword.other.$1.haskell}
+      '2': {name: keyword.control.of.haskell}
+      '3': {name: punctuation.brace.haskell}
     endCaptures:
       '1': {name: punctuation.brace.haskell}
     patterns:
@@ -717,12 +717,14 @@ repository:
         (?:([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
           |(\()\s*([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\))
         )
-    end: ',|(?=})'
+    end: '(,)|(?=})'
     beginCaptures:
       '1': {name: variable.other.member.definition.haskell}
       '2': {name: punctuation.paren.haskell}
       '3': {name: variable.other.member.definition.haskell}
       '4': {name: punctuation.paren.haskell}
+    endCaptures:
+      '1': {name: punctuation.comma.haskell}
     patterns:
       - include: '#comment_like'
       - include: '#comma'
@@ -736,12 +738,14 @@ repository:
             (?:([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
               |(\()\s*([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\))
             )
-        end: ',|(?=})'
+        end: '(,)|(?=})'
         beginCaptures:
           '1': {name: variable.other.member.haskell}
           '2': {name: punctuation.paren.haskell}
           '3': {name: variable.other.member.haskell}
           '4': {name: punctuation.paren.haskell}
+        endCaptures:
+          '1': {name: punctuation.comma.haskell}
         patterns:
           - include: '#comment_like'
           - include: '#comma'
