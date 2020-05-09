@@ -60,7 +60,8 @@
   - unrestricted OverloadedLabels ([#68](https://github.com/JustusAdam/language-haskell/issues/68)),
   - role annotation keywords (nominal/representational/phantom).
   - GHC language extensions (including deprecated highlighting for deprecated extensions).
-- Disable Haskell highlighting for quasi-quotations ([#23](https://github.com/JustusAdam/language-haskell/issues/23)).
+- Simple support for Haskell quasi-quoters `e`, `p`, `d` and `t` ([#23](https://github.com/JustusAdam/language-haskell/issues/23)).
+  Other quasi-quoters simply disable Haskell highlighting.
 - Support for `.hs-boot` files ([#117](https://github.com/JustusAdam/language-haskell/issues/117)).
 - Preliminary support for `C2Hs` and `Hsc2Hs` filetypes.
 - Support for cabal [internal libraries](https://www.haskell.org/cabal/users-guide/developing-packages.html#sublibs).
