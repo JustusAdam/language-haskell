@@ -592,7 +592,7 @@ repository:
           instead, it should be matched as a comment.
         match: >-
           (?x)
-            (\()\s*((?!(?:--+|\.\.)\))[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\))
+            (\()\s*(?!(?:--+|\.\.)\))(\#+|[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+(?<!\#))\s*(\))
         captures:
           '1': {name: punctuation.paren.haskell}
           '2': {name: entity.name.function.infix.haskell}
@@ -694,6 +694,7 @@ repository:
           (?<!')\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
         name: storage.type.haskell
       - include: '#record_wildcard'
+      - include: '#reserved_symbol'
       - include: '#prefix_op'
   comma:
     match: ','

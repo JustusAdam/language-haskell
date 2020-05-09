@@ -2,6 +2,12 @@
 
 
 
+    module M ( Int#, (+#), type Word#, pattern I# ) where
+--                ^    ^            ^           ^ keyword.operator.postfix.hash.haskell
+    import GHC.Exts ( Int#, (+#), type Word#, pattern I# )
+--                       ^    ^                        ^ keyword.operator.postfix.hash.haskell
+
+
     f :: (# Word8#, Int8#, Bool# #) -> (# Word8#, Int8#, Bool# #)
 --               ^      ^      ^               ^      ^      ^ keyword.operator.postfix.hash.haskell
 --        ^                      ^      ^                      ^ keyword.operator.hash.haskell
