@@ -10,7 +10,7 @@ patterns:
   - include: '#numeric_literals'
   - include: '#string_literal'
   - include: '#char_literal'
-  - match: '(?<!@)-\}'
+  - match: '(?<!@|#)-\}'
     name: invalid
   - match: '(\()\s*(\))'
     name: constant.language.unit.haskell
@@ -546,9 +546,8 @@ repository:
       - match: >-
           (?x)
             ((?:(?<!'')('')?[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.)*)
-            (\#+|[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+(?<!\#))
-              # Workaround for LiquidHaskell
-                (?:(?<!@-)|(?!\}))(?:(?<!@)|(?!-\}))
+                                                     # Workaround for LiquidHaskell and pragmas
+              (\#+|(?:[\p{S}\p{P}&&[^(),;\[\]`{}_"']](?!(?:\#|@)?-\}))+(?<!\#))
         comment: >
           In case this regex seems overly general, note that Haskell permits 
           the definition of new operators which can be nearly any string of 
@@ -653,17 +652,39 @@ repository:
     end: '#-\}'
     name: meta.preprocessor.haskell
     patterns:
+      # LANGUAGE extensions (as of GHC 8.10)
+      - begin: >-
+          (?xi)
+          \b(?<!')(LANGUAGE)\b(?!')
+        end: '(?=#-\})'
+        beginCaptures:
+          '1': {name: keyword.other.preprocessor.pragma.haskell}
+        patterns:
+          - match: >-
+              (?x)
+                (?:No)?
+                (?:AutoDeriveTypeable|DatatypeContexts|DoRec|IncoherentInstances|MonadFailDesugaring|MonoPatBinds|NullaryTypeClasses|OverlappingInstances|PatternSignatures|RecordPuns|RelaxedPolyRec)
+            name: invalid
+          - match: >-
+              (?x)
+                (
+                (?:No)?
+                (?:AllowAmbiguousTypes|AlternativeLayoutRule|AlternativeLayoutRuleTransitional|Arrows|BangPatterns|BinaryLiterals|CApiFFI|CPP|CUSKs|ConstrainedClassMethods|ConstraintKinds|DataKinds|DefaultSignatures|DeriveAnyClass|DeriveDataTypeable|DeriveFoldable|DeriveFunctor|DeriveGeneric|DeriveLift|DeriveTraversable|DerivingStrategies|DerivingVia|DisambiguateRecordFields|DoAndIfThenElse|BlockArguments|DuplicateRecordFields|EmptyCase|EmptyDataDecls|EmptyDataDeriving|ExistentialQuantification|ExplicitForAll|ExplicitNamespaces|ExtendedDefaultRules|FlexibleContexts|FlexibleInstances|ForeignFunctionInterface|FunctionalDependencies|GADTSyntax|GADTs|GHCForeignImportPrim|Generali(?:s|z)edNewtypeDeriving|ImplicitParams|ImplicitPrelude|ImportQualifiedPost|ImpredicativeTypes|TypeFamilyDependencies|InstanceSigs|ApplicativeDo|InterruptibleFFI|JavaScriptFFI|KindSignatures|LambdaCase|LiberalTypeSynonyms|MagicHash|MonadComprehensions|MonoLocalBinds|MonomorphismRestriction|MultiParamTypeClasses|MultiWayIf|NumericUnderscores|NPlusKPatterns|NamedFieldPuns|NamedWildCards|NegativeLiterals|HexFloatLiterals|NondecreasingIndentation|NumDecimals|OverloadedLabels|OverloadedLists|OverloadedStrings|PackageImports|ParallelArrays|ParallelListComp|PartialTypeSignatures|PatternGuards|PatternSynonyms|PolyKinds|PolymorphicComponents|QuantifiedConstraints|PostfixOperators|QuasiQuotes|Rank2Types|RankNTypes|RebindableSyntax|RecordWildCards|RecursiveDo|RelaxedLayout|RoleAnnotations|ScopedTypeVariables|StandaloneDeriving|StarIsType|StaticPointers|Strict|StrictData|TemplateHaskell|TemplateHaskellQuotes|StandaloneKindSignatures|TraditionalRecordSyntax|TransformListComp|TupleSections|TypeApplications|TypeInType|TypeFamilies|TypeOperators|TypeSynonymInstances|UnboxedTuples|UnboxedSums|UndecidableInstances|UndecidableSuperClasses|UnicodeSyntax|UnliftedFFITypes|UnliftedNewtypes|ViewPatterns)
+                )
+            captures:
+              '1': {name: keyword.other.preprocessor.extension.haskell}
+          - include: '#comma'
       - match: >-
           (?xi)
-          \b(LANGUAGE|OPTIONS_GHC|INCLUDE|WARNING
-            |MINIMAL|UNPACK|SPECIALISE|OVERLAPS|INCOHERENT
+          \b(LANGUAGE|OPTIONS_GHC|INCLUDE
+            |MINIMAL|UNPACK|SPECIALI(?:S|Z)E|OVERLAPS|INCOHERENT
             |NOUNPACK|SOURCE|OVERLAPPING|OVERLAPPABLE|INLINE
             |NOINLINE|INLINE?ABLE|CONLIKE|LINE|COLUMN|RULES
-            |SPECIALIZE|COMPLETE)\b
+            |COMPLETE)\b
         name: keyword.other.preprocessor.haskell
-      - begin: '(?i)\b(DEPRECATED)\b'
+      - begin: '(?i)\b(DEPRECATED|WARNING)\b'
         beginCaptures:
-          '1': {name: keyword.other.preprocessor.haskell}
+          '1': {name: keyword.other.preprocessor.pragma.haskell}
         end: '(?=#-\})'
         patterns:
           - {include: '#string_literal'}
@@ -1066,8 +1087,6 @@ repository:
       - include: '#string_literal'
       - match: '''[^'']'''
         name: invalid
-      - match: '(?<!@)-\}'
-        name: invalid
       - include: '#type_application'
       - include: '#reserved_symbol'
       - include: '#type_operator'
@@ -1105,12 +1124,12 @@ repository:
           - include: '#type_signature'
       - include: '#type_variable'
   double_colon:
-    match: '(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
+    match: '\s*(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])\s*'
     captures:
       '1': {name: keyword.operator.double-colon.haskell}
   start_type_signature:
     patterns:
-      - begin: '^(\s*)(::|∷)(?![\p{S}\p{P}&&[^\(,;\[`{_"'']])'
+      - begin: '^(\s*)(::|∷)(?![\p{S}\p{P}&&[^\(,;\[`{_"'']])\s*'
         beginCaptures:
           '2': {name: keyword.operator.double-colon.haskell}
         end: >-
@@ -1305,9 +1324,9 @@ repository:
             # Optional qualified name
               ((?:\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.)*)
             # Type operator proper
-              (\#+|[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+(?<!\#))
-                # Workaround for LiquidHaskell
-                  (?:(?<!@-)|(?!\}))(?:(?<!@)|(?!-\}))
+                                                     # Workaround for LiquidHaskell and pragmas
+              (\#+|(?:[\p{S}\p{P}&&[^(),;\[\]`{}_"']](?!(?:\#|@)?-\}))+(?<!\#))
+
         captures:
           '1': {name: keyword.operator.promotion.haskell }
           '2': {name: entity.name.namespace.haskell }
@@ -1516,6 +1535,18 @@ repository:
               '4': {name: punctuation.paren.haskell}
       - include: '#double_colon'
       - include: '#type_signature'
-      
+  inline_phase:
+    begin: '\['
+    beginCaptures:
+      '0': {name: punctuation.bracket.haskell}
+    end: '\]'
+    endCaptures:
+      '0': {name: punctuation.bracket.haskell}
+    patterns:
+      - match: '~'
+        name: punctuation.tilde.haskell
+      - include: '#integer_literals'
+      - match: '\w*'
+        name: invalid
 scopeName: source.haskell
 uuid: 5C034675-1F6D-497E-8073-369D37E2FD7D
