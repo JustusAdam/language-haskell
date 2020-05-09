@@ -45,9 +45,7 @@ patterns:
     beginCaptures:
       '2': {name: keyword.other.module.haskell}
       '3': {name: keyword.other.signature.haskell}
-    end: '\b(?<!'')(where)(\b(?!''))'
-    endCaptures:
-      '1': {name: keyword.other.where.haskell}
+    end: '(?=\b(?<!'')where\b(?!''))'
     name: meta.declaration.module.haskell
     patterns:
       - include: '#comment_like'
@@ -56,15 +54,30 @@ patterns:
       - match: '[a-z]+'
         name: invalid
   - include: '#ffi'
-  - begin: '\b(?<!'')(class)(\b(?!''))'
+  - begin: '^(\s*)(class)(\b(?!''))'
     beginCaptures:
-      '1': {name: keyword.other.class.haskell}
-    end: '(\b(?<!'')(where)(\b(?!'')))|(?=^\S)'
-    endCaptures:
-      '1': {name: keyword.other.where.haskell}
+      '2': {name: keyword.other.class.haskell}
+    end: >-
+      (?x) # Detect end of class declaration:
+               # 'where' keyword
+         (?=(?<!')\bwhere\b(?!'))  
+               # Decreasing indentation
+         |(?=\}|;)      # Explicit indentation
+         |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
+             \1\s+\S    # - more indented, or
+           | \s*        # - starts with whitespace, followed by:
+             (?: $      #   - the end of the line (i.e. empty line), or
+             |\{-[^@]   #   - the start of a block comment, or
+             |--+       #   - the start of a single-line comment.
+                (?![\p{S}\p{P}&&[^(),;\[\]{}`_"']]).*$) # non-symbol
+                        # The double dash may not be followed by other operator characters
+                        # (then it would be an operator, not a comment)
+           )
     name: meta.declaration.class.haskell
     patterns:
-      - {include: '#type_signature'}
+      - include: '#comment_like'
+      - include: '#where'
+      - include: '#type_signature'
   # GADT declaration
   # must find `where` keyword on the same line
   # (only way to distinguish between GADT and ADT)
@@ -85,14 +98,13 @@ patterns:
         | {-
         #
         ).)*)
-        \b(?<!')(where)\b(?!')
+        (?=\b(?<!'')where\b(?!''))
     beginCaptures:
       '2': {name: keyword.other.$2.haskell}
       '3': {name: keyword.other.instance.haskell}
       '4': 
         patterns:
           - include: '#type_signature'
-      '5': {name: keyword.other.where.haskell}
     name: meta.declaration.$2.generalized.haskell
     end: | 
       (?x) # Detect end of data declaration:
@@ -112,6 +124,26 @@ patterns:
            )
     patterns:
       - include: '#comment_like'
+      # Can't simply include 'where' pattern,
+      # because it includes all of $self,
+      # whereas we want something slightly different
+      - begin: >-
+          (?x)
+            (?<!')\b(where)
+            \s*(\{)(?!-)
+        end: '(\})'
+        beginCaptures:
+          '1': {name: keyword.other.where.haskell}
+          '2': {name: punctuation.brace.haskell}
+        endCaptures:
+          '1': {name: punctuation.brace.haskell}
+        patterns:
+          - include: '#comment_like'
+          - include: '#gadt_constructor'
+          - match: ';'
+            name: punctuation.semicolon.haskell
+      - match: '\b(?<!'')(where)\b(?!'')'
+        name: keyword.other.where.haskell
       - include: '#deriving'
       - include: '#gadt_constructor'
   - include: '#role_annotation'
@@ -231,9 +263,7 @@ patterns:
       '4':
         patterns:
           - include: "#comment_like"
-          - match: '\b(?<!'')(where)\b(?!'')'
-            captures:
-              '1': {name: keyword.other.where.haskell}
+          - include: '#where'
           - include: '#type_signature'
     end: | 
       (?x) # Detect end of type family by decreasing indentation:
@@ -249,8 +279,8 @@ patterns:
                        # (then it would be an operator, not a comment)
           )
     patterns:
-      - match: '\b(?<!'')(where)\b(?!'')'
-        name: keyword.other.where.haskell
+      - include: "#comment_like"
+      - include: '#where'
       - include: '#type_signature'
   - name: 'meta.declaration.type.haskell'
     begin: >-
@@ -296,7 +326,7 @@ patterns:
     end: |
       (?x) # Detect end of instance declaration:
         # 'where' keyword
-        \b(?<!')(where)\b(?!')
+        (?=\b(?<!')(where)\b(?!'))
         # Decreasing indentation
         |(?=\}|;)      # Explicit indentation
         |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
@@ -309,10 +339,10 @@ patterns:
                        # The double dash may not be followed by other operator characters
                        # (then it would be an operator, not a comment)
           )
-    endCaptures:
-      '1': {name: keyword.other.where.haskell}
     name: meta.declaration.instance.haskell
     patterns:
+      - include: '#comment_like'
+      - include: '#where'
       - include: '#type_signature'
   - begin: >-
       ^(\s*)(import)(\b(?!'))
@@ -321,7 +351,7 @@ patterns:
     end: |
       (?x) # Detect end of import
         # 'where' keyword
-        \b(?<!')(where)\b(?!')
+        (?=\b(?<!')(where)\b(?!'))
         # Decreasing indentation
         |(?=\}|;)      # Explicit indentation
         |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
@@ -337,6 +367,7 @@ patterns:
     name: meta.import.haskell
     patterns:
       - include: '#comment_like'
+      - include: '#where'
       - match: (qualified|as|hiding)
         captures:
           '1': {name: "keyword.other.$1.haskell"}
@@ -380,23 +411,8 @@ patterns:
       '2': {name: keyword.other.deriving-strategy.haskell}
       '3': {name: keyword.other.instance.haskell}
       '4': {patterns: [{include: '#type_signature'}]}
-  # Layout heralds
-  - begin: '(?<!'')\b(?:(where|let|m?do)|(of))\s*(\{)(?!-)'
-    end: '(\})'
-    beginCaptures:
-      '1': {name: keyword.other.$1.haskell}
-      '2': {name: keyword.control.of.haskell}
-      '3': {name: punctuation.brace.haskell}
-    endCaptures:
-      '1': {name: punctuation.brace.haskell}
-    patterns:
-      - include: '#self'
-      - match: ';'
-        name: {punctuation.semicolon.haskell}
-  - match: '\b(?<!'')(?:(where|let|in|default)|(m?do|if|then|else|case|of|proc|rec))\b(?!'')'
-    captures:
-      '1': {name: keyword.other.$1.haskell}
-      '2': {name: keyword.control.$2.haskell}
+  - include: '#layout_herald'
+  - include: '#keyword'
   - match: '^\s*(infix[lr]?)\s+(.*)'
     captures:
       '1': {name: "keyword.other.$1.haskell"}
@@ -502,6 +518,45 @@ repository:
     comment: 'In addition to Haskell''s "native" syntax, GHC permits the C preprocessor to be run on a source file.'
     match: '^(#).*$' # `#` must be the first character on the line
     name: meta.preprocessor.c
+  where:
+    patterns:
+      - begin: >-
+          (?x)
+            (?<!')\b(where)
+            \s*(\{)(?!-)
+        end: '(\})'
+        beginCaptures:
+          '1': {name: keyword.other.where.haskell}
+          '2': {name: punctuation.brace.haskell}
+        endCaptures:
+          '1': {name: punctuation.brace.haskell}
+        patterns:
+          - include: '$self'
+          - match: ';'
+            name: punctuation.semicolon.haskell
+      - match: '\b(?<!'')(where)\b(?!'')'
+        name: keyword.other.where.haskell
+  layout_herald:
+    begin: >-
+      (?x)
+        (?<!')\b(?:(where|let|m?do)|(of))
+        \s*(\{)(?!-)
+    end: '(\})'
+    beginCaptures:
+      '1': {name: keyword.other.$1.haskell}
+      '2': {name: keyword.control.of.haskell}
+      '3': {name: punctuation.brace.haskell}
+    endCaptures:
+      '1': {name: punctuation.brace.haskell}
+    patterns:
+      - include: '$self'
+      - match: ';'
+        name: punctuation.semicolon.haskell
+  keyword:
+    match: '\b(?<!'')(?:(where|let|in|default)|(m?do|if|then|else|case|of|proc|rec))\b(?!'')'
+    captures:
+      '1': {name: keyword.other.$1.haskell}
+      '2': {name: keyword.control.$2.haskell}
   deriving:
     patterns:
       - begin: '(deriving)(?:\s+(stock|newtype|anyclass))?\s*(\()'

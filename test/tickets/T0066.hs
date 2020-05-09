@@ -2,7 +2,7 @@
 
 class A x where
 -- <----- keyword.other.class.haskell
--- <--------------- meta.declaration.class.haskell
+-- <---------- meta.declaration.class.haskell
 class B x
 -- <----- keyword.other.class.haskell
 -- <--------- meta.declaration.class.haskell
@@ -17,7 +17,7 @@ class C x => Dx
 
 instance A x where
 -- <-------- keyword.other.instance.haskell
--- <------------------ meta.declaration.instance.haskell
+-- <------------- meta.declaration.instance.haskell
 instance B x
 -- <-------- keyword.other.instance.haskell
 -- <------------ meta.declaration.instance.haskell

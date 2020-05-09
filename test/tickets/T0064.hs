@@ -6,7 +6,7 @@ module M
     -- where
 --     ^^^^^ comment.line.double-dash.haskell
     where
---  ^^^^^ meta.declaration.module.haskell keyword.other.where.haskell
+--  ^^^^^ keyword.other.where.haskell
 
 
 module M
@@ -15,4 +15,4 @@ module M
     -- g
 --     ^ comment.line.double-dash.haskell
     ) where
---    ^^^^^ meta.declaration.module.haskell keyword.other.where.haskell
+--    ^^^^^ keyword.other.where.haskell
