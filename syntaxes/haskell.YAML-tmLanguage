@@ -546,8 +546,7 @@ repository:
       - match: >-
           (?x)
             ((?:(?<!'')('')?[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.)*)
-                                                     # Workaround for LiquidHaskell and pragmas
-              (\#+|(?:[\p{S}\p{P}&&[^(),;\[\]`{}_"']](?!(?:\#|@)?-\}))+(?<!\#))
+              (\#+|[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+(?<!\#))
         comment: >
           In case this regex seems overly general, note that Haskell permits 
           the definition of new operators which can be nearly any string of 
@@ -1324,8 +1323,7 @@ repository:
             # Optional qualified name
               ((?:\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.)*)
             # Type operator proper
-                                                     # Workaround for LiquidHaskell and pragmas
-              (\#+|(?:[\p{S}\p{P}&&[^(),;\[\]`{}_"']](?!(?:\#|@)?-\}))+(?<!\#))
+              (\#+|[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+(?<!\#))
 
         captures:
           '1': {name: keyword.operator.promotion.haskell }
