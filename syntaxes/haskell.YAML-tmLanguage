@@ -718,7 +718,7 @@ repository:
               (?x)
                 (?:No)?
                 (?:AutoDeriveTypeable|DatatypeContexts|DoRec|IncoherentInstances|MonadFailDesugaring|MonoPatBinds|NullaryTypeClasses|OverlappingInstances|PatternSignatures|RecordPuns|RelaxedPolyRec)
-            name: invalid
+            name: invalid.deprecated
           - match: >-
               (?x)
                 (

@@ -10,7 +10,7 @@
 --               ^^^^^^^^^^^^^^^^^^^^^^^^^ keyword.other.preprocessor.extension.haskell
 
     {-# LANGUAGE NullaryTypeClasses #-}
---               ^^^^^^^^^^^^^^^^^^ invalid
+--               ^^^^^^^^^^^^^^^^^^ invalid.deprecated
 
     {-# LANGUAGE NotAKnownExtension #-}
 --               ^^^^^^^^^^^^^^^^^^ - keyword.other.preprocessor.extension.haskell

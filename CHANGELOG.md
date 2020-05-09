@@ -1,57 +1,68 @@
 ## x.x.x - unreleased
 
-- Enable highlighting for `.hs-boot` files ([#117](https://github.com/JustusAdam/language-haskell/issues/117)).
-- Highlighting for data families and instances ([#72](https://github.com/JustusAdam/language-haskell/issues/72)).
-- Fix regression: allow extra spaces between record field and type signature
-  ([#118](https://github.com/JustusAdam/language-haskell/issues/118))
-- Add support for deriving strategies, and improve leniency for whitespace in deriving declarations
-  ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
-- Fixed regression [#122](https://github.com/JustusAdam/language-haskell/issues/122), constructor
-  patterns
-- Enabling pragmas in multiline comments
-  ([#116](https://github.com/JustusAdam/language-haskell/issues/116))
-- Fixed highlighting for infix constructors
-  ([#120](https://github.com/JustusAdam/language-haskell/issues/120))
-- Added support for multiline type signatures for pattern synonyms
-- Allow declaration of several pattern synonym type at once ([#72](https://github.com/JustusAdam/language-haskell/issues/72))
-- Add support for cabal [internal libraries](https://www.haskell.org/cabal/users-guide/developing-packages.html#sublibs).
-- Improvements to `deriving via`:
-  - Allow unparenthesised `via` clauses, and highlight the derived instance code as usual,
-  - Highlight multiline `deriving via` clauses (in most situations).
+- Improvements to highlighting data constructors:
+  - support for infix data constructors
+    - in definitions ([#132](https://github.com/JustusAdam/language-haskell/issues/132)),
+    - in other situations ([#120](https://github.com/JustusAdam/language-haskell/issues/120)),
+  - correctly parse comments on the same line as a data declaration,
+  - fix regression with GADT constructors when `::` follows on a new line
+    ([#119](https://github.com/JustusAdam/language-haskell/issues/119)),
+  - fix regression: allow data constructor preceded by a symbol (e.g. parenthesis, comma) [#122](https://github.com/JustusAdam/language-haskell/issues/122),
+  - fix highlighting of GADT constructors that end with apostrophes,
+  - highlighting now also applies to data families ([#72](https://github.com/JustusAdam/language-haskell/issues/72)).
+- Correct highlighting of types in type families.
+- Improvements to pattern synonyms
+  - support multiline type signatures,
+  - allow several pattern synonyms to be declared at once ([#72](https://github.com/JustusAdam/language-haskell/issues/72)),
+- Fix regression: LiquidHaskell highlighting ([#131](https://github.com/JustusAdam/language-haskell/issues/136))
+- Improvements to deriving:
+  - improve leniency for whitespace in deriving declarations,
+  - allow unparenthesised `via` clauses, and highlight the derived instance code as usual,
+  - highlight multiline `deriving via` clauses (in most situations).
+  - highlight deriving strategies ([#72](https://github.com/JustusAdam/language-haskell/issues/72)),
+- Improvements to records:
+  - fix regression: allow extra spaces between record field and type signature ([#118](https://github.com/JustusAdam/language-haskell/issues/118)),
+  - support record syntax in GADTs,
+  - highlight record fields,
+  - highlight record `@` syntax,
+  - fix regression for comments inside record definitions ([#131](https://github.com/JustusAdam/language-haskell/issues/136))
 - Improve highlighting of ticks ([#136](https://github.com/JustusAdam/language-haskell/issues/136)),
   ([#71](https://github.com/JustusAdam/language-haskell/issues/71)).
-- Several fixes to data type declarations:
-  - Highlight infix data constructors ([#132](https://github.com/JustusAdam/language-haskell/issues/132))
-  - Correctly parse comments on the same line as a data declaration,
-  - Fix regression with GADT constructors when `::` follows on a new line
-    ([#119](https://github.com/JustusAdam/language-haskell/issues/119))
-  - Support record syntax in GADTs.
-- Address regression in LiquidHaskell highlighting ([#131](https://github.com/JustusAdam/language-haskell/issues/136)).
-- Fixed several issues involving multi-line type/data declarations,
-  including allowing intervening comments ([#147](https://github.com/JustusAdam/language-haskell/pull/147)).
-- Add support for visible kind application (and miscellaneous fixes for visible type application).
-- Allow C preprocessor instructions to appear in module exports.
-- Fix highlighting of GADT constructors that end with apostrophes.
-- Improved highlighting of `type T` and `pattern P` in module imports/exports.
-- Fix pragmas sometimes being highlighted as comments ([#150](https://github.com/JustusAdam/language-haskell/issues/150)).
-- Improved highlighting for module imports with unusual indentation.
-- Support for Haddock documentation heralds `*`, `^`, `$`.
-- Fix regression for comments inside record definitions ([#131](https://github.com/JustusAdam/language-haskell/issues/136))
-- Improved support for reserved symbolic operators.
-- Improve highlighting in foreign import/export declaration:
+- Module imports/exports improvements:
+  - allow C preprocessor instructions to appear in module exports,
+  - improved highlighting of `type T` and `pattern P` declarations,
+  - improve support for unusual indentation
+- Foreign import/export declarations:
    - more calling conventions recognised,
    - recognise safe/unsafe/interruptible keywords,
    - correct highlighting of type signature, including over multiple lines.
+- Fix several issues with comments:
+  - allow intervening comments in type/data declarations,
+  - fix pragmas sometimes being highlighted as comments ([#150](https://github.com/JustusAdam/language-haskell/issues/150)),
+  - fix wrong highlighting when a pragma is found inside a block comment
+  ([#116](https://github.com/JustusAdam/language-haskell/issues/116))
+  - support for Haddock documentation heralds `*`, `^`, `$`.
+- Improvements to multi-line declarations:
+  - fixed several issues involving multi-line type/data declarations ([#147](https://github.com/JustusAdam/language-haskell/pull/147)),
+  - fix regression in highlighting subsequent lines in a multi-line type signature
+    when the initial `::` appears appears first on a line,
+  - fix wrong highlighting in multi-line class declarations.
+- Add support for visible kind application (and miscellaneous fixes for visible type application).
+- Improved support for reserved symbolic operators.
 - Bugfix for escaped character literals (e.g. `'\^A'`).
-- Support for role annotation keywords (nominal/representational/phantom).
-- Fix regression in highlighting subsequent lines in a multi-line type signature
-  when the initial `::` appears appears first on a line.
-- Correct highlighting of types in type families.
-- Special highlighting for bang patterns and irrefutable patterns ([#145](https://github.com/JustusAdam/language-haskell/issues/145)).
-- Special highlighting for record `@` syntax (tight infix `@`).
-- Opt-in highlighting for magic hash using `keyword.operator.hash` and `keyword.operator.postfix.hash`.
-- Support for unrestricted OverloadedLabels ([#68](https://github.com/JustusAdam/language-haskell/issues/68)).
 - Fix for floating point numeric literals not being highlighted properly.
+- Newly highlighted items:
+  - bang patterns and irrefutable patterns ([#145](https://github.com/JustusAdam/language-haskell/issues/145)),
+  - as mentioned above: record `@` syntax (tight infix `@`), and record fields,
+  - bang patterns (prefix `!`) and irrefutable patterns (prefix `~`),
+  - arrow operators such as `-<`,
+  - opt-in: magic hash using `keyword.operator.hash` and `keyword.operator.postfix.hash`,
+  - unrestricted OverloadedLabels ([#68](https://github.com/JustusAdam/language-haskell/issues/68)),
+  - role annotation keywords (nominal/representational/phantom).
+  - GHC language extensions (including deprecated highlighting for deprecated extensions),
+- Support for `.hs-boot` files ([#117](https://github.com/JustusAdam/language-haskell/issues/117)).
+- Preliminary support for `C2Hs` and `Hsc2Hs` filetypes.
+- Support for cabal [internal libraries](https://www.haskell.org/cabal/users-guide/developing-packages.html#sublibs).
 
 ## 3.0.0 - 26.04.2020
 
