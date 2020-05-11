@@ -1,8 +1,17 @@
 CONVERT=npx js-yaml
+SYNTAXES=haskell cabal literateHaskell
+JSON_TARGETS=$(addsuffix .json,$(addprefix syntaxes/,$(SYNTAXES)))
+SCOPE_LISTS=$(addsuffix .md,$(addprefix scope-lists/,$(SYNTAXES)))
 
 .PHONY: all test
 
-all: syntaxes/haskell.json syntaxes/cabal.json syntaxes/literateHaskell.json
+all: $(JSON_TARGETS) $(SCOPE_LISTS)
+
+scope-lists/%.md: scope-lists/%.yaml
+	scope-lists/refresh.hs md $< $@
+
+scope-lists/%.yaml: syntaxes/%.YAML-tmLanguage
+	scope-lists/refresh.hs db $< $@
 
 test: all
 	cd test && bash test.sh
@@ -10,5 +19,5 @@ test: all
 %.json: %.YAML-tmLanguage
 	$(CONVERT) $< > $@
 
-$(CONVERT): 
+$(CONVERT):
 	npm install js-yaml
