@@ -1609,12 +1609,12 @@ repository:
           (?x)
             (\[)
             (e|d|p)?
-            (\|)
+            (\|\|?)
         beginCaptures:
           '1': {name: keyword.operator.quasi-quotation.begin.haskell}
           '2': {name: entity.name.quasi-quoter.haskell}
           '3': {name: keyword.operator.quasi-quotation.begin.haskell}
-        end: '\|\]'
+        end: '\3\]'
         endCaptures:
           '0': {name: keyword.operator.quasi-quotation.end.haskell}
         name: meta.quasi-quotation.haskell
@@ -1624,12 +1624,12 @@ repository:
           (?x)
             (\[)
             (t)
-            (\|)
+            (\|\|?)
         beginCaptures:
           '1': {name: keyword.operator.quasi-quotation.begin.haskell}
           '2': {name: entity.name.quasi-quoter.haskell}
           '3': {name: keyword.operator.quasi-quotation.begin.haskell}
-        end: '\|\]'
+        end: '\3\]'
         endCaptures:
           '0': {name: keyword.operator.quasi-quotation.end.haskell}
         name: meta.quasi-quotation.haskell
@@ -1640,7 +1640,7 @@ repository:
             (\[)
             (?:(\$\$)|(\$))?
             ((?:[^\s\p{S}\p{P}]|[\.'_])*)
-            (\|)
+            (\|\|?)
         beginCaptures:
           '1': {name: keyword.operator.quasi-quotation.begin.haskell}
           '2': {name: keyword.operator.prefix.double-dollar.haskell}
@@ -1650,7 +1650,7 @@ repository:
               - include: '#qualifier'
             name: entity.name.quasi-quoter.haskell
           '5': {name: keyword.operator.quasi-quotation.begin.haskell}
-        end: '\|\]'
+        end: '\5\]'
         endCaptures:
           '0': {name: keyword.operator.quasi-quotation.end.haskell}
         name: meta.quasi-quotation.haskell
