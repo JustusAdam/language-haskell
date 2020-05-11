@@ -730,13 +730,46 @@ repository:
             captures:
               '1': {name: keyword.other.preprocessor.extension.haskell}
           - include: '#comma'
+      - begin: >-
+          (?xi)
+            \b(?<!')(SPECIALI(?:S|Z)E)
+            (?:
+            \s*( \[ [^\[\]]* \])?\s*
+            |\s+
+            )
+            (instance)\b(?!')
+        end: '(?=#-\})'
+        beginCaptures:
+          '1': {name: keyword.other.preprocessor.pragma.haskell}
+          '2':
+            patterns:
+              - include: '#inline_phase'
+          '3': {name: keyword.other.instance.haskell}
+        patterns:
+          - include: '#type_signature'
+      - begin: >-
+          (?xi)
+            \b(?<!')(SPECIALI(?:S|Z)E)\b(?!')
+            (?:\s+(INLINE)\b(?!'))?
+            (?:\s*(\[ [^\[\]]* \])?)
+            \s*
+        end: '(?=#-\})'
+        beginCaptures:
+          '1': {name: keyword.other.preprocessor.pragma.haskell}
+          '2': {name: keyword.other.preprocessor.pragma.haskell}
+          '3':
+            patterns:
+              - include: '#inline_phase'
+        patterns:
+          - include: '$self'
       - match: >-
           (?xi)
-          \b(LANGUAGE|OPTIONS_GHC|INCLUDE
-            |MINIMAL|UNPACK|SPECIALI(?:S|Z)E|OVERLAPS|INCOHERENT
+          \b(?<!')
+            (LANGUAGE|OPTIONS_GHC|INCLUDE
+            |MINIMAL|UNPACK|OVERLAPS|INCOHERENT
             |NOUNPACK|SOURCE|OVERLAPPING|OVERLAPPABLE|INLINE
             |NOINLINE|INLINE?ABLE|CONLIKE|LINE|COLUMN|RULES
-            |COMPLETE)\b
+            |COMPLETE)\b(?!')
         name: keyword.other.preprocessor.haskell
       - begin: '(?i)\b(DEPRECATED|WARNING)\b'
         beginCaptures:
@@ -1599,6 +1632,7 @@ repository:
     end: '\]'
     endCaptures:
       '0': {name: punctuation.bracket.haskell}
+    name: meta.inlining-phase.haskell
     patterns:
       - match: '~'
         name: punctuation.tilde.haskell

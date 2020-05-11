@@ -42,6 +42,8 @@
   - fix wrong highlighting when a pragma is found inside a block comment
   ([#116](https://github.com/JustusAdam/language-haskell/issues/116)),
   - support for Haddock documentation heralds `*`, `^`, `$`.
+- Highlight recognised language extensions.
+- Highlight type signature in `SPECIALISE` annotations.
 - Improvements to multi-line declarations:
   - fixed several issues involving multi-line type/data declarations ([#147](https://github.com/JustusAdam/language-haskell/pull/147)),
   - fix regression in highlighting subsequent lines in a multi-line type signature
