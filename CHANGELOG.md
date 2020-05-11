@@ -1,8 +1,3 @@
-## x.x.x - Unreleased
-
-- Fix type signature not always ending when encountering a closing bracket.
-- Allow a qualified type to be the first argument of an infix constructor inside a data declaration.
-
 ## 3.1.0 - 11.05.2020
 
 - Improvements to highlighting data constructors:
@@ -73,6 +68,12 @@
 - Support for `.hs-boot` files ([#117](https://github.com/JustusAdam/language-haskell/issues/117)).
 - Preliminary support for `C2Hs` and `Hsc2Hs` filetypes.
 - Support for cabal [internal libraries](https://www.haskell.org/cabal/users-guide/developing-packages.html#sublibs).
+- Fix type signature not always ending when encountering a closing bracket.
+- Allow a qualified type to be the first argument of an infix constructor inside a data declaration.
+
+## 3.1.0 - 11.05.2020
+
+Released in error without any changes.
 
 ## 3.0.0 - 26.04.2020
 
