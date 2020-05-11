@@ -749,7 +749,7 @@ repository:
     begin: '\{-@'
     end: '@-\}'
     patterns:
-      - include: '$self'
+      - include: '#type_signature'
   context:
     match: |
       (?x)
@@ -1380,8 +1380,8 @@ repository:
             # Optional qualified name
               ((?:\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.)*)
             # Type operator proper
-              (\#+|[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+(?<!\#))
-
+              (?![#@]?-})(\#+|[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+(?<!\#))
+              #((?:[\p{S}\p{P}&&[^(),;\[\]`{}_"']&&[^#@]]|[@#](?!-}))+)
         captures:
           '1': {name: keyword.operator.promotion.haskell }
           '2': {name: entity.name.namespace.haskell }
