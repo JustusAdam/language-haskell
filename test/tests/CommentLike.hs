@@ -5,8 +5,8 @@
 --            ^ ^ - comment.block.haskell
 
     {-$ a b -} a b
---  ^^^^^^^^^^ comment.block.documentation
---             ^ ^ - comment.block.documentation
+--  ^^^^^^^^^^ comment.block.documentation.haskell
+--             ^ ^ - comment.block.documentation.haskell
 
     {-# SPECIALISE foo :: a -> b #-} c d
 --  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.preprocessor.haskell
