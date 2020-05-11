@@ -1,4 +1,4 @@
-## 3.1.0 - 11.05.2020
+## 3.2.0 - 11.05.2020
 
 - Improvements to highlighting data constructors:
   - support for infix data constructors
