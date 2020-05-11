@@ -8,4 +8,6 @@ src/**
 tsconfig.json
 test.hs
 test.cabal
-
+scope-lists/**
+syntaxes/*.YAML-tmLanguage
+.github/**
