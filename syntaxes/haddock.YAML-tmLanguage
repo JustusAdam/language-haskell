@@ -1,0 +1,96 @@
+fileTypes: []
+name: Haddock
+patterns: []
+repository:
+  module_description:
+    match: |
+      (?x)
+        ^\s*(?:--)?\s*
+        ( Module | Description | Copyright | Maintainer | Stability
+        | License | Portability 
+        )\s*(:)'
+    captures:
+      '1': {name: keyword.other.haddock}
+      '2': {name: keyword.operator.haddock}
+  list:
+    match: '^\s*(?:--\s+)?([-*])\s'
+    captures:
+      '1': {name: punctuation.list.begin.haddock}
+  enumeration:
+    match: '^\s*(?:--\s+)?(\(\d\)|\d\.)\s'
+    captures:
+      '1': {name: punctuation.list.begin.haddock}
+  definition:
+    match: '^\s*(?:--\s+)?(\[.*?\]:)\s'
+    captures:
+      '1': {name: markup.list.definition.haddock}
+  markup:
+    patterns:
+      - include: '#italic'
+      - include: '#bold'
+      - include: '#ref'
+  birdtracks:
+    begin: '^(\s*(?:--\s+)?)>'
+    end: '-}|^(?!\1>)'
+    patterns:
+      - include: source.haskell
+  fenced_code:
+    begin: '@'
+    end:   '@|-}'
+    patterns:
+      - include: '#markup'
+  example:
+    match: '^\s*(?:--\s+)?(>>>)(.*)$'
+    captures:
+      '1': {name: markup.raw}
+      '2': { include: source.haskell }
+  prop:
+    match: '^\s*(?:--\s+)?(prop>)(.*)$'
+    captures:
+      '1': {name: markup.raw}
+      '2': { include: source.haskell }
+  ref:
+    patterns:
+      - match: '(?<=\s)[''`]([\w_\p{Lt}][\w_\p{Lt}\p{Nd}''])[''`](?=\s|$)'
+        captures: 
+          '1': {name: markup.underline.link.ref.haddock}
+      - match: '(?<=\s)"(\p{Lu}[\w_\p{Lt}\p{Nd}''])"(?=\s|$)'
+        captures: 
+          '1': {name: markup.underline.link.ref.module.haddock}
+  
+  italic:
+    begin: '(?<!\\)/'
+    end: '(?<!\\)/'
+    name: markup.italic.haddock
+
+  bold:
+    begin: '__'
+    end: '__'
+    name: markup.bold.haddock
+
+  link:
+    patterns:
+      - match: '(\w+)://[^\s]+'
+        name: markup.underline.link.haddock
+      - match: '<(\w+)://[^\s]+>'
+        name: markup.underline.link.haddock
+      - match: '!?\[(.*?)\]\((.*?)\)'
+        captures:
+          '1': {name: string.other.link.title.haddock}
+          '2': {name: markup.underline.link.haddock}
+
+  anchor:
+    match: '\#[\w]+\#|"\w+#\w+"'
+    name: string.other.anchor.haddock
+
+  headings:
+    match: '^\s*(?:--\s+)?=+(.+)$'
+    name: markup.heading.haddock
+    captures:
+      '1': {name: punctuation.definition.heading.haddock}
+      '2': 
+        name: entity.name.section.haddock 
+        patterns:
+          include: '#markup'
+
+scopeName: source.haddock
