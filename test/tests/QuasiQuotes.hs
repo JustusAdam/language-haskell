@@ -9,6 +9,13 @@
 --                ^^ keyword.operator.quasi-quotation.end.haskell
 --  ^^^^^^^^^^^^^^^^ meta.quasi-quotation.haskell
 
+    [|| A + B + C ||]
+--  ^^^ keyword.operator.quasi-quotation.begin.haskell
+--      ^   ^   ^ constant.other.haskell
+--        ^   ^ keyword.operator.infix.haskell
+--                ^^^ keyword.operator.quasi-quotation.end.haskell
+--  ^^^^^^^^^^^^^^^^^ meta.quasi-quotation.haskell
+
     [p| A |]
 --  ^ ^ keyword.operator.quasi-quotation.begin.haskell
 --   ^ entity.name.quasi-quoter.haskell
