@@ -28,13 +28,7 @@ jobs:
         run: npm install -g js-yaml vscode-tmgrammar-test
 
       - name: Generate grammar JSON files
-        run: |
-          cd syntaxes
-          js-yaml haskell.YAML-tmLanguage > haskell.json
-          js-yaml   cabal.YAML-tmLanguage >   cabal.json
+        run: make all
 
       - name: Run tests
-        run: |
-          cd test
-          chmod +x test.sh
-          ./test.sh
+        run: make test

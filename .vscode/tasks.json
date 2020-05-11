@@ -24,7 +24,7 @@
             "type": "shell",
             "label": "make-json",
             "command": "make",
-            "args": ["-f", "convert_yaml.makefile"]
+            "args": ["all"]
         },
         {
             "label": "compile-all",
