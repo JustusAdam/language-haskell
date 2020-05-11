@@ -1,0 +1,10 @@
+- scope: Cabal
+  hide: true
+- scope: comment.line.double-dash
+- scope: constant.numeric.cabal
+- scope: entity.name.function.cabal
+- scope: entity.name.section.cabal
+- scope: keyword.control.cabal
+- scope: keyword.operator.cabal
+- scope: keyword.other.cabal
+- scope: markup.underline.link.cabal

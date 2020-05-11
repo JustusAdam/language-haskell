@@ -1,4 +1,5 @@
 - scope: Haskell
+  hide: true
 - scope: block.liquidhaskell.haskell
 - scope: comment.block.documentation.haskell
 - scope: comment.block.haskell

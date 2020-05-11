@@ -1,0 +1,9 @@
+- scope: Literate Haskell
+  hide: true
+- scope: meta.embedded.block.haskell.latex
+- scope: meta.embedded.haskell
+- scope: punctuation.definition.arguments.begin.latex
+- scope: punctuation.definition.arguments.end.latex
+- scope: punctuation.definition.bird-track.haskell
+- scope: punctuation.definition.function.latex
+- scope: support.function.be.latex

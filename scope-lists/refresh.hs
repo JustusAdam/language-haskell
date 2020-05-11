@@ -34,21 +34,21 @@ instance FromJSON Names where
         Array vs -> mconcat . toList <$> traverse parseJSON vs
         _ -> pure mempty
 
-data Info = Info { iname :: T.Text, idesc :: Maybe T.Text, iexample :: Maybe T.Text }
+data Info = Info { iname :: T.Text, idesc :: Maybe T.Text, iexample :: Maybe T.Text, ihide :: Bool }
 
 instance FromJSON Info where
     parseJSON = withObject "Info must be an object" $ \o ->
-        Info <$> o .: "scope" <*> o.:? "description" <*> o .:? "example"
+        Info <$> o .: "scope" <*> o.:? "description" <*> o .:? "example" <*> o .:? "hide" .!= False
 
 instance ToJSON Info where
     toJSON Info{..} = object $
-         "description" .?= idesc $ "example" .?= iexample $ ["scope" .= iname]
+         "description" .?= idesc $ "example" .?= iexample $ "hide" .?= (if ihide then Just ihide else Nothing) $ ["scope" .= iname]
       where
         _ .?= Nothing = id
         a .?= Just b = (a .= b : )
 
 toInfo :: Names -> [Info]
-toInfo = map (\name -> Info name Nothing Nothing) . sort . toList . names
+toInfo = map (\name -> Info name Nothing Nothing False) . sort . toList . names
 
 toNames :: [Info] -> Names
 toNames = Names . S.fromList . map iname
@@ -60,7 +60,7 @@ toMarkdown :: [Info] -> T.Text
 toMarkdown info = T.unlines $
     "| Scope Name | Description | Example |"
     : "|-|-|-|"
-    : map (\Info{..} -> "| " <> iname <> " | " <> fromMaybe "" idesc <> " | " <> fromMaybe "" iexample <> " |") info
+    : map (\Info{..} -> "| " <> iname <> " | " <> fromMaybe "" idesc <> " | " <> fromMaybe "" iexample <> " |") ( filter (not . ihide) info)
 
 main =
     getArgs >>= \case

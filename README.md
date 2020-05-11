@@ -32,4 +32,6 @@ With version `3.0.0` some new tm scopes were added, such that now record and GAD
 distinguished. Let me know if there are any questions about the scope assignment in this
 extension or if there are further scope assigments you'd like to see added.
 
-We now publish
+We now publish an automatically generated, complete list of the textmate scopes
+used in our grammars. You can find the lists of scopes in the
+[scope-lists](/scope-lists) directory.
