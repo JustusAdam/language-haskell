@@ -8,9 +8,7 @@ named=($PWD/tests/*)
 tickets=($PWD/tickets/*)
 
 # Arrays containing filenames of broken tests.
-namedBroken=(
-  "CommentLike.hs"
-)
+namedBroken=()
 ticketsBroken=(
   "T0157.hs"
 )

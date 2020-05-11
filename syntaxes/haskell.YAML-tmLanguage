@@ -749,7 +749,7 @@ repository:
     begin: '\{-@'
     end: '@-\}'
     patterns:
-      - include: '#type_signature'
+      - include: '#start_type_signature'
   context:
     match: |
       (?x)
@@ -1205,6 +1205,7 @@ repository:
                   |(-<<|⤛)
                 )
                 ([(),;\[\]`{}_"']|[^\p{S}\p{P}])
+              |@-\}                             # End of liquid haskell annotation
               # Decreasing indentation:
               | (?=\}|;)      # Explicit indentation
               |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
@@ -1231,6 +1232,7 @@ repository:
               \)                                # closing parenthesis
               |,                                # comma
               |\b(?<!')(in|then|else|of)\b(?!') # keyword
+              |@-\}                             # End of liquid haskell annotation
               |                                 # symbolic keyword except (->)
                 (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
                 (?:
