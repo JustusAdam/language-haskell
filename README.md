@@ -1,4 +1,4 @@
-# Haskell Language support [![Tests](https://github.com/JustusAdam/language-haskell/workflows/language-haskell%20CI/badge.svg)](https://github.com/JustusAdam/language-haskell/actions)
+# Haskell Language support
 
 
 Support for the Haskell programming language in Visual Studio Code.
