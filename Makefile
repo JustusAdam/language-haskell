@@ -1,4 +1,4 @@
-CONVERT=./node_modules/js-yaml/bin/js-yaml.js
+CONVERT=npx js-yaml
 
 .PHONY: all test
 
