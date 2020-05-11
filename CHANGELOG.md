@@ -1,3 +1,7 @@
+## x.x.x - Unreleased
+
+- Fix type signature not always ending when encountering a closing bracket.
+
 ## 3.1.0 - 11.05.2020
 
 - Improvements to highlighting data constructors:

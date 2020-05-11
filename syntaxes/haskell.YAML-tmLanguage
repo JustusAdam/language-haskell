@@ -1225,7 +1225,8 @@ repository:
           (?x)
             # End type annotation when seeing one of:
             (?=
-              \)                                # closing parenthesis
+              \#?\)                             # closing parenthesis
+              |\]                               # closing bracket
               |,                                # comma
               |(?<!')\b(in|then|else|of)\b(?!') # keyword
               |                                 # symbolic keyword except (->)
@@ -1240,7 +1241,7 @@ repository:
                 ([(),;\[\]`{}_"']|[^\p{S}\p{P}])
               |(\#|@)-\}                             # End of annotation block (LiquidHaskell or pragma)
               # Decreasing indentation:
-              | (?=\}|;)      # Explicit indentation
+              | (?=\}|;)     # Explicit indentation
               |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
                   \1\s*\S    # - equally indented, or
                 | \s*        # - starts with whitespace, followed by:
@@ -1262,7 +1263,8 @@ repository:
           (?x)
             # End type annotation when seeing one of:
             (?=
-              \)                                # closing parenthesis
+              \#?\)                             # closing parenthesis
+              |\]                               # closing bracket
               |,                                # comma
               |\b(?<!')(in|then|else|of)\b(?!') # keyword
               |(\#|@)-\}                        # End of annotation block (LiquidHaskell or pragma)
