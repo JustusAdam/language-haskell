@@ -10,7 +10,6 @@ tickets=($PWD/tickets/*)
 # Arrays containing filenames of broken tests.
 namedBroken=()
 ticketsBroken=(
-  "T0157.hs"
 )
 
 # Colours used to display test outputs.
