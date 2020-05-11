@@ -47,14 +47,26 @@
 
 
     one## :: Word8#
+--  ^^^^^ entity.name.function.haskell
 --     ^^         ^ keyword.operator.postfix.hash.haskell
+
     one## = 1##
 --     ^^    ^^ keyword.operator.postfix.hash.haskell
 
     foo# :: Addr#
+--  ^^^^ entity.name.function.haskell
 --     ^        ^ keyword.operator.postfix.hash.haskell
     foo# = "foo"#
 --     ^        ^ keyword.operator.postfix.hash.haskell
+
+    (=#=#) :: Int# -> Int# -> Bool#
+--   ^^^^ entity.name.function.haskell
+--    ^ - keyword.operator.postfix.hash.haskell
+--      ^ keyword.operator.postfix.hash.haskell
+    a =#=# b = a =#=# b
+--     ^          ^ - keyword.operator.postfix.hash.haskell
+--       ^          ^ keyword.operator.postfix.hash.haskell
+
 
     
     type family Tuple# xs = t | t -> xs where

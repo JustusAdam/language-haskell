@@ -875,7 +875,7 @@ repository:
       (?x)^(\s*)
         (?<fn>
           (?:
-            [\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
+            [\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\#*
           | \(\s*
               (?!--+\))
               [\p{S}\p{P}&&[^(),:;\[\]`{}_"']]
@@ -887,9 +887,9 @@ repository:
         \s*(?<![\p{S}\p{P}&&[^\),;\]`}_"']])(::|∷)(?![\p{S}\p{P}&&[^\(,;\[`{_"']])
     beginCaptures:
       '2':
+        name: entity.name.function.haskell
         patterns:
-          - match: '[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
-            name: entity.name.function.haskell
+          - include: '#reserved_symbol'
           - include: '#prefix_op'
       '3': {name: keyword.operator.double-colon.haskell}
     name: meta.function.type-declaration.haskell
