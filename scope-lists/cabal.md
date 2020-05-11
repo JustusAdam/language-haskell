@@ -1,5 +1,5 @@
 | Scope Name | Description | Example |
-|-|-|
+|-|-|-|
 | Cabal |  |  |
 | comment.line.double-dash |  |  |
 | constant.numeric.cabal |  |  |

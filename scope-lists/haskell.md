@@ -1,5 +1,5 @@
 | Scope Name | Description | Example |
-|-|-|
+|-|-|-|
 | Haskell |  |  |
 | block.liquidhaskell.haskell |  |  |
 | comment.block.documentation.haskell |  |  |

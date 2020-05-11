@@ -1,4 +1,4 @@
-# Haskell Language support [![Tests](https://github.com/JustusAdam/language-haskell/workflows/language-haskell%20CI/badge.svg)](https://github.com/JustusAdam/language-haskell/actions)
+# Haskell Language support
 
 
 Support for the Haskell programming language in Visual Studio Code.
@@ -7,7 +7,7 @@ Support for the Haskell programming language in Visual Studio Code.
 
 Adds syntax highlighting support for Haskell (.hs and .lhs). This is a (now heavily) modified version of
 the syntax file from the [Haskell TextMate bundle](https://github.com/textmate/haskell.tmbundle).
-Additionally there is support for Cabal files (.cabal) via a concoction of my own. 
+Additionally there is support for Cabal files (.cabal) via a concoction of my own.
 
 Also adds automatic indentation after `where`, `do`, `->` etc. and surrounding brackets (`[]`, `{}` etc)
 
@@ -32,3 +32,4 @@ With version `3.0.0` some new tm scopes were added, such that now record and GAD
 distinguished. Let me know if there are any questions about the scope assignment in this
 extension or if there are further scope assigments you'd like to see added.
 
+We now publish

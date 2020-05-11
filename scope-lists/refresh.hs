@@ -59,7 +59,7 @@ mergeInfo ext (Names n) = ext <> toInfo (Names $ n `S.difference` names (toNames
 toMarkdown :: [Info] -> T.Text
 toMarkdown info = T.unlines $
     "| Scope Name | Description | Example |"
-    : "|-|-|"
+    : "|-|-|-|"
     : map (\Info{..} -> "| " <> iname <> " | " <> fromMaybe "" idesc <> " | " <> fromMaybe "" iexample <> " |") info
 
 main =

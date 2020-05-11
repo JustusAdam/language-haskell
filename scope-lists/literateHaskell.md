@@ -1,5 +1,5 @@
 | Scope Name | Description | Example |
-|-|-|
+|-|-|-|
 | Literate Haskell |  |  |
 | meta.embedded.block.haskell.latex |  |  |
 | meta.embedded.haskell |  |  |
