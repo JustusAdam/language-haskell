@@ -1,6 +1,7 @@
 ## x.x.x - Unreleased
 
 - Fix type signature not always ending when encountering a closing bracket.
+- Allow a qualified type to be the first argument of an infix constructor inside a data declaration.
 
 ## 3.1.0 - 11.05.2020
 

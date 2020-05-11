@@ -972,7 +972,7 @@ repository:
               # First argument
               (?:
               # Simple type
-              |(?<!')\b((?:[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'])+)
+              |(?<!')\b((?:[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'\.])+)
               # Type inside balanced parentheses
               | ('? # Optional promotion tick
                   (?<paren>
