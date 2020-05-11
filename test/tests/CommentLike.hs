@@ -19,5 +19,4 @@
 
     {-@ type NonEmpty a = {v:[a] | 0 < len v } @-} c d
 --  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ block.liquidhaskell.haskell
---                         ^ - variable.other.generic-type.haskell
 --                                                 ^ ^ - block.liquidhaskell.haskell
