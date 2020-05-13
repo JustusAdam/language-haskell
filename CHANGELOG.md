@@ -1,3 +1,8 @@
+## x.x.x. - Unreleased
+
+- Fix excessive backtracking in regular expression for data declarations
+  ([#161](https://github.com/JustusAdam/language-haskell/issues/161)).
+
 ## 3.2.0 - 11.05.2020
 
 - Improvements to highlighting data constructors:
