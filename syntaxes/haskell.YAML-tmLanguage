@@ -289,10 +289,10 @@ patterns:
         ^(\s*)(type)(?:\s+(instance))?\s+
         # Keep consuming characters until:
         (((?!
-        # the equals symbol or the start of a single-line comment, or
+        # the equals symbol, the start of a single-line comment, or a type signature
           (?: 
             (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
-            (?:=|--+)
+            (?:=|--+|::|∷)
             (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
           )
         # the start of a block comment.
