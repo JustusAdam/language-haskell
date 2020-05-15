@@ -3,7 +3,7 @@ SYNTAXES=haskell cabal literateHaskell
 JSON_TARGETS=$(addsuffix .json,$(addprefix syntaxes/,$(SYNTAXES)))
 SCOPE_LISTS=$(addsuffix .md,$(addprefix scope-lists/,$(SYNTAXES)))
 
-.PHONY: all test
+.PHONY: all test publish
 
 all: $(JSON_TARGETS) $(SCOPE_LISTS)
 
@@ -21,3 +21,6 @@ test: all
 
 $(CONVERT):
 	npm install js-yaml
+
+publish: all
+	vsce publish
