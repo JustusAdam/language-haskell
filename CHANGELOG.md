@@ -1,6 +1,12 @@
-## 3.2.1. - 14.05.2020
+## x.x.x - Unreleased
 
-- Fix excessive backtracking in regular expression for data declarations
+- Different approach to fixing slow highlighting of data declarations
+  ([#161](https://github.com/JustusAdam/language-haskell/issues/161)).
+
+
+## 3.2.1 - 14.05.2020
+
+- Attempt to limit backtracking in regular expression for data declarations
   ([#161](https://github.com/JustusAdam/language-haskell/issues/161)).
 - Improved highlighting for multi-line standalone kind signatures.
 - Improved type highlighting in multiline deriving declarations.

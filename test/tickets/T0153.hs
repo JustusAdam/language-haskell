@@ -25,6 +25,40 @@
 --         ^          ^              ^ variable.other.generic-type.haskell
 --       ^                ^            ^ storage.type.haskell
 
+    data E x =
+--  ^^^^ keyword.other.data.haskell
+--       ^ storage.type.haskell
+--         ^ variable.other.generic-type.haskell
+--           ^ keyword.operator.eq.haskell
+        C x => Bar x A
+--          ^^ keyword.operator.big-arrow.haskell
+--             ^^^ constant.other.haskell
+--        ^        ^ variable.other.generic-type.haskell
+--      ^            ^ storage.type.haskell
+    data E x =
+--  ^^^^ keyword.other.data.haskell
+--       ^ storage.type.haskell
+--         ^ variable.other.generic-type.haskell
+--           ^ keyword.operator.eq.haskell
+        forall x. Bar x A
+--      ^^^^^^ keyword.other.forall.haskell
+--              ^ keyword.operator.period.haskell
+--                ^^^ constant.other.haskell
+--             ^      ^ variable.other.generic-type.haskell
+--                      ^ storage.type.haskell
+    data E x =
+--  ^^^^ keyword.other.data.haskell
+--       ^ storage.type.haskell
+--         ^ variable.other.generic-type.haskell
+--           ^ keyword.operator.eq.haskell
+        forall x . C x => Bar x A
+--      ^^^^^^ keyword.other.forall.haskell
+--               ^ keyword.operator.period.haskell
+--                     ^^ keyword.operator.big-arrow.haskell
+--                        ^^^ constant.other.haskell
+--             ^              ^ variable.other.generic-type.haskell
+--                 ^            ^ storage.type.haskell
+
     f :: forall x. C x => Bar x A
 --  ^  entity.name.function.haskell
 --    ^^ keyword.operator.double-colon.haskell

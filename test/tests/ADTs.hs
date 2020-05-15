@@ -1,6 +1,6 @@
 -- SYNTAX TEST "source.haskell" "ADTs"
 
-    data T = C T
+    data T = C
 --  ^^^^ keyword.other.data.haskell
 --       ^ storage.type.haskell
 --           ^ constant.other.haskell 
