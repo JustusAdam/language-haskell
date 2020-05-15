@@ -1031,6 +1031,7 @@ repository:
           - include: '#record_decl'
           - include: '#forall'
           - include: '#context'
+          - include: '#type_signature'
   gadt_constructor:
     patterns:
       # GADT constructor on start of line

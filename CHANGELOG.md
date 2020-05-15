@@ -2,6 +2,8 @@
 
 - Different approach to fixing slow highlighting of data declarations
   ([#161](https://github.com/JustusAdam/language-haskell/issues/161)).
+- Fix highlighting for existential data constructor when the
+  class constraint spans multiple lines.
 
 
 ## 3.2.1 - 14.05.2020
