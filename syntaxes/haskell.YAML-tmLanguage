@@ -374,43 +374,6 @@ patterns:
       - include: '#module_name'
       - include: '#module_exports'
   - include: '#deriving'
-  - begin: '^(\s*)(deriving)\s+(via)\b(?!'')(.*)$'
-    beginCaptures:
-      '2': {name: keyword.other.deriving.haskell}
-      '3': {name: keyword.other.deriving.strategy.via.haskell}
-      '4': 
-        patterns: 
-          - include: '#comment_like'
-          - match: '(?<!'')\b(instance)\b(?!'')'
-            name: keyword.other.instance.haskell
-          - include: '#type_signature'
-    end: >-
-      (?x) # Detect end of import
-        # Decreasing indentation
-        |(?=\}|;)      # Explicit indentation
-        |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
-            \1\s+\S    # - more indented, or
-          | \s*        # - starts with whitespace, followed by:
-            (?: $      #   - the end of the line (i.e. empty line), or
-            |\{-[^@]   #   - the start of a block comment, or
-            |--+       #   - the start of a single-line comment.
-               (?![\p{S}\p{P}&&[^(),;\[\]{}`_"']]).*$) # non-symbol
-                       # The double dash may not be followed by other operator characters
-                       # (then it would be an operator, not a comment)
-          )
-    endCaptures:
-      '1': {name: keyword.other.instance.haskell}
-    patterns:
-      - include: '#comment_like'
-      - match: '(?<!'')\b(instance)\b(?!'')'
-        name: keyword.other.instance.haskell
-      - include: '#type_signature'
-  - match: '(?<!'')\b(deriving)\s+(?:(stock|newtype|anyclass)\s+)?(instance)\b(?!'')(.*)$'
-    captures:
-      '1': {name: keyword.other.deriving.haskell}
-      '2': {name: keyword.other.deriving-strategy.haskell}
-      '3': {name: keyword.other.instance.haskell}
-      '4': {patterns: [{include: '#type_signature'}]}
   - include: '#layout_herald'
   - include: '#keyword'
   - match: '^\s*(infix[lr]?)\s+(.*)'
@@ -560,6 +523,35 @@ repository:
       '2': {name: keyword.control.$2.haskell}
   deriving:
     patterns:
+      # Deriving (start of line)
+      - begin: '^(\s*)(deriving)\s+(?:(via|stock|newtype|anyclass)\s+)?'
+        beginCaptures:
+          '2': {name: keyword.other.deriving.haskell}
+          '3': {name: keyword.other.deriving.strategy.$3.haskell}
+        end: >-
+          (?x) # Detect end of deriving statement
+            # Decreasing indentation
+             (?=\}|;)      # Explicit indentation
+            |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
+                \1\s+\S    # - more indented, or
+              | \s*        # - starts with whitespace, followed by:
+                (?: $      #   - the end of the line (i.e. empty line), or
+                |\{-[^@]   #   - the start of a block comment, or
+                |--+       #   - the start of a single-line comment.
+                   (?![\p{S}\p{P}&&[^(),;\[\]{}`_"']]).*$) # non-symbol
+                           # The double dash may not be followed by other operator characters
+                           # (then it would be an operator, not a comment)
+              )
+        patterns:
+          - include: '#comment_like'
+          - match: '(?<!'')\b(instance)\b(?!'')'
+            name: keyword.other.instance.haskell
+          - match: '(?<!'')\b(via|stock|newtype|anyclass)\b(?!'')'
+            captures:
+              '1': {name: keyword.other.deriving.strategy.$1.haskell }
+          - include: '#type_signature'
+        name: meta.deriving.haskell
+      # Deriving (not start of line, parenthesised type)
       - begin: '(deriving)(?:\s+(stock|newtype|anyclass))?\s*(\()'
         beginCaptures:
           '1': {name: keyword.other.deriving.haskell}
@@ -571,6 +563,7 @@ repository:
         name: meta.deriving.haskell
         patterns:
           - include: '#type_signature'
+      # Deriving (not start of line, unparenthesised type)
       - match: |
           (?x)
             (deriving)(?:\s+(stock|newtype|anyclass))?\s+
@@ -1283,7 +1276,7 @@ repository:
         patterns:
           - include: '#type_signature'
   type_variable:
-    match: '\b(?<!'')(?!forall\b(?!''))[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
+    match: '\b(?<!'')(?!(?:forall|deriving)\b(?!''))[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*'
     name: variable.other.generic-type.haskell
   type_constructor:
     patterns:

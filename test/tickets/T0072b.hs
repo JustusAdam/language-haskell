@@ -38,12 +38,12 @@ data B = B
 newtype N a = MkN a
 deriving   stock instance Show ( N Int )
 -- <------- keyword.other.deriving.haskell
---         ^^^^^ keyword.other.deriving-strategy.haskell
+--         ^^^^^ keyword.other.deriving.strategy.stock.haskell
 --               ^^^^^^^^ keyword.other.instance.haskell
 --                        ^^^^ storage.type.haskell
 deriving newtype instance Eq   ( N Int )
 -- <------- keyword.other.deriving.haskell
---       ^^^^^^^ keyword.other.deriving-strategy.haskell
+--       ^^^^^^^ keyword.other.deriving.strategy.newtype.haskell
 --               ^^^^^^^^ keyword.other.instance.haskell
 --                        ^^ storage.type.haskell
 
