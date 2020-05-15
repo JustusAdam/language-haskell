@@ -1,4 +1,4 @@
-## x.x.x. - Unreleased
+## 3.2.1. - 14.05.2020
 
 - Fix excessive backtracking in regular expression for data declarations
   ([#161](https://github.com/JustusAdam/language-haskell/issues/161)).
