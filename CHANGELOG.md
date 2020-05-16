@@ -4,7 +4,8 @@
   ([#161](https://github.com/JustusAdam/language-haskell/issues/161)).
 - Fix highlighting for existential data constructor when the
   class constraint spans multiple lines.
-
+- Fix highlighting for GADT with where clause using `{`/`}` for indentation.
+- Improve highlighting of existential data constructor in complex situations.
 
 ## 3.2.1 - 14.05.2020
 

@@ -15,15 +15,16 @@
 --                       ^^^ constant.other.haskell
 --         ^          ^      ^ variable.other.generic-type.haskell
 --       ^                     ^ storage.type.haskell
-    data E x = forall x . C x => Bar x A
+    data E x = forall (x :: T) . C x => Bar x A
 --  ^^^^ keyword.other.data.haskell
 --           ^ keyword.operator.eq.haskell
 --             ^^^^^^ keyword.other.forall.haskell
---                      ^ keyword.operator.period.haskell
---                            ^^ keyword.operator.big-arrow.haskell
---                               ^^^ constant.other.haskell
---         ^          ^              ^ variable.other.generic-type.haskell
---       ^                ^            ^ storage.type.haskell
+--                       ^^ keyword.operator.double-colon.haskell
+--                             ^ keyword.operator.period.haskell
+--                                   ^^ keyword.operator.big-arrow.haskell
+--                                      ^^^ constant.other.haskell
+--         ^           ^                    ^ variable.other.generic-type.haskell
+--       ^                  ^    ^            ^ storage.type.haskell
 
     data E x =
 --  ^^^^ keyword.other.data.haskell
