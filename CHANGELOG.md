@@ -7,6 +7,7 @@
 - Fix highlighting for GADT with where clause using `{`/`}` for indentation.
 - Improve highlighting of existential data constructor in complex situations.
 - Fix highlighting of symbolic pattern declarations and symbolic data constructors.
+- Improvements to highlighting of pragmas [#163](https://github.com/JustusAdam/language-haskell/issues/163).
 
 ## 3.2.1 - 14.05.2020
 
