@@ -6,6 +6,7 @@
   class constraint spans multiple lines.
 - Fix highlighting for GADT with where clause using `{`/`}` for indentation.
 - Improve highlighting of existential data constructor in complex situations.
+- Fix highlighting of symbolic pattern declarations and symbolic data constructors.
 
 ## 3.2.1 - 14.05.2020
 
