@@ -1436,9 +1436,9 @@ repository:
       # Reserved tight infix symbol: '@'
       - match: >-
           (?x)
-            (?<=[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\)\}\]]) # Require closing characters
+            (?<=[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'\)\}\]]) # Require closing characters
             (@)
-            (?=[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\(\[\{]) # Require opening character
+            (?=[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'\(\[\{]) # Require opening character
         captures:
           '1': {name: keyword.operator.infix.tight.at.haskell}
       # Reserved prefix symbols,
@@ -1447,7 +1447,7 @@ repository:
           (?x)
             (?<![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\p{S}\p{P}&&[^(,;\[`{]])  # Disallow closing characters
             (?:(~)|(!)|(-)|(\$)|(\$\$))
-            (?=[\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\(\{\[]) # Require opening character (non operator symbol)
+            (?=[\p{Ll}_'\p{Lu}\p{Lt}\p{Nd}\(\{\[]) # Require opening character (non operator symbol)
         captures:
           '1': {name: keyword.operator.prefix.tilde.haskell}
           '2': {name: keyword.operator.prefix.bang.haskell}

@@ -25,6 +25,10 @@
 
   f val@( pattern )
 --     ^ keyword.operator.infix.tight.at.haskell
+  f val_@( pattern )
+--      ^ keyword.operator.infix.tight.at.haskell
+  f val'@( pattern )
+--      ^ keyword.operator.infix.tight.at.haskell
   f (+)@(g)
 --     ^ keyword.operator.infix.tight.at.haskell
 
