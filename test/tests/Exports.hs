@@ -7,12 +7,16 @@ module M
   , S((:<..<), .. )
 --  ^ storage.type.haskell
 --       ^^ - variable.other.member.wildcard.haskell
---     ^^^^^ entity.name.function.infix.haskell
+--     ^^^^^ constant.other.operator.haskell
 --             ^^ variable.other.member.wildcard.haskell
   , (:->)((:>))
+--   ^^^ storage.type.operator.haskell
+--         ^^ constant.other.operator.haskell
   , (:<>)(C,a,D,E)
+--   ^^^ storage.type.operator.haskell
   , A((<>), (:>>))
 --  ^ storage.type.haskell
+--           ^^^ constant.other.operator.haskell
   , f
 --  ^  entity.name.function.haskell
   , pattern P

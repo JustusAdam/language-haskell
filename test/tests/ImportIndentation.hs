@@ -23,7 +23,7 @@
          , B, g, (:<),
 --         ^ storage.type.haskell
 --            ^ entity.name.function.haskell
---                ^^ entity.name.function.infix.haskell
+--                ^^ storage.type.operator.haskell
           (>>>)
 --         ^^^ entity.name.function.infix.haskell
       )

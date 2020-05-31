@@ -9,6 +9,7 @@
 - Fix highlighting of symbolic pattern declarations and symbolic data constructors.
 - Improvements to highlighting of pragmas [#163](https://github.com/JustusAdam/language-haskell/issues/163).
 - Fix highlighting of record at syntax following an identifier that ends with an apostrophe.
+- Improve highlighting of symbolic constructors in import/export lists.
 
 ## 3.2.1 - 14.05.2020
 
