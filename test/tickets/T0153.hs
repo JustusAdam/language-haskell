@@ -7,6 +7,13 @@
 --                    ^^^ constant.other.haskell
 --         ^     ^        ^ variable.other.generic-type.haskell
 --       ^     ^            ^ storage.type.haskell
+    data E x =C x=> Bar x A
+--  ^^^^ keyword.other.data.haskell
+--           ^ keyword.operator.eq.haskell
+--               ^^ keyword.operator.big-arrow.haskell
+--                  ^^^ constant.other.haskell
+--         ^    ^       ^ variable.other.generic-type.haskell
+--       ^    ^           ^ storage.type.haskell
     data E x = forall x. Bar x A
 --  ^^^^ keyword.other.data.haskell
 --           ^ keyword.operator.eq.haskell

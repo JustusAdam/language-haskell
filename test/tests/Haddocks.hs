@@ -1,5 +1,10 @@
 -- SYNTAX TEST "source.haskell" "Haddock documentation"
 
+    {-# OPTIONS_HADDOCK ignore-exports #-}
+--      ^^^^^^^^^^^^^^^ keyword.other.preprocessor.haskell
+--  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.preprocessor.haskell
+
+
   -- | Doc
 --     ^^^ comment.block.documentation.haskell
 
