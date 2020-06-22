@@ -1033,7 +1033,7 @@ repository:
               # Type inside balanced brackets
               | ('? # Optional promotion tick
                   (?<brac>
-                    \(          # Opening bracket
+                    \[          # Opening bracket
                     (?:
                       [^\[\]]*  # Match non-brackets
                     | \g<brac>  # or recurse into further depth
@@ -1041,7 +1041,7 @@ repository:
                     \]          # Closing bracket
                   )
                 )
-              )        
+              )
               # Then either
               \s*
                 # - a symbolic infix constructor, or
