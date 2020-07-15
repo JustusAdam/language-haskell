@@ -21,6 +21,16 @@ If you happen to notice bugs or have suggestions for improvements visit the [iss
 section](https://github.com/JustusAdam/language-haskell/issues) of the
 [repository](https://github.com/JustusAdam/language-haskell).
 
+## Themes
+
+This extension provides TextMate scopes for use in syntax highlighting, but the colours displayed
+depend on the theme being used.    
+Unfortunately many themes have incomplete support for the different TextMate scopes, and as a
+result different tokens can end up with identical colours.    
+
+For a theme that supports all the scopes provided by this extension, see the
+[Groovy Lambda theme](https://github.com/sheaf/groovy-lambda).
+
 ## Theme authors
 
 I recently realized that I am woefully unaware of whether there are any themes with Haskell-specific
