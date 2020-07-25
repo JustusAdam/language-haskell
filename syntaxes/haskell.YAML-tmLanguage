@@ -305,7 +305,7 @@ patterns:
       '4':
         patterns:
           - include: '#type_signature'
-    end: | 
+    end: |
       (?x) # Detect end of type definition by decreasing indentation:
         (?=\}|;)       # Explicit indentation
         |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
@@ -1732,6 +1732,7 @@ repository:
           (?x)
             (\[)
             (?:(\$\$)|(\$))?
+            (?!'\|') # Don't parse ['|'...] as a quasi quotation
             ((?:[^\s\p{S}\p{P}]|[\.'_])*)
             (\|\|?)
         beginCaptures:

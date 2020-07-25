@@ -1,11 +1,25 @@
 -- SYNTAX TEST "source.haskell" "Data constructor constraint arrow in comment"
 
-    data D = C {- => X -} X
+    data D = C {- ( f :: X => X ) -} X
 --           ^ constant.other.haskell
 --                ^^ - keyword.operator.big-arrow.haskell
 --             ^^^^^^^^^^ comment.block.haskell
 --       ^                ^ storage.type.haskell
 --                   ^    ^ - constant.other.haskell
+
+    data D =C {- f :: X => X -} X
+--          ^ constant.other.haskell
+--               ^^ - keyword.operator.big-arrow.haskell
+--            ^^^^^^^^^^ comment.block.haskell
+--       ^               ^ storage.type.haskell
+--                  ^    ^ - constant.other.haskell
+
+    data D =C{- => X -} x => X
+--          ^ constant.other.haskell
+--              ^^ - keyword.operator.big-arrow.haskell
+--           ^^^^^^^^^^ comment.block.haskell
+--       ^              ^ storage.type.haskell
+--                 ^    ^ - constant.other.haskell
 
     data D = C {- xxx -} => X
 --       ^   ^ storage.type.haskell

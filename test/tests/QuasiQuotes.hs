@@ -59,5 +59,11 @@
 --                     ^^ keyword.operator.quasi-quotation.end.haskell
 --  ^^^^^^^^^^^^^^^^^^^^^ meta.quasi-quotation.haskell
 
+    [a'|'xyz|]
+--   ^^ entity.name.quasi-quoter.haskell
+--  ^  ^ keyword.operator.quasi-quotation.begin.haskell
+--          ^^ keyword.operator.quasi-quotation.end.haskell
+--  ^^^^^^^^^^ meta.quasi-quotation.haskell
+
     [ v | v <- [0..1] ]
 --  ^^^^^^^^^^^^^^^^^^^ -  meta.quasi-quotation.haskell

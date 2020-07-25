@@ -1,4 +1,9 @@
-## 3.3.0 - 23.06.2020
+## x.x.x - Unreleased
+
+- Fix lists of the form ['|'...] being highlighted as quasiquotations
+  ([#170](https://github.com/JustusAdam/language-haskell/issues/170)).
+
+## 3.3.0 - 25.06.2020
 
 - Different approach to fixing slow highlighting of data declarations
   ([#161](https://github.com/JustusAdam/language-haskell/issues/161)).
