@@ -505,13 +505,14 @@ repository:
   layout_herald:
     begin: >-
       (?x)
-        (?<!')\b(?:(where|let|m?do)|(of))
+        (?:(?<!')\b(?:(where|let|m?do)|(of))|(\\\s*case))
         \s*(\{)(?!-)
     end: '(\})'
     beginCaptures:
       '1': {name: keyword.other.$1.haskell}
       '2': {name: keyword.control.of.haskell}
-      '3': {name: punctuation.brace.haskell}
+      '3': {name: keyword.control.lambda-case.haskell}
+      '4': {name: punctuation.brace.haskell}
     endCaptures:
       '1': {name: punctuation.brace.haskell}
     patterns:

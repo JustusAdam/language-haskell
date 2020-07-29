@@ -40,3 +40,10 @@
 
   f a@+b
 --   ^ -keyword.operator.infix.tight.at.haskell
+
+
+  f = \case { "A" -> Just "a"; b -> Nothing }
+--    ^^^^^ keyword.control.lambda-case.haskell
+--            ^^^         ^^^ string.quoted.double.haskell
+--             ^               ^ - variable.other.member.haskell
+--          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ - meta.record.haskell

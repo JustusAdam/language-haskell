@@ -2,6 +2,7 @@
 
 - Fix lists of the form ['|'...] being highlighted as quasiquotations
   ([#170](https://github.com/JustusAdam/language-haskell/issues/170)).
+- Proper highlighting of lambda case, including fixing the highlighting of subsequent braces (which were wrongly highlighted as record syntax).
 
 ## 3.3.0 - 25.06.2020
 
