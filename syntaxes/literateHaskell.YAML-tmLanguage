@@ -3,14 +3,14 @@ fileTypes:
 keyEquivalent: ^~H
 name: 'Literate Haskell'
 patterns:
-  - begin: '^((\\)begin)({)code(})(\s*\n)?'
+  - begin: '^\s*((\\)begin)({)code(})(\s*\n)?'
     captures:
       '1': {name: support.function.be.latex}
       '2': {name: punctuation.definition.function.latex}
       '3': {name: punctuation.definition.arguments.begin.latex}
       '4': {name: punctuation.definition.arguments.end.latex}
     contentName: source.haskell.embedded.latex
-    end: '^((\\)end)({)code(})'
+    end: '^\s*((\\)end)({)code(})'
     name: meta.embedded.block.haskell.latex
     patterns:
       - {include: source.haskell}
