@@ -1,11 +1,11 @@
 #!/bin/bash
 
-baseDir=$(dirname $PWD)
+baseDir=$(dirname "$PWD")
 echo "Running tests from base directory $baseDir"
 
 # Arrays containing full test filepaths.
-named=($PWD/tests/*)
-tickets=($PWD/tickets/*)
+named=("$PWD"/tests/*)
+tickets=("$PWD"/tickets/*)
 
 # Arrays containing filenames of broken tests.
 namedBroken=()
@@ -38,7 +38,7 @@ runTests () {
   local -n fails=$3
   local -n passes=$4
 
-  syntax=""
+  syntaxes=()
   source=""
 
   for filepath in "${dir[@]}"
@@ -61,28 +61,37 @@ runTests () {
     case $ext in
   
       "hs" | "hs-boot" | "hsig" )
-        syntax="$baseDir/syntaxes/haskell.json"
+        syntaxes=( "$baseDir/syntaxes/haskell.json" )
         source="source.haskell"
         ;;
   
       "cabal" )
-        syntax="$baseDir/syntaxes/cabal.json"
+        syntaxes=( "$baseDir/syntaxes/cabal.json" )
         source="source.cabal"
         ;;
 
+      "lhs" )
+        syntaxes=( "$baseDir/syntaxes/haskell.json" "$baseDir/syntaxes/literateHaskell.json" )
+        source="text.tex.latex.haskell"
+        ;;
+
       * )
-        syntax=""
+        syntaxes=()
         source=""
         ;;
 
     esac
   
-    if [ "$syntax" == "" ]
+    if [ ${#syntaxes[@]} -eq 0 ]
     then
       echo "runTests: $file has unsupported file extension '$ext', ignoring"
     else
+      specifySyntaxes=""
+      for i in ${syntaxes[*]}; do
+        specifySyntaxes="$specifySyntaxes -g $i"
+      done
       # Run the test.
-      result=$(vscode-tmgrammar-test -s "$source" -g "$syntax" -t "$filepath")
+      result=$(vscode-tmgrammar-test -s "$source" $specifySyntaxes -t "$filepath")
       # Check test result by inspecting the exit code of the previous command.
       status=$?
       if [ $status -eq 0 ]
