@@ -1,18 +1,12 @@
 -- SYNTAX TEST "text.tex.latex.haskell" "Literate Haskell"
 
-> \ x -> x + x
--- <~~- keyword.operator.lambda.haskell
---    ^^ keyword.operator.arrow.haskell
---         ^ keyword.operator.infix.haskell
-
-\begin{code}
--- <------------ meta.embedded.block.haskell.latex
+    \begin{code}
+--  ^^^^^^^^^^^^ meta.embedded.block.haskell.latex
 \ x -> x + x
 -- <- keyword.operator.lambda.haskell
 --  ^^ keyword.operator.arrow.haskell
 --       ^ keyword.operator.infix.haskell
 \end{code}
--- <---------- meta.embedded.block.haskell.latex
 
 \ x -> x + x
 -- <- - keyword.operator.lambda.haskell
