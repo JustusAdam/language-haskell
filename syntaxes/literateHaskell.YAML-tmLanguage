@@ -3,7 +3,7 @@ fileTypes:
 keyEquivalent: ^~H
 name: 'Literate Haskell'
 patterns:
-  - begin: '^((\\)begin)({)code(})(\s*\n)?'
+  - begin: '^\s*((\\)begin)({)code(})(\s*\n)?'
     captures:
       '1': {name: support.function.be.latex}
       '2': {name: punctuation.definition.function.latex}
