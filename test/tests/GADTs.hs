@@ -19,7 +19,7 @@
 --                   ^   ^ ^ storage.type.haskell
 
       (:&) :: G A B C
---     ^^ constant.other.operator.haskell
+--     ^^ constant.other.operator.prefix.haskell
 --         ^^ keyword.operator.double-colon.haskell
 --            ^ ^ ^ ^ storage.type.haskell
 

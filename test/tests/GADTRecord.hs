@@ -17,7 +17,7 @@
 
     data (!!!) :: Type where
       (:<>) :: { fld1 :: A, (&) :: B } -> (!!!)
---     ^^^ constant.other.operator.haskell
+--     ^^^ constant.other.operator.prefix.haskell
 --               ^^^^        ^ variable.other.member.definition.haskell
 --             ^                     ^ punctuation.brace.haskell
 --                       ^         ^ storage.type.haskell     

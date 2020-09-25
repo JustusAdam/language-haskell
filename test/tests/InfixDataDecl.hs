@@ -5,7 +5,7 @@
 --  ^^^^ keyword.other.data.haskell
 --             ^ keyword.operator.eq.haskell
 --               ^                 ^ punctuation.paren.haskell
---                                    ^ constant.other.haskell
+--                                    ^ constant.other.infix.haskell
 --                                   ^ ^ punctuation.backtick.haskell
 --                                       ^ keyword.operator.promotion.haskell
 --       ^         ^                        ^    ^  ^ storage.type.haskell
@@ -17,7 +17,7 @@
 --  ^^^^ keyword.other.data.haskell
 --             ^ keyword.operator.eq.haskell
 --               ^ keyword.operator.promotion.haskell
---                             ^ constant.other.haskell
+--                             ^ constant.other.infix.haskell
 --                            ^ ^ punctuation.backtick.haskell
 --                  ^     ^       ^ storage.type.haskell
 --         ^ ^         ^            ^ variable.other.generic-type.haskell
@@ -26,5 +26,6 @@
 --  ^^^^ keyword.other.data.haskell
 --             ^ keyword.operator.eq.haskell
 --               ^^^^ entity.name.namespace.haskell
+--                      ^ constant.other.infix.haskell
 --                     ^ ^ punctuation.backtick.haskell
 --                   ^     ^^ storage.type.haskell

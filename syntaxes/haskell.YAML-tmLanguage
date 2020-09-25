@@ -378,11 +378,13 @@ patterns:
   - include: '#keyword'
   - match: '^\s*(infix[lr]?)\s+(.*)'
     captures:
-      '1': {name: "keyword.other.$1.haskell"}
+      '1': {name: "keyword.other.fixity.$1.haskell"}
       '2':
         patterns:
           - include: '#comment_like'
           - include: '#integer_literals'
+          - match: ':[\p{S}\p{P}&&[^(),;\[\]`{}_"'']]*'
+            name: constant.other.operator.infix.haskell
           - include: "#infix_op"
     name: meta.fixity-declaration.haskell
   - include: '#start_type_signature'
@@ -392,7 +394,7 @@ patterns:
   - include: '#fun_decl'
   - include: '#qualifier'
   - match: ':[\p{S}\p{P}&&[^(),;\[\]`{}_"'']]*'
-    name: constant.other.operator.haskell
+    name: constant.other.operator.infix.haskell
   - include: '#data_constructor'
   - include: '#prefix_op'
   - include: '#infix_op'
@@ -648,7 +650,7 @@ repository:
           - include: '#record_wildcard'
           - match: >-
               (\()\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)\s*(\))
-            name: constant.other.operator.haskell
+            name: constant.other.operator.prefix.haskell
           - include: '#export_constructs'
           - include: '#comma'
   export_constructs:
@@ -666,7 +668,7 @@ repository:
         endCaptures:
           '1': {name: constant.other.haskell}
           '2': {name: punctuation.paren.haskell}
-          '3': {name: constant.other.operator.haskell}
+          '3': {name: constant.other.operator.prefix.haskell}
           '4': {name: punctuation.paren.haskell}
         patterns:
           - include: '#comment_like'
@@ -1074,13 +1076,13 @@ repository:
           '4':
             patterns:
               - include: '#type_signature'
-          '6': {name: constant.other.operator.haskell}
+          '6': {name: constant.other.operator.infix.haskell}
           '7': {name: punctuation.backtick.haskell}
-          '8': {name: constant.other.haskell}
+          '8': {name: constant.other.infix.haskell}
           '9': {name: punctuation.backtick.haskell}
           '10': {name: constant.other.haskell}
           '11': {name: punctuation.paren.haskell}
-          '12': {name: constant.other.operator.haskell}
+          '12': {name: constant.other.operator.prefix.haskell}
           '13': {name: punctuation.paren.haskell}
         patterns:
           - include: '#comment_like'
@@ -1102,7 +1104,7 @@ repository:
         beginCaptures:
           '2': {name: constant.other.haskell}
           '3': {name: punctuation.paren.haskell}
-          '4': {name: constant.other.operator.haskell}
+          '4': {name: constant.other.operator.prefix.haskell}
           '5': {name: punctuation.paren.haskell}
         end: |
           (?x)
@@ -1134,7 +1136,7 @@ repository:
         beginCaptures:
           '1': {name: constant.other.haskell}
           '2': {name: punctuation.paren.haskell}
-          '3': {name: constant.other.operator.haskell}
+          '3': {name: constant.other.operator.prefix.haskell}
           '4': {name: punctuation.paren.haskell}
         end: '(?=;|\}|$)'
         patterns:

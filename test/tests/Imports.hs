@@ -7,16 +7,16 @@ import M
   , S((:<..<), .. )
 --  ^ storage.type.haskell
 --       ^^ - variable.other.member.wildcard.haskell
---     ^^^^^ constant.other.operator.haskell
+--     ^^^^^ constant.other.operator.prefix.haskell
 --             ^^ variable.other.member.wildcard.haskell
   , (:->)((:>))
 --   ^^^ storage.type.operator.haskell
---         ^^ constant.other.operator.haskell
+--         ^^ constant.other.operator.prefix.haskell
   , (:<>)(C,a,D,E)
 --   ^^^ storage.type.operator.haskell
   , A((<>), (:>>))
 --  ^ storage.type.haskell
---           ^^^ constant.other.operator.haskell
+--           ^^^ constant.other.operator.prefix.haskell
   , f
 --  ^  entity.name.function.haskell
   , pattern P
@@ -24,7 +24,7 @@ import M
 --          ^ constant.other.haskell
   , pattern (:| )
 --  ^^^^^^^ keyword.other.pattern.haskell
---           ^^ constant.other.operator.haskell
+--           ^^ constant.other.operator.prefix.haskell
   , pattern -- Q,)
 --  ^^^^^^^ keyword.other.pattern.haskell
       Q
