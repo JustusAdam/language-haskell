@@ -1735,21 +1735,20 @@ repository:
           (?x)
             (\[)
             (?:(\$\$)|(\$))?
-            (?!'\|') # Don't parse ['|'...] as a quasi quotation
-            ((?:[^\s\p{S}\p{P}]|[\.'_])*)
+            (?!'\|')                                             # Don't parse ['|'...] as a quasi quotation
+            ((?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.)*) # Optional qualifier
+            ((?:[^\s\p{S}\p{P}]|['_])*)                          # Quasi-quoter
             (\|\|?)
         beginCaptures:
           '1': {name: keyword.operator.quasi-quotation.begin.haskell}
           '2': {name: keyword.operator.prefix.double-dollar.haskell}
           '3': {name: keyword.operator.prefix.dollar.haskell}
-          '4':
-            patterns:
-              - include: '#qualifier'
-            name: entity.name.quasi-quoter.haskell
-          '5': {name: keyword.operator.quasi-quotation.begin.haskell}
-        end: '\5\]'
+          '4': {name: entity.name.namespace.haskell}
+          '5': {name: entity.name.quasi-quoter.haskell}
+          '6': {name: keyword.operator.quasi-quotation.begin.haskell}
+        end: '\6\]'
         endCaptures:
           '0': {name: keyword.operator.quasi-quotation.end.haskell}
-        name: meta.quasi-quotation.haskell
+        name: "meta.quasi-quotation.haskell meta.embedded.block.$5"
 scopeName: source.haskell
 uuid: 5C034675-1F6D-497E-8073-369D37E2FD7D

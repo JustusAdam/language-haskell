@@ -48,16 +48,18 @@
 
     <HTML>
 --  ^^^^^^ meta.quasi-quotation.haskell
+--  ^^^^^^ meta.embedded.block.html
     |]
 --  ^^ keyword.operator.quasi-quotation.end.haskell
 --  ^^ meta.quasi-quotation.haskell
 
-    [Mod.xml'| <xml /> |]
---  ^        ^ keyword.operator.quasi-quotation.begin.haskell
+    [Mod.xml| <xml /> |]
+--  ^       ^ keyword.operator.quasi-quotation.begin.haskell
 --   ^^^^ entity.name.namespace.haskell
---       ^^^^ entity.name.quasi-quoter.haskell
---                     ^^ keyword.operator.quasi-quotation.end.haskell
---  ^^^^^^^^^^^^^^^^^^^^^ meta.quasi-quotation.haskell
+--       ^^^ entity.name.quasi-quoter.haskell
+--                    ^^ keyword.operator.quasi-quotation.end.haskell
+--  ^^^^^^^^^^^^^^^^^^^^ meta.quasi-quotation.haskell
+--            ^^^^^^^ meta.embedded.block.xml
 
     [a'|'xyz|]
 --   ^^ entity.name.quasi-quoter.haskell
