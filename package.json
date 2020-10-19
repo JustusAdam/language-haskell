@@ -5,7 +5,7 @@
   "version": "3.3.0",
   "publisher": "justusadam",
   "engines": {
-    "vscode": "^1.0.0"
+    "vscode": "^1.14.0"
   },
   "icon": "images/logo.png",
   "galleryBanner": {
@@ -187,14 +187,13 @@
   },
   "scripts": {
     "vscode:prepublish": "tsc -p ./",
-    "compile": "tsc -p ./",
-    "postinstall": "node ./node_modules/vscode/bin/install"
+    "compile": "tsc -p ./"
   },
   "devDependencies": {
     "js-yaml": "^3.13.1",
     "npm": "^6.14.5",
-    "typescript": "^2.6.2",
+    "typescript": "^4.0.3",
     "vsce": "^1.75.0",
-    "vscode": "^1.0.0"
+    "@types/vscode": "^1.14.0"
   }
 }
