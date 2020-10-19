@@ -15,6 +15,8 @@
 - Fix highlighting of empty quasi-quotations such as `[i||]`.
 - Support GHC 9.0 pragmas: `LinearTypes`, `QualifiedDo`, `LexicalNegation`.
 - Add support for [modifiers](https://github.com/ghc-proposals/ghc-proposals/pull/370), e.g. `id :: a %1 -> a`.
+- Automatically close `{-` block comments with `-}`
+- Continue comments on newlines by inserting `--`
 
 ## 3.3.0 - 25.06.2020
 
