@@ -6,6 +6,8 @@
 - Recognize indented `\begin{code}` boundary in literate haskell files.
 - Fix highlighting of symbolic data constructors within fixity declarations (e.g. `infixl 9 :$`).
 - Add `meta.embedded.block.{quasi-quoter}` scope to quasi-quotations.
+- Ensure highlighting of unicode forall syntax matches that of alphabetic forall syntax
+  ([#175](https://github.com/JustusAdam/language-haskell/issues/175)).
 
 ## 3.3.0 - 25.06.2020
 

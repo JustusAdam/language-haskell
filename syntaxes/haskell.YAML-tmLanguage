@@ -1402,7 +1402,8 @@ repository:
     patterns:
       # Fully reserved symbols,
       # not including '::' (special treatment as it starts type highlighting),
-      # nor '=>' (it highlights its precedent as a type).
+      # nor '=>' (it highlights its precedent as a type),
+      # nor '∀' (highlights subsequent dot for quantification).
       - match: >-
           (?x)
             (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])
@@ -1418,7 +1419,6 @@ repository:
               |(-<<|⤛)
               |(>-|⤚)
               |(>>-|⤜)
-              |(∀)
             )
             (?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])
         captures:
@@ -1433,7 +1433,6 @@ repository:
           '9': {name: keyword.operator.arrow.left.tail.double.haskell}
           '10': {name: keyword.operator.arrow.tail.haskell}
           '11': {name: keyword.operator.arrow.tail.double.haskell}
-          '12': {name: keyword.other.forall.haskell}
       # Reserved postfix symbol: '#'
       # This allows users to specify highlighting of '#' dependent on theme,
       # as we are unfortunately unable to make a decision based on enabled extensions.
@@ -1501,10 +1500,27 @@ repository:
           '4': {name: storage.type.infix.haskell}
           '5': {name: punctuation.backtick.haskell}
   forall:
-    begin: '\b(?<!'')(forall|∀)\b(?!'')'
+    begin: >-
+      (?x)
+        # Alphabetic forall
+        (?:
+        \b(?<!')
+        (forall)
+        \b(?!')
+        )
+        |
+        # Symbolic forall
+        (?:
+        # Not preceded by a symbol except reserved symbols
+        (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])
+        (∀)
+        # Not followed by a symbol except reserved symbols
+        (?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])
+        )
     end: '(\.)|(->|→)'
     beginCaptures: 
       '1': {name: keyword.other.forall.haskell}
+      '2': {name: keyword.other.forall.haskell}
     endCaptures:
       '1': {name: keyword.operator.period.haskell}
       '2': {name: keyword.operator.arrow.haskell}
