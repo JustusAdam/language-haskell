@@ -8,6 +8,7 @@
 - Add `meta.embedded.block.{quasi-quoter}` scope to quasi-quotations.
 - Ensure highlighting of unicode forall syntax matches that of alphabetic forall syntax
   ([#175](https://github.com/JustusAdam/language-haskell/issues/175)).
+- Fix highlighting of empty quasi-quotations such as `[i||]`.
 
 ## 3.3.0 - 25.06.2020
 

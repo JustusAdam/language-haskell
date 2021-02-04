@@ -1721,7 +1721,7 @@ repository:
           (?x)
             (\[)
             (e|d|p)?
-            (\|\|?)
+            (\|(?:\|(?!\]))?)
         beginCaptures:
           '1': {name: keyword.operator.quasi-quotation.begin.haskell}
           '2': {name: entity.name.quasi-quoter.haskell}
@@ -1736,7 +1736,7 @@ repository:
           (?x)
             (\[)
             (t)
-            (\|\|?)
+            (\|(?:\|(?!\]))?)
         beginCaptures:
           '1': {name: keyword.operator.quasi-quotation.begin.haskell}
           '2': {name: entity.name.quasi-quoter.haskell}
@@ -1754,7 +1754,7 @@ repository:
             (?!'\|')                                             # Don't parse ['|'...] as a quasi quotation
             ((?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*\.)*) # Optional qualifier
             ((?:[^\s\p{S}\p{P}]|['_])*)                          # Quasi-quoter
-            (\|\|?)
+            (\|(?:\|(?!\]))?)
         beginCaptures:
           '1': {name: keyword.operator.quasi-quotation.begin.haskell}
           '2': {name: keyword.operator.prefix.double-dollar.haskell}
