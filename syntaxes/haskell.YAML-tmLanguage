@@ -1456,14 +1456,15 @@ repository:
       - match: >-
           (?x)
             (?<![\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\p{S}\p{P}&&[^(,;\[`{]])  # Disallow closing characters
-            (?:(~)|(!)|(-)|(\$)|(\$\$))
+            (?:(~)|(!)|(-)|(\$\$)|(\$)|(%))
             (?=[\p{Ll}_'\p{Lu}\p{Lt}\p{Nd}\(\{\[]) # Require opening character (non operator symbol)
         captures:
           '1': {name: keyword.operator.prefix.tilde.haskell}
           '2': {name: keyword.operator.prefix.bang.haskell}
           '3': {name: keyword.operator.prefix.minus.haskell}
-          '4': {name: keyword.operator.prefix.dollar.haskell}
-          '5': {name: keyword.operator.prefix.double-dollar.haskell}
+          '4': {name: keyword.operator.prefix.double-dollar.haskell}
+          '5': {name: keyword.operator.prefix.dollar.haskell}
+          '6': {name: keyword.operator.prefix.modifier.haskell}
   type_operator:
     patterns:
       # Symbolic type operator (optional promotion & qualification)
