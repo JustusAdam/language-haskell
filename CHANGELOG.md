@@ -1,4 +1,4 @@
-## x.x.x - Unreleased
+## 3.4.0 - 25.02.2021
 
 - Fix lists of the form ['|'...] being highlighted as quasiquotations
   ([#170](https://github.com/JustusAdam/language-haskell/issues/170)).
