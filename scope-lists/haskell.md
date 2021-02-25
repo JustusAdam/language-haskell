@@ -22,7 +22,10 @@
 | constant.numeric.integral.hexadecimal.haskell |  |  |
 | constant.numeric.integral.octal.haskell |  |  |
 | constant.other.haskell |  |  |
+| constant.other.infix.haskell |  |  |
 | constant.other.operator.haskell |  |  |
+| constant.other.operator.infix.haskell |  |  |
+| constant.other.operator.prefix.haskell |  |  |
 | entity.name.foreign.haskell |  |  |
 | entity.name.function.haskell |  |  |
 | entity.name.function.infix.haskell |  |  |
@@ -33,6 +36,7 @@
 | invalid.deprecated |  |  |
 | invalid.illegal.character-not-allowed-here.haskell |  |  |
 | keyword.control.$2.haskell |  |  |
+| keyword.control.lambda-case.haskell |  |  |
 | keyword.control.of.haskell |  |  |
 | keyword.operator.arrow.haskell |  |  |
 | keyword.operator.arrow.left.haskell |  |  |
@@ -59,6 +63,7 @@
 | keyword.operator.prefix.double-dollar.haskell |  |  |
 | keyword.operator.prefix.hash.haskell |  |  |
 | keyword.operator.prefix.minus.haskell |  |  |
+| keyword.operator.prefix.modifier.haskell |  |  |
 | keyword.operator.prefix.tilde.haskell |  |  |
 | keyword.operator.promotion.haskell |  |  |
 | keyword.operator.quasi-quotation.begin.haskell |  |  |
@@ -68,11 +73,13 @@
 | keyword.other.$3.haskell |  |  |
 | keyword.other.calling-convention.$1.haskell |  |  |
 | keyword.other.class.haskell |  |  |
-| keyword.other.deriving-strategy.haskell |  |  |
 | keyword.other.deriving.haskell |  |  |
+| keyword.other.deriving.strategy.$1.haskell |  |  |
 | keyword.other.deriving.strategy.$2.haskell |  |  |
+| keyword.other.deriving.strategy.$3.haskell |  |  |
 | keyword.other.deriving.strategy.via.haskell |  |  |
 | keyword.other.family.haskell |  |  |
+| keyword.other.fixity.$1.haskell |  |  |
 | keyword.other.forall.haskell |  |  |
 | keyword.other.foreign.haskell |  |  |
 | keyword.other.import.haskell |  |  |
@@ -107,6 +114,7 @@
 | meta.preprocessor.c |  |  |
 | meta.preprocessor.haskell |  |  |
 | meta.quasi-quotation.haskell |  |  |
+| meta.quasi-quotation.haskell meta.embedded.block.$5 |  |  |
 | meta.record.definition.haskell |  |  |
 | meta.record.haskell |  |  |
 | meta.role-annotation.haskell |  |  |
