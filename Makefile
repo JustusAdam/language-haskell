@@ -1,9 +1,10 @@
 CONVERT=npx js-yaml
-SYNTAXES=haskell cabal literateHaskell
+VSCE=npx vsce
+SYNTAXES=haskell cabal literateHaskell alex happy
 JSON_TARGETS=$(addsuffix .json,$(addprefix syntaxes/,$(SYNTAXES)))
 SCOPE_LISTS=$(addsuffix .md,$(addprefix scope-lists/,$(SYNTAXES)))
 
-.PHONY: all test publish
+.PHONY: all test publish package
 
 all: $(JSON_TARGETS) $(SCOPE_LISTS)
 
@@ -19,8 +20,8 @@ test: all
 %.json: %.YAML-tmLanguage
 	$(CONVERT) $< > $@
 
-$(CONVERT):
-	npm install js-yaml
-
 publish: all
-	vsce publish
+	$(VSCE) publish
+
+package: all
+	$(VSCE) package
