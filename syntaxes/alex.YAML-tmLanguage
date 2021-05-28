@@ -1,0 +1,75 @@
+fileTypes:
+      - x
+name: Haskell Alex
+patterns:
+  - include: "#comments"
+  - include: "#blocks"
+  - include: "#syntax"
+  - include: "#strings"
+repository:
+  comments:
+    patterns:
+      - name: comment.line
+        match: \-\-.*$
+      - name: comment.block
+        begin: "{-"
+        end: "-}"
+  blocks:
+    name: meta.embedded.block.haskell
+    begin: "{"
+    beginCaptures:
+      "0": { name: punctuation.block.begin.alex }
+    end: "}"
+    endCaptures:
+      "0": { name: punctuation.block.end.alex }
+    patterns:
+      - include: source.haskell
+  syntax:
+    patterns:
+      - name: keyword.operator.pragma.alex
+        match: \%\w+
+      - name: variable.parameter.alex
+        match: \$\w+
+      - name: entity.name.class.alex
+        match: \@\w+
+      - name: constant.character.escape.hex.alex
+        match: \\x[\da-fA-F]+
+      - name: constant.character.escape.oct.alex
+        match: \\o[0-7]+
+      - name: constant.character.escape.dec.alex
+        match: \\\d+
+      - name: constant.character.escape.alex
+        match: \\.
+      - name: punctuation.brackets.alex
+        match: "[\\[\\]]"
+      - name: keyword.operator.rules.alex
+        match: :-
+      - name: keyword.operator.alex
+        match: "[-^=\\.*\\|]"
+      - name: punctuation.semicolon.alex
+        match: \;
+      - name: storage.type.alex
+        match: <\w+>
+  strings:
+    patterns:
+      - name: string.quoted.double.alex
+        begin: '"'
+        beginCaptures:
+          "0": { name: punctuation.quote.double.alex }
+        end: '"'
+        endCaptures:
+          "0": { name: punctuation.quote.double.alex }
+        patterns:
+          - name: constant.character.escape.alex
+            match: \\.
+      - name: string.quoted.single.alex
+        begin: "'"
+        beginCaptures:
+          "0": { name: punctuation.quote.single.alex }
+        end: "'"
+        endCaptures:
+          "0": { name: punctuation.quote.single.alex }
+        patterns:
+          - name: constant.character.escape.alex
+            match: \\.
+scopeName: source.haskell.alex
