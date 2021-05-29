@@ -76,6 +76,16 @@ runTests () {
         source="text.tex.latex.haskell"
         ;;
 
+      "x" )
+        syntaxes=( "$baseDir/syntaxes/alex.json" "$baseDir/syntaxes/haskell.json" )
+        source="source.haskell.alex"
+        ;;
+
+      "y" )
+        syntaxes=( "$baseDir/syntaxes/happy.json" "$baseDir/syntaxes/haskell.json" )
+        source="source.haskell.happy"
+        ;;
+
       * )
         syntaxes=()
         source=""
@@ -92,7 +102,7 @@ runTests () {
         specifySyntaxes="$specifySyntaxes -g $i"
       done
       # Run the test.
-      result=$(vscode-tmgrammar-test -s "$source" $specifySyntaxes -t "$filepath")
+      result=$(npx vscode-tmgrammar-test -s "$source" $specifySyntaxes -t "$filepath")
       # Check test result by inspecting the exit code of the previous command.
       status=$?
       if [ $status -eq 0 ]
