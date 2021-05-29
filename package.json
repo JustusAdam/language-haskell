@@ -229,7 +229,6 @@
     "npm": "^6.14.5",
     "typescript": "^2.6.2",
     "vsce": "^1.75.0",
-    "vscode": "^1.0.0",
-    "vscode-tmgrammar-test": "0.0.10"
+    "vscode": "^1.0.0"
   }
 }
