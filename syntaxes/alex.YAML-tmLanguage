@@ -26,8 +26,8 @@ repository:
       - name: meta.block.startcode.alex
         begin: (<)\s*(\w*)(?:\s*(,)\s*(\w*))*\s*(>)\s*(\{)
         beginCaptures:
-          "0": { name: punctuation.bracket.startcode.alex }
-          "1": { name: variable.other.starcode.alex }
+          "1": { name: punctuation.bracket.startcode.alex }
+          "2": { name: variable.other.starcode.alex }
           "3": { name: punctuation.comma.startcode.alex }
           "4": { name: variable.other.startcode.alex }
           "5": { name: punctuation.bracket.startcode.alex }
@@ -73,8 +73,8 @@ repository:
       - name: meta.startcode.alex
         match: (<)\s*(\w*)(?:\s*(,)\s*(\w*))*\s*(>)
         captures:
-          "0": { name: punctuation.bracket.startcode.alex }
-          "1": { name: variable.other.starcode.alex }
+          "1": { name: punctuation.bracket.startcode.alex }
+          "2": { name: variable.other.starcode.alex }
           "3": { name: punctuation.comma.startcode.alex }
           "4": { name: variable.other.startcode.alex }
           "5": { name: punctuation.bracket.startcode.alex }
