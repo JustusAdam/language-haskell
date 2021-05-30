@@ -29,7 +29,8 @@ module Happy where
 
 -- comment {-
 %%
--- <- keyword.operator.separator.happy
+-- <-- keyword.operator.separator.happy
+-- <-- - comment.block.happy
 -- comment -}
 
 value :: { AST }

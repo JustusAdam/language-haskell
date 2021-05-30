@@ -30,7 +30,8 @@ tokens :-
 -- comment -}
 <0>   $white+         ;
 -- <-- meta.startcode.alex
--- < - punctuation.bracket.startcode.alex
+-- <- punctuation.bracket.startcode.alex
+-- <~~- punctuation.bracket.startcode.alex
 --                    ^ punctuation.semicolon.alex
 <0>   $digit+         { NUMBER }
 --                    ^ punctuation.block.begin.alex
