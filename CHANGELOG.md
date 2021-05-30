@@ -1,5 +1,9 @@
 ## x.x.x - Unreleased
 
+- Add support for Alex and Happy
+
+## 3.4.0 - 25.02.2021
+
 - Fix lists of the form ['|'...] being highlighted as quasiquotations
   ([#170](https://github.com/JustusAdam/language-haskell/issues/170)).
 - Proper highlighting of lambda case, including fixing the highlighting of subsequent braces (which were wrongly highlighted as record syntax).

@@ -1,0 +1,94 @@
+fileTypes:
+      - y
+name: Haskell Happy
+patterns:
+  - include: "#comments"
+  - include: "#blocks"
+  - include: "#syntax"
+  - include: "#strings"
+repository:
+  block_comment:
+    applyEndPatternLast: 1
+    begin: "{-"
+    captures:
+      '0': { name: punctuation.definition.comment.happy }
+    end: "-}"
+    name: comment.block.happy
+    patterns:
+      - include: "#block_comment"
+  comments:
+    patterns:
+      - name: comment.line.happy
+        match: '\-\-.*$'
+      - include: "#block_comment"
+  blocks:
+    patterns:
+      - name: meta.embedded.block.monad.haskell
+        begin: "{%[%^]?"
+        beginCaptures:
+          "0": { name: punctuation.block.monad.begin.happy }
+        end: "}"
+        endCaptures:
+          "0": { name: punctuation.block.end.happy }
+        patterns:
+          - include: source.haskell
+      - name: meta.embedded.block.haskell
+        begin: "{"
+        beginCaptures:
+          "0": { name: punctuation.block.begin.happy }
+        end: "}"
+        endCaptures:
+          "0": { name: punctuation.block.end.happy }
+        patterns:
+          - name: variable.parameter.happy
+            match: \$\d+
+          - name: variable.parameter.field.happy
+            match: \$\$
+          - include: source.haskell
+  syntax:
+    patterns:
+      - name: entity.name.directive.happy
+        match: \%\w+
+      - name: constant.character.escape.hex.happy
+        match: \\x[\da-fA-F]+
+      - name: constant.character.escape.oct.happy
+        match: \\o[0-7]+
+      - name: constant.character.escape.dec.happy
+        match: \\\d+
+      - name: constant.character.escape.happy
+        match: \\.
+      - name: punctuation.bracket.happy
+        match: "[\\[\\]]"
+      - name: keyword.operator.happy
+        match: "[-^=\\.*]"
+      - name: keyword.operator.type.happy
+        match: "::"
+      - name: keyword.operator.rule.happy
+        match: ":"
+      - name: keyword.operator.alt.happy
+        match: \|
+      - name: keyword.operator.separator.happy
+        match: \%\%
+  strings:
+    patterns:
+      - name: string.quoted.double.happy
+        begin: '"'
+        beginCaptures:
+          "0": { name: punctuation.quote.double.happy }
+        end: '"'
+        endCaptures:
+          "0": { name: punctuation.quote.double.happy }
+        patterns:
+          - name: constant.character.escape.happy
+            match: \\.
+      - name: string.quoted.single.happy
+        begin: "'"
+        beginCaptures:
+          "0": { name: punctuation.quote.single.happy }
+        end: "'"
+        endCaptures:
+          "0": { name: punctuation.quote.single.happy }
+        patterns:
+          - name: constant.character.escape.happy
+            match: \\.
+scopeName: source.haskell.happy

@@ -1,0 +1,40 @@
+| Scope Name | Description | Example |
+|-|-|-|
+| Haskell Alex |  |  |
+| comment.block |  |  |
+| comment.line |  |  |
+| constant.character.escape.alex |  |  |
+| constant.character.escape.dec.alex |  |  |
+| constant.character.escape.hex.alex |  |  |
+| constant.character.escape.oct.alex |  |  |
+| entity.name.class.alex |  |  |
+| keyword.operator.alex |  |  |
+| keyword.operator.pragma.alex |  |  |
+| keyword.operator.rules.alex |  |  |
+| meta.embedded.haskell |  |  |
+| punctuation.block.begin.alex |  |  |
+| punctuation.block.end.alex |  |  |
+| punctuation.brackets.alex |  |  |
+| storage.type.alex |  |  |
+| string.quoted.double.alex |  |  |
+| variable.parameter.alex |  |  |
+| meta.embedded.block.haskell |  |  |
+| punctuation.quote.double.alex |  |  |
+| punctuation.semicolon.alex |  |  |
+| punctuation.quote.single.alex |  |  |
+| string.quoted.single.alex |  |  |
+| comment.block.alex |  |  |
+| comment.line.alex |  |  |
+| entity.name.macro.character-set.alex |  |  |
+| entity.name.macro.regular-expression.alex |  |  |
+| entity.name.pragma.alex |  |  |
+| meta.block.startcode.alex |  |  |
+| meta.startcode.alex |  |  |
+| punctuation.block.startcode.begin.alex |  |  |
+| punctuation.block.startcode.end.alex |  |  |
+| punctuation.bracket.startcode.alex |  |  |
+| punctuation.comma.startcode.alex |  |  |
+| punctuation.definition.comment.alex |  |  |
+| variable.other.starcode.alex |  |  |
+| variable.other.startcode.alex |  |  |
+| punctuation.bracket.alex |  |  |

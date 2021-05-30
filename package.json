@@ -2,7 +2,7 @@
   "name": "language-haskell",
   "displayName": "Haskell Syntax Highlighting",
   "description": "Syntax support for the Haskell programming language.",
-  "version": "3.3.0",
+  "version": "3.5.0",
   "publisher": "justusadam",
   "engines": {
     "vscode": "^1.0.0"
@@ -125,6 +125,30 @@
         "filenames": [
           "stack.yaml.lock"
         ]
+      },
+      {
+        "id": "alex",
+        "aliases": [
+          "Alex",
+          "alex",
+          "Haskell Alex"
+        ],
+        "extensions": [
+          ".x"
+        ],
+        "configuration": "./haskell-configuration.json"
+      },
+      {
+        "id": "happy",
+        "aliases": [
+          "Happy",
+          "happy",
+          "Haskell Happy"
+        ],
+        "extensions": [
+          ".y"
+        ],
+        "configuration": "./haskell-configuration.json"
       }
     ],
     "grammars": [
@@ -152,6 +176,16 @@
         "language": "literate haskell",
         "scopeName": "text.tex.latex.haskell",
         "path": "./syntaxes/literateHaskell.json"
+      },
+      {
+        "language": "alex",
+        "scopeName": "source.haskell.alex",
+        "path": "./syntaxes/alex.json"
+      },
+      {
+        "language": "happy",
+        "scopeName": "source.haskell.happy",
+        "path": "./syntaxes/happy.json"
       },
       {
         "scopeName": "markdown.haskell.codeblock",
