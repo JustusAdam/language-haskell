@@ -18,9 +18,9 @@ repository:
       - include: "#block_comment"
   comments:
     patterns:
-      - include: "#block_comment"
       - name: comment.line.alex
         match: '\-\-.*$'
+      - include: "#block_comment"
   blocks:
     patterns:
       - name: meta.block.startcode.alex

@@ -23,8 +23,10 @@ $alpha = [a-zA-Z]
 -- <------- entity.name.macro.regular-expression.alex
 --      ^     ^ keyword.operator.alex
 
+-- comment {-
 tokens :-
 --     ^^ keyword.operator.rules.alex
+-- comment -}
 <0>   $white+         ;
 -- <-- meta.startcode.alex
 -- < - punctuation.brackets.startcode.alex

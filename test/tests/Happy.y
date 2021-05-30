@@ -28,8 +28,10 @@ module Happy where
 
 %left '+'
 
+-- comment {-
 %%
 -- <- keyword.operator.separator.happy
+-- comment -}
 
 value :: { AST }
 --    ^^ keyword.operator.type.happy

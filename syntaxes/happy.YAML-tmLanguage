@@ -7,13 +7,20 @@ patterns:
   - include: "#syntax"
   - include: "#strings"
 repository:
+  block_comment:
+    applyEndPatternLast: 1
+    begin: "{-"
+    captures:
+      '0': { name: punctuation.definition.comment.happy }
+    end: "-}"
+    name: comment.block.happy
+    patterns:
+      - include: "#block_comment"
   comments:
     patterns:
-      - name: comment.line
-        match: \-\-.*$
-      - name: comment.block
-        begin: "{-"
-        end: "-}"
+      - name: comment.line.happy
+        match: '\-\-.*$'
+      - include: "#block_comment"
   blocks:
     patterns:
       - name: meta.embedded.block.monad.haskell
