@@ -23,3 +23,17 @@
 | punctuation.semicolon.alex |  |  |
 | punctuation.quote.single.alex |  |  |
 | string.quoted.single.alex |  |  |
+| comment.block.alex |  |  |
+| comment.line.alex |  |  |
+| entity.name.macro.character-set.alex |  |  |
+| entity.name.macro.regular-expression.alex |  |  |
+| entity.name.pragma.alex |  |  |
+| meta.block.startcode.alex |  |  |
+| meta.startcode.alex |  |  |
+| punctuation.block.startcode.begin.alex |  |  |
+| punctuation.block.startcode.end.alex |  |  |
+| punctuation.bracket.startcode.alex |  |  |
+| punctuation.comma.startcode.alex |  |  |
+| punctuation.definition.comment.alex |  |  |
+| variable.other.starcode.alex |  |  |
+| variable.other.startcode.alex |  |  |

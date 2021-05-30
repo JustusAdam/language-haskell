@@ -25,3 +25,9 @@
 - scope: keyword.operator.separator.happy
 - scope: meta.embedded.block.haskell
 - scope: variable.parameter.field.happy
+- scope: comment.block.happy
+- scope: comment.line.happy
+- scope: entity.name.directive.happy
+- scope: meta.embedded.block.monad.haskell
+- scope: punctuation.block.monad.begin.happy
+- scope: punctuation.definition.comment.happy

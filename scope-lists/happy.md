@@ -27,3 +27,9 @@
 | keyword.operator.separator.happy |  |  |
 | meta.embedded.block.haskell |  |  |
 | variable.parameter.field.happy |  |  |
+| comment.block.happy |  |  |
+| comment.line.happy |  |  |
+| entity.name.directive.happy |  |  |
+| meta.embedded.block.monad.haskell |  |  |
+| punctuation.block.monad.begin.happy |  |  |
+| punctuation.definition.comment.happy |  |  |

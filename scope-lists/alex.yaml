@@ -21,3 +21,17 @@
 - scope: punctuation.semicolon.alex
 - scope: punctuation.quote.single.alex
 - scope: string.quoted.single.alex
+- scope: comment.block.alex
+- scope: comment.line.alex
+- scope: entity.name.macro.character-set.alex
+- scope: entity.name.macro.regular-expression.alex
+- scope: entity.name.pragma.alex
+- scope: meta.block.startcode.alex
+- scope: meta.startcode.alex
+- scope: punctuation.block.startcode.begin.alex
+- scope: punctuation.block.startcode.end.alex
+- scope: punctuation.bracket.startcode.alex
+- scope: punctuation.comma.startcode.alex
+- scope: punctuation.definition.comment.alex
+- scope: variable.other.starcode.alex
+- scope: variable.other.startcode.alex
