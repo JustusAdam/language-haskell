@@ -33,3 +33,4 @@
 | meta.embedded.block.monad.haskell |  |  |
 | punctuation.block.monad.begin.happy |  |  |
 | punctuation.definition.comment.happy |  |  |
+| punctuation.bracket.happy |  |  |

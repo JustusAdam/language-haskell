@@ -62,7 +62,7 @@ repository:
         match: \\\d+
       - name: constant.character.escape.alex
         match: \\.
-      - name: punctuation.brackets.alex
+      - name: punctuation.bracket.alex
         match: "[\\[\\]]"
       - name: keyword.operator.rules.alex
         match: :-

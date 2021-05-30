@@ -31,3 +31,4 @@
 - scope: meta.embedded.block.monad.haskell
 - scope: punctuation.block.monad.begin.happy
 - scope: punctuation.definition.comment.happy
+- scope: punctuation.bracket.happy

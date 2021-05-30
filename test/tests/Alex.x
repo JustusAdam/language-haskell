@@ -17,7 +17,7 @@ $digit = 0-9
 -- <------ entity.name.macro.character-set.alex
 --     ^  ^ keyword.operator.alex
 $alpha = [a-zA-Z]
---       ^      ^ punctuation.brackets.alex
+--       ^      ^ punctuation.bracket.alex
 
 @foobar = foo | bar
 -- <------- entity.name.macro.regular-expression.alex
@@ -26,10 +26,11 @@ $alpha = [a-zA-Z]
 -- comment {-
 tokens :-
 --     ^^ keyword.operator.rules.alex
+-- <--------- - comment.block.alex
 -- comment -}
 <0>   $white+         ;
 -- <-- meta.startcode.alex
--- < - punctuation.brackets.startcode.alex
+-- < - punctuation.bracket.startcode.alex
 --                    ^ punctuation.semicolon.alex
 <0>   $digit+         { NUMBER }
 --                    ^ punctuation.block.begin.alex
@@ -37,14 +38,17 @@ tokens :-
 <0,1> $alpha+         { IDENT }
 --^ punctuation.comma.startcode.alex
 <foo,bar> {
--- <       - punctuation.brackets.startcode.alex
+-- <--------- meta.block.startcode.alex
+-- <- punctuation.bracket.startcode.alex
+--      ^ punctuation.bracket.startcode.alex
 --   ^^^ variable.other.startcode.alex
 --        ^ punctuation.block.startcode.begin.alex
     \n                ;
 --                    ^ punctuation.semicolon.alex
     @foobar           { FOO }
+--  ^^^^^^^ - source.haskell
 }
--- < punctuation.block.startcode.end.alex
+-- <- punctuation.block.startcode.end.alex
 
 {-
 -- <- punctuation.definition.comment.alex

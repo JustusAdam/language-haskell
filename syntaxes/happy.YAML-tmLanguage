@@ -57,7 +57,7 @@ repository:
         match: \\\d+
       - name: constant.character.escape.happy
         match: \\.
-      - name: punctuation.brackets.happy
+      - name: punctuation.bracket.happy
         match: "[\\[\\]]"
       - name: keyword.operator.happy
         match: "[-^=\\.*]"

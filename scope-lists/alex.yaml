@@ -35,3 +35,4 @@
 - scope: punctuation.definition.comment.alex
 - scope: variable.other.starcode.alex
 - scope: variable.other.startcode.alex
+- scope: punctuation.bracket.alex

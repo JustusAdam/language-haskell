@@ -37,3 +37,4 @@
 | punctuation.definition.comment.alex |  |  |
 | variable.other.starcode.alex |  |  |
 | variable.other.startcode.alex |  |  |
+| punctuation.bracket.alex |  |  |
