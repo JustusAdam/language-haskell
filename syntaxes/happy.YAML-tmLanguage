@@ -15,21 +15,37 @@ repository:
         begin: "{-"
         end: "-}"
   blocks:
-    name: meta.embedded.block.haskell
-    begin: "{"
-    beginCaptures:
-      "0": { name: punctuation.block.begin.happy }
-    end: "}"
-    endCaptures:
-      "0": { name: punctuation.block.end.happy }
     patterns:
-      - include: source.haskell
+      - name: meta.embedded.block.monad.haskell
+        begin: "{%[%^]?"
+        beginCaptures:
+          "0": { name: punctuation.block.monad.begin.happy }
+        end: "}"
+        endCaptures:
+          "0": { name: punctuation.block.end.happy }
+        patterns:
+          - name: variable.parameter.happy
+            match: \$\d+
+          - name: variable.parameter.field.happy
+            match: \$\$
+          - include: source.haskell
+      - name: meta.embedded.block.haskell
+        begin: "{"
+        beginCaptures:
+          "0": { name: punctuation.block.begin.happy }
+        end: "}"
+        endCaptures:
+          "0": { name: punctuation.block.end.happy }
+        patterns:
+          - name: variable.parameter.happy
+            match: \$\d+
+          - name: variable.parameter.field.happy
+            match: \$\$
+          - include: source.haskell
   syntax:
     patterns:
-      - name: keyword.operator.pragma.happy
+      - name: entity.name.directive.happy
         match: \%\w+
-      - name: variable.parameter.happy
-        match: \$\w+
       - name: constant.character.escape.hex.happy
         match: \\x[\da-fA-F]+
       - name: constant.character.escape.oct.happy

@@ -9,7 +9,7 @@ module Happy where
 -- <- meta.embedded.block.haskell
 
 %monad { P }
--- <------ keyword.operator.pragma.happy
+-- <------ entity.name.directive.happy
 --     ^ punctuation.block.begin.happy
 --         ^ punctuation.block.end.happy
 
@@ -18,10 +18,13 @@ module Happy where
 %error { parseError }
 
 %token
+    '('     { OPEN_PAREN }
+    ')'     { CLOSE_PAREN }
     '+'     { PLUS }
 --  ^^^ string.quoted.single.happy
 --  ^ ^ punctuation.quote.single.happy
     num     { NUMBER $$ }
+--                   ^^ variable.parameter.field.happy
 
 %left '+'
 
@@ -32,13 +35,22 @@ value :: { AST }
 --    ^^ keyword.operator.type.happy
       : value '+' value { Add $1 $3 }
 --    ^ keyword.operator.rule.happy
+--                            ^^ ^^ variable.parameter.happy
       | num             { Number $1 }
 --    ^ keyword.operator.alt.happy
+      | '(' value ')'   {% pure $2 }
+--                      ^^ punctuation.block.monad.begin.happy
+      | '(' ')'         {%% someErr }
+--                      ^^^ punctuation.block.monad.begin.happy
+      | ')' '('         {%^ someOtherErr }
+--                      ^^^ punctuation.block.monad.begin.happy
 
 {
 
 data Token
-    = PLUS
+    = OPEN_PAREN
+    | CLOSE_PAREN
+    | PLUS
     | NUMBER Int
 
 data AST

@@ -7,30 +7,52 @@ patterns:
   - include: "#syntax"
   - include: "#strings"
 repository:
+  block_comment:
+    applyEndPatternLast: 1
+    begin: "{-"
+    captures:
+      '0': {name: punctuation.definition.comment.alex}
+    end: "-}"
+    name: comment.block.alex
+    patterns:
+      - include: "#block_comment"
   comments:
     patterns:
-      - name: comment.line
-        match: \-\-.*$
-      - name: comment.block
-        begin: "{-"
-        end: "-}"
+      - include: "#block_comment"
+      - name: comment.line.alex
+        match: '\-\-.*$'
   blocks:
-    name: meta.embedded.block.haskell
-    begin: "{"
-    beginCaptures:
-      "0": { name: punctuation.block.begin.alex }
-    end: "}"
-    endCaptures:
-      "0": { name: punctuation.block.end.alex }
     patterns:
-      - include: source.haskell
+      - name: meta.block.startcode.alex
+        begin: (<)\s*(\w*)(?:\s*(,)\s*(\w*))*\s*(>)\s*(\{)
+        beginCaptures:
+          "0": { name: punctuation.bracket.startcode.alex }
+          "1": { name: variable.other.starcode.alex }
+          "3": { name: punctuation.comma.startcode.alex }
+          "4": { name: variable.other.startcode.alex }
+          "5": { name: punctuation.bracket.startcode.alex }
+          "6": { name: punctuation.block.startcode.begin.alex }
+        end: "}"
+        endCaptures:
+          "0": { name: punctuation.block.startcode.end.alex }
+        patterns:
+          - include: source.haskell.alex
+      - name: meta.embedded.block.haskell
+        begin: "{"
+        beginCaptures:
+          "0": { name: punctuation.block.begin.alex }
+        end: "}"
+        endCaptures:
+          "0": { name: punctuation.block.end.alex }
+        patterns:
+          - include: source.haskell
   syntax:
     patterns:
-      - name: keyword.operator.pragma.alex
+      - name: entity.name.pragma.alex
         match: \%\w+
-      - name: variable.parameter.alex
+      - name: entity.name.macro.character-set.alex
         match: \$\w+
-      - name: entity.name.class.alex
+      - name: entity.name.macro.regular-expression.alex
         match: \@\w+
       - name: constant.character.escape.hex.alex
         match: \\x[\da-fA-F]+
@@ -48,8 +70,14 @@ repository:
         match: "[-^=\\.*\\|]"
       - name: punctuation.semicolon.alex
         match: \;
-      - name: storage.type.alex
-        match: <\w+>
+      - name: meta.startcode.alex
+        match: (<)\s*(\w*)(?:\s*(,)\s*(\w*))*\s*(>)
+        captures:
+          "0": { name: punctuation.bracket.startcode.alex }
+          "1": { name: variable.other.starcode.alex }
+          "3": { name: punctuation.comma.startcode.alex }
+          "4": { name: variable.other.startcode.alex }
+          "5": { name: punctuation.bracket.startcode.alex }
   strings:
     patterns:
       - name: string.quoted.double.alex
