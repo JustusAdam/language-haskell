@@ -24,7 +24,6 @@ module Happy where
 --  ^^^ string.quoted.single.happy
 --  ^ ^ punctuation.quote.single.happy
     num     { NUMBER $$ }
---                   ^^ variable.parameter.field.happy
 
 %left '+'
 
@@ -37,7 +36,6 @@ value :: { AST }
 --    ^^ keyword.operator.type.happy
       : value '+' value { Add $1 $3 }
 --    ^ keyword.operator.rule.happy
---                            ^^ ^^ variable.parameter.happy
       | num             { Number $1 }
 --    ^ keyword.operator.alt.happy
       | '(' value ')'   {% pure $2 }

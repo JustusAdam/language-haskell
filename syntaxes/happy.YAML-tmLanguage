@@ -31,10 +31,6 @@ repository:
         endCaptures:
           "0": { name: punctuation.block.end.happy }
         patterns:
-          - name: variable.parameter.happy
-            match: \$\d+
-          - name: variable.parameter.field.happy
-            match: \$\$
           - include: source.haskell
       - name: meta.embedded.block.haskell
         begin: "{"
