@@ -14,6 +14,7 @@ ticketsBroken=(
   "T0165.hs"
   "T0167.hs"
   "T0178.hs"
+  "T0189.y"
 )
 
 # Colours used to display test outputs.
