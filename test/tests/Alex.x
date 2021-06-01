@@ -38,12 +38,13 @@ tokens :-
 --                             ^ punctuation.block.end.alex
 <0,1> $alpha+         { IDENT }
 --^ punctuation.comma.startcode.alex
-<foo,bar, baz  , qu_ux >  {
+<foo,bar, baz  ,0,qu_ux >  {
 -- <------------------------ meta.block.startcode.alex
 -- <- punctuation.bracket.startcode.alex
---   ^^^  ^^^    ^^^^^ variable.other.startcode.alex
---                     ^ punctuation.bracket.startcode.alex
---                        ^ punctuation.block.startcode.begin.alex
+--              ^ variable.other.startcode.0.alex
+--   ^^^  ^^^     ^^^^^ variable.other.startcode.alex
+--                      ^ punctuation.bracket.startcode.alex
+--                         ^ punctuation.block.startcode.begin.alex
     \n                ;
 --                    ^ punctuation.semicolon.alex
     @foobar           { FOO }

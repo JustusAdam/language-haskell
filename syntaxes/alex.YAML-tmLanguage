@@ -23,6 +23,8 @@ repository:
       - include: "#block_comment"
   startcode:
     patterns:
+      - name: variable.other.startcode.0.alex
+        match: '0'
       - name: variable.other.startcode.alex
         match: ([\p{Ll}\p{Lu}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.']*)
       - name: punctuation.comma.startcode.alex
