@@ -48,7 +48,7 @@ repository:
   syntax:
     patterns:
       - name: entity.name.directive.happy
-        match: \%\w+
+        match: \%([\p{Ll}\p{Lu}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.']*)
       - name: constant.character.escape.hex.happy
         match: \\x[\da-fA-F]+
       - name: constant.character.escape.oct.happy

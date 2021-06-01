@@ -21,15 +21,23 @@ repository:
       - name: comment.line.alex
         match: '\-\-.*$'
       - include: "#block_comment"
+  startcode:
+    patterns:
+      - name: variable.other.startcode.alex
+        match: ([\p{Ll}\p{Lu}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.']*)
   blocks:
     patterns:
       - name: meta.block.startcode.alex
-        begin: (<)\s*(\w*)(?:\s*(,)\s*(\w*))*\s*(>)\s*(\{)
+        begin: (<)\s*([\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.']*)(?:\s*(,)\s*([\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.']*))*\s*(>)\s*(\{)
         beginCaptures:
           "1": { name: punctuation.bracket.startcode.alex }
-          "2": { name: variable.other.starcode.alex }
+          "2":
+            patterns:
+              - include: '#startcode'
           "3": { name: punctuation.comma.startcode.alex }
-          "4": { name: variable.other.startcode.alex }
+          "4":
+            patterns:
+              - include: '#startcode'
           "5": { name: punctuation.bracket.startcode.alex }
           "6": { name: punctuation.block.startcode.begin.alex }
         end: "}"
@@ -46,14 +54,15 @@ repository:
           "0": { name: punctuation.block.end.alex }
         patterns:
           - include: source.haskell
+
   syntax:
     patterns:
       - name: entity.name.pragma.alex
-        match: \%\w+
+        match: \%([\p{Ll}\p{Lu}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.']*)
       - name: entity.name.macro.character-set.alex
-        match: \$\w+
+        match: \$([\p{Ll}\p{Lu}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.']*)
       - name: entity.name.macro.regular-expression.alex
-        match: \@\w+
+        match: \@([\p{Ll}\p{Lu}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.']*)
       - name: constant.character.escape.hex.alex
         match: \\x[\da-fA-F]+
       - name: constant.character.escape.oct.alex
@@ -71,12 +80,16 @@ repository:
       - name: punctuation.semicolon.alex
         match: \;
       - name: meta.startcode.alex
-        match: (<)\s*(\w*)(?:\s*(,)\s*(\w*))*\s*(>)
+        match: (<)\s*([\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.']*)(?:\s*(,)\s*([\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.']*))*\s*(>)
         captures:
           "1": { name: punctuation.bracket.startcode.alex }
-          "2": { name: variable.other.starcode.alex }
+          "2":
+            patterns:
+              - include: '#startcode'
           "3": { name: punctuation.comma.startcode.alex }
-          "4": { name: variable.other.startcode.alex }
+          "4":
+            patterns:
+              - include: '#startcode'
           "5": { name: punctuation.bracket.startcode.alex }
   strings:
     patterns:
