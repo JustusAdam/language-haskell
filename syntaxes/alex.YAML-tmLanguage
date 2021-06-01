@@ -25,21 +25,19 @@ repository:
     patterns:
       - name: variable.other.startcode.alex
         match: ([\p{Ll}\p{Lu}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.']*)
+      - name: punctuation.comma.startcode.alex
+        match: ','
   blocks:
     patterns:
       - name: meta.block.startcode.alex
-        begin: (<)\s*([\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.']*)(?:\s*(,)\s*([\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.']*))*\s*(>)\s*(\{)
+        begin: (<)([\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.'\s,]*)(>)\s*(\{)
         beginCaptures:
           "1": { name: punctuation.bracket.startcode.alex }
           "2":
             patterns:
               - include: '#startcode'
-          "3": { name: punctuation.comma.startcode.alex }
-          "4":
-            patterns:
-              - include: '#startcode'
-          "5": { name: punctuation.bracket.startcode.alex }
-          "6": { name: punctuation.block.startcode.begin.alex }
+          "3": { name: punctuation.bracket.startcode.alex }
+          "4": { name: punctuation.block.startcode.begin.alex }
         end: "}"
         endCaptures:
           "0": { name: punctuation.block.startcode.end.alex }
@@ -80,17 +78,13 @@ repository:
       - name: punctuation.semicolon.alex
         match: \;
       - name: meta.startcode.alex
-        match: (<)\s*([\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.']*)(?:\s*(,)\s*([\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.']*))*\s*(>)
+        match: (<)([\p{Ll}_\p{Lu}\p{Lt}\p{Nd}\.'\s,]*)(>)
         captures:
           "1": { name: punctuation.bracket.startcode.alex }
           "2":
             patterns:
               - include: '#startcode'
-          "3": { name: punctuation.comma.startcode.alex }
-          "4":
-            patterns:
-              - include: '#startcode'
-          "5": { name: punctuation.bracket.startcode.alex }
+          "3": { name: punctuation.bracket.startcode.alex }
   strings:
     patterns:
       - name: string.quoted.double.alex
