@@ -54,6 +54,11 @@
           "type": "boolean",
           "default": true,
           "description": "Set to 'false' to disable automatically increasing indent on newlines after '=', 'do', 'where' etc."
+        },
+        "haskell.continueComments.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Set to 'false' to disable automatically adding '--' on newlines after starting a comment block."
         }
       }
     },
