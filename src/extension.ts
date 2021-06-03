@@ -15,7 +15,9 @@ export function activate(context: vscode.ExtensionContext) {
             },
             // Continuing -- comments
             {
-                beforeText: /^\s*--/,
+                beforeText: vscode.workspace.getConfiguration('haskell').continueComments.enabled
+                ? /^\s*--/
+                : MATCH_NOTHING_RE,
                 action: {indentAction: vscode.IndentAction.None, appendText: '-- '}
             },
             // Adding indentation when taking a newline in between {- -}
