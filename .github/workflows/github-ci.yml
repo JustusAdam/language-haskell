@@ -18,7 +18,7 @@ jobs:
     steps:
 
       - uses: actions/checkout@v2
-        
+
       - name: Setup node
         uses: actions/setup-node@v1
         with:
@@ -28,7 +28,7 @@ jobs:
         run: npm install -g js-yaml vscode-tmgrammar-test
 
       - name: Generate grammar JSON files
-        run: make all
+        run: make grammars
 
       - name: Run tests
         run: make test
