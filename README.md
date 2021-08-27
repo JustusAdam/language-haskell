@@ -45,3 +45,24 @@ extension or if there are further scope assigments you'd like to see added.
 We now publish an automatically generated, complete list of the textmate scopes
 used in our grammars. You can find the lists of scopes in the
 [scope-lists](/scope-lists) directory.
+
+## Contributing
+
+This project currently uses the `YAML-tmLanguage` format for language grammars (Haskell, Cabal, alex, happy, ...).
+The grammars can be found in the `syntaxes` directory.  
+To generate `JSON` grammars (which is the format VS Code expects), we use the Node package `js-yaml` (requires `npx` in PATH):
+
+```sh
+npx js-yaml haskell.YAML-tmLanguage > haskell.json
+```
+
+For testing, we use the Node package `vscode-tmgrammar-test`. For instance, to generate/check
+the scopes of a Haskell source file, run:
+
+```sh
+npx vscode-tmgrammar-test "-s" "source.haskell" "-g" "syntaxes/haskell.json" "-t" "myTestFile.hs"
+```
+
+
+To run the test-suite, simply call `make test`.
+This will build the grammar files and run `vscode-tmgrammar-test` on all the files in the testsuite.

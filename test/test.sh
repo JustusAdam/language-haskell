@@ -59,15 +59,15 @@ runTests () {
         expectBroken=1
       fi
     done
-  
+
     # Set the appropriate syntax file for the test.
     case $ext in
-  
+
       "hs" | "hs-boot" | "hsig" )
         syntaxes=( "$baseDir/syntaxes/haskell.json" )
         source="source.haskell"
         ;;
-  
+
       "cabal" )
         syntaxes=( "$baseDir/syntaxes/cabal.json" )
         source="source.cabal"
@@ -94,7 +94,7 @@ runTests () {
         ;;
 
     esac
-  
+
     if [ ${#syntaxes[@]} -eq 0 ]
     then
       echo "runTests: $file has unsupported file extension '$ext', ignoring"

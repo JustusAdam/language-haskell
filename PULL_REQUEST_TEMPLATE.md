@@ -1,7 +1,7 @@
 ## For changes related to the grammar
 
 - Please add a test case.
-  
+
   - For changes to regular Haskell code simply add a new section to `test/syntax-examples/test.hs`.
     Make sure your case has a descriptive comment about what it is covering.
 
