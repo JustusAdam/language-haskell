@@ -65,9 +65,9 @@
           "haskell"
         ],
         "extensions": [
+          ".hs",
           ".hsig",
-          "hs-boot",
-          ".hs"
+          "hs-boot"
         ],
         "configuration": "./haskell-configuration.json"
       },
