@@ -1,6 +1,7 @@
 ## x.x.x - Unreleased
 
 - Add support for Alex and Happy ([#97](https://github.com/JustusAdam/language-haskell/issues/97)), thanks to [@matthewess](https://github.com/matthewess).
+- Default to .hs when saving files ([#197](https://github.com/JustusAdam/language-haskell/issues/197)), thanks to [@noughtmare](https://github.com/noughtmare).
 
 ## 3.4.0 - 25.02.2021
 
