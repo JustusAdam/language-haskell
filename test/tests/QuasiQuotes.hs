@@ -40,6 +40,13 @@
 --  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ meta.quasi-quotation.haskell
 
 
+    [i|| A |]
+--  ^ ^ keyword.operator.quasi-quotation.begin.haskell
+--   ^ entity.name.quasi-quoter.haskell
+--     ^^^^ meta.quasi-quotation.haskell meta.embedded.block.i
+--         ^^ keyword.operator.quasi-quotation.end.haskell
+--  ^^^^^^^^^ meta.quasi-quotation.haskell
+
     [$html|
 --  ^     ^ keyword.operator.quasi-quotation.begin.haskell
 --    ^^^^ entity.name.quasi-quoter.haskell
