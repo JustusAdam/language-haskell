@@ -1,7 +1,7 @@
 # Haskell Syntax Highlighting Support
 
 
-Syntax highlighting support for Haskell and associated languages (i.e. Cabal) in Visual Studio Code.
+Syntax highlighting support for Haskell and associated languages (e.g. Cabal, Happy and Alex) in Visual Studio Code.
 
 ## Syntax highlighting
 
