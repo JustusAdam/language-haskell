@@ -1,7 +1,7 @@
-# Haskell Language support
+# Haskell Syntax Highlighting Support
 
 
-Support for the Haskell programming language in Visual Studio Code.
+Syntax highlighting support for Haskell and associated languages (i.e. Cabal) in Visual Studio Code.
 
 ## Syntax highlighting
 
@@ -24,9 +24,9 @@ section](https://github.com/JustusAdam/language-haskell/issues) of the
 ## Themes
 
 This extension provides TextMate scopes for use in syntax highlighting, but the colours displayed
-depend on the theme being used.    
+depend on the theme being used.
 Unfortunately many themes have incomplete support for the different TextMate scopes, and as a
-result different tokens can end up with identical colours.    
+result different tokens can end up with identical colours.
 
 For a theme that supports all the scopes provided by this extension, see the
 [Groovy Lambda theme](https://github.com/sheaf/groovy-lambda).
@@ -49,7 +49,7 @@ used in our grammars. You can find the lists of scopes in the
 ## Contributing
 
 This project currently uses the `YAML-tmLanguage` format for language grammars (Haskell, Cabal, alex, happy, ...).
-The grammars can be found in the `syntaxes` directory.  
+The grammars can be found in the `syntaxes` directory.
 To generate `JSON` grammars (which is the format VS Code expects), we use the Node package `js-yaml` (requires `npx` in PATH):
 
 ```sh

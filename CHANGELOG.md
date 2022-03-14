@@ -4,6 +4,7 @@
 - Default to .hs when saving files ([#197](https://github.com/JustusAdam/language-haskell/issues/197)), thanks to [@noughtmare](https://github.com/noughtmare).
 - Fix highlighting for custom quasi quoters with immediate `|`
   ([#203](https://github.com/JustusAdam/language-haskell/issues/203)).
+- Be more specific about scope of this project in the README
 
 ## 3.4.0 - 25.02.2021
 
