@@ -1,4 +1,7 @@
-## x.x.x - Unreleased
+## 3.6.0 - 15.03.2022
+
+- Overwriting previous release due to a packaging error
+## 3.5.0 - 14.03.2022
 
 - Add support for Alex and Happy ([#97](https://github.com/JustusAdam/language-haskell/issues/97)), thanks to [@matthewess](https://github.com/matthewess).
 - Default to .hs when saving files ([#197](https://github.com/JustusAdam/language-haskell/issues/197)), thanks to [@noughtmare](https://github.com/noughtmare).
