@@ -45,6 +45,11 @@
     "onLanguage:haskell"
   ],
   "main": "./out/src/extension",
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
   "contributes": {
     "configuration": {
       "type": "object",
