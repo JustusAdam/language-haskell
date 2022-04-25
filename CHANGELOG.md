@@ -1,3 +1,7 @@
+## x.x.x - Unreleased
+
+- Add support for untrusted workspaces ([#211](https://github.com/JustusAdam/language-haskell/pull/211)), thanks to [@maciej-irl]
+
 ## 3.6.0 - 15.03.2022
 
 - Overwriting previous release due to a packaging error
