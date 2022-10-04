@@ -507,7 +507,7 @@ repository:
   layout_herald:
     begin: >-
       (?x)
-        (?:(?<!')\b(?:(where|let|m?do)|(of))|(\\\s*case))
+        (?:(?<!')\b(?:(where|let|m?do)|(of))|(\\\s*case(?:s)?))
         \s*(\{)(?!-)
     end: '(\})'
     beginCaptures:
@@ -522,7 +522,7 @@ repository:
       - match: ';'
         name: punctuation.semicolon.haskell
   keyword:
-    match: '\b(?<!'')(?:(where|let|in|default)|(m?do|if|then|else|case|of|proc|rec))\b(?!'')'
+    match: '\b(?<!'')(?:(where|let|in|default)|(m?do|if|then|else|case(?:s)?|of|proc|rec))\b(?!'')'
     captures:
       '1': {name: keyword.other.$1.haskell}
       '2': {name: keyword.control.$2.haskell}
