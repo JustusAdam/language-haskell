@@ -675,12 +675,7 @@ repository:
       - begin: '\b(?<!'')(type)\b(?!'')'
         beginCaptures:
           '1': {name: keyword.other.type.haskell}
-        end: >-
-         (?x)
-            # Type name
-            ([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
-            # Prefix form of type operator
-            | (\()\s*([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\))
+        end: '(?=,|\)\s*where)'
         endCaptures:
           '1': {name: storage.type.haskell}
           '2': {name: punctuation.paren.haskell}
@@ -688,6 +683,9 @@ repository:
           '4': {name: punctuation.paren.haskell}
         patterns:
           - include: '#comment_like'
+          - include: '#reserved_symbol'
+          - include: '#type_constructor'
+          - include: '#type_operator'
       - include: '#record_wildcard'
       - include: '#reserved_symbol'
       - match: >-
