@@ -27,6 +27,14 @@ f = g @'A
 --    ^ keyword.operator.prefix.at.haskell
 --    ^^^ meta.type-application.haskell
 
+f = g @()
+--    ^ keyword.operator.prefix.at.haskell
+--     ^^ support.constant.unit.haskell
+
+f = g @(    )
+--    ^ keyword.operator.prefix.at.haskell
+--     ^^^^^^ support.constant.unit.haskell
+
 f = g @123
 --    ^ keyword.operator.prefix.at.haskell
 --    ^^^^^^^^^^ meta.type-application.haskell
