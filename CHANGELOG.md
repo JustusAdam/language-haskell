@@ -3,6 +3,7 @@
 - Add support for untrusted workspaces ([#211](https://github.com/JustusAdam/language-haskell/pull/211)), thanks to [@maciej-irl](http://github.com/maciej-irl)
 - Add support for `\cases` syntax ([#218](https://github.com/JustusAdam/language-haskell/pull/218)), thanks to [@mixphix](https://github.com/mixphix)
 - Fix bare unit type applications ([#225](https://github.com/JustusAdam/language-haskell/issue/225)), thanks to [@mixphix](https://github.com/mixphix)
+- Fix qualified type operators in export lists ([#191](https://github.com/JustusAdam/language-haskell/issue/191)), thanks to [@mixphix]
 
 ## 3.6.0 - 15.03.2022
 
