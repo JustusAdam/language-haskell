@@ -45,5 +45,14 @@ module M
 --  ^^^^ keyword.other.type.haskell
       (<->)
 --     ^^^ storage.type.operator.haskell
+  , type (Qualified.<->)
+--  ^^^^ keyword.other.type.haskell
+--        ^^^^^^^^^^ entity.name.namespace.haskell
+--                  ^^^ storage.type.operator.haskell
+  , type Qualified.T
+--  ^^^^ keyword.other.type.haskell
+--       ^^^^^^^^^^ entity.name.namespace.haskell
+--                 ^ storage.type.haskell
   )
-  where
+   where
+-- ^^^^^ keyword.other.where.haskell

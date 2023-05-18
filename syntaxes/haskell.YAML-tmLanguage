@@ -675,26 +675,19 @@ repository:
       - begin: '\b(?<!'')(type)\b(?!'')'
         beginCaptures:
           '1': {name: keyword.other.type.haskell}
-        end: >-
-         (?x)
-            # Type name
-            ([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
-            # Prefix form of type operator
-            | (\()\s*([\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\))
-        endCaptures:
-          '1': {name: storage.type.haskell}
-          '2': {name: punctuation.paren.haskell}
-          '3': {name: storage.type.operator.haskell}
-          '4': {name: punctuation.paren.haskell}
+        end: '(?=,|\))'
         patterns:
           - include: '#comment_like'
+          - include: '#reserved_symbol'
+          - include: '#type_constructor'
+          - include: '#type_operator'
       - include: '#record_wildcard'
       - include: '#reserved_symbol'
       - match: >-
           (\()\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)\s*(\))
         name: storage.type.operator.haskell
       - match: >-
-         (?<!')\b[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
+          (?<!')\b[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
         name: entity.name.function.haskell
       - match: >-
           (?<!')\b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
