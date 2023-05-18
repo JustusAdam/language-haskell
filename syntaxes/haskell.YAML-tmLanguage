@@ -1147,6 +1147,11 @@ repository:
           - include: '#type_signature'
   type_application:
     patterns:
+      - match: '(?<=[\s,;\[\]{}"])(@)(\(\s*\))'
+        captures:
+          '1': {name: keyword.operator.prefix.at.haskell}
+          '2': {name: support.constant.unit.haskell}
+        name: meta.type-application.haskell
       - begin: '(?<=[\s,;\[\]{}"])(@)('')?(\()'
         beginCaptures: 
           '1': {name: keyword.operator.prefix.at.haskell}
