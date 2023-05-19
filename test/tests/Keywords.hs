@@ -22,9 +22,10 @@ anotherFunc arg =
           then b
 --        ^^^^ keyword.control.then.haskell
           else \cases
+--        ^^^^ keyword.control.else.haskell
 --              ^^^^^ keyword.control.cases.haskell
             arg1 arg2 -> undefined
---        ^^^^ keyword.control.else.haskell
+
   where 
 -- <~~----- keyword.other.where.haskell
     expression argument = arg + 7
