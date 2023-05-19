@@ -65,32 +65,26 @@ runTests () {
 
       "hs" | "hs-boot" | "hsig" )
         syntaxes=( "$baseDir/syntaxes/haskell.json" )
-        source="source.haskell"
         ;;
 
       "cabal" )
         syntaxes=( "$baseDir/syntaxes/cabal.json" )
-        source="source.cabal"
         ;;
 
       "lhs" )
         syntaxes=( "$baseDir/syntaxes/haskell.json" "$baseDir/syntaxes/literateHaskell.json" )
-        source="text.tex.latex.haskell"
         ;;
 
       "x" )
         syntaxes=( "$baseDir/syntaxes/alex.json" "$baseDir/syntaxes/haskell.json" )
-        source="source.haskell.alex"
         ;;
 
       "y" )
         syntaxes=( "$baseDir/syntaxes/happy.json" "$baseDir/syntaxes/haskell.json" )
-        source="source.haskell.happy"
         ;;
 
       * )
         syntaxes=()
-        source=""
         ;;
 
     esac
@@ -104,7 +98,7 @@ runTests () {
         specifySyntaxes="$specifySyntaxes -g $i"
       done
       # Run the test.
-      result=$(npx vscode-tmgrammar-test -s "$source" $specifySyntaxes -t "$filepath")
+      result=$(npx vscode-tmgrammar-test $specifySyntaxes "$filepath")
       # Check test result by inspecting the exit code of the previous command.
       status=$?
       if [ $status -eq 0 ]
