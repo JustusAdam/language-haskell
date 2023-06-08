@@ -1,5 +1,5 @@
-- scope: Literate Haskell
-  hide: true
+- hide: true
+  scope: Literate Haskell
 - scope: meta.embedded.block.haskell.latex
 - scope: meta.embedded.haskell
 - scope: punctuation.definition.arguments.begin.latex
