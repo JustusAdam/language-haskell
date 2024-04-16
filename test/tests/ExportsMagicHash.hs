@@ -9,6 +9,7 @@ module M
 --          ^ constant.other.haskell
   , f#, (+#), T#
 --  ^ entity.name.function.haskell
+--       ^^ entity.name.function.infix.haskell
 --            ^ storage.type.haskell
   , type T#
 --  ^^^^ keyword.other.type.haskell
