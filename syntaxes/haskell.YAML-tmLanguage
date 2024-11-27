@@ -1637,7 +1637,7 @@ repository:
       - match: '\b(?<!'')(ccall|cplusplus|dotnet|jvm|stdcall|prim|capi)\s+'
         captures:
           '1': {name: "keyword.other.calling-convention.$1.haskell"}
-      - begin: '(?=")|(?=\b(?<!'')([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)\b(?!''))'
+      - begin: '(?<=((^|foreign|import|export|ccall|cplusplus|dotnet|jvm|stdcall|prim|capi|safe|unsafe|interruptible)\s*))((?=")|(?=\b(?<!'')([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*)\b(?!'')))'
         end: '(?=(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']]))'
         patterns:
           # safe/unsafe/interruptible keywords,
@@ -1662,7 +1662,7 @@ repository:
                 )
             captures:
               '1': {name: "keyword.other.safety.$1.haskell"}
-              '2': 
+              '2':
                 name: entity.name.foreign.haskell
                 patterns:
                   - include: '#string_literal'
@@ -1677,7 +1677,7 @@ repository:
                 \s*$
             captures:
               '1': {name: "keyword.other.safety.$1.haskell"}
-              '2': 
+              '2':
                 name: entity.name.foreign.haskell
                 patterns:
                   - include: '#string_literal'
@@ -1685,7 +1685,7 @@ repository:
               (?x)
                 "(?:\\"|[^"])*"
             captures:
-              '0': 
+              '0':
                 name: entity.name.foreign.haskell
                 patterns:
                   - include: '#string_literal'
