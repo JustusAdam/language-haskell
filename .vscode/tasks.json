@@ -18,17 +18,33 @@
                 "focus": false,
                 "panel": "dedicated"
             },
-            "problemMatcher": ["$tsc"]
+            "problemMatcher": [
+                "$tsc"
+            ]
         },
         {
             "type": "shell",
             "label": "make-json",
             "command": "make",
-            "args": ["all"]
+            "args": [
+                "all"
+            ]
         },
         {
             "label": "compile-all",
-            "dependsOn": ["npm", "make-json"]
+            "dependsOn": [
+                "npm",
+                "make-json"
+            ]
+        },
+        {
+            "type": "npm",
+            "script": "watch-web",
+            "group": "build",
+            "isBackground": true,
+            "problemMatcher": [
+                "$ts-webpack-watch"
+            ]
         }
     ]
 }
