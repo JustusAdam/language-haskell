@@ -231,7 +231,7 @@
   },
   "devDependencies": {
     "js-yaml": "^3.13.1",
-    "npm": "^6.14.5",
+    "npm": "^9.4.1",
     "typescript": "^2.6.2",
     "vsce": "^1.75.0",
     "vscode": "^1.0.0"
