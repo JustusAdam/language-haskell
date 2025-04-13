@@ -29,3 +29,6 @@ publish: all
 
 package: all
 	$(VSCE) package
+
+clean: 
+	rm $(JSON_TARGETS)
