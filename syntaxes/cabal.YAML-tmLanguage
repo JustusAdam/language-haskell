@@ -94,7 +94,7 @@ patterns:
       '1': {name: entity.name.section.cabal}
       '3': {name: entity.name.function.cabal}
   - name: keyword.control.cabal
-    match: '^[ \t]*(if|else)'
+    match: '^[ \t]*(if|elif|else)'
   - name: comment.line.double-dash
     match: '^\s*--.*$'
 scopeName: source.cabal
