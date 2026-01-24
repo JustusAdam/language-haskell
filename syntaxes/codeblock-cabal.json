@@ -8,7 +8,7 @@
     ],
     "repository": {
         "cabal-code-block": {
-            "begin": "\\b(cabal)\\b(\\s+[^`~]*)?$",
+            "begin": "(?<=[`~])(cabal)(\\s+[^`~]*)?$",
             "end": "(^|\\G)(?=\\s*[`~]{3,}\\s*$)",
             "patterns": [
                 {
