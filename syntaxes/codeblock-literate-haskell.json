@@ -8,7 +8,7 @@
     ],
     "repository": {
         "lhaskell-code-block": {
-            "begin": "\\b(literate-haskell|lhaskell|lhs)\\b(\\s+[^`~]*)?$",
+            "begin": "(?<=[`~])(literate-haskell|lhaskell|lhs)(\\s+[^`~]*)?$",
             "end": "(^|\\G)(?=\\s*[`~]{3,}\\s*$)",
             "patterns": [
                 {
