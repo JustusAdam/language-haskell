@@ -148,7 +148,19 @@ patterns:
       - include: '#gadt_constructor'
   - include: '#role_annotation'
   - name: 'meta.declaration.pattern.type.haskell'
-    begin: '^(\s*)(pattern)\s+(.*?)\s+(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
+    begin: |
+      (?x)
+      ^(\s*)(pattern)\b\s+
+      (?<pat>
+        (?:
+          [\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
+        | \(\s*
+            :[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*
+          \s*\)
+        )
+        (?:\s*,\s*\g<pat>)?
+      )
+      \s+(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])
     beginCaptures:
       '2': {name: keyword.other.pattern.haskell}
       '3':
@@ -172,9 +184,9 @@ patterns:
     patterns:
       - include: '#type_signature'
   - name: 'meta.declaration.pattern.haskell'
-    begin: '^\s*(pattern)\b(?!'')'
-    captures:
-      '1': {name: keyword.other.pattern.haskell}
+    begin: '^(\s*)(pattern)\b(?!'')'
+    beginCaptures:
+      '2': {name: keyword.other.pattern.haskell}
     end: | 
       (?x) # Detect end of pattern type definition by decreasing indentation:
         (?=\}|;)       # Explicit indentation
@@ -217,9 +229,11 @@ patterns:
           - include: '#type_signature'
     name: meta.declaration.$2.algebraic.haskell
     end: >-
-      (?x) # Detect end of data declaration: 
+      (?x) # Detect end of data declaration:
+           # Deriving clause
+         (?=(?<!')\bderiving\b(?!'))
            # Decreasing indentation
-         (?=\}|;)      # Explicit indentation
+         |(?=\}|;)      # Explicit indentation
          |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
              \1\s+\S    # - more indented, or
            | \s*        # - starts with whitespace, followed by:
@@ -235,8 +249,8 @@ patterns:
       - include: '#deriving'
       - include: '#forall'
       - include: '#adt_constructor'
-      - include: '#data_context'
       - include: '#record_decl'
+      - include: '#data_context'
       - include: '#type_signature'
   - name: 'meta.declaration.type.family.haskell'
     begin: >-
@@ -368,7 +382,15 @@ patterns:
     patterns:
       - include: '#comment_like'
       - include: '#where'
-      - match: (qualified|as|hiding)
+      # Deal with PackageImports
+      - match: '(")([^"]+)(")'
+        name: string.quoted.double.package.haskell
+        captures:
+          '1': {name: punctuation.definition.string.begin.haskell}
+          '2': {name: entity.name.package.haskell}
+          '3': {name: punctuation.definition.string.end.haskell}
+
+      - match: '\b(?<!'')(qualified|as|hiding)\b(?!'')'
         captures:
           '1': {name: "keyword.other.$1.haskell"}
       - include: '#module_name'
@@ -590,7 +612,7 @@ repository:
           instead, it should be matched as a comment.
         match: >-
           (?x)
-            (\()\s*(?!(?:--+|\.\.)\))(\#+|[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+(?<!\#))\s*(\))
+            (\()\s*(?!(?:--+|\.\.)\))(\#+|[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)\s*(\))
         captures:
           '1': {name: punctuation.paren.haskell}
           '2': {name: entity.name.function.infix.haskell}
@@ -600,7 +622,7 @@ repository:
       - match: >-
           (?x)
             ((?:(?<!'')('')?[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'']*\.)*)
-              (\#+|[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+(?<!\#))
+              (\#+|[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)
         comment: >
           In case this regex seems overly general, note that Haskell permits 
           the definition of new operators which can be nearly any string of 
@@ -656,9 +678,9 @@ repository:
   export_constructs:
     patterns:
       - include: '#comment_like'
-      - begin: '\b(?<!'')(pattern)\b(?!'')'
+      - begin: '\b(?<!'')(pattern|data)\b(?!'')'
         beginCaptures:
-          '1': {name: keyword.other.pattern.haskell}
+          '1': {name: keyword.other.$1.haskell}
         end: >-
          (?x)
             # Data constructor
@@ -706,7 +728,8 @@ repository:
     name: meta.preprocessor.haskell
     patterns:
       - include: '#comments'
-      # LANGUAGE extensions (as of GHC 8.10)
+      - include: '#string_literal'
+      # LANGUAGE extensions (as of GHC 10.0)
       - begin: >-
           (?xi)
           \b(?<!')(LANGUAGE)\b(?!')
@@ -719,7 +742,7 @@ repository:
               (?x)
                 \b(?<!')
                 (?:No)?
-                (?:AutoDeriveTypeable|DatatypeContexts|DoRec|IncoherentInstances|MonadFailDesugaring|MonoPatBinds|NullaryTypeClasses|OverlappingInstances|PatternSignatures|RecordPuns|RelaxedPolyRec)
+                (?:AutoDeriveTypeable|DatatypeContexts|DoRec|IncoherentInstances|MonadFailDesugaring|MonoPatBinds|NullaryTypeClasses|OverlappingInstances|PatternSignatures|PolymorphicComponents|Rank2Types|RecordPuns|RelaxedPolyRec|TypeInType)
                 \b(?!')
             name: invalid.deprecated
           - match: >-
@@ -727,7 +750,7 @@ repository:
                 \b(?<!')
                 (
                 (?:No)?
-                (?:AllowAmbiguousTypes|AlternativeLayoutRuleTransitional|AlternativeLayoutRule|Arrows|BangPatterns|BinaryLiterals|CApiFFI|CPP|CUSKs|ConstrainedClassMethods|ConstraintKinds|DataKinds|DefaultSignatures|DeriveAnyClass|DeriveDataTypeable|DeriveFoldable|DeriveFunctor|DeriveGeneric|DeriveLift|DeriveTraversable|DerivingStrategies|DerivingVia|DisambiguateRecordFields|DoAndIfThenElse|BlockArguments|DuplicateRecordFields|EmptyCase|EmptyDataDecls|EmptyDataDeriving|ExistentialQuantification|ExplicitForAll|ExplicitNamespaces|ExtendedDefaultRules|FlexibleContexts|FlexibleInstances|ForeignFunctionInterface|FunctionalDependencies|GADTSyntax|GADTs|GHCForeignImportPrim|Generali(?:s|z)edNewtypeDeriving|ImplicitParams|ImplicitPrelude|ImportQualifiedPost|ImpredicativeTypes|TypeFamilyDependencies|InstanceSigs|ApplicativeDo|InterruptibleFFI|JavaScriptFFI|KindSignatures|LambdaCase|LexicalNegation|LiberalTypeSynonyms|LinearTypes|MagicHash|MonadComprehensions|MonoLocalBinds|MonomorphismRestriction|MultiParamTypeClasses|MultiWayIf|NumericUnderscores|NPlusKPatterns|NamedFieldPuns|NamedWildCards|NegativeLiterals|HexFloatLiterals|NondecreasingIndentation|NumDecimals|OverloadedLabels|OverloadedLists|OverloadedStrings|PackageImports|ParallelArrays|ParallelListComp|PartialTypeSignatures|PatternGuards|PatternSynonyms|PolyKinds|PolymorphicComponents|QualifiedDo|QuantifiedConstraints|PostfixOperators|QuasiQuotes|Rank2Types|RankNTypes|RebindableSyntax|RecordWildCards|RecursiveDo|RelaxedLayout|RoleAnnotations|ScopedTypeVariables|StandaloneDeriving|StarIsType|StaticPointers|StrictData|Strict|TemplateHaskellQuotes|TemplateHaskell|StandaloneKindSignatures|TraditionalRecordSyntax|TransformListComp|TupleSections|TypeApplications|TypeInType|TypeFamilies|TypeOperators|TypeSynonymInstances|UnboxedTuples|UnboxedSums|UndecidableInstances|UndecidableSuperClasses|UnicodeSyntax|UnliftedFFITypes|UnliftedNewtypes|ViewPatterns|UnliftedDatatypes|OverloadedRecordDot|OverloadedRecordUpdate|FieldSelectors)
+                (?:AllowAmbiguousTypes|AlternativeLayoutRuleTransitional|AlternativeLayoutRule|ApplicativeDo|Arrows|BangPatterns|BinaryLiterals|BlockArguments|CApiFFI|CPP|CUSKs|ConstrainedClassMethods|ConstraintKinds|DataKinds|DefaultSignatures|DeepSubsumption|DeriveAnyClass|DeriveDataTypeable|DeriveFoldable|DeriveFunctor|DeriveGeneric|DeriveLift|DeriveTraversable|DerivingStrategies|DerivingVia|DisambiguateRecordFields|DoAndIfThenElse|DuplicateRecordFields|EmptyCase|EmptyDataDecls|EmptyDataDeriving|ExistentialQuantification|ExplicitForAll|ExplicitLevelImports|ExplicitNamespaces|ExtendedDefaultRules|ExtendedLiterals|FieldSelectors|FlexibleContexts|FlexibleInstances|ForeignFunctionInterface|FunctionalDependencies|GADTSyntax|GADTs|GHCForeignImportPrim|Generali(?:s|z)edNewtypeDeriving|HexFloatLiterals|ImplicitParams|ImplicitPrelude|ImplicitStagePersistence|ImportQualifiedPost|ImpredicativeTypes|InstanceSigs|InterruptibleFFI|JavaScriptFFI|KindSignatures|LambdaCase|LexicalNegation|LiberalTypeSynonyms|LinearTypes|ListTuplePuns|MagicHash|Modifiers|MonadComprehensions|MonoLocalBinds|MonomorphismRestriction|MultiParamTypeClasses|MultiWayIf|MultilineStrings|NPlusKPatterns|NamedDefaults|NamedFieldPuns|NamedWildCards|NegativeLiterals|NondecreasingIndentation|NumDecimals|NumericUnderscores|OrPatterns|OverloadedLabels|OverloadedLists|OverloadedRecordDot|OverloadedRecordUpdate|OverloadedStrings|PackageImports|ParallelArrays|ParallelListComp|PartialTypeSignatures|PatternGuards|PatternSynonyms|PolyKinds|PostfixOperators|QualifiedDo|QualifiedStrings|QuantifiedConstraints|QuasiQuotes|RankNTypes|RebindableSyntax|RecordWildCards|RecursiveDo|RelaxedLayout|RequiredTypeArguments|RoleAnnotations|ScopedTypeVariables|StandaloneDeriving|StandaloneKindSignatures|StarIsType|StaticPointers|StrictData|Strict|TemplateHaskellQuotes|TemplateHaskell|TraditionalRecordSyntax|TransformListComp|TupleSections|TypeAbstractions|TypeApplications|TypeData|TypeFamilies|TypeFamilyDependencies|TypeOperators|TypeSynonymInstances|UnboxedSums|UnboxedTuples|UndecidableInstances|UndecidableSuperClasses|UnicodeSyntax|UnliftedDatatypes|UnliftedFFITypes|UnliftedNewtypes|ViewPatterns)
                 )
                 \b(?!')
             captures:
@@ -790,7 +813,22 @@ repository:
   data_context:
     match: |
       (?x)
-        (.*)
+        ((?:
+           (?!\{)
+           (?!--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]))
+           [^({]
+          |
+           (?<paren>
+             \(
+             (?:
+               [^()]*
+             | \g<paren>
+             )*
+             \)
+           )
+          |
+           \{-(?:[^-]|-(?!\}))*-\}
+        )*)
         (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
         (=>|⇒)
         (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
@@ -1048,6 +1086,28 @@ repository:
             ) # Otherwise, prefix data constructor, either:
             | # - an alphabetic data constructor e.g. "Cons_123"
               (?:(?<!')\b([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*))
+              # Reject if this looks like a qualified type, e.g. "C args =>"
+              (?!
+                (?: # Match allowed intermediate tokens between the word and the '=>'
+                    # Note: we don't use inner '+' quantifier, to avoid excessive backtracking.
+
+                  # Valid characters: letters, digits, allowed symbols, spaces, and tabs
+                  [\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'\., \t]
+
+                  # OR a newline, but ONLY if strictly followed by indentation (tabs or spaces)
+                  # (This prevents the lookahead from bleeding into unindented top-level declarations)
+                  | \r?\n[ \t]+
+
+                  # OR a multiline block comment: {- ... -}
+                  | \{-(?:[^-]|-(?!\}))*-\}
+
+                )*
+
+                # ... and a constraint arrow '=>' (not part of a larger custom operator such as '==>')
+                (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
+                =>
+                (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
+              )
             | # - a symbolic (prefix) data constructor
               (\()\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)\s*(\))
             | # Otherwise, try to fail early to avoid excessive backtracking (https://github.com/JustusAdam/language-haskell/issues/161)

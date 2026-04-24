@@ -2,10 +2,26 @@
 
 - Add support for untrusted workspaces ([#211](https://github.com/JustusAdam/language-haskell/pull/211)), thanks to [@maciej-irl](http://github.com/maciej-irl)
 - Add support for `\cases` syntax ([#218](https://github.com/JustusAdam/language-haskell/pull/218)), thanks to [@mixphix](https://github.com/mixphix)
-- Fix bare unit type applications ([#225](https://github.com/JustusAdam/language-haskell/issue/225)), thanks to [@mixphix](https://github.com/mixphix)
-- Fix qualified type operators in export lists ([#191](https://github.com/JustusAdam/language-haskell/issue/191)), thanks to [@mixphix]
+- Fix bare unit type applications ([#225](https://github.com/JustusAdam/language-haskell/issues/225)), thanks to [@mixphix](https://github.com/mixphix)
+- Fix qualified type operators in export lists ([#191](https://github.com/JustusAdam/language-haskell/issues/191)), thanks to [@mixphix]
 - Add support for `elif` in Cabal files (`cabal-version` >= 2.2) ([#236](https://github.com/JustusAdam/language-haskell/pull/236))
 - Add support for cabal.project files ([#237] (https://github.com/JustusAdam/language-haskell/issues/237)), thanks to [@rm41339]
+- Fix language detection in markdown codeblocks ([#240](https://github.com/JustusAdam/language-haskell/pull/240)), thanks to [@nopeless](https://github.com/nopeless)
+- Fix incorrect highlighting when `=>` appears inside a comment ([#165](https://github.com/JustusAdam/language-haskell/issues/165)).
+- Fix incorrect highlighting of symbolic record fields, and of record fields
+  whose type includes `=>` ([#167](https://github.com/JustusAdam/language-haskell/issues/167)).
+- Add support for `data` keyword in import/export lists.
+- Fix incorrect parsing when the "specialise" keyword occurs inside an SCC
+  pragma ([#195](https://github.com/JustusAdam/language-haskell/issues/195)).
+- Fix incorrect parsing when the "specialise" keyword occurs inside an SCC
+  pragma ([#195](https://github.com/JustusAdam/language-haskell/issues/195)).
+- Fix highlighting for `PackageImports`
+  ([#219](https://github.com/JustusAdam/language-haskell/issues/219)).
+- Fix highlighting of type signature inside pattern synony declaration
+  ([#194](https://github.com/JustusAdam/language-haskell/issues/194)).
+- Fix highlighting of data types with fields that contain constraints
+  ([#179](https://github.com/JustusAdam/language-haskell/issues/179)).
+- Updated the list of known LANGUAGE extensions to be current as of GHC 10.0.
 
 ## 3.6.0 - 15.03.2022
 

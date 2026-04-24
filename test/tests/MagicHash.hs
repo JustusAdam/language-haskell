@@ -3,9 +3,9 @@
 
 
     module M ( Int#, (+#), type Word#, pattern I# ) where
---                ^    ^            ^           ^ keyword.operator.postfix.hash.haskell
+--                ^                 ^           ^ keyword.operator.postfix.hash.haskell
     import GHC.Exts ( Int#, (+#), type Word#, pattern I# )
---                       ^    ^                        ^ keyword.operator.postfix.hash.haskell
+--                       ^                             ^ keyword.operator.postfix.hash.haskell
 
 
     f :: (# Word8#, Int8#, Bool# #) -> (# Word8#, Int8#, Bool# #)
@@ -35,7 +35,7 @@
 --         ^ - keyword.operator.prefix.minus.haskell
 
     g = a +## b
---         ^^ keyword.operator.postfix.hash.haskell
+--        ^^^ keyword.operator.infix.haskell
 
     f :: A ## b
 --         ^^ - keyword.operator.hash.haskell keyword.operator.postfix.hash.haskell
@@ -62,10 +62,8 @@
     (=#=#) :: Int# -> Int# -> Bool#
 --   ^^^^ entity.name.function.haskell
 --    ^ - keyword.operator.postfix.hash.haskell
---      ^ keyword.operator.postfix.hash.haskell
     a =#=# b = a =#=# b
 --     ^          ^ - keyword.operator.postfix.hash.haskell
---       ^          ^ keyword.operator.postfix.hash.haskell
 
 
     
