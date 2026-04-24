@@ -729,7 +729,7 @@ repository:
     patterns:
       - include: '#comments'
       - include: '#string_literal'
-      # LANGUAGE extensions (as of GHC 8.10)
+      # LANGUAGE extensions (as of GHC 10.0)
       - begin: >-
           (?xi)
           \b(?<!')(LANGUAGE)\b(?!')
@@ -742,7 +742,7 @@ repository:
               (?x)
                 \b(?<!')
                 (?:No)?
-                (?:AutoDeriveTypeable|DatatypeContexts|DoRec|IncoherentInstances|MonadFailDesugaring|MonoPatBinds|NullaryTypeClasses|OverlappingInstances|PatternSignatures|RecordPuns|RelaxedPolyRec)
+                (?:AutoDeriveTypeable|DatatypeContexts|DoRec|IncoherentInstances|MonadFailDesugaring|MonoPatBinds|NullaryTypeClasses|OverlappingInstances|PatternSignatures|PolymorphicComponents|Rank2Types|RecordPuns|RelaxedPolyRec|TypeInType)
                 \b(?!')
             name: invalid.deprecated
           - match: >-
@@ -750,7 +750,7 @@ repository:
                 \b(?<!')
                 (
                 (?:No)?
-                (?:AllowAmbiguousTypes|AlternativeLayoutRuleTransitional|AlternativeLayoutRule|Arrows|BangPatterns|BinaryLiterals|CApiFFI|CPP|CUSKs|ConstrainedClassMethods|ConstraintKinds|DataKinds|DefaultSignatures|DeriveAnyClass|DeriveDataTypeable|DeriveFoldable|DeriveFunctor|DeriveGeneric|DeriveLift|DeriveTraversable|DerivingStrategies|DerivingVia|DisambiguateRecordFields|DoAndIfThenElse|BlockArguments|DuplicateRecordFields|EmptyCase|EmptyDataDecls|EmptyDataDeriving|ExistentialQuantification|ExplicitForAll|ExplicitNamespaces|ExtendedDefaultRules|FlexibleContexts|FlexibleInstances|ForeignFunctionInterface|FunctionalDependencies|GADTSyntax|GADTs|GHCForeignImportPrim|Generali(?:s|z)edNewtypeDeriving|ImplicitParams|ImplicitPrelude|ImportQualifiedPost|ImpredicativeTypes|TypeFamilyDependencies|InstanceSigs|ApplicativeDo|InterruptibleFFI|JavaScriptFFI|KindSignatures|LambdaCase|LexicalNegation|LiberalTypeSynonyms|LinearTypes|MagicHash|MonadComprehensions|MonoLocalBinds|MonomorphismRestriction|MultiParamTypeClasses|MultiWayIf|NumericUnderscores|NPlusKPatterns|NamedFieldPuns|NamedWildCards|NegativeLiterals|HexFloatLiterals|NondecreasingIndentation|NumDecimals|OverloadedLabels|OverloadedLists|OverloadedStrings|PackageImports|ParallelArrays|ParallelListComp|PartialTypeSignatures|PatternGuards|PatternSynonyms|PolyKinds|PolymorphicComponents|QualifiedDo|QuantifiedConstraints|PostfixOperators|QuasiQuotes|Rank2Types|RankNTypes|RebindableSyntax|RecordWildCards|RecursiveDo|RelaxedLayout|RoleAnnotations|ScopedTypeVariables|StandaloneDeriving|StarIsType|StaticPointers|StrictData|Strict|TemplateHaskellQuotes|TemplateHaskell|StandaloneKindSignatures|TraditionalRecordSyntax|TransformListComp|TupleSections|TypeApplications|TypeInType|TypeFamilies|TypeOperators|TypeSynonymInstances|UnboxedTuples|UnboxedSums|UndecidableInstances|UndecidableSuperClasses|UnicodeSyntax|UnliftedFFITypes|UnliftedNewtypes|ViewPatterns|UnliftedDatatypes|OverloadedRecordDot|OverloadedRecordUpdate|FieldSelectors)
+                (?:AllowAmbiguousTypes|AlternativeLayoutRuleTransitional|AlternativeLayoutRule|ApplicativeDo|Arrows|BangPatterns|BinaryLiterals|BlockArguments|CApiFFI|CPP|CUSKs|ConstrainedClassMethods|ConstraintKinds|DataKinds|DefaultSignatures|DeepSubsumption|DeriveAnyClass|DeriveDataTypeable|DeriveFoldable|DeriveFunctor|DeriveGeneric|DeriveLift|DeriveTraversable|DerivingStrategies|DerivingVia|DisambiguateRecordFields|DoAndIfThenElse|DuplicateRecordFields|EmptyCase|EmptyDataDecls|EmptyDataDeriving|ExistentialQuantification|ExplicitForAll|ExplicitLevelImports|ExplicitNamespaces|ExtendedDefaultRules|ExtendedLiterals|FieldSelectors|FlexibleContexts|FlexibleInstances|ForeignFunctionInterface|FunctionalDependencies|GADTSyntax|GADTs|GHCForeignImportPrim|Generali(?:s|z)edNewtypeDeriving|HexFloatLiterals|ImplicitParams|ImplicitPrelude|ImplicitStagePersistence|ImportQualifiedPost|ImpredicativeTypes|InstanceSigs|InterruptibleFFI|JavaScriptFFI|KindSignatures|LambdaCase|LexicalNegation|LiberalTypeSynonyms|LinearTypes|ListTuplePuns|MagicHash|Modifiers|MonadComprehensions|MonoLocalBinds|MonomorphismRestriction|MultiParamTypeClasses|MultiWayIf|MultilineStrings|NPlusKPatterns|NamedDefaults|NamedFieldPuns|NamedWildCards|NegativeLiterals|NondecreasingIndentation|NumDecimals|NumericUnderscores|OrPatterns|OverloadedLabels|OverloadedLists|OverloadedRecordDot|OverloadedRecordUpdate|OverloadedStrings|PackageImports|ParallelArrays|ParallelListComp|PartialTypeSignatures|PatternGuards|PatternSynonyms|PolyKinds|PostfixOperators|QualifiedDo|QualifiedStrings|QuantifiedConstraints|QuasiQuotes|RankNTypes|RebindableSyntax|RecordWildCards|RecursiveDo|RelaxedLayout|RequiredTypeArguments|RoleAnnotations|ScopedTypeVariables|StandaloneDeriving|StandaloneKindSignatures|StarIsType|StaticPointers|StrictData|Strict|TemplateHaskellQuotes|TemplateHaskell|TraditionalRecordSyntax|TransformListComp|TupleSections|TypeAbstractions|TypeApplications|TypeData|TypeFamilies|TypeFamilyDependencies|TypeOperators|TypeSynonymInstances|UnboxedSums|UnboxedTuples|UndecidableInstances|UndecidableSuperClasses|UnicodeSyntax|UnliftedDatatypes|UnliftedFFITypes|UnliftedNewtypes|ViewPatterns)
                 )
                 \b(?!')
             captures:

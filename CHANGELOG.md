@@ -20,6 +20,7 @@
   ([#194](https://github.com/JustusAdam/language-haskell/issues/194)).
 - Fix highlighting of data types with fields that contain constraints
   ([#179](https://github.com/JustusAdam/language-haskell/issues/179)).
+- Updated the list of known LANGUAGE extensions to be current as of GHC 10.0.
 
 ## 3.6.0 - 15.03.2022
 
