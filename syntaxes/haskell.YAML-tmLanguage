@@ -874,7 +874,7 @@ repository:
                   patterns:
                     - include: '#type_signature'
             - include: '#type_signature'
-      '2': {name: keyword.operator.big-arrow.haskell}
+      '3': {name: keyword.operator.big-arrow.haskell}
   data_constructor:
     patterns:
       - match: >-
