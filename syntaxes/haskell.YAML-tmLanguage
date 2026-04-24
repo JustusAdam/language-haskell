@@ -708,6 +708,7 @@ repository:
     name: meta.preprocessor.haskell
     patterns:
       - include: '#comments'
+      - include: '#string_literal'
       # LANGUAGE extensions (as of GHC 8.10)
       - begin: >-
           (?xi)
