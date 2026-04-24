@@ -370,7 +370,15 @@ patterns:
     patterns:
       - include: '#comment_like'
       - include: '#where'
-      - match: (qualified|as|hiding)
+      # Deal with PackageImports
+      - match: '(")([^"]+)(")'
+        name: string.quoted.double.package.haskell
+        captures:
+          '1': {name: punctuation.definition.string.begin.haskell}
+          '2': {name: entity.name.package.haskell}
+          '3': {name: punctuation.definition.string.end.haskell}
+
+      - match: '\b(?<!'')(qualified|as|hiding)\b(?!'')'
         captures:
           '1': {name: "keyword.other.$1.haskell"}
       - include: '#module_name'
