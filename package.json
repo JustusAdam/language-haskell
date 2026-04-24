@@ -89,6 +89,19 @@
         "configuration": "./cabal-configuration.json"
       },
       {
+        "id": "cabal project",
+        "aliases": [
+          "CabalProject",
+          "cabal-project", 
+          "cabal project"
+        ],
+        "extensions": [
+          ".project",
+          ".project.local"
+        ],
+        "configuration": "./cabal-configuration.json"
+      },
+      {
         "id": "C2Hs",
         "aliases": [
           "C2Hs",
@@ -167,6 +180,11 @@
         "language": "cabal",
         "scopeName": "source.cabal",
         "path": "./syntaxes/cabal.json"
+      },
+      {
+        "language": "cabal project",
+        "scopeName": "cabal.source.project",
+        "path": "./syntaxes/cabalProject.json"
       },
       {
         "language": "C2Hs",

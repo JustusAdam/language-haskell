@@ -1,0 +1,149 @@
+fileTypes:
+  - project
+  - project.local
+name: CabalProject
+patterns:
+  - name: keyword.other.cabal
+    match: |
+      (?ix)(\n|^)
+        ( tests
+        | import
+        | (optional-|extra-)?packages
+        | benchmarks
+        | verbose
+        | build-(summary|log)
+        | remote-build-reporting
+        | report-planning-failure
+        | symlink-bindir
+        | jobs
+        | semaphore
+        | keep-going
+        | offline
+        | haddock-keep-temp-files 
+        | http-transport
+        | ignore-(expiry|project)
+        | remote-repo-cache
+        | (logs-|project-|build|store-)dir 
+        | (doc-index|project)-file 
+        | (with-)?compiler
+        | with-hc-pkg 
+        | package-dbs
+        | active-repositories 
+        | index-state
+        | constraints
+        | preferences
+        | cabal-lib-version
+        | solver 
+        | allow-(older|newer|boot-library-installs)
+        | write-ghc-environment-files 
+        | max-backjumps
+        | reorder-goals 
+        | (count|fine-grained)-conflicts
+        | minimize-conflict-set 
+        | (strong-)?flags
+        | reject-unconstrained-dependencies
+        | per-component
+        | independent-goals 
+        | prefer-oldest
+        | extra-prog-path-shared-only
+        | multi-repl 
+        | test-((machine-)?log|show-details|keep-tix-files
+                |wrapper|fail-when-no-test-suites|options)
+        ):
+  - name: keyword.other.cabal
+    match: |
+      (?ix)^[ \t]+
+        ( haddock-(all|hoogle|html|foreign-libraries|executables
+                  |tests|benchmarks|internal|(hscolour-)?css
+                  |hyperlink-source|quickjump|(contents|index|html)-location
+                  |base-url|(resources|output)-dir|use-unicode|for-hackage
+                  |keep-temp-files)
+        | extra-prog-path 
+        | (strong-)?flags 
+        | library-(vanilla|for-ghci|stripping)
+        | shared 
+        | static 
+        | executable-(dynamic|static|stripping)
+        | ((library|executable)-)?profiling(-(shared|detail))?
+        | optimization 
+        | program-(prefix|suffix)
+        | extra-(lib|framework|include)-dirs(-static)?
+        | split-(sections|objs)
+        | (run-)?tests 
+        | benchmarks 
+        | relocatable
+        | (debug|build)-info
+        | documentation
+        | test-((machine-)?log|show-details|keep-tix-files
+                |wrapper|fail-when-no-test-suites|options)
+        | coverage 
+        | (benchmark|ghc|test|configure)-options
+        | type 
+        | location 
+        | tag 
+        | subdir
+        | import
+        | (optional-|extra-)?packages
+        | verbose
+        | build-(summary|log)
+        | remote-build-reporting
+        | report-planning-failure
+        | symlink-bindir
+        | jobs
+        | semaphore
+        | keep-going
+        | offline 
+        | http-transport
+        | ignore-(expiry|project)
+        | remote-repo-cache
+        | (logs-|project-|build|store-)dir 
+        | (with-)?compiler
+        | with-hc-pkg 
+        | (doc-index|project)-file 
+        | package-dbs
+        | active-repositories 
+        | index-state
+        | constraints
+        | preferences
+        | cabal-lib-version
+        | solver 
+        | allow-(older|newer|boot-library-installs)
+        | write-ghc-environment-files 
+        | max-backjumps
+        | reorder-goals 
+        | (count|fine-grained)-conflicts
+        | minimize-conflict-set 
+        | reject-unconstrained-dependencies
+        | per-component
+        | independent-goals 
+        | prefer-oldest
+        | extra-prog-path-shared-only
+        | multi-repl 
+        | x-\w[1-9\w_-]*
+        ):
+  - name: keyword.operator.cabal
+    match: '(==|>=|<=|<|>|^>=|\|\||&&|!)'
+  - name: constant.numeric.cabal
+    match: '(?<=[^\w])\d+(.\d+)*(.*)?|[0-9]{4}-[0-9]{2}-[0-9]{2}(T[0-9]{2}(:[0-9]{2}){2}Z)?'
+  - name: markup.underline.link.cabal
+    match: '\w+:/(/[\w._\-\d%])+(\?[\w.+_\-\d%]+)(&[\w._+\-\d%]+)*'
+  - name: entity.name.section.cabal
+    match: |
+      ^(?ix:
+        ( program-options )
+      )$
+  - match: |
+      ^(?ix:
+        ( package
+        | source-repository
+        )
+      )( |\t)+([\w\-_]+)$
+    captures:
+      '1': {name: entity.name.section.cabal}
+      '3': {name: entity.name.function.cabal}
+  - name: keyword.control.cabal
+    match: '^[ \t]*(if|elif|else)'
+  - name: comment.line.double-dash
+    match: '^\s*--.*$'
+scopeName: cabal.source.project
+uuid: 5eb56f02-df11-40b2-b6d5-fa444522416c

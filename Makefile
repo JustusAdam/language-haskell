@@ -1,6 +1,6 @@
 CONVERT=npx js-yaml
 VSCE=npx vsce
-SYNTAXES=haskell cabal literateHaskell alex happy
+SYNTAXES=haskell cabal cabalProject literateHaskell alex happy
 JSON_TARGETS=$(addsuffix .json,$(addprefix syntaxes/,$(SYNTAXES)))
 SCOPE_LISTS=$(addsuffix .md,$(addprefix scope-lists/,$(SYNTAXES)))
 

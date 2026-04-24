@@ -5,6 +5,7 @@
 - Fix bare unit type applications ([#225](https://github.com/JustusAdam/language-haskell/issues/225)), thanks to [@mixphix](https://github.com/mixphix)
 - Fix qualified type operators in export lists ([#191](https://github.com/JustusAdam/language-haskell/issues/191)), thanks to [@mixphix]
 - Add support for `elif` in Cabal files (`cabal-version` >= 2.2) ([#236](https://github.com/JustusAdam/language-haskell/pull/236))
+- Add support for cabal.project files ([#237] (https://github.com/JustusAdam/language-haskell/issues/237)), thanks to [@rm41339]
 - Fix language detection in markdown codeblocks ([#240](https://github.com/JustusAdam/language-haskell/pull/240)), thanks to [@nopeless](https://github.com/nopeless)
 - Fix incorrect highlighting when `=>` appears inside a comment ([#165](https://github.com/JustusAdam/language-haskell/issues/165)).
 - Fix incorrect highlighting of symbolic record fields, and of record fields

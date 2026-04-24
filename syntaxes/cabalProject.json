@@ -1,0 +1,54 @@
+{
+  "fileTypes": [
+    "project",
+    "project.local"
+  ],
+  "name": "CabalProject",
+  "patterns": [
+    {
+      "name": "keyword.other.cabal",
+      "match": "(?ix)(\\n|^)\n  ( tests\n  | import\n  | (optional-|extra-)?packages\n  | benchmarks\n  | verbose\n  | build-(summary|log)\n  | remote-build-reporting\n  | report-planning-failure\n  | symlink-bindir\n  | jobs\n  | semaphore\n  | keep-going\n  | offline\n  | haddock-keep-temp-files \n  | http-transport\n  | ignore-(expiry|project)\n  | remote-repo-cache\n  | (logs-|project-|build|store-)dir \n  | (doc-index|project)-file \n  | (with-)?compiler\n  | with-hc-pkg \n  | package-dbs\n  | active-repositories \n  | index-state\n  | constraints\n  | preferences\n  | cabal-lib-version\n  | solver \n  | allow-(older|newer|boot-library-installs)\n  | write-ghc-environment-files \n  | max-backjumps\n  | reorder-goals \n  | (count|fine-grained)-conflicts\n  | minimize-conflict-set \n  | (strong-)?flags\n  | reject-unconstrained-dependencies\n  | per-component\n  | independent-goals \n  | prefer-oldest\n  | extra-prog-path-shared-only\n  | multi-repl \n  | test-((machine-)?log|show-details|keep-tix-files\n          |wrapper|fail-when-no-test-suites|options)\n  ):\n"
+    },
+    {
+      "name": "keyword.other.cabal",
+      "match": "(?ix)^[ \\t]+\n  ( haddock-(all|hoogle|html|foreign-libraries|executables\n            |tests|benchmarks|internal|(hscolour-)?css|hyperlink-source\n            |quickjump|(contents|index|html)-location|base-url\n            |(resources|output)-dir|use-unicode|for-hackage\n            |keep-temp-files)\n  | extra-prog-path \n  | (strong-)?flags \n  | library-(vanilla|for-ghci|stripping)\n  | shared \n  | static \n  | executable-(dynamic|static|stripping)\n  | ((library|executable)-)?profiling(-(shared|detail))?\n  | optimization \n  | program-(prefix|suffix)\n  | extra-(lib|framework|include)-dirs(-static)?\n  | split-(sections|objs)\n  | (run-)?tests \n  | benchmarks \n  | relocatable\n  | (debug|build)-info\n  | documentation\n  | test-((machine-)?log|show-details|keep-tix-files\n          |wrapper|fail-when-no-test-suites|options)\n  | coverage \n  | (benchmark|ghc|test|configure)-options\n  | type \n  | location \n  | tag \n  | subdir\n  | tests\n  | import\n  | (optional-|extra-)?packages\n  | benchmarks\n  | verbose\n  | build-(summary|log)\n  | remote-build-reporting\n  | report-planning-failure\n  | symlink-bindir\n  | jobs\n  | semaphore\n  | keep-going\n  | offline \n  | http-transport\n  | ignore-(expiry|project)\n  | remote-repo-cache\n  | (logs-|project-|build|store-)dir \n  | (with-)?compiler\n  | with-hc-pkg \n  | (doc-index|project)-file \n  | package-dbs\n  | active-repositories \n  | index-state\n  | constraints\n  | preferences\n  | cabal-lib-version\n  | solver \n  | allow-(older|newer|boot-library-installs)\n  | write-ghc-environment-files \n  | max-backjumps\n  | reorder-goals \n  | (count|fine-grained)-conflicts\n  | minimize-conflict-set \n  | reject-unconstrained-dependencies\n  | per-component\n  | independent-goals \n  | prefer-oldest\n  | extra-prog-path-shared-only\n  | multi-repl \n  | x-\\w[1-9\\w_-]*\n  ):\n"
+    },
+    {
+      "name": "keyword.operator.cabal",
+      "match": "(==|>=|<=|<|>|^>=|\\|\\||&&|!)"
+    },
+    {
+      "name": "constant.numeric.cabal",
+      "match": "(?<=[^\\w])\\d+(.\\d+)*(.*)?|[0-9]{4}-[0-9]{2}-[0-9]{2}(T[0-9]{2}(:[0-9]{2}){2}Z)?"
+    },
+    {
+      "name": "markup.underline.link.cabal",
+      "match": "\\w+:/(/[\\w._\\-\\d%])+(\\?[\\w.+_\\-\\d%]+)(&[\\w._+\\-\\d%]+)*"
+    },
+    {
+      "name": "entity.name.section.cabal",
+      "match": "^(?ix:\n  ( program-options )\n)$\n"
+    },
+    {
+      "match": "^(?ix:\n  ( package\n  | source-repository\n  )\n)( |\\t)+([\\w\\-_]+)$\n",
+      "captures": {
+        "1": {
+          "name": "entity.name.section.cabal"
+        },
+        "3": {
+          "name": "entity.name.function.cabal"
+        }
+      }
+    },
+    {
+      "name": "keyword.control.cabal",
+      "match": "^[ \\t]*(if|elif|else)"
+    },
+    {
+      "name": "comment.line.double-dash",
+      "match": "^\\s*--.*$"
+    }
+  ],
+  "scopeName": "cabal.source.project",
+  "uuid": "5eb56f02-df11-40b2-b6d5-fa444522416c"
+}
