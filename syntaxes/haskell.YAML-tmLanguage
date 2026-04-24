@@ -658,9 +658,9 @@ repository:
   export_constructs:
     patterns:
       - include: '#comment_like'
-      - begin: '\b(?<!'')(pattern)\b(?!'')'
+      - begin: '\b(?<!'')(pattern|data)\b(?!'')'
         beginCaptures:
-          '1': {name: keyword.other.pattern.haskell}
+          '1': {name: keyword.other.$1.haskell}
         end: >-
          (?x)
             # Data constructor
