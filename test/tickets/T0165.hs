@@ -3,23 +3,26 @@
     data D = C {- ( f :: X => X ) -} X
 --           ^ constant.other.haskell
 --                ^^ - keyword.operator.big-arrow.haskell
---             ^^^^^^^^^^ comment.block.haskell
---       ^                ^ storage.type.haskell
---                   ^    ^ - constant.other.haskell
+--             ^^^^^^^^^^^^^^^^^^^^^ comment.block.haskell
+--       ^                           ^ storage.type.haskell
+--                   ^   ^ - constant.other.haskell
+--                       ^    ^ - storage.type.haskell
 
     data D =C {- f :: X => X -} X
 --          ^ constant.other.haskell
 --               ^^ - keyword.operator.big-arrow.haskell
---            ^^^^^^^^^^ comment.block.haskell
---       ^               ^ storage.type.haskell
+--            ^^^^^^^^^^^^^^^^^ comment.block.haskell
+--       ^                      ^ storage.type.haskell
 --                  ^    ^ - constant.other.haskell
+--                    ^    ^ - storage.type.haskell
 
     data D =C{- => X -} x => X
 --          ^ constant.other.haskell
 --              ^^ - keyword.operator.big-arrow.haskell
 --           ^^^^^^^^^^ comment.block.haskell
---       ^              ^ storage.type.haskell
---                 ^    ^ - constant.other.haskell
+--       ^                   ^ storage.type.haskell
+--                 ^         ^ - constant.other.haskell
+--                      ^ variable.other.generic-type.haskell
 
     data D = C {- xxx -} => X
 --       ^   ^ storage.type.haskell
@@ -31,7 +34,6 @@
 --           ^ constant.other.haskell
 --               ^^ - keyword.operator.big-arrow.haskell
 --            ^^^^^^^ comment.line.double-dash.haskell
---             ^^^^^^^^^^ comment.block.haskell
 --                   ^ - constant.other.haskell
 
     data D = C -- => X
@@ -39,14 +41,13 @@
 --           ^ constant.other.haskell
 --                ^^ - keyword.operator.big-arrow.haskell
 --             ^^^^^^^ comment.line.double-dash.haskell
---              ^^^^^^^^^^ comment.block.haskell
 --                    ^ - constant.other.haskell
 
     data QCInst  -- A much simplified version of ClsInst
                  -- See Note [Quantified constraints] in GHC.Tc.Solver.Canonical
       = QCI { qci_ev   :: CtEvidence -- Always of type forall tvs. context => ty
 --      ^^^ constant.other.haskell
---            ^^^^^^ variable.other.member.definition.haskel
+--            ^^^^^^ variable.other.member.definition.haskell
 --                     ^^ keyword.operator.double-colon.haskell
 --                        ^^^^^^^^^^ storage.type.haskell
 --                                                                         ^^ - keyword.operator.big-arrow.haskell
@@ -54,10 +55,10 @@
 
                                      -- Always Given
             , qci_tvs  :: [TcTyVar]  -- The tvs
---            ^^^^^^^ variable.other.member.definition.haskel
+--            ^^^^^^^ variable.other.member.definition.haskell
             , qci_pred :: TcPredType -- The ty
---            ^^^^^^^^ variable.other.member.definition.haskel
+--            ^^^^^^^^ variable.other.member.definition.haskell
             , qci_pend_sc :: Bool    -- Same as cc_pend_sc flag in CDictCan
---            ^^^^^^^^^^^ variable.other.member.definition.haskel
+--            ^^^^^^^^^^^ variable.other.member.definition.haskell
                                      -- Invariant: True => qci_pred is a ClassPred
         }
