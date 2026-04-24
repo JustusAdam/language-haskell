@@ -148,7 +148,19 @@ patterns:
       - include: '#gadt_constructor'
   - include: '#role_annotation'
   - name: 'meta.declaration.pattern.type.haskell'
-    begin: '^(\s*)(pattern)\s+(.*?)\s+(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])'
+    begin: |
+      (?x)
+      ^(\s*)(pattern)\b\s+
+      (?<pat>
+        (?:
+          [\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
+        | \(\s*
+            :[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*
+          \s*\)
+        )
+        (?:\s*,\s*\g<pat>)?
+      )
+      \s+(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])
     beginCaptures:
       '2': {name: keyword.other.pattern.haskell}
       '3':
@@ -172,9 +184,9 @@ patterns:
     patterns:
       - include: '#type_signature'
   - name: 'meta.declaration.pattern.haskell'
-    begin: '^\s*(pattern)\b(?!'')'
-    captures:
-      '1': {name: keyword.other.pattern.haskell}
+    begin: '^(\s*)(pattern)\b(?!'')'
+    beginCaptures:
+      '2': {name: keyword.other.pattern.haskell}
     end: | 
       (?x) # Detect end of pattern type definition by decreasing indentation:
         (?=\}|;)       # Explicit indentation

@@ -16,6 +16,8 @@
   pragma ([#195](https://github.com/JustusAdam/language-haskell/issues/195)).
 - Fix highlighting for `PackageImports`
   ([#219](https://github.com/JustusAdam/language-haskell/issues/219)).
+- Fix highlighting of type signature inside pattern synony declaration
+  ([#194](https://github.com/JustusAdam/language-haskell/issues/194)).
 
 ## 3.6.0 - 15.03.2022
 

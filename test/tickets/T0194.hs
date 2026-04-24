@@ -1,10 +1,5 @@
 -- SYNTAX TEST "source.haskell" "Type signature in pattern"
 
-pattern MkZ fld3 <- ( foo -> ( fld3 TYPE rep ) )
-  where
-    MkZ fld3 = bar
-
-
 pattern MkZ fld3 <- ( foo -> ( fld3 :: TYPE rep ) )
 --               ^^ keyword.operator.arrow.left.haskell
 --                        ^^ keyword.operator.arrow.haskell
