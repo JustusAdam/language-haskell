@@ -18,6 +18,8 @@
   ([#219](https://github.com/JustusAdam/language-haskell/issues/219)).
 - Fix highlighting of type signature inside pattern synony declaration
   ([#194](https://github.com/JustusAdam/language-haskell/issues/194)).
+- Fix highlighting of data types with fields that contain constraints
+  ([#179](https://github.com/JustusAdam/language-haskell/issues/179)).
 
 ## 3.6.0 - 15.03.2022
 

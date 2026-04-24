@@ -8,6 +8,6 @@ data WithDict c x = MkWithDict ( c => x )
 data WithDict2 c x = MkWithDict2 { field :: c => x }
 --   ^^^^^^^^ storage.type.haskell
 --                                       ^^ keyword.operator.double-colon.haskell
---                  ^^^^^^^^^^ constant.other.haskell
---                                 ^^^^^ variable.other.member.definition.haskel
+--                   ^^^^^^^^^^^ constant.other.haskell
+--                                 ^^^^^ variable.other.member.definition.haskell
 --                                            ^^ keyword.operator.big-arrow.haskell
