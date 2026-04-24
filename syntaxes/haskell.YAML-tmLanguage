@@ -217,9 +217,11 @@ patterns:
           - include: '#type_signature'
     name: meta.declaration.$2.algebraic.haskell
     end: >-
-      (?x) # Detect end of data declaration: 
+      (?x) # Detect end of data declaration:
+           # Deriving clause
+         (?=(?<!')\bderiving\b(?!'))
            # Decreasing indentation
-         (?=\}|;)      # Explicit indentation
+         |(?=\}|;)      # Explicit indentation
          |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
              \1\s+\S    # - more indented, or
            | \s*        # - starts with whitespace, followed by:
@@ -235,8 +237,8 @@ patterns:
       - include: '#deriving'
       - include: '#forall'
       - include: '#adt_constructor'
-      - include: '#data_context'
       - include: '#record_decl'
+      - include: '#data_context'
       - include: '#type_signature'
   - name: 'meta.declaration.type.family.haskell'
     begin: >-
@@ -791,7 +793,7 @@ repository:
     match: |
       (?x)
         ((?:
-           (?!\{-)
+           (?!\{)
            (?!--(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]))
            .
           |
@@ -1054,6 +1056,28 @@ repository:
             ) # Otherwise, prefix data constructor, either:
             | # - an alphabetic data constructor e.g. "Cons_123"
               (?:(?<!')\b([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*))
+              # Reject if this looks like a qualified type, e.g. "C args =>"
+              (?!
+                (?: # Match allowed intermediate tokens between the word and the '=>'
+                    # Note: we don't use inner '+' quantifier, to avoid excessive backtracking.
+
+                  # Valid characters: letters, digits, allowed symbols, spaces, and tabs
+                  [\p{Ll}_\p{Lu}\p{Lt}\p{Nd}'\., \t]
+
+                  # OR a newline, but ONLY if strictly followed by indentation (tabs or spaces)
+                  # (This prevents the lookahead from bleeding into unindented top-level declarations)
+                  | \r?\n[ \t]+
+
+                  # OR a multiline block comment: {- ... -}
+                  | \{-(?:[^-]|-(?!\}))*-\}
+
+                )*
+
+                # ... and a constraint arrow '=>' (not part of a larger custom operator such as '==>')
+                (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
+                =>
+                (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
+              )
             | # - a symbolic (prefix) data constructor
               (\()\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)\s*(\))
             | # Otherwise, try to fail early to avoid excessive backtracking (https://github.com/JustusAdam/language-haskell/issues/161)

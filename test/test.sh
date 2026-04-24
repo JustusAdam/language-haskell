@@ -10,8 +10,6 @@ tickets=("$PWD"/tickets/*)
 # Arrays containing filenames of broken tests.
 namedBroken=()
 ticketsBroken=(
-  "T0153.hs"
-  "T0167.hs"
   "T0178.hs"
   "T0189.y"
   "T230.hs"

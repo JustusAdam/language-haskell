@@ -6,23 +6,23 @@
 --             ^^ keyword.operator.double-colon.haskell
 --                ^^^^^^ keyword.other.forall.haskell
 --                            ^ keyword.operator.period.haskell
---                                                       ^^ keyword.operator.big-arrow
+--                                                       ^^ keyword.operator.big-arrow.haskell
       , (>>)   :: forall m b  . Unrestricted.Monad     m => m () -> m b -> m b
 --       ^^ variable.other.member.definition.haskell
 --             ^^ keyword.operator.double-colon.haskell
 --                ^^^^^^ keyword.other.forall.haskell
 --                            ^ keyword.operator.period.haskell
---                                                       ^^ keyword.operator.big-arrow
+--                                                       ^^ keyword.operator.big-arrow.haskell
       , fail   :: forall m a  . Unrestricted.MonadFail m => String -> m a
 --      ^^^^ variable.other.member.definition.haskell
 --             ^^ keyword.operator.double-colon.haskell
 --                ^^^^^^ keyword.other.forall.haskell
 --                            ^ keyword.operator.period.haskell
---                                                       ^^ keyword.operator.big-arrow
+--                                                       ^^ keyword.operator.big-arrow.haskell
       , return :: forall m a  . Unrestricted.Monad     m => a -> m a
 --      ^^^^^^ variable.other.member.definition.haskell
 --             ^^ keyword.operator.double-colon.haskell
 --                ^^^^^^ keyword.other.forall.haskell
 --                            ^ keyword.operator.period.haskell
---                                                       ^^ keyword.operator.big-arrow
+--                                                       ^^ keyword.operator.big-arrow.haskell
       }

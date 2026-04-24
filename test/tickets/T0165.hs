@@ -17,12 +17,13 @@
 --                    ^    ^ - storage.type.haskell
 
     data D =C{- => X -} x => X
---          ^ constant.other.haskell
+--       ^ storage.type.haskell
+--          ^ - constant.other.haskell
 --              ^^ - keyword.operator.big-arrow.haskell
 --           ^^^^^^^^^^ comment.block.haskell
---       ^                   ^ storage.type.haskell
---                 ^         ^ - constant.other.haskell
+--                 ^ - constant.other.haskell
 --                      ^ variable.other.generic-type.haskell
+--                           ^ constant.other.haskell
 
     data D = C {- xxx -} => X
 --       ^   ^ storage.type.haskell
