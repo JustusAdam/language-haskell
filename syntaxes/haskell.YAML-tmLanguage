@@ -1631,13 +1631,13 @@ repository:
         (?<![\p{Ll}_\p{Lu}\p{Lt}\p{Lm}\p{Lo}\p{Nd}'])
         (')
         (?:
-          [^\\\p{Cc}]                         # Basic Char (any non-control, non-backslash character)
+          [^\\'\p{Cc}]                        # Basic Char (not control, ' or \)
         | (\\(?:NUL|SOH|STX|ETX|EOT|ENQ|ACK|BEL|BS|HT|LF|VT|FF|CR|SO|SI|DLE
              |DC1|DC2|DC3|DC4|NAK|SYN|ETB|CAN|EM|SUB|ESC|FS|GS|RS
              |US|SP|DEL|[abfnrtv\\\"'\\&]))   # Escapes
         | (\\o[0-7]+)                         # Octal Escapes
         | (\\x[0-9A-Fa-f]+)                   # Hexadecimal Escapes
-        | (\\\^[A-Z@\[\]\\\^_])                 # Control Chars
+        | (\\\^[A-Z@\[\]\\\^_])               # Control Chars
         )
         (')
     name: string.quoted.single.haskell

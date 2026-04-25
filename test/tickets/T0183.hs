@@ -4,3 +4,6 @@
 let cs =
     [ '¹', 'á', '¶', '«', '»', '¿', '§', '£' ]
 --     ^    ^    ^    ^    ^    ^    ^    ^ string.quoted.single.haskell
+
+    boo = '''
+--         ^ - string.quoted.single.haskell
