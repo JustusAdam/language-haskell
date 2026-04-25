@@ -247,16 +247,15 @@
     "vscode:prepublish": "tsc -p ./",
     "compile": "tsc -p ./",
     "compile-web": "webpack",
-    "watch-web": "webpack --watch",
-    "postinstall": "node ./node_modules/vscode/bin/install"
+    "watch-web": "webpack --watch"
   },
   "devDependencies": {
-    "js-yaml": "^3.14.2",
+    "@types/vscode": "^1.0.0",
+    "@vscode/vsce": "^2.25.0",
+    "js-yaml": "^4.0.0",
     "npm": "^11.13.0",
     "ts-loader": "^9.4.2",
     "typescript": "^4.9.4",
-    "vsce": "^1.97.0",
-    "vscode": "^1.0.0",
     "webpack": "^5.106.2",
     "webpack-cli": "^5.0.1"
   }
