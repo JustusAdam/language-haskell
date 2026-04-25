@@ -1007,7 +1007,7 @@ repository:
           )
           (?:\s*,\s*\g<fn>)?
         )
-        \s*(?<![\p{S}\p{P}&&[^\),;\]`}_"']])(::|∷)(?![\p{S}\p{P}&&[^\(,;\[`{_"']])
+        \s*(?<![\p{S}\p{P}&&[^(),;\[\]{}`_"']])(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]{}`_"']])
     beginCaptures:
       '2':
         name: entity.name.function.haskell
@@ -1341,7 +1341,7 @@ repository:
       '1': {name: keyword.operator.double-colon.haskell}
   start_type_signature:
     patterns:
-      - begin: '^(\s*)(::|∷)(?![\p{S}\p{P}&&[^\(,;\[`{_"'']])\s*'
+      - begin: '^(\s*)(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]{}`_"'']])\s*'
         beginCaptures:
           '2': {name: keyword.operator.double-colon.haskell}
         end: >-
@@ -1379,7 +1379,7 @@ repository:
         patterns:
           - include: '#type_signature'
         name: meta.type-declaration.haskell
-      - begin: '(?<![\p{S}\p{P}&&[^\(,;\[`{_"'']])(::|∷)(?![\p{S}\p{P}&&[^\(,;\[`{_"'']])'
+      - begin: '(?<![\p{S}\p{P}&&[^(),;\[\]{}`_"'']])(::|∷)(?![\p{S}\p{P}&&[^(),;\[\]{}`_"'']])'
         beginCaptures:
           '1': {name: keyword.operator.double-colon.haskell}
         end: >-

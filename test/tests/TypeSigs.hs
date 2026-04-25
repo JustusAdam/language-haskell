@@ -80,3 +80,6 @@ type T x = X :: D x
 --           ^^ keyword.operator.double-colon.haskell
 --   ^     ^    ^ storage.type.haskell
 --     ^          ^ variable.other.generic-type.haskell
+
+let foo = Bar { x ::}
+--                ^^ keyword.operator.double-colon.haskell
