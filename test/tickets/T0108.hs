@@ -5,8 +5,8 @@ signature M where
 
   f = do
       let signature = Some value
-  --      ^^^^^^^^^ - keyword.other.signature.haskell
+--        ^^^^^^^^^ - keyword.other.signature.haskell
       return 0
     where
       signature = more testing
-  --  ^^^^^^^^^ - keyword.other.signature.haskell
+--    ^^^^^^^^^ - keyword.other.signature.haskell
