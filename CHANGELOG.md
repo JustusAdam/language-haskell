@@ -26,6 +26,7 @@
   such as `'à'`, `'£'`... ([#183](https://github.com/JustusAdam/language-haskell/issues/183)).
 - Update the `wordPattern` used for autocompletion
   ([#224](https://github.com/JustusAdam/language-haskell/issues/224)), thanks to @lierdakil.
+- Allow Unicode general letters to start characters, e.g. `価格`.
 
 ## 3.6.0 - 15.03.2022
 
