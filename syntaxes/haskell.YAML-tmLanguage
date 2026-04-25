@@ -1191,7 +1191,7 @@ repository:
       # Remaining case: GADT constructor not on start of line
       - begin: >-
           (?x)
-            (\b(?<!')[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}]*) # named constructor
+            (\b(?<!')[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*) # named constructor
            |(\()\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)\s*(\))    # prefix operator
         beginCaptures:
           '1': {name: constant.other.haskell}

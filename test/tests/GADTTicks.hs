@@ -9,3 +9,8 @@
 --    ^^^^^^^^^^^ constant.other.haskell
       T'x'''      :: D
 --    ^^^^^^ constant.other.haskell
+
+    data D where { Foo'   :: D }
+--                 ^^^^ constant.other.haskell
+    data D where { T_'_'  :: D }
+--                 ^^^^^ constant.other.haskell
