@@ -748,6 +748,13 @@ repository:
           - match: >-
               (?x)
                 \b(?<!')
+                (Haskell98|Haskell2010|GHC2021|GHC2024)
+                \b(?!')
+            captures:
+              '1': {name: keyword.other.preprocessor.language-standard.haskell}
+          - match: >-
+              (?x)
+                \b(?<!')
                 (
                 (?:No)?
                 (?:AllowAmbiguousTypes|AlternativeLayoutRuleTransitional|AlternativeLayoutRule|ApplicativeDo|Arrows|BangPatterns|BinaryLiterals|BlockArguments|CApiFFI|CPP|CUSKs|ConstrainedClassMethods|ConstraintKinds|DataKinds|DefaultSignatures|DeepSubsumption|DeriveAnyClass|DeriveDataTypeable|DeriveFoldable|DeriveFunctor|DeriveGeneric|DeriveLift|DeriveTraversable|DerivingStrategies|DerivingVia|DisambiguateRecordFields|DoAndIfThenElse|DuplicateRecordFields|EmptyCase|EmptyDataDecls|EmptyDataDeriving|ExistentialQuantification|ExplicitForAll|ExplicitLevelImports|ExplicitNamespaces|ExtendedDefaultRules|ExtendedLiterals|FieldSelectors|FlexibleContexts|FlexibleInstances|ForeignFunctionInterface|FunctionalDependencies|GADTSyntax|GADTs|GHCForeignImportPrim|Generali(?:s|z)edNewtypeDeriving|HexFloatLiterals|ImplicitParams|ImplicitPrelude|ImplicitStagePersistence|ImportQualifiedPost|ImpredicativeTypes|InstanceSigs|InterruptibleFFI|JavaScriptFFI|KindSignatures|LambdaCase|LexicalNegation|LiberalTypeSynonyms|LinearTypes|ListTuplePuns|MagicHash|Modifiers|MonadComprehensions|MonoLocalBinds|MonomorphismRestriction|MultiParamTypeClasses|MultiWayIf|MultilineStrings|NPlusKPatterns|NamedDefaults|NamedFieldPuns|NamedWildCards|NegativeLiterals|NondecreasingIndentation|NumDecimals|NumericUnderscores|OrPatterns|OverloadedLabels|OverloadedLists|OverloadedRecordDot|OverloadedRecordUpdate|OverloadedStrings|PackageImports|ParallelArrays|ParallelListComp|PartialTypeSignatures|PatternGuards|PatternSynonyms|PolyKinds|PostfixOperators|QualifiedDo|QualifiedStrings|QuantifiedConstraints|QuasiQuotes|RankNTypes|RebindableSyntax|RecordWildCards|RecursiveDo|RelaxedLayout|RequiredTypeArguments|RoleAnnotations|ScopedTypeVariables|StandaloneDeriving|StandaloneKindSignatures|StarIsType|StaticPointers|StrictData|Strict|TemplateHaskellQuotes|TemplateHaskell|TraditionalRecordSyntax|TransformListComp|TupleSections|TypeAbstractions|TypeApplications|TypeData|TypeFamilies|TypeFamilyDependencies|TypeOperators|TypeSynonymInstances|UnboxedSums|UnboxedTuples|UndecidableInstances|UndecidableSuperClasses|UnicodeSyntax|UnliftedDatatypes|UnliftedFFITypes|UnliftedNewtypes|ViewPatterns)
