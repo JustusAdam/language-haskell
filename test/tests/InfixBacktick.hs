@@ -45,3 +45,14 @@
 --           ^^^^ entity.name.namespace.haskell
 --               ^ storage.type.infix.haskell
 --          ^     ^ punctuation.backtick.haskell
+
+
+    a `Ǳfoo` b
+--     ^^^^ keyword.operator.function.infix.haskell
+--     ^^^^ constant.other.haskell
+--    ^    ^ punctuation.backtick.haskell
+    a `ABC.Ǳfoo` b
+--     ^^^^ entity.name.namespace.haskell
+--         ^^^^ keyword.operator.function.infix.haskell
+--         ^^^^ constant.other.haskell
+--    ^        ^ punctuation.backtick.haskell
