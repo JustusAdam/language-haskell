@@ -1112,7 +1112,7 @@ repository:
 
                 # ... and a constraint arrow '=>' (not part of a larger custom operator such as '==>')
                 (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
-                =>
+                (=>|⇒)
                 (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
               )
             | # - a symbolic (prefix) data constructor
@@ -1141,9 +1141,9 @@ repository:
           '8': {name: constant.other.infix.haskell}
           '9': {name: punctuation.backtick.haskell}
           '10': {name: constant.other.haskell}
-          '11': {name: punctuation.paren.haskell}
-          '12': {name: constant.other.operator.prefix.haskell}
-          '13': {name: punctuation.paren.haskell}
+          '12': {name: punctuation.paren.haskell}
+          '13': {name: constant.other.operator.prefix.haskell}
+          '14': {name: punctuation.paren.haskell}
         patterns:
           - include: '#comment_like'
           - include: '#deriving'
