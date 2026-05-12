@@ -471,7 +471,7 @@ repository:
         name: comment.block.documentation.haskell
       # Haddock inline annotation (not necessarily at the start of a line)
       - begin: '(^[ \t]+)?(--\s[\^\*])'
-        beginCaptures: 
+        beginCaptures:
           '1': {name: punctuation.whitespace.comment.leading.haskell}
         end: \n
         name: comment.line.documentation.haskell
@@ -1609,15 +1609,33 @@ repository:
         name: constant.character.escape.octal.haskell
       - match: '\\\^[A-Z@\[\]\\\^_]'
         name: constant.character.escape.control.haskell
-      - begin: \\\s
+
+      # Haskell string gap: a backslash followed by a non-newline whitespace character.
+      # In this case, the backslash cannot be gobbled up by the C preprocessor,
+      # so it needs a corresponding closing backslash.
+      - begin: '\\(?=[\p{Zs}\t\v\f])'
         beginCaptures:
           '0': {name: constant.character.escape.begin.haskell}
-        end: \\
+        # End on a backslash, OR gracefully bail out if we hit the string's closing quote
+        # to avoid marking the whole rest of the file as invalid.
+        end: '\\|(?=")'
         endCaptures:
           '0': {name: constant.character.escape.end.haskell}
         patterns:
-          - match: \S+
+          # Match any sequence of invalid characters.
+          # Don't match on closing quotes.
+          - match: '[^\s\\"]+'
             name: invalid.illegal.character-not-allowed-here.haskell
+
+      # Ambiguous \ at end-of-line. Could be a Haskell string gap, or it
+      # could get gobbled up by the C preprocessor.
+      - begin: '\\$'
+        beginCaptures:
+          '0': {name: constant.character.escape.begin.haskell}
+        end: '\\|(?=[^\s\\])'
+        endCaptures:
+          '0': {name: constant.character.escape.end.haskell}
+
   char_literal:
     captures:
       '1': {name: punctuation.definition.string.begin.haskell}

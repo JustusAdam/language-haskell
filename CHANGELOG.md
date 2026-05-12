@@ -13,8 +13,6 @@
 - Add support for `data` keyword in import/export lists.
 - Fix incorrect parsing when the "specialise" keyword occurs inside an SCC
   pragma ([#195](https://github.com/JustusAdam/language-haskell/issues/195)).
-- Fix incorrect parsing when the "specialise" keyword occurs inside an SCC
-  pragma ([#195](https://github.com/JustusAdam/language-haskell/issues/195)).
 - Fix highlighting for `PackageImports`
   ([#219](https://github.com/JustusAdam/language-haskell/issues/219)).
 - Fix highlighting of type signature inside pattern synony declaration
@@ -27,6 +25,9 @@
 - Update the `wordPattern` used for autocompletion
   ([#224](https://github.com/JustusAdam/language-haskell/issues/224)), thanks to @lierdakil.
 - Allow Unicode general letters to start characters, e.g. `価格`.
+- Prevent the interaction of the C preprocessor with multiline strings from
+  marking the entire rest of the file as invalid
+  ([#110](https://github.com/JustusAdam/language-haskell/issues/110)).
 
 ## 3.6.0 - 15.03.2022
 
