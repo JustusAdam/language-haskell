@@ -1616,16 +1616,31 @@ repository:
       - begin: '\\(?=[\p{Zs}\t\v\f])'
         beginCaptures:
           '0': {name: constant.character.escape.begin.haskell}
-        # End on a backslash, OR gracefully bail out if we hit the string's closing quote
-        # to avoid marking the whole rest of the file as invalid.
-        end: '\\|(?=")'
+        # End on:
+        #  - a backslash preceded by whitespace
+        #  - lookahead to a closing ", to avoid marking the whole rest of the
+        #    file as invalid; the lookahead allows marking an escaped \" as invalid.
+        end: '(?<=[\s\p{Zs}])\\|(?=")'
         endCaptures:
           '0': {name: constant.character.escape.end.haskell}
         patterns:
-          # Match any sequence of invalid characters.
-          # Don't match on closing quotes.
-          - match: '[^\s\\"]+'
-            name: invalid.illegal.character-not-allowed-here.haskell
+          # Invalid string gap highlighting.
+          - begin: '(?=[^\s\\])'
+            # End on a closing " to avoid breaking highlighting in the rest
+            # of the file. Uses a lookahead to allow marking an escaped \"
+            # as invalid.
+            end: '(?=")'
+            patterns:
+              # Consume escaped characters (e.g. \", \\, \n) to avoid backlashes
+              # being misinterpreted.
+              - match: '\\.'
+                name: invalid.illegal.character-not-allowed-here.haskell
+              # Dangling backslashes
+              - match: '\\'
+                name: invalid.illegal.character-not-allowed-here.haskell
+              # Non-whitespace characters other than \ and "
+              - match: '[^\s\\"]+'
+                name: invalid.illegal.character-not-allowed-here.haskell
 
       # Ambiguous \ at end-of-line. Could be a Haskell string gap, or it
       # could get gobbled up by the C preprocessor.
