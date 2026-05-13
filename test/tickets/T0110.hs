@@ -21,9 +21,9 @@
 --    ^^^^^^ - invalid.illegal.character-not-allowed-here.haskell
 
 
-      bad_gap2 = "abc\   def\"xyz"
---                       ^^^^^^^^ invalid.illegal.character-not-allowed-here.haskell
---                           ^ - punctuation.definition.string.end.haskell
+      bad_gap2 = "abc\   def\"
+--                       ^^^ invalid.illegal.character-not-allowed-here.haskell
+--                           ^ punctuation.definition.string.end.haskell
 
       good_gap = "abc\   \\ndefxyz"
 --                   ^ constant.character.escape.begin.haskell
@@ -36,8 +36,14 @@
 --                    ^^^^^^ string.quoted.double.haskell
 --                    ^^^^^^ - invalid.illegal.character-not-allowed-here.haskell
 
-      multi_escape = "abc\  def\" \\ \n xyz"
---                          ^^^^^ ^^ ^^ ^^^ invalid.illegal.character-not-allowed-here.haskell
+      multi_escape = "abc\  def\" \\ uvw
+--                          ^^^ invalid.illegal.character-not-allowed-here.haskell
+--                             ^^ - constant.character.escape.haskell
+--                              ^ punctuation.definition.string.end.haskell
+
+      other_escape = "abc\ \NUL" "uvw\ \0o123"
+--                          ^^^         ^^^^^ - constant.character.escape.haskell
+--                             ^             ^ punctuation.definition.string.end.haskell
 
       cpp_escape = "abc\
                     def\n"
@@ -69,7 +75,7 @@
     in replicate baz (foo ++ bar)
 
      dangling_gap = "abc\  oops \
---                         ^^^^ ^ invalid.illegal.character-not-allowed-here.haskell
+--                         ^^^^ invalid.illegal.character-not-allowed-here.haskell
       "
 
     trailing = "abc\ 

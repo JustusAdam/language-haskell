@@ -993,6 +993,14 @@ repository:
           - match: '\b(?<!'')(nominal|representational|phantom)\b(?!'')'
             captures:
               '1': {name: "keyword.other.role.$1.haskell"}
+  string_escapes:
+    patterns:
+      - match: '\\(NUL|SOH|STX|ETX|EOT|ENQ|ACK|BEL|BS|HT|LF|VT|FF|CR|SO|SI|DLE|DC1|DC2|DC3|DC4|NAK|SYN|ETB|CAN|EM|SUB|ESC|FS|GS|RS|US|SP|DEL|[abfnrtv\\\"''\&])'
+        name: constant.character.escape.haskell
+      - match: '\\o[0-7]+|\\x[0-9A-Fa-f]+|\\[0-9]+'
+        name: constant.character.escape.octal.haskell
+      - match: '\\\^[A-Z@\[\]\\\^_]'
+        name: constant.character.escape.control.haskell
   fun_decl:
     begin: |
       (?x)^(\s*)
@@ -1603,12 +1611,7 @@ repository:
       '0': {name: punctuation.definition.string.end.haskell}
     name: string.quoted.double.haskell
     patterns:
-      - match: '\\(NUL|SOH|STX|ETX|EOT|ENQ|ACK|BEL|BS|HT|LF|VT|FF|CR|SO|SI|DLE|DC1|DC2|DC3|DC4|NAK|SYN|ETB|CAN|EM|SUB|ESC|FS|GS|RS|US|SP|DEL|[abfnrtv\\\"''\&])'
-        name: constant.character.escape.haskell
-      - match: '\\o[0-7]+|\\x[0-9A-Fa-f]+|\\[0-9]+'
-        name: constant.character.escape.octal.haskell
-      - match: '\\\^[A-Z@\[\]\\\^_]'
-        name: constant.character.escape.control.haskell
+      - include: '#string_escapes'
 
       # Haskell string gap: a backslash followed by a non-newline whitespace character.
       # In this case, the backslash cannot be gobbled up by the C preprocessor,
@@ -1619,7 +1622,7 @@ repository:
         # End on:
         #  - a backslash preceded by whitespace
         #  - lookahead to a closing ", to avoid marking the whole rest of the
-        #    file as invalid; the lookahead allows marking an escaped \" as invalid.
+        #    file as invalid (the lookahead allows marking an escaped \" as invalid.)
         end: '(?<=[\s\p{Zs}])\\|(?=")'
         endCaptures:
           '0': {name: constant.character.escape.end.haskell}
@@ -1627,17 +1630,9 @@ repository:
           # Invalid string gap highlighting.
           - begin: '(?=[^\s\\])'
             # End on a closing " to avoid breaking highlighting in the rest
-            # of the file. Uses a lookahead to allow marking an escaped \"
-            # as invalid.
+            # of the file.
             end: '(?=")'
             patterns:
-              # Consume escaped characters (e.g. \", \\, \n) to avoid backlashes
-              # being misinterpreted.
-              - match: '\\.'
-                name: invalid.illegal.character-not-allowed-here.haskell
-              # Dangling backslashes
-              - match: '\\'
-                name: invalid.illegal.character-not-allowed-here.haskell
               # Non-whitespace characters other than \ and "
               - match: '[^\s\\"]+'
                 name: invalid.illegal.character-not-allowed-here.haskell
