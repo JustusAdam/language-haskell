@@ -54,7 +54,7 @@ patterns:
       - match: '[a-z]+'
         name: invalid
   - include: '#ffi'
-  - begin: '^(\s*)(class)(\b(?!''))'
+  - begin: '(?:^(\s*)|(?<!'')\b)(class)(\b(?!''))'
     beginCaptures:
       '2': {name: keyword.other.class.haskell}
     end: >-
@@ -83,7 +83,7 @@ patterns:
   # (only way to distinguish between GADT and ADT)
   - begin: >-
       (?x)
-        ^(\s*)(data|newtype)(?:\s+(instance))?\s+
+        (?:^(\s*)|(?<!')\b)(data|newtype)(?:\s+(instance))?\s+
         # Keep consuming characters until:
         ((?:(?!
         # the equals symbol or the start of a single-line comment, or
@@ -150,7 +150,7 @@ patterns:
   - name: 'meta.declaration.pattern.type.haskell'
     begin: |
       (?x)
-      ^(\s*)(pattern)\b\s+
+      (?:^(\s*)|(?<!')\b)(pattern)\b\s+
       (?<pat>
         (?:
           [\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Lm}\p{Lo}\p{Nd}']*
@@ -184,7 +184,7 @@ patterns:
     patterns:
       - include: '#type_signature'
   - name: 'meta.declaration.pattern.haskell'
-    begin: '^(\s*)(pattern)\b(?!'')'
+    begin: '(?:^(\s*)|(?<!'')\b)(pattern)\b(?!'')'
     beginCaptures:
       '2': {name: keyword.other.pattern.haskell}
     end: | 
@@ -206,7 +206,7 @@ patterns:
   - begin: >-
       (?x)
         # Data declaration
-        ^(\s*)(data|newtype)(?:\s+(family|instance))?\s+
+        (?:^(\s*)|(?<!')\b)(data|newtype)(?:\s+(family|instance))?\s+
         # Keep consuming characters until:
         (((?!
         # the equals symbol or the start of a single-line comment, or
@@ -256,19 +256,21 @@ patterns:
     begin: >-
       (?x)
         # Type family
-        ^(\s*)(type)\s+(family)\b(?!')
+        (?:^(\s*)|(?<!')\b)(type)\s+(family)\b(?!')
         # Keep consuming characters until:
         (((?!
         # the equals symbol or the start of a single-line comment, or
-          (?: 
+          (?:
             (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
             (?:=|--+)
             (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
           )
         # the "where" keyword, or
         | \b(?<!')where\b(?!')
-        # the start of a block comment.
+        # the start of a block comment, or
         | {-
+        # explicit indentation.
+        |(?=\}|;)
         #
         ).)*)
     beginCaptures:
@@ -300,7 +302,7 @@ patterns:
     begin: >-
       (?x)
         # Type declaration
-        ^(\s*)(type)(?:\s+(instance))?\s+
+        (?:^(\s*)|(?<!')\b)(type)(?:\s+(instance))?\s+
         # Keep consuming characters until:
         (((?!
         # the equals symbol, the start of a single-line comment, or a type signature
@@ -334,7 +336,7 @@ patterns:
           )
     patterns:
       - include: '#type_signature'
-  - begin: '^(\s*)(instance)(\b(?!''))'
+  - begin: '(?:^(\s*)|(?<!'')\b)(instance)(\b(?!''))'
     beginCaptures:
       '2': {name: keyword.other.instance.haskell}
     end: |
@@ -359,7 +361,7 @@ patterns:
       - include: '#where'
       - include: '#type_signature'
   - begin: >-
-      ^(\s*)(import)(\b(?!'))
+      (?:^(\s*)|(?<!')\b)(import)(\b(?!'))
     beginCaptures:
       '2': {name: keyword.other.import.haskell}
     end: |
@@ -464,7 +466,7 @@ repository:
   comments:
     patterns:
       # Haddock block: consecutive double-dashed lines, the first one starting with `-- |` or `-- $`
-      - begin: '^(\s*)(--\s[\|\$])'
+      - begin: '(?:^(\s*)|(?<!'')\b)(--\s[\|\$])'
         beginCaptures:
           '2': {name: punctuation.whitespace.comment.leading.haskell}
         end: '(?=^(?!\1--+(?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])))'
@@ -969,7 +971,7 @@ repository:
       - include: '#record_wildcard'
   role_annotation:
     patterns:
-      - begin: '^(\s*)(type)\s+(role)\b(?!'')'
+      - begin: '(?:^(\s*)|(?<!'')\b)(type)\s+(role)\b(?!'')'
         beginCaptures:
           '2': {name: keyword.other.type.haskell}
           '3': {name: keyword.other.role.haskell}
@@ -1713,7 +1715,7 @@ repository:
       - include: '#float_literals'
       - include: '#integer_literals'
   ffi:
-    begin: '^(\s*)(foreign)\s+(import|export)\s+'
+    begin: '(?:^(\s*)|(?<!'')\b)(foreign)\s+(import|export)\s+'
     beginCaptures:
       '2': {name: keyword.other.foreign.haskell}
       '3': {name: "keyword.other.$3.haskell"}

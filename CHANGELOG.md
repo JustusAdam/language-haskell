@@ -30,6 +30,8 @@
   ([#110](https://github.com/JustusAdam/language-haskell/issues/110)).
 - Decimal and hexadecimal escape codes in string literals now have the
   appropriate scopes (instead of using octal).
+- Handle declarations that don't appear at the start of a line, e.g.
+  `import A; import B; import C` or `class C a; instance C Int`.
 
 ## 3.6.0 - 15.03.2022
 
