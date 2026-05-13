@@ -28,6 +28,8 @@
 - Prevent the interaction of the C preprocessor with multiline strings from
   marking the entire rest of the file as invalid
   ([#110](https://github.com/JustusAdam/language-haskell/issues/110)).
+- Decimal and hexadecimal escape codes in string literals now have the
+  appropriate scopes (instead of using octal).
 
 ## 3.6.0 - 15.03.2022
 

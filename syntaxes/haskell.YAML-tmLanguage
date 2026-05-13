@@ -997,8 +997,12 @@ repository:
     patterns:
       - match: '\\(NUL|SOH|STX|ETX|EOT|ENQ|ACK|BEL|BS|HT|LF|VT|FF|CR|SO|SI|DLE|DC1|DC2|DC3|DC4|NAK|SYN|ETB|CAN|EM|SUB|ESC|FS|GS|RS|US|SP|DEL|[abfnrtv\\\"''\&])'
         name: constant.character.escape.haskell
-      - match: '\\o[0-7]+|\\x[0-9A-Fa-f]+|\\[0-9]+'
+      - match: '\\x[0-9A-Fa-f]+'
+        name: constant.character.escape.hexadecimal.haskell
+      - match: '\\o[0-7]+'
         name: constant.character.escape.octal.haskell
+      - match: '\\[0-9]+'
+        name: constant.character.escape.decimal.haskell
       - match: '\\\^[A-Z@\[\]\\\^_]'
         name: constant.character.escape.control.haskell
   fun_decl:
