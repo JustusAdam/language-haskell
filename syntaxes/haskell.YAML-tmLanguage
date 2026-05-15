@@ -830,8 +830,8 @@ repository:
            (?<paren>
              \(
              (?:
-               [^()]*
-             | \g<paren>
+               \g<paren> # Recurse first: consume nested parens before trying non-paren chars
+             | [^()]++   # Non-parens (possessive: no backtracking into consumed chars)
              )*
              \)
            )
@@ -1077,23 +1077,23 @@ repository:
               # Type inside balanced parentheses
               | ('? # Optional promotion tick
                   (?<paren>
-                    \(          # Opening parenthesis
+                    \(           # Opening parenthesis
                     (?:
-                      [^\(\)]*  # Match non-parentheses
-                    | \g<paren> # or recurse into further depth
+                      \g<paren>  # Recurse first: consume nested parens before trying non-paren chars
+                    | [^\(\)]++  # Non-parentheses (possessive: no backtracking into consumed chars)
                     )*
-                    \)          # Closing parenthesis
+                    \)           # Closing parenthesis
                   )
                 )
               # Type inside balanced brackets
               | ('? # Optional promotion tick
                   (?<brac>
-                    \[          # Opening bracket
+                    \[           # Opening bracket
                     (?:
-                      [^\[\]]*  # Match non-brackets
-                    | \g<brac>  # or recurse into further depth
+                      \g<brac>   # Recurse first: consume nested brackets before trying non-bracket chars
+                    | [^\[\]]++  # Non-brackets (possessive: no backtracking into consumed chars)
                     )*
-                    \]          # Closing bracket
+                    \]           # Closing bracket
                   )
                 )
               )

@@ -32,6 +32,8 @@
   appropriate scopes (instead of using octal).
 - Handle declarations that don't appear at the start of a line, e.g.
   `import A; import B; import C` or `class C a; instance C Int`.
+- Prevent slowness when parsing data declarations, in particular
+  with data constructors with long parenthesised arguments.
 
 ## 3.6.0 - 15.03.2022
 
