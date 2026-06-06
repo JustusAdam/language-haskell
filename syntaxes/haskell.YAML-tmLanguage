@@ -528,23 +528,55 @@ repository:
             name: punctuation.semicolon.haskell
       - match: '\b(?<!'')(where)\b(?!'')'
         name: keyword.other.where.haskell
-  layout_herald:
-    begin: >-
-      (?x)
-        (?:(?<!')\b(?:(where|let|m?do)|(of))|(\\\s*case(?:s)?))
-        \s*(\{)(?!-)
-    end: '(\})'
+  explicit_layout_block:
+    # An explicitly laid-out block (delimited by braces and semicolons),
+    # introduced by a layout herald keyword.
+    # Explicitly matching on these avoids mistaking the braces for record syntax.
+    begin: '(\{)(?!-)'
     beginCaptures:
-      '1': {name: keyword.other.$1.haskell}
-      '2': {name: keyword.control.of.haskell}
-      '3': {name: keyword.control.lambda-case.haskell}
-      '4': {name: punctuation.brace.haskell}
+      '1': {name: punctuation.brace.haskell}
+    end: '(\})'
     endCaptures:
       '1': {name: punctuation.brace.haskell}
     patterns:
       - include: '$self'
       - match: ';'
         name: punctuation.semicolon.haskell
+  layout_herald:
+    patterns:
+      # A layout herald keyword (`where`, `let`, `do`/`mdo`, `of`, `\case`)
+      # immediately followed by an explicit layout block opening brace.
+      - begin: >-
+          (?x)
+            (?:(?<!')\b(?:(where|let|m?do)|(of))|(\\\s*case(?:s)?))
+            \s*(\{)(?!-)
+        end: '(\})'
+        beginCaptures:
+          '1': {name: keyword.other.$1.haskell}
+          '2': {name: keyword.control.of.haskell}
+          '3': {name: keyword.control.lambda-case.haskell}
+          '4': {name: punctuation.brace.haskell}
+        endCaptures:
+          '1': {name: punctuation.brace.haskell}
+        patterns:
+          - include: '$self'
+          - match: ';'
+            name: punctuation.semicolon.haskell
+      # A layout herald keyword followed by an opening brace on a later line.
+      - begin: >-
+          (?x)
+            (?<!')\b(?:(where|let)|(m?do)|(of))\b(?!')
+            (?=\s*(?:--+(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])|\{-|$))
+        beginCaptures:
+          '1': {name: keyword.other.$1.haskell}
+          '2': {name: keyword.control.$2.haskell}
+          '3': {name: keyword.control.of.haskell}
+        end: >-
+          (?x)
+            ^(?=\s*(?!\{|--+(?![\p{S}\p{P}&&[^(),;\[\]`{}_"']]))\S)
+        patterns:
+          - include: '#comment_like'
+          - include: '#explicit_layout_block'
   keyword:
     match: '\b(?<!'')(?:(where|let|in|default)|(m?do|if|then|else|case(?:s)?|of|proc|rec))\b(?!'')'
     captures:

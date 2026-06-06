@@ -61,3 +61,16 @@ data Rec4 = Rec4
 -- <~~- meta.record.definition.haskell
 }
 -- <- meta.record.definition.haskell
+
+f =
+     do
+        { let x = 3 in return x }
+--        ^^^ keyword.other.let.haskell
+--      ^^^^^^^^^^^^^^^^^^^^^^^^^ - meta.record.haskell
+
+g =
+     do {- comment -} -- some comment
+  -- more comments
+        { let x = 3 in return x }
+--        ^^^ keyword.other.let.haskell
+--      ^^^^^^^^^^^^^^^^^^^^^^^^^ - meta.record.haskell

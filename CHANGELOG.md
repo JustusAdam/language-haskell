@@ -34,6 +34,8 @@
   `import A; import B; import C` or `class C a; instance C Int`.
 - Prevent slowness when parsing data declarations, in particular
   with data constructors with long parenthesised arguments.
+- Fix an issue in which `do { let x = .. }` would be incorrectly highlighted
+  as record syntax (when the opening brace is on a separate line).
 
 ## 3.6.0 - 15.03.2022
 
