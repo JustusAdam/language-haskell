@@ -1549,9 +1549,12 @@ repository:
       # as we are unfortunately unable to make a decision based on enabled extensions.
       - match: >-
           (?x)
-            (?<=[\p{Ll}_\p{Lu}\p{Lt}\p{Lm}\p{Lo}\p{Nd}\p{S}\p{P}&&[^\#,;\[`{]]) # Require closing characters
+            # Require a preceding final operator character
+            (?<=[\p{Ll}_\p{Lu}\p{Lt}\p{Lm}\p{Lo}\p{Nd}\p{S}\p{P}&&[^\#(,;\[`{]])
             (\#+)
-            (?![\p{Ll}_\p{Lu}\p{Lt}\p{Lm}\p{Lo}\p{Nd}\p{S}\p{P}&&[^),;\]`}]])   # Disallow opening character
+            # Disallow a following operator character, but allow parentheses
+            # to handle e.g. 'Solo#(..)'.
+            (?![\p{Ll}_\p{Lu}\p{Lt}\p{Lm}\p{Lo}\p{Nd}\p{S}\p{P}&&[^(),;\[\]`{}]])
         captures:
           '1': {name: keyword.operator.postfix.hash.haskell}
       # Reserved tight infix symbol: '@'

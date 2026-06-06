@@ -36,6 +36,8 @@
   with data constructors with long parenthesised arguments.
 - Fix an issue in which `do { let x = .. }` would be incorrectly highlighted
   as record syntax (when the opening brace is on a separate line).
+- Properly highlight postfix magic hash when followed by an opening parenthesis,
+  e.g. `import Data.Tuple (Solo#(..))`.
 
 ## 3.6.0 - 15.03.2022
 

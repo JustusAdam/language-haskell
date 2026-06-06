@@ -78,3 +78,7 @@
        Tuple# '[a,b]               = (# a,b #)
 --          ^ keyword.operator.postfix.hash.haskell
 --                                    ^     ^ keyword.operator.hash.haskell
+
+
+  module M ( Solo#(..), Solo#(MkSolo#) ) where {}
+--               ^          ^       ^ keyword.operator.postfix.hash.haskell
