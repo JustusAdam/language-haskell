@@ -13,10 +13,10 @@ grammars: $(JSON_TARGETS)
 scopes: $(SCOPE_LISTS)
 
 scope-lists/%.md: scope-lists/%.yaml
-	scope-lists/refresh.hs md $< $@
+	scope-lists/refresh.py md $< $@
 
 scope-lists/%.yaml: syntaxes/%.YAML-tmLanguage
-	scope-lists/refresh.hs db $< $@
+	scope-lists/refresh.py db $< $@
 
 test: grammars
 	cd test && bash test.sh

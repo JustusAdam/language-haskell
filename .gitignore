@@ -10,3 +10,4 @@ syntaxes/alex.json
 syntaxes/happy.json
 test/*/*.snap
 .vscode-test-web
+.venv
