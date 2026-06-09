@@ -8,6 +8,7 @@
 | comment.line.double-dash.haskell |  |  |
 | constant.character.escape.begin.haskell |  |  |
 | constant.character.escape.control.haskell |  |  |
+| constant.character.escape.decimal.haskell |  |  |
 | constant.character.escape.end.haskell |  |  |
 | constant.character.escape.haskell |  |  |
 | constant.character.escape.hexadecimal.haskell |  |  |
@@ -31,6 +32,7 @@
 | entity.name.function.infix.haskell |  |  |
 | entity.name.label.haskell |  |  |
 | entity.name.namespace.haskell |  |  |
+| entity.name.package.haskell |  |  |
 | entity.name.quasi-quoter.haskell |  |  |
 | invalid |  |  |
 | invalid.deprecated |  |  |
@@ -88,6 +90,7 @@
 | keyword.other.pattern.haskell |  |  |
 | keyword.other.preprocessor.extension.haskell |  |  |
 | keyword.other.preprocessor.haskell |  |  |
+| keyword.other.preprocessor.language-standard.haskell |  |  |
 | keyword.other.preprocessor.pragma.haskell |  |  |
 | keyword.other.role.$1.haskell |  |  |
 | keyword.other.role.haskell |  |  |
@@ -138,6 +141,7 @@
 | storage.type.operator.haskell |  |  |
 | storage.type.operator.infix.haskell |  |  |
 | string.quoted.double.haskell |  |  |
+| string.quoted.double.package.haskell |  |  |
 | string.quoted.single.haskell |  |  |
 | support.constant.empty-list.haskell |  |  |
 | support.constant.tuple.haskell |  |  |
