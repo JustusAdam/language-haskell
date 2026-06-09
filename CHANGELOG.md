@@ -1,4 +1,4 @@
-## x.x.x - Unreleased
+## 3.7.0 - 09.06.2026
 
 - Add support for untrusted workspaces ([#211](https://github.com/JustusAdam/language-haskell/pull/211)), thanks to [@maciej-irl](http://github.com/maciej-irl)
 - Add support for `\cases` syntax ([#218](https://github.com/JustusAdam/language-haskell/pull/218)), thanks to [@mixphix](https://github.com/mixphix)
