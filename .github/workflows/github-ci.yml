@@ -13,14 +13,15 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        # We test latest, the LTS version and an old one.
+        node-version: [26.x, 24.x, 18.x]
 
     steps:
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
 
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
 

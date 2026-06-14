@@ -1,0 +1,55 @@
+on:
+  release:
+    types: [prereleased, released]
+
+name: Deploy Extension
+jobs:
+  publish-extension:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          ## make sure this corresponds with the version in test.yml
+          node-version: latest
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build grammars
+        run: make grammars
+
+      - name: Run tests
+        run: make test
+
+      - name: Package Extension
+        id: packageExtension
+        run: |
+          npx vsce package --out language-haskell-${{ github.event.release.tag_name }}.vsix
+
+      ## Make sure the artifact is added to the release.
+      - name: Upload extension vsix to workflow artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: language-haskell-${{ github.event.release.tag_name }}.vsix
+          path: language-haskell-${{ github.event.release.tag_name }}.vsix
+
+      # Set pre-release flag if the job is a pre-release
+      - name: Set pre-release flag
+        id: flags
+        run: |
+          if [ "${{ github.event.release.prerelease }}" = "true" ]; then
+            echo "flag=--pre-release" >> $GITHUB_OUTPUT
+          else
+            echo "flag=" >> $GITHUB_OUTPUT
+          fi
+
+      # Publish to VS Marketplace
+      - run: npx vsce publish  ${{ steps.flags.outputs.flag }} --packagePath language-haskell-${{ github.event.release.tag_name }}.vsix
+        env:
+          VSCE_PAT: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+
+      # Publish to Open VSX
+      - run: npx ovsx publish  ${{ steps.flags.outputs.flag }} --packagePath language-haskell-${{ github.event.release.tag_name }}.vsix
+        env:
+          OVSX_PAT: ${{ secrets.OPEN_VSX_TOKEN }}
