@@ -1,15 +1,14 @@
 # Haskell Syntax Highlighting Support
 
-
 Syntax highlighting support for Haskell in Visual Studio Code, using TextMate
 grammars.
 
 Comes with support for:
 
-  - Haskell files (`.hs`, `.lhs`, `.hs-boot`, `.hsig`)
-  - Cabal files (`.cabal`) and cabal.project files
-  - Alex (`.x`) and Happy (`.y`) files
-  - hsc2hs (`.hsc`) files
+- Haskell files (`.hs`, `.lhs`, `.hs-boot`, `.hsig`)
+- Cabal files (`.cabal`) and cabal.project files
+- Alex (`.x`) and Happy (`.y`) files
+- hsc2hs (`.hsc`) files
 
 ## Syntax highlighting
 
@@ -25,8 +24,8 @@ Also adds automatic indentation after `where`, `do`, `->` etc. and surrounding b
 ## Bugs
 
 If you happen to notice bugs or have suggestions for improvements visit the [issue
-section](https://github.com/JustusAdam/language-haskell/issues) of the
-[repository](https://github.com/JustusAdam/language-haskell).
+section](https://github.com/haskell/language-haskell/issues) of the
+[repository](https://github.com/haskell/language-haskell).
 
 ## Themes
 

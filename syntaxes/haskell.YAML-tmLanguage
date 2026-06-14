@@ -60,7 +60,7 @@ patterns:
     end: >-
       (?x) # Detect end of class declaration:
                # 'where' keyword
-         (?=(?<!')\bwhere\b(?!'))  
+         (?=(?<!')\bwhere\b(?!'))
                # Decreasing indentation
          |(?=\}|;)      # Explicit indentation
          |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
@@ -87,7 +87,7 @@ patterns:
         # Keep consuming characters until:
         ((?:(?!
         # the equals symbol or the start of a single-line comment, or
-          (?: 
+          (?:
             (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
             (?:=|--+)
             (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
@@ -102,14 +102,14 @@ patterns:
     beginCaptures:
       '2': {name: keyword.other.$2.haskell}
       '3': {name: keyword.other.instance.haskell}
-      '4': 
+      '4':
         patterns:
           - include: '#type_signature'
     name: meta.declaration.$2.generalized.haskell
-    end: | 
+    end: |
       (?x) # Detect end of data declaration:
                # Deriving clause
-         (?=(?<!')\bderiving\b(?!'))  
+         (?=(?<!')\bderiving\b(?!'))
                # Decreasing indentation
          |(?=\}|;)      # Explicit indentation
          |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
@@ -168,7 +168,7 @@ patterns:
           - include: '#comma'
           - include: '#data_constructor'
       '4': {name: keyword.operator.double-colon.haskell}
-    end: | 
+    end: |
       (?x) # Detect end of pattern type definition by decreasing indentation:
         (?=\}|;)       # Explicit indentation
         |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
@@ -187,7 +187,7 @@ patterns:
     begin: '(?:^(\s*)|(?<!'')\b)(pattern)\b(?!'')'
     beginCaptures:
       '2': {name: keyword.other.pattern.haskell}
-    end: | 
+    end: |
       (?x) # Detect end of pattern type definition by decreasing indentation:
         (?=\}|;)       # Explicit indentation
         |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
@@ -210,7 +210,7 @@ patterns:
         # Keep consuming characters until:
         (((?!
         # the equals symbol or the start of a single-line comment, or
-          (?: 
+          (?:
             (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
             (?:=|--+)
             (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
@@ -281,7 +281,7 @@ patterns:
           - include: "#comment_like"
           - include: '#where'
           - include: '#type_signature'
-    end: | 
+    end: |
       (?x) # Detect end of type family by decreasing indentation:
         (?=\}|;)       # Explicit indentation
         |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
@@ -306,7 +306,7 @@ patterns:
         # Keep consuming characters until:
         (((?!
         # the equals symbol, the start of a single-line comment, or a type signature
-          (?: 
+          (?:
             (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']]) # non-symbol
             (?:=|--+|::|∷)
             (?![\p{S}\p{P}&&[^(),;\[\]`{}_"']])  # non-symbol
@@ -494,7 +494,7 @@ repository:
         end: '(?!\G)'
         patterns:
           - begin: '--'
-            beginCaptures: 
+            beginCaptures:
               '0': {name: punctuation.definition.comment.haskell}
             end: \n
             name: comment.line.double-dash.haskell
@@ -642,7 +642,7 @@ repository:
   prefix_op:
     patterns:
       - comment: >
-          An operator cannot be composed entirely of '-' characters; 
+          An operator cannot be composed entirely of '-' characters;
           instead, it should be matched as a comment.
         match: >-
           (?x)
@@ -658,8 +658,8 @@ repository:
             ((?:(?<!'')('')?[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Lm}\p{Lo}\p{Nd}'']*\.)*)
               (\#+|[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+)
         comment: >
-          In case this regex seems overly general, note that Haskell permits 
-          the definition of new operators which can be nearly any string of 
+          In case this regex seems overly general, note that Haskell permits
+          the definition of new operators which can be nearly any string of
           punctuation characters, such as $%^&*.
         captures:
           '1': {name: keyword.operator.promotion.haskell}
@@ -971,7 +971,7 @@ repository:
       - include: '#type_signature'
       - include: '#record_decl_field'
   record_wildcard:
-    match: >- 
+    match: >-
       (?x)
         (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
         (\.\.)
@@ -987,7 +987,7 @@ repository:
             )
         end: '(,)|(?=})'
         beginCaptures:
-          '1': 
+          '1':
             name: variable.other.member.haskell
             patterns:
               - include: '#qualifier'
@@ -1068,7 +1068,7 @@ repository:
       (?x)
         # End of type annotation:
           # To the left of a reserved symbolic keyword such as = or <-
-        (?= 
+        (?=
             # non-symbolic character
             (?<![\p{S}\p{P}&&[^(),;\[\]`{}_"']])
             # symbolic keyword except (->)
@@ -1163,7 +1163,7 @@ repository:
               )
             | # - a symbolic (prefix) data constructor
               (\()\s*(:[\p{S}\p{P}&&[^(),;\[\]`{}_"']]*)\s*(\))
-            | # Otherwise, try to fail early to avoid excessive backtracking (https://github.com/JustusAdam/language-haskell/issues/161)
+            | # Otherwise, try to fail early to avoid excessive backtracking (https://github.com/haskell/language-haskell/issues/161)
                 # Fail when detecting a lowercase identifier and then something not starting with a tick or colon
                 (?=\b(?<!')(?!(?:forall|deriving)\s)[\p{Ll}_\p{Lm}\p{Lo}]\S+\s+[^`:])
                 # Fail when seeing another equal signs or pipe symbol
@@ -1215,7 +1215,7 @@ repository:
         end: |
           (?x)
             # GADT constructor ends
-            (?=\b(?<!'')deriving\b(?!'))  
+            (?=\b(?<!'')deriving\b(?!'))
                   # Decreasing indentation
             |(?=\}|;)      # Explicit indentation
             |^(?!          # Implicit indentation: end match on newline *unless* the new line is either:
@@ -1259,7 +1259,7 @@ repository:
           '2': {name: support.constant.unit.haskell}
         name: meta.type-application.haskell
       - begin: '(?<=[\s,;\[\]{}"])(@)('')?(\()'
-        beginCaptures: 
+        beginCaptures:
           '1': {name: keyword.operator.prefix.at.haskell}
           '2': {name: keyword.operator.promotion.haskell}
           '3': {name: punctuation.paren.haskell}
@@ -1270,7 +1270,7 @@ repository:
         patterns:
           - include: '#type_signature'
       - begin: '(?<=[\s,;\[\]{}"])(@)('')?(\[)'
-        beginCaptures: 
+        beginCaptures:
           '1': {name: keyword.operator.prefix.at.haskell}
           '2': {name: keyword.operator.promotion.haskell}
           '3': {name: punctuation.bracket.haskell}
@@ -1281,14 +1281,14 @@ repository:
         patterns:
           - include: '#type_signature'
       - begin: '(?<=[\s,;\[\]{}"])(@)(?=\")'
-        beginCaptures: 
+        beginCaptures:
           '1': {name: keyword.operator.prefix.at.haskell}
         end: '(?<=\")'
         name: meta.type-application.haskell
         patterns:
           - include: '#string_literal'
       - begin: '(?<=[\s,;\[\]{}"])(@)(?=[\p{Ll}_\p{Lu}\p{Lt}\p{Lm}\p{Lo}\p{Nd}''])'
-        beginCaptures: 
+        beginCaptures:
           '1': {name: keyword.operator.prefix.at.haskell}
         end: '(?![\p{Ll}_\p{Lu}\p{Lt}\p{Lm}\p{Lo}\p{Nd}''])'
         name: meta.type-application.haskell
@@ -1447,7 +1447,7 @@ repository:
                   |(-<<|⤛)
                 )
                 ([(),;\[\]`{}_"']|[^\p{S}\p{P}])
-              # Indentation 
+              # Indentation
               |(?=\}|;)      # Explicit indentation
               |$             # End of line
             )
@@ -1494,7 +1494,7 @@ repository:
     patterns:
       # See https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0170-unrestricted-overloadedlabels.rst
       - match: >-
-          (?x) 
+          (?x)
             (?<![\p{Ll}_\p{Lu}\p{Lt}\p{Lm}\p{Lo}\p{Nd}\p{S}\p{P}&&[^(,;\[`{]]) # Disallow closing characters
             (\#)
               (?:
@@ -1633,7 +1633,7 @@ repository:
         (?![\p{S}\p{P}&&[^(),;\[\]`{}_"'']])
         )
     end: '(\.)|(->|→)'
-    beginCaptures: 
+    beginCaptures:
       '1': {name: keyword.other.forall.haskell}
       '2': {name: keyword.other.forall.haskell}
     endCaptures:

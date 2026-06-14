@@ -3,7 +3,7 @@
   "displayName": "Haskell Syntax Highlighting",
   "description": "Syntax support for the Haskell programming language.",
   "version": "3.7.0",
-  "publisher": "justusadam",
+  "publisher": "haskell",
   "engines": {
     "vscode": "^1.0.0"
   },
@@ -29,14 +29,13 @@
     "syntax"
   ],
   "license": "BSD-3-Clause",
-  "homepage": "https://github.com/JustusAdam/language-haskell",
+  "homepage": "https://github.com/haskell/language-haskell",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JustusAdam/language-haskell.git"
+    "url": "https://github.com/haskell/language-haskell.git"
   },
   "bugs": {
-    "url": "https://github.com/JustusAdam/language-haskell/issues",
-    "email": "dev@justus.science"
+    "url": "https://github.com/haskell/language-haskell/issues"
   },
   "categories": [
     "Programming Languages"
