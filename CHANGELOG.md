@@ -2,6 +2,7 @@
 
 ## 3.8.0 - 14.06.2026
 
+- Add automatic release workflows ([#257](https://github.com/haskell/language-haskell/pull/257)), thanks to [@fendor](http://github.com/fendor)
 - Transfer ownership to Haskell community ([#256](https://github.com/haskell/language-haskell/pull/256)), thanks to [@fendor](http://github.com/fendor)
 
 ## 3.7.0 - 09.06.2026
